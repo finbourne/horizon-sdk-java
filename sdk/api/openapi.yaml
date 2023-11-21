@@ -1,0 +1,1884 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: info@finbourne.com
+    name: FINBOURNE Technology
+    url: https://www.finbourne.com
+  termsOfService: https://www.finbourne.com/legal/terms-conditions
+  title: FINBOURNE Horizon API
+  version: 0.1.188
+  x-logo:
+    url: https://www.lusid.com/app/assets/logo_white.png
+    backgroundColor: '#415464'
+servers:
+- url: https://fbn-prd.lusid.com/horizon
+security:
+- {}
+tags:
+- description: Provides instrument search and upsert functions.
+  name: Instrument
+- description: Provides details on Horizon processes
+  name: ProcessHistory
+- description: Provides information about Vendor configurations
+  name: Vendor
+paths:
+  /api/instrument/onboarding/create:
+    post:
+      operationId: CreateInstrument
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/OnboardInstrumentRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OnboardInstrumentRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OnboardInstrumentRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OnboardInstrumentRequest'
+        description: ""
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                href: string
+                values:
+                - LUID_3U7CH0EW
+                failed:
+                  LUID_3U7CH0EZ: Invalid values were supplied.
+              schema:
+                $ref: '#/components/schemas/OnboardInstrumentResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: Bad Request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] CreateInstrument: Creates and masters instruments with\
+        \ third party vendors."
+      tags:
+      - Instrument
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/instrument/onboarding/search/openfigi:
+    get:
+      operationId: SearchOpenFigi
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: query
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: "Should also search PermId for additional information, defaults\
+          \ to `false`."
+        explode: true
+        in: query
+        name: usePermId
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Only affects results rom OpenFigi general text search
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "The market sector to search, defaults to `All`."
+        explode: true
+        in: query
+        name: marketSector
+        required: false
+        schema:
+          default: All
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenFigiSearchResult'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] SearchOpenFigi: Search OpenFigi for instruments that\
+        \ match the specified terms."
+      tags:
+      - Instrument
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/instrument/onboarding/search/openfigi/parameterOptions:
+    get:
+      operationId: GetOpenFigiParameterOption
+      parameters:
+      - explode: true
+        in: query
+        name: parameterName
+        required: true
+        schema:
+          $ref: '#/components/schemas/OpenFigiParameterOptionName'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AllowedParameterValue'
+                type: array
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetOpenFigiParameterOption: Get all supported market\
+        \ sector values for OpenFigi search"
+      tags:
+      - Instrument
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/instrument/onboarding/search/permid/{id}:
+    get:
+      operationId: RetrievePermIdResult
+      parameters:
+      - description: The execution ID returned by a previous query
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PermIdData'
+                type: array
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] RetrievePermIdResult: Retrieve PermId results from\
+        \ a previous query."
+      tags:
+      - Instrument
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/instrument/onboarding/vendors:
+    get:
+      operationId: Vendors
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: marketSector
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: securityType
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - vendorName: myVendor
+                productName: myProduct
+                vendorProductKey: myKey
+                lusidEntity:
+                  entityType: Instrument
+                  entityTypeDisplayName: Instrument
+                  entitySubType: Equity
+                  entitySubTypeDisplayName: Equity
+              schema:
+                items:
+                  $ref: '#/components/schemas/VendorProduct'
+                type: array
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: Bad Request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] Vendors: Gets the VendorProducts of any supported and\
+        \ licenced integrations for a given market sector and security type."
+      tags:
+      - Instrument
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/process-history/$latestRuns:
+    get:
+      operationId: GetLatestRuns
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessInformation'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetLatestRuns: Get latest run for each process"
+      tags:
+      - ProcessHistory
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/process-history/$query:
+    post:
+      operationId: ProcessHistoryEntries
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessInformation'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] ProcessHistoryEntries: Get process history entries"
+      tags:
+      - ProcessHistory
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/process-history/entries/$query:
+    post:
+      operationId: ProcessEntryUpdates
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessUpdateResult'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] ProcessEntryUpdates: Get process entry updates for\
+        \ a query"
+      tags:
+      - ProcessHistory
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/process-history/event/complete:
+    post:
+      operationId: CreateCompleteEvent
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/AuditCompleteRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditCompleteRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AuditCompleteRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AuditCompleteRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessUpdateResult'
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] CreateCompleteEvent: Write a completed event to the\
+        \ Horizon Dashboard"
+      tags:
+      - ProcessHistory
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/process-history/event/update:
+    post:
+      operationId: CreateUpdateEvent
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/AuditUpdateRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditUpdateRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AuditUpdateRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AuditUpdateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessUpdateResult'
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] CreateUpdateEvent: Write an update event to the Horizon\
+        \ Dashboard"
+      tags:
+      - ProcessHistory
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/vendor/$query:
+    post:
+      operationId: QueryVendors
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+        description: ""
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - vendorName: myVendor
+                  productName: myProduct
+                  vendorProductKey: myKey
+                  lusidEntity:
+                    entityType: Instrument
+                    entityTypeDisplayName: Instrument
+                    entitySubType: Equity
+                    entitySubTypeDisplayName: Equity
+                href: http://www.lusid.com/horizon
+                nextPage: nextPage
+                previousPage: prevPage
+                links:
+                - relation: NextPage
+                  href: http://www.lusid.com/horizon
+                  method: GET
+                - relation: PreviousPage
+                  href: http://www.lusid.com/horizon
+                  method: GET
+              schema:
+                $ref: '#/components/schemas/VendorProduct'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] QueryVendors: Query for vendors and their packages\
+        \ with entities and sub-entities."
+      tags:
+      - Vendor
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/vendor/mappings/fields:
+    get:
+      operationId: GetCoreFieldMappingsForProductEntity
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: vendorName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: productName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntityType
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntitySubType
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - fieldName: lusid-core-field
+                vendorFields:
+                - vendor-field-1
+                - vendor-field-2
+                transformationDescription: transformationDescription
+              schema:
+                $ref: '#/components/schemas/LusidField'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetCoreFieldMappingsForProductEntity: Get core field\
+        \ mappings for a given vendor product's entity."
+      tags:
+      - Vendor
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/vendor/mappings/optional:
+    get:
+      operationId: GetOptionalMappingsForProductEntity
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: vendorName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: productName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntityType
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntitySubType
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                Domain/LUSID-Scope/Code1:
+                  action: upsert
+                  displayNameOverride: descriptionOverride
+                  descriptionOverride: displayNameOverride
+                Domain/LUSID-Scope/Code2:
+                  action: delete
+                  displayNameOverride: descriptionOverride
+                  descriptionOverride: displayNameOverride
+              schema:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetOptionalMappingsForProductEntity: Get a user defined\
+        \ LUSID property mappings for the specified vendor / LUSID entity."
+      tags:
+      - Vendor
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+    post:
+      operationId: SetOptionalMappingsForProductEntity
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: vendorName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: productName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntityType
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntitySubType
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              Domain/LUSID-Scope/Code1:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+              Domain/LUSID-Scope/Code2:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+              type: object
+          application/json:
+            example:
+              Domain/LUSID-Scope/Code1:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+              Domain/LUSID-Scope/Code2:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+              type: object
+          text/json:
+            example:
+              Domain/LUSID-Scope/Code1:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+              Domain/LUSID-Scope/Code2:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+              type: object
+          application/*+json:
+            example:
+              Domain/LUSID-Scope/Code1:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+              Domain/LUSID-Scope/Code2:
+                displayNameOverride: descriptionOverride
+                descriptionOverride: displayNameOverride
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+              type: object
+        description: ""
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                Domain/LUSID-Scope/Code1:
+                  action: upsert
+                  displayNameOverride: descriptionOverride
+                  descriptionOverride: displayNameOverride
+                Domain/LUSID-Scope/Code2:
+                  action: delete
+                  displayNameOverride: descriptionOverride
+                  descriptionOverride: displayNameOverride
+              schema:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverridesResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] SetOptionalMappingsForProductEntity: Create a user\
+        \ defined LUSID property mappings for the specified vendor / LUSID entity."
+      tags:
+      - Vendor
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/vendor/mappings/properties:
+    get:
+      operationId: GetPropertyMappingsForProductEntity
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: vendorName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: productName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntityType
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: lusidEntitySubType
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - property:
+                  key: Instrument/Lusid-horizon/example-code
+                  domain: Instrument
+                  scope: Lusid-horizon
+                  code: example-code
+                  displayName: Example Property
+                  dataTypeId:
+                    scope: data-type-id-scope
+                    code: data-type-id-code
+                  description: An example property mapping
+                  lifetime: TimeVariant
+                  constraintStyle: Property
+                vendorField: example-vendor-field
+                optionality: Mandatory
+              schema:
+                $ref: '#/components/schemas/LusidPropertyToVendorFieldMapping'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetPropertyMappingsForProductEntity: Gets the property\
+        \ mappings for a given vendor product's entity"
+      tags:
+      - Vendor
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+components:
+  schemas:
+    AllowedParameterValue:
+      additionalProperties: false
+      description: An allowed parameter value for an OpenFigi Parameter Option.
+      example:
+        allowedValue: allowedValue
+      properties:
+        allowedValue:
+          description: ""
+          type: string
+      required:
+      - allowedValue
+      type: object
+    AuditCompleteRequest:
+      additionalProperties: false
+      description: An incoming request for a Horizon Complete Event
+      example:
+        auditFiles:
+        - filePathAndName: filePathAndName
+          fileType: null
+        - filePathAndName: filePathAndName
+          fileType: null
+        rowsFailed: 1
+        rowsSucceeded: 6
+        rowsTotal: 0
+        startTime: 2000-01-23T04:56:07.000+00:00
+        id: id
+        schedulerRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        endTime: 2000-01-23T04:56:07.000+00:00
+        rowsIgnored: 5
+        message: message
+        userId: userId
+        status: null
+      properties:
+        id:
+          description: A unique ID identifiying the source of the event
+          type: string
+        userId:
+          description: A unique ID identifiying who owns the schedule
+          type: string
+        schedulerRunId:
+          description: The GUID of the schedule run
+          format: uuid
+          type: string
+        startTime:
+          description: When the run was started in UTC
+          format: date-time
+          type: string
+        endTime:
+          description: When the run finished in UTC
+          format: date-time
+          type: string
+        message:
+          description: A descriptive message to accompany the status
+          type: string
+        status:
+          $ref: '#/components/schemas/AuditCompleteStatus'
+        rowsTotal:
+          description: The number of data rows operated on
+          format: int32
+          type: integer
+        rowsSucceeded:
+          description: The number of data rows successfully operated on
+          format: int32
+          type: integer
+        rowsFailed:
+          description: The number of data rows that failed to be operated on
+          format: int32
+          type: integer
+        rowsIgnored:
+          description: The number of data rows that had no actions taken
+          format: int32
+          type: integer
+        auditFiles:
+          description: A list of file details for attaching to the event
+          items:
+            $ref: '#/components/schemas/AuditFileDetails'
+          type: array
+      required:
+      - auditFiles
+      - endTime
+      - id
+      - message
+      - rowsFailed
+      - rowsIgnored
+      - rowsSucceeded
+      - rowsTotal
+      - schedulerRunId
+      - startTime
+      - status
+      - userId
+      type: object
+    AuditCompleteStatus:
+      description: The set of available completion statuses
+      enum:
+      - Succeeded
+      - Completed
+      - Error
+      type: string
+    AuditFileDetails:
+      additionalProperties: false
+      description: Holds information about Horizon Audit Files
+      example:
+        filePathAndName: filePathAndName
+        fileType: null
+      properties:
+        fileType:
+          $ref: '#/components/schemas/AuditFileType'
+        filePathAndName:
+          description: ""
+          type: string
+      required:
+      - filePathAndName
+      - fileType
+      type: object
+    AuditFileType:
+      description: Available Horizon Audit File Types
+      enum:
+      - SourceData
+      - Info
+      - Error
+      type: string
+    AuditUpdateRequest:
+      additionalProperties: false
+      description: An incoming request for a Horizon Update Event
+      example:
+        startTime: 2000-01-23T04:56:07.000+00:00
+        id: id
+        schedulerRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        message: message
+        userId: userId
+      properties:
+        id:
+          description: A unique ID identifiying the source of the event
+          type: string
+        userId:
+          description: A unique ID identifiying who owns the schedule
+          type: string
+        schedulerRunId:
+          description: The GUID of the schedule run
+          format: uuid
+          type: string
+        startTime:
+          description: When the run was started in UTC
+          format: date-time
+          type: string
+        message:
+          description: A descriptive message to accompany the status
+          type: string
+      required:
+      - id
+      - message
+      - schedulerRunId
+      - startTime
+      - userId
+      type: object
+    FileDetails:
+      additionalProperties: false
+      description: Information associated with files
+      example:
+        fileName: fileName
+        id: id
+        fileType: fileType
+      properties:
+        fileName:
+          description: ""
+          type: string
+        fileType:
+          description: ""
+          nullable: true
+          type: string
+        id:
+          description: ""
+          type: string
+      required:
+      - fileName
+      - id
+      type: object
+    LusidEntity:
+      additionalProperties: false
+      description: Information about the LUSID entity this data can be used with
+      example:
+        entitySubTypeDisplayName: entitySubTypeDisplayName
+        entityType: entityType
+        entitySubType: entitySubType
+        entityTypeDisplayName: entityTypeDisplayName
+      properties:
+        entityType:
+          description: The entity type
+          minLength: 1
+          type: string
+        entityTypeDisplayName:
+          description: The display name for the entity type.
+          minLength: 1
+          type: string
+        entitySubType:
+          description: The entity sub-type
+          nullable: true
+          type: string
+        entitySubTypeDisplayName:
+          description: Display name for the entity sub-type
+          nullable: true
+          type: string
+      required:
+      - entityType
+      - entityTypeDisplayName
+      type: object
+    LusidField:
+      additionalProperties: false
+      description: A field on a LUSID entity
+      example:
+        fieldName: fieldName
+        defaultValue: defaultValue
+        vendorFields:
+        - vendorFields
+        - vendorFields
+        transformationDescription: transformationDescription
+      properties:
+        fieldName:
+          description: The name of the LUSID field.
+          minLength: 1
+          type: string
+        defaultValue:
+          description: The default value for the field.
+          nullable: true
+          type: string
+        vendorFields:
+          description: The underlying fields on the vendor package that contribute
+            to this LUSID field
+          items:
+            type: string
+          type: array
+        transformationDescription:
+          description: A description of how the vendor package's field(s) get mapped
+            to the LUSID field
+          nullable: true
+          type: string
+      required:
+      - fieldName
+      - vendorFields
+      type: object
+    LusidProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    LusidPropertyDefinition:
+      additionalProperties: false
+      description: Defines the information in a LUSID Property Definition
+      example:
+        constraintStyle: constraintStyle
+        code: code
+        displayName: displayName
+        domain: domain
+        scope: scope
+        dataTypeId:
+          code: code
+          scope: scope
+        lifetime: lifetime
+        description: description
+        key: key
+      properties:
+        key:
+          description: Property key associated with the mapping
+          readOnly: true
+          type: string
+        domain:
+          description: The domain of this definition.
+          minLength: 1
+          type: string
+        scope:
+          description: The scope of this definition.
+          minLength: 1
+          type: string
+        code:
+          description: The code of this definition.
+          minLength: 1
+          type: string
+        displayName:
+          description: The name used when this definition is displayed.
+          minLength: 1
+          type: string
+        dataTypeId:
+          $ref: '#/components/schemas/ResourceId'
+        description:
+          description: ""
+          type: string
+        lifetime:
+          description: ""
+          minLength: 1
+          type: string
+        constraintStyle:
+          description: ""
+          minLength: 1
+          type: string
+      required:
+      - code
+      - constraintStyle
+      - dataTypeId
+      - description
+      - displayName
+      - domain
+      - key
+      - lifetime
+      - scope
+      type: object
+    LusidPropertyDefinitionOverrides:
+      additionalProperties: false
+      description: Override values for property Display Name and Description
+      example:
+        displayNameOverride: displayNameOverride
+        descriptionOverride: descriptionOverride
+      properties:
+        displayNameOverride:
+          description: ""
+          nullable: true
+          type: string
+        descriptionOverride:
+          description: ""
+          nullable: true
+          type: string
+      type: object
+    LusidPropertyDefinitionOverridesResponse:
+      additionalProperties: false
+      description: An item that has been updated as a result of setting LusidPropertyDefinitionOverrides.
+      example:
+        writeErrorDetail: writeErrorDetail
+        displayNameOverride: displayNameOverride
+        action: action
+        descriptionOverride: descriptionOverride
+        writeError: writeError
+      properties:
+        action:
+          description: "The action performed on this property. \"upsert\" for setting\
+            \ values for new and existing\r\n properties. \"delete\" for existing\
+            \ properties that were removed"
+          type: string
+        writeError:
+          description: ""
+          nullable: true
+          type: string
+        writeErrorDetail:
+          description: ""
+          nullable: true
+          type: string
+        displayNameOverride:
+          description: ""
+          nullable: true
+          type: string
+        descriptionOverride:
+          description: ""
+          nullable: true
+          type: string
+      required:
+      - action
+      type: object
+    LusidPropertyToVendorFieldMapping:
+      additionalProperties: false
+      description: The mapping of a LUSID Property to the Vendor Field that would
+        populate it
+      example:
+        optionality: null
+        property:
+          constraintStyle: constraintStyle
+          code: code
+          displayName: displayName
+          domain: domain
+          scope: scope
+          dataTypeId:
+            code: code
+            scope: scope
+          lifetime: lifetime
+          description: description
+          key: key
+        vendorField: vendorField
+      properties:
+        property:
+          $ref: '#/components/schemas/LusidPropertyDefinition'
+        vendorField:
+          type: string
+        optionality:
+          $ref: '#/components/schemas/Optionality'
+      required:
+      - optionality
+      - property
+      - vendorField
+      type: object
+    LusidValidationProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        errors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - errors
+      - name
+      type: object
+    OnboardInstrumentRequest:
+      additionalProperties: false
+      description: The full structure of a instrument creation / onboarding request
+      example:
+        primaryVendorKey: primaryVendorKey
+        secondaryVendorKeys:
+        - secondaryVendorKeys
+        - secondaryVendorKeys
+        dataResults:
+        - openFigiResult:
+            marketSector: marketSector
+            generalSecurityType: generalSecurityType
+            searchInput: searchInput
+            ticker: ticker
+            mic: mic
+            matchType: matchType
+            lusidInstrumentScope: lusidInstrumentScope
+            securityDescription: securityDescription
+            figi: figi
+            shareClassFigi: shareClassFigi
+            compositeFigi: compositeFigi
+            securityType: securityType
+            name: name
+            exchangeName: exchangeName
+            lusidInstrumentId: lusidInstrumentId
+            exchangeCode: exchangeCode
+          permIdResult:
+            ticker: ticker
+            quotePermId: quotePermId
+            legalEntityIdentifier: legalEntityIdentifier
+            isPrimaryQuote: true
+            mic: mic
+            figi: figi
+        - openFigiResult:
+            marketSector: marketSector
+            generalSecurityType: generalSecurityType
+            searchInput: searchInput
+            ticker: ticker
+            mic: mic
+            matchType: matchType
+            lusidInstrumentScope: lusidInstrumentScope
+            securityDescription: securityDescription
+            figi: figi
+            shareClassFigi: shareClassFigi
+            compositeFigi: compositeFigi
+            securityType: securityType
+            name: name
+            exchangeName: exchangeName
+            lusidInstrumentId: lusidInstrumentId
+            exchangeCode: exchangeCode
+          permIdResult:
+            ticker: ticker
+            quotePermId: quotePermId
+            legalEntityIdentifier: legalEntityIdentifier
+            isPrimaryQuote: true
+            mic: mic
+            figi: figi
+      properties:
+        dataResults:
+          description: Enumerable packed OpenFigi/PermId information used to create
+            instruments
+          items:
+            $ref: '#/components/schemas/OpenFigiPermIdResult'
+          type: array
+        primaryVendorKey:
+          description: Primary vendor used to master instrument from Unknown to an
+            asset type
+          nullable: true
+          type: string
+        secondaryVendorKeys:
+          description: Secondary vendors used to decorate additional properties
+          items:
+            type: string
+          nullable: true
+          type: array
+      required:
+      - dataResults
+      type: object
+    OnboardInstrumentResponse:
+      additionalProperties: false
+      description: Simplified structure converted from the LUSID UpsertInstrumentReponse
+      example:
+        values:
+        - values
+        - values
+        href: href
+        failed:
+          key: failed
+      properties:
+        href:
+          description: The specific Uniform Resource Identifier (URI) for this resource
+            at the requested effective and asAt datetime.
+          nullable: true
+          type: string
+        values:
+          description: The instruments which have been successfully updated or created.
+          items:
+            type: string
+          type: array
+        failed:
+          additionalProperties:
+            type: string
+          description: The instruments that could not be updated or created or were
+            left unchanged without error along with a reason for their failure.
+          type: object
+      required:
+      - failed
+      - values
+      type: object
+    OpenFigiData:
+      additionalProperties: false
+      description: OpenFIGI data structure
+      example:
+        marketSector: marketSector
+        generalSecurityType: generalSecurityType
+        searchInput: searchInput
+        ticker: ticker
+        mic: mic
+        matchType: matchType
+        lusidInstrumentScope: lusidInstrumentScope
+        securityDescription: securityDescription
+        figi: figi
+        shareClassFigi: shareClassFigi
+        compositeFigi: compositeFigi
+        securityType: securityType
+        name: name
+        exchangeName: exchangeName
+        lusidInstrumentId: lusidInstrumentId
+        exchangeCode: exchangeCode
+      properties:
+        figi:
+          description: FIGI assigned to the instrument.
+          type: string
+        name:
+          description: Various attributes of the instrument
+          nullable: true
+          type: string
+        ticker:
+          description: Various attributes of the instrument
+          nullable: true
+          type: string
+        exchangeCode:
+          description: Exchange code of the desired instrument(s)
+          nullable: true
+          type: string
+        mic:
+          description: ISO market identification code(MIC) of the desired instrument(s)
+          nullable: true
+          type: string
+        exchangeName:
+          description: Exchange name of the desired instrument(s)
+          nullable: true
+          type: string
+        marketSector:
+          description: Market sector description of the desired instrument(s)
+          nullable: true
+          type: string
+        generalSecurityType:
+          description: Enum-like attributes of the instrument
+          nullable: true
+          type: string
+        securityType:
+          description: Enum-like attributes of the instrument
+          nullable: true
+          type: string
+        securityDescription:
+          description: Various attributes of the instrument
+          nullable: true
+          type: string
+        compositeFigi:
+          description: Various attributes of the instrument
+          nullable: true
+          type: string
+        shareClassFigi:
+          description: Various attributes of the instrument
+          nullable: true
+          type: string
+        matchType:
+          description: Type that the instrument matched against
+          nullable: true
+          type: string
+        searchInput:
+          description: Search input used to generate this response
+          nullable: true
+          type: string
+        lusidInstrumentId:
+          description: "If an instrument with this FIGI exists, the LUID of that instrument\
+            \ in LUSID"
+          nullable: true
+          type: string
+        lusidInstrumentScope:
+          description: "If an instrument with this FIGI exists, the Scope of that\
+            \ instrument in LUSID"
+          nullable: true
+          type: string
+      required:
+      - figi
+      type: object
+    OpenFigiParameterOptionName:
+      description: OpenFigi API Parameters that have a restricted / permitted range
+        of values.
+      enum:
+      - IdType
+      - ExchangeCode
+      - MicCode
+      - Currency
+      - MarketSector
+      - SecurityType
+      - GeneralSecurityType
+      - StateCode
+      type: string
+    OpenFigiPermIdResult:
+      additionalProperties: false
+      description: A packed WebAPI OpenFigi DTO and PermId DTO
+      example:
+        openFigiResult:
+          marketSector: marketSector
+          generalSecurityType: generalSecurityType
+          searchInput: searchInput
+          ticker: ticker
+          mic: mic
+          matchType: matchType
+          lusidInstrumentScope: lusidInstrumentScope
+          securityDescription: securityDescription
+          figi: figi
+          shareClassFigi: shareClassFigi
+          compositeFigi: compositeFigi
+          securityType: securityType
+          name: name
+          exchangeName: exchangeName
+          lusidInstrumentId: lusidInstrumentId
+          exchangeCode: exchangeCode
+        permIdResult:
+          ticker: ticker
+          quotePermId: quotePermId
+          legalEntityIdentifier: legalEntityIdentifier
+          isPrimaryQuote: true
+          mic: mic
+          figi: figi
+      properties:
+        openFigiResult:
+          $ref: '#/components/schemas/OpenFigiData'
+        permIdResult:
+          $ref: '#/components/schemas/PermIdData'
+      required:
+      - openFigiResult
+      type: object
+    OpenFigiSearchResult:
+      additionalProperties: false
+      description: Response coming back from a search request to OpenFIGI
+      example:
+        permIdUri: permIdUri
+        results:
+        - marketSector: marketSector
+          generalSecurityType: generalSecurityType
+          searchInput: searchInput
+          ticker: ticker
+          mic: mic
+          matchType: matchType
+          lusidInstrumentScope: lusidInstrumentScope
+          securityDescription: securityDescription
+          figi: figi
+          shareClassFigi: shareClassFigi
+          compositeFigi: compositeFigi
+          securityType: securityType
+          name: name
+          exchangeName: exchangeName
+          lusidInstrumentId: lusidInstrumentId
+          exchangeCode: exchangeCode
+        - marketSector: marketSector
+          generalSecurityType: generalSecurityType
+          searchInput: searchInput
+          ticker: ticker
+          mic: mic
+          matchType: matchType
+          lusidInstrumentScope: lusidInstrumentScope
+          securityDescription: securityDescription
+          figi: figi
+          shareClassFigi: shareClassFigi
+          compositeFigi: compositeFigi
+          securityType: securityType
+          name: name
+          exchangeName: exchangeName
+          lusidInstrumentId: lusidInstrumentId
+          exchangeCode: exchangeCode
+      properties:
+        results:
+          description: Enumerable list of OpenFIGI results
+          items:
+            $ref: '#/components/schemas/OpenFigiData'
+          type: array
+        permIdUri:
+          description: "URI of the related PermID response, if requested"
+          nullable: true
+          type: string
+      required:
+      - results
+      type: object
+    Optionality:
+      description: The optionality status of a property mapping for a particular vendor
+        product entity field
+      enum:
+      - Mandatory
+      - Suggested
+      - Optional
+      type: string
+    PermIdData:
+      additionalProperties: false
+      description: PermId Data Structure
+      example:
+        ticker: ticker
+        quotePermId: quotePermId
+        legalEntityIdentifier: legalEntityIdentifier
+        isPrimaryQuote: true
+        mic: mic
+        figi: figi
+      properties:
+        figi:
+          description: '>FIGI assigned to the instrument.'
+          type: string
+        ticker:
+          description: Ticker assigned to the instrument
+          type: string
+        mic:
+          description: ISO market identification code(MIC) of the desired instrument(s)
+          type: string
+        quotePermId:
+          description: QuotePermId of the instrument
+          type: string
+        isPrimaryQuote:
+          description: If the quote is primary
+          type: boolean
+        legalEntityIdentifier:
+          description: LEI assigned to the instrument
+          nullable: true
+          type: string
+      required:
+      - figi
+      - isPrimaryQuote
+      - mic
+      - quotePermId
+      - ticker
+      type: object
+    ProcessInformation:
+      additionalProperties: false
+      description: Required information for each process
+      example:
+        processSummary:
+          fileDetails:
+          - fileName: fileName
+            id: id
+            fileType: fileType
+          - fileName: fileName
+            id: id
+            fileType: fileType
+          endTime: 2000-01-23T04:56:07.000+00:00
+          category: category
+          message: message
+          rows:
+            rowsFailed: 5
+            rowsSucceeded: 6
+            rowsTotal: 0
+            rowsIgnored: 1
+          status: status
+        schemaVersion: schemaVersion
+        processName: processName
+        domain: domain
+        dataAction: dataAction
+        startTime: 2000-01-23T04:56:07.000+00:00
+        runId: runId
+        userId: userId
+      properties:
+        domain:
+          description: ""
+          type: string
+        processName:
+          description: ""
+          type: string
+        runId:
+          description: ""
+          type: string
+        startTime:
+          description: ""
+          format: date-time
+          type: string
+        dataAction:
+          description: ""
+          type: string
+        schemaVersion:
+          description: ""
+          nullable: true
+          type: string
+        userId:
+          description: ""
+          type: string
+        processSummary:
+          $ref: '#/components/schemas/ProcessSummary'
+      required:
+      - dataAction
+      - domain
+      - processName
+      - runId
+      - startTime
+      - userId
+      type: object
+    ProcessSummary:
+      additionalProperties: false
+      description: Completed event details
+      example:
+        fileDetails:
+        - fileName: fileName
+          id: id
+          fileType: fileType
+        - fileName: fileName
+          id: id
+          fileType: fileType
+        endTime: 2000-01-23T04:56:07.000+00:00
+        category: category
+        message: message
+        rows:
+          rowsFailed: 5
+          rowsSucceeded: 6
+          rowsTotal: 0
+          rowsIgnored: 1
+        status: status
+      properties:
+        endTime:
+          description: ""
+          format: date-time
+          nullable: true
+          type: string
+        category:
+          description: ""
+          nullable: true
+          type: string
+        status:
+          description: ""
+          type: string
+        message:
+          description: ""
+          type: string
+        rows:
+          $ref: '#/components/schemas/RowDetails'
+        fileDetails:
+          description: ""
+          items:
+            $ref: '#/components/schemas/FileDetails'
+          nullable: true
+          type: array
+      required:
+      - message
+      - rows
+      - status
+      type: object
+    ProcessUpdateResult:
+      additionalProperties: false
+      description: Shows details relevant to update events for a query
+      example:
+        schemaVersion: schemaVersion
+        processName: processName
+        entryDate: 2000-01-23T04:56:07.000+00:00
+        domain: domain
+        runId: runId
+        message: message
+        entryId: entryId
+        status: status
+      properties:
+        domain:
+          description: ""
+          type: string
+        entryId:
+          description: ""
+          type: string
+        processName:
+          description: ""
+          type: string
+        runId:
+          description: ""
+          type: string
+        entryDate:
+          description: ""
+          format: date-time
+          type: string
+        status:
+          description: ""
+          type: string
+        message:
+          description: ""
+          type: string
+        schemaVersion:
+          description: ""
+          nullable: true
+          type: string
+      required:
+      - domain
+      - entryDate
+      - entryId
+      - message
+      - processName
+      - runId
+      - status
+      type: object
+    QueryRequest:
+      additionalProperties: false
+      description: "Used to control queries, including getting \"pages\" of data"
+      type: object
+    ResourceId:
+      additionalProperties: false
+      example:
+        code: code
+        scope: scope
+      properties:
+        scope:
+          nullable: true
+          type: string
+        code:
+          nullable: true
+          type: string
+      type: object
+    RowDetails:
+      additionalProperties: false
+      description: Information about the nuber of rows processed.
+      example:
+        rowsFailed: 5
+        rowsSucceeded: 6
+        rowsTotal: 0
+        rowsIgnored: 1
+      properties:
+        rowsTotal:
+          description: The number of rows processed.
+          format: int32
+          nullable: true
+          type: integer
+        rowsSucceeded:
+          description: The number of rows that were successfully processed.
+          format: int32
+          nullable: true
+          type: integer
+        rowsIgnored:
+          description: The number of rows that were not processed.
+          format: int32
+          nullable: true
+          type: integer
+        rowsFailed:
+          description: The number of rows that failed when being processed.
+          format: int32
+          nullable: true
+          type: integer
+      type: object
+    VendorProduct:
+      additionalProperties: false
+      description: "Denormalised information about vendors, the products they provide\
+        \ and the LUSID entity types hey can be ued to populate."
+      example:
+        vendorName: vendorName
+        vendorProductKey: vendorProductKey
+        productName: productName
+        lusidEntity:
+          entitySubTypeDisplayName: entitySubTypeDisplayName
+          entityType: entityType
+          entitySubType: entitySubType
+          entityTypeDisplayName: entityTypeDisplayName
+      properties:
+        vendorName:
+          type: string
+        productName:
+          type: string
+        vendorProductKey:
+          type: string
+        lusidEntity:
+          $ref: '#/components/schemas/LusidEntity'
+      required:
+      - lusidEntity
+      - productName
+      - vendorName
+      - vendorProductKey
+      type: object
+  securitySchemes:
+    oauth2:
+      description: OAuth2 Implicit Grant
+      flows:
+        implicit:
+          authorizationUrl: https://lusid.okta.com/oauth2/default/v1/authorize
+          scopes: {}
+      type: oauth2
+x-tagGroups:
+  name: API
+  tags:
+  - Instrument
+  - ProcessHistory
+  - Vendor
+x-group-parameters: true
+

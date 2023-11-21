@@ -1,0 +1,18 @@
+
+
+# AuditUpdateRequest
+
+An incoming request for a Horizon Update Event
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**id** | **String** | A unique ID identifiying the source of the event |  |
+|**userId** | **String** | A unique ID identifiying who owns the schedule |  |
+|**schedulerRunId** | **UUID** | The GUID of the schedule run |  |
+|**startTime** | **OffsetDateTime** | When the run was started in UTC |  |
+|**message** | **String** | A descriptive message to accompany the status |  |
+
+
+

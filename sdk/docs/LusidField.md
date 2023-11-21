@@ -1,0 +1,17 @@
+
+
+# LusidField
+
+A field on a LUSID entity
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**fieldName** | **String** | The name of the LUSID field. |  |
+|**defaultValue** | **String** | The default value for the field. |  [optional] |
+|**vendorFields** | **List&lt;String&gt;** | The underlying fields on the vendor package that contribute to this LUSID field |  |
+|**transformationDescription** | **String** | A description of how the vendor package&#39;s field(s) get mapped to the LUSID field |  [optional] |
+
+
+
