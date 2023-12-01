@@ -13,7 +13,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 <a id="createCompleteEvent"></a>
 # **createCompleteEvent**
-> ProcessUpdateResult createCompleteEvent(auditCompleteRequest).execute();
+> AuditCompleteResponse createCompleteEvent(auditCompleteRequest).execute();
 
 [EARLY ACCESS] CreateCompleteEvent: Write a completed event to the Horizon Dashboard
 
@@ -39,7 +39,7 @@ public class Example {
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     AuditCompleteRequest auditCompleteRequest = new AuditCompleteRequest(); // AuditCompleteRequest | 
     try {
-      ProcessUpdateResult result = apiInstance.createCompleteEvent(auditCompleteRequest)
+      AuditCompleteResponse result = apiInstance.createCompleteEvent(auditCompleteRequest)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -61,7 +61,7 @@ public class Example {
 
 ### Return type
 
-[**ProcessUpdateResult**](ProcessUpdateResult.md)
+[**AuditCompleteResponse**](AuditCompleteResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ public class Example {
 
 <a id="createUpdateEvent"></a>
 # **createUpdateEvent**
-> ProcessUpdateResult createUpdateEvent(auditUpdateRequest).execute();
+> AuditUpdateResponse createUpdateEvent(auditUpdateRequest).execute();
 
 [EARLY ACCESS] CreateUpdateEvent: Write an update event to the Horizon Dashboard
 
@@ -106,7 +106,7 @@ public class Example {
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     AuditUpdateRequest auditUpdateRequest = new AuditUpdateRequest(); // AuditUpdateRequest | 
     try {
-      ProcessUpdateResult result = apiInstance.createUpdateEvent(auditUpdateRequest)
+      AuditUpdateResponse result = apiInstance.createUpdateEvent(auditUpdateRequest)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -128,7 +128,7 @@ public class Example {
 
 ### Return type
 
-[**ProcessUpdateResult**](ProcessUpdateResult.md)
+[**AuditUpdateResponse**](AuditUpdateResponse.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ public class Example {
 
 <a id="getLatestRuns"></a>
 # **getLatestRuns**
-> ProcessInformation getLatestRuns().execute();
+> List&lt;ProcessInformation&gt; getLatestRuns().execute();
 
 [EARLY ACCESS] GetLatestRuns: Get latest run for each process
 
@@ -172,7 +172,7 @@ public class Example {
 
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     try {
-      ProcessInformation result = apiInstance.getLatestRuns()
+      List<ProcessInformation> result = apiInstance.getLatestRuns()
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -191,7 +191,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ProcessInformation**](ProcessInformation.md)
+[**List&lt;ProcessInformation&gt;**](ProcessInformation.md)
 
 ### Authorization
 
@@ -210,7 +210,7 @@ This endpoint does not need any parameter.
 
 <a id="processEntryUpdates"></a>
 # **processEntryUpdates**
-> ProcessUpdateResult processEntryUpdates(body).execute();
+> PagedResourceListOfProcessUpdateResult processEntryUpdates(body).execute();
 
 [EARLY ACCESS] ProcessEntryUpdates: Get process entry updates for a query
 
@@ -236,7 +236,7 @@ public class Example {
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     Object body = null; // Object | 
     try {
-      ProcessUpdateResult result = apiInstance.processEntryUpdates(body)
+      PagedResourceListOfProcessUpdateResult result = apiInstance.processEntryUpdates(body)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -258,7 +258,7 @@ public class Example {
 
 ### Return type
 
-[**ProcessUpdateResult**](ProcessUpdateResult.md)
+[**PagedResourceListOfProcessUpdateResult**](PagedResourceListOfProcessUpdateResult.md)
 
 ### Authorization
 
@@ -277,7 +277,7 @@ public class Example {
 
 <a id="processHistoryEntries"></a>
 # **processHistoryEntries**
-> ProcessInformation processHistoryEntries(body).execute();
+> PagedResourceListOfProcessInformation processHistoryEntries(body).execute();
 
 [EARLY ACCESS] ProcessHistoryEntries: Get process history entries
 
@@ -303,7 +303,7 @@ public class Example {
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     Object body = null; // Object | 
     try {
-      ProcessInformation result = apiInstance.processHistoryEntries(body)
+      PagedResourceListOfProcessInformation result = apiInstance.processHistoryEntries(body)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -325,7 +325,7 @@ public class Example {
 
 ### Return type
 
-[**ProcessInformation**](ProcessInformation.md)
+[**PagedResourceListOfProcessInformation**](PagedResourceListOfProcessInformation.md)
 
 ### Authorization
 

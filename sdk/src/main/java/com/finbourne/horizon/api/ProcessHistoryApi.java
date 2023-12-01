@@ -25,10 +25,13 @@ import java.io.IOException;
 
 
 import com.finbourne.horizon.model.AuditCompleteRequest;
+import com.finbourne.horizon.model.AuditCompleteResponse;
 import com.finbourne.horizon.model.AuditUpdateRequest;
+import com.finbourne.horizon.model.AuditUpdateResponse;
 import com.finbourne.horizon.model.LusidProblemDetails;
+import com.finbourne.horizon.model.PagedResourceListOfProcessInformation;
+import com.finbourne.horizon.model.PagedResourceListOfProcessUpdateResult;
 import com.finbourne.horizon.model.ProcessInformation;
-import com.finbourne.horizon.model.ProcessUpdateResult;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -133,16 +136,16 @@ public class ProcessHistoryApi {
     }
 
 
-    private ApiResponse<ProcessUpdateResult> createCompleteEventWithHttpInfo(AuditCompleteRequest auditCompleteRequest) throws ApiException {
+    private ApiResponse<AuditCompleteResponse> createCompleteEventWithHttpInfo(AuditCompleteRequest auditCompleteRequest) throws ApiException {
         okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, null);
-        Type localVarReturnType = new TypeToken<ProcessUpdateResult>(){}.getType();
+        Type localVarReturnType = new TypeToken<AuditCompleteResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call createCompleteEventAsync(AuditCompleteRequest auditCompleteRequest, final ApiCallback<ProcessUpdateResult> _callback) throws ApiException {
+    private okhttp3.Call createCompleteEventAsync(AuditCompleteRequest auditCompleteRequest, final ApiCallback<AuditCompleteResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, _callback);
-        Type localVarReturnType = new TypeToken<ProcessUpdateResult>(){}.getType();
+        Type localVarReturnType = new TypeToken<AuditCompleteResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -172,7 +175,7 @@ public class ProcessHistoryApi {
 
         /**
          * Execute createCompleteEvent request
-         * @return ProcessUpdateResult
+         * @return AuditCompleteResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -181,14 +184,14 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ProcessUpdateResult execute() throws ApiException {
-            ApiResponse<ProcessUpdateResult> localVarResp = createCompleteEventWithHttpInfo(auditCompleteRequest);
+        public AuditCompleteResponse execute() throws ApiException {
+            ApiResponse<AuditCompleteResponse> localVarResp = createCompleteEventWithHttpInfo(auditCompleteRequest);
             return localVarResp.getData();
         }
 
         /**
          * Execute createCompleteEvent request with HTTP info returned
-         * @return ApiResponse&lt;ProcessUpdateResult&gt;
+         * @return ApiResponse&lt;AuditCompleteResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -197,7 +200,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ProcessUpdateResult> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<AuditCompleteResponse> executeWithHttpInfo() throws ApiException {
             return createCompleteEventWithHttpInfo(auditCompleteRequest);
         }
 
@@ -213,7 +216,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ProcessUpdateResult> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<AuditCompleteResponse> _callback) throws ApiException {
             return createCompleteEventAsync(auditCompleteRequest, _callback);
         }
     }
@@ -293,16 +296,16 @@ public class ProcessHistoryApi {
     }
 
 
-    private ApiResponse<ProcessUpdateResult> createUpdateEventWithHttpInfo(AuditUpdateRequest auditUpdateRequest) throws ApiException {
+    private ApiResponse<AuditUpdateResponse> createUpdateEventWithHttpInfo(AuditUpdateRequest auditUpdateRequest) throws ApiException {
         okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, null);
-        Type localVarReturnType = new TypeToken<ProcessUpdateResult>(){}.getType();
+        Type localVarReturnType = new TypeToken<AuditUpdateResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call createUpdateEventAsync(AuditUpdateRequest auditUpdateRequest, final ApiCallback<ProcessUpdateResult> _callback) throws ApiException {
+    private okhttp3.Call createUpdateEventAsync(AuditUpdateRequest auditUpdateRequest, final ApiCallback<AuditUpdateResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, _callback);
-        Type localVarReturnType = new TypeToken<ProcessUpdateResult>(){}.getType();
+        Type localVarReturnType = new TypeToken<AuditUpdateResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -332,7 +335,7 @@ public class ProcessHistoryApi {
 
         /**
          * Execute createUpdateEvent request
-         * @return ProcessUpdateResult
+         * @return AuditUpdateResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -341,14 +344,14 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ProcessUpdateResult execute() throws ApiException {
-            ApiResponse<ProcessUpdateResult> localVarResp = createUpdateEventWithHttpInfo(auditUpdateRequest);
+        public AuditUpdateResponse execute() throws ApiException {
+            ApiResponse<AuditUpdateResponse> localVarResp = createUpdateEventWithHttpInfo(auditUpdateRequest);
             return localVarResp.getData();
         }
 
         /**
          * Execute createUpdateEvent request with HTTP info returned
-         * @return ApiResponse&lt;ProcessUpdateResult&gt;
+         * @return ApiResponse&lt;AuditUpdateResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -357,7 +360,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ProcessUpdateResult> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<AuditUpdateResponse> executeWithHttpInfo() throws ApiException {
             return createUpdateEventWithHttpInfo(auditUpdateRequest);
         }
 
@@ -373,7 +376,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ProcessUpdateResult> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<AuditUpdateResponse> _callback) throws ApiException {
             return createUpdateEventAsync(auditUpdateRequest, _callback);
         }
     }
@@ -444,16 +447,16 @@ public class ProcessHistoryApi {
     }
 
 
-    private ApiResponse<ProcessInformation> getLatestRunsWithHttpInfo() throws ApiException {
+    private ApiResponse<List<ProcessInformation>> getLatestRunsWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<ProcessInformation>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<ProcessInformation>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getLatestRunsAsync(final ApiCallback<ProcessInformation> _callback) throws ApiException {
+    private okhttp3.Call getLatestRunsAsync(final ApiCallback<List<ProcessInformation>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<ProcessInformation>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<ProcessInformation>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -481,7 +484,7 @@ public class ProcessHistoryApi {
 
         /**
          * Execute getLatestRuns request
-         * @return ProcessInformation
+         * @return List&lt;ProcessInformation&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -490,14 +493,14 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ProcessInformation execute() throws ApiException {
-            ApiResponse<ProcessInformation> localVarResp = getLatestRunsWithHttpInfo();
+        public List<ProcessInformation> execute() throws ApiException {
+            ApiResponse<List<ProcessInformation>> localVarResp = getLatestRunsWithHttpInfo();
             return localVarResp.getData();
         }
 
         /**
          * Execute getLatestRuns request with HTTP info returned
-         * @return ApiResponse&lt;ProcessInformation&gt;
+         * @return ApiResponse&lt;List&lt;ProcessInformation&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -506,7 +509,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ProcessInformation> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<List<ProcessInformation>> executeWithHttpInfo() throws ApiException {
             return getLatestRunsWithHttpInfo();
         }
 
@@ -522,7 +525,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ProcessInformation> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<ProcessInformation>> _callback) throws ApiException {
             return getLatestRunsAsync(_callback);
         }
     }
@@ -601,16 +604,16 @@ public class ProcessHistoryApi {
     }
 
 
-    private ApiResponse<ProcessUpdateResult> processEntryUpdatesWithHttpInfo(Object body) throws ApiException {
+    private ApiResponse<PagedResourceListOfProcessUpdateResult> processEntryUpdatesWithHttpInfo(Object body) throws ApiException {
         okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(body, null);
-        Type localVarReturnType = new TypeToken<ProcessUpdateResult>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call processEntryUpdatesAsync(Object body, final ApiCallback<ProcessUpdateResult> _callback) throws ApiException {
+    private okhttp3.Call processEntryUpdatesAsync(Object body, final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(body, _callback);
-        Type localVarReturnType = new TypeToken<ProcessUpdateResult>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -640,7 +643,7 @@ public class ProcessHistoryApi {
 
         /**
          * Execute processEntryUpdates request
-         * @return ProcessUpdateResult
+         * @return PagedResourceListOfProcessUpdateResult
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -649,14 +652,14 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ProcessUpdateResult execute() throws ApiException {
-            ApiResponse<ProcessUpdateResult> localVarResp = processEntryUpdatesWithHttpInfo(body);
+        public PagedResourceListOfProcessUpdateResult execute() throws ApiException {
+            ApiResponse<PagedResourceListOfProcessUpdateResult> localVarResp = processEntryUpdatesWithHttpInfo(body);
             return localVarResp.getData();
         }
 
         /**
          * Execute processEntryUpdates request with HTTP info returned
-         * @return ApiResponse&lt;ProcessUpdateResult&gt;
+         * @return ApiResponse&lt;PagedResourceListOfProcessUpdateResult&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -665,7 +668,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ProcessUpdateResult> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<PagedResourceListOfProcessUpdateResult> executeWithHttpInfo() throws ApiException {
             return processEntryUpdatesWithHttpInfo(body);
         }
 
@@ -681,7 +684,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ProcessUpdateResult> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
             return processEntryUpdatesAsync(body, _callback);
         }
     }
@@ -761,16 +764,16 @@ public class ProcessHistoryApi {
     }
 
 
-    private ApiResponse<ProcessInformation> processHistoryEntriesWithHttpInfo(Object body) throws ApiException {
+    private ApiResponse<PagedResourceListOfProcessInformation> processHistoryEntriesWithHttpInfo(Object body) throws ApiException {
         okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(body, null);
-        Type localVarReturnType = new TypeToken<ProcessInformation>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call processHistoryEntriesAsync(Object body, final ApiCallback<ProcessInformation> _callback) throws ApiException {
+    private okhttp3.Call processHistoryEntriesAsync(Object body, final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(body, _callback);
-        Type localVarReturnType = new TypeToken<ProcessInformation>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -800,7 +803,7 @@ public class ProcessHistoryApi {
 
         /**
          * Execute processHistoryEntries request
-         * @return ProcessInformation
+         * @return PagedResourceListOfProcessInformation
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -809,14 +812,14 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ProcessInformation execute() throws ApiException {
-            ApiResponse<ProcessInformation> localVarResp = processHistoryEntriesWithHttpInfo(body);
+        public PagedResourceListOfProcessInformation execute() throws ApiException {
+            ApiResponse<PagedResourceListOfProcessInformation> localVarResp = processHistoryEntriesWithHttpInfo(body);
             return localVarResp.getData();
         }
 
         /**
          * Execute processHistoryEntries request with HTTP info returned
-         * @return ApiResponse&lt;ProcessInformation&gt;
+         * @return ApiResponse&lt;PagedResourceListOfProcessInformation&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -825,7 +828,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ProcessInformation> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<PagedResourceListOfProcessInformation> executeWithHttpInfo() throws ApiException {
             return processHistoryEntriesWithHttpInfo(body);
         }
 
@@ -841,7 +844,7 @@ public class ProcessHistoryApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ProcessInformation> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
             return processHistoryEntriesAsync(body, _callback);
         }
     }

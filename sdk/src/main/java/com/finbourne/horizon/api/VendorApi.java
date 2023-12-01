@@ -29,7 +29,7 @@ import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidPropertyDefinitionOverrides;
 import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesResponse;
 import com.finbourne.horizon.model.LusidPropertyToVendorFieldMapping;
-import com.finbourne.horizon.model.VendorProduct;
+import com.finbourne.horizon.model.PagedResourceListOfVendorProduct;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -156,16 +156,16 @@ public class VendorApi {
     }
 
 
-    private ApiResponse<LusidField> getCoreFieldMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType) throws ApiException {
+    private ApiResponse<List<LusidField>> getCoreFieldMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType) throws ApiException {
         okhttp3.Call localVarCall = getCoreFieldMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, lusidEntitySubType, null);
-        Type localVarReturnType = new TypeToken<LusidField>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<LusidField>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getCoreFieldMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType, final ApiCallback<LusidField> _callback) throws ApiException {
+    private okhttp3.Call getCoreFieldMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType, final ApiCallback<List<LusidField>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getCoreFieldMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, lusidEntitySubType, _callback);
-        Type localVarReturnType = new TypeToken<LusidField>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<LusidField>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -210,7 +210,7 @@ public class VendorApi {
 
         /**
          * Execute getCoreFieldMappingsForProductEntity request
-         * @return LusidField
+         * @return List&lt;LusidField&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -219,14 +219,14 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public LusidField execute() throws ApiException {
-            ApiResponse<LusidField> localVarResp = getCoreFieldMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
+        public List<LusidField> execute() throws ApiException {
+            ApiResponse<List<LusidField>> localVarResp = getCoreFieldMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
             return localVarResp.getData();
         }
 
         /**
          * Execute getCoreFieldMappingsForProductEntity request with HTTP info returned
-         * @return ApiResponse&lt;LusidField&gt;
+         * @return ApiResponse&lt;List&lt;LusidField&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -235,7 +235,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<LusidField> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<List<LusidField>> executeWithHttpInfo() throws ApiException {
             return getCoreFieldMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
         }
 
@@ -251,7 +251,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<LusidField> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<LusidField>> _callback) throws ApiException {
             return getCoreFieldMappingsForProductEntityAsync(vendorName, productName, lusidEntityType, lusidEntitySubType, _callback);
         }
     }
@@ -355,16 +355,16 @@ public class VendorApi {
     }
 
 
-    private ApiResponse<LusidPropertyDefinitionOverrides> getOptionalMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType) throws ApiException {
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> getOptionalMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType) throws ApiException {
         okhttp3.Call localVarCall = getOptionalMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, lusidEntitySubType, null);
-        Type localVarReturnType = new TypeToken<LusidPropertyDefinitionOverrides>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getOptionalMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType, final ApiCallback<LusidPropertyDefinitionOverrides> _callback) throws ApiException {
+    private okhttp3.Call getOptionalMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getOptionalMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, lusidEntitySubType, _callback);
-        Type localVarReturnType = new TypeToken<LusidPropertyDefinitionOverrides>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -409,7 +409,7 @@ public class VendorApi {
 
         /**
          * Execute getOptionalMappingsForProductEntity request
-         * @return LusidPropertyDefinitionOverrides
+         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -418,14 +418,14 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public LusidPropertyDefinitionOverrides execute() throws ApiException {
-            ApiResponse<LusidPropertyDefinitionOverrides> localVarResp = getOptionalMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
+        public Map<String, LusidPropertyDefinitionOverrides> execute() throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = getOptionalMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
             return localVarResp.getData();
         }
 
         /**
          * Execute getOptionalMappingsForProductEntity request with HTTP info returned
-         * @return ApiResponse&lt;LusidPropertyDefinitionOverrides&gt;
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -434,7 +434,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<LusidPropertyDefinitionOverrides> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
             return getOptionalMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
         }
 
@@ -450,7 +450,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<LusidPropertyDefinitionOverrides> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
             return getOptionalMappingsForProductEntityAsync(vendorName, productName, lusidEntityType, lusidEntitySubType, _callback);
         }
     }
@@ -554,16 +554,16 @@ public class VendorApi {
     }
 
 
-    private ApiResponse<LusidPropertyToVendorFieldMapping> getPropertyMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType) throws ApiException {
+    private ApiResponse<List<LusidPropertyToVendorFieldMapping>> getPropertyMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType) throws ApiException {
         okhttp3.Call localVarCall = getPropertyMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, lusidEntitySubType, null);
-        Type localVarReturnType = new TypeToken<LusidPropertyToVendorFieldMapping>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<LusidPropertyToVendorFieldMapping>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getPropertyMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType, final ApiCallback<LusidPropertyToVendorFieldMapping> _callback) throws ApiException {
+    private okhttp3.Call getPropertyMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, String lusidEntitySubType, final ApiCallback<List<LusidPropertyToVendorFieldMapping>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getPropertyMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, lusidEntitySubType, _callback);
-        Type localVarReturnType = new TypeToken<LusidPropertyToVendorFieldMapping>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<LusidPropertyToVendorFieldMapping>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -608,7 +608,7 @@ public class VendorApi {
 
         /**
          * Execute getPropertyMappingsForProductEntity request
-         * @return LusidPropertyToVendorFieldMapping
+         * @return List&lt;LusidPropertyToVendorFieldMapping&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -617,14 +617,14 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public LusidPropertyToVendorFieldMapping execute() throws ApiException {
-            ApiResponse<LusidPropertyToVendorFieldMapping> localVarResp = getPropertyMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
+        public List<LusidPropertyToVendorFieldMapping> execute() throws ApiException {
+            ApiResponse<List<LusidPropertyToVendorFieldMapping>> localVarResp = getPropertyMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
             return localVarResp.getData();
         }
 
         /**
          * Execute getPropertyMappingsForProductEntity request with HTTP info returned
-         * @return ApiResponse&lt;LusidPropertyToVendorFieldMapping&gt;
+         * @return ApiResponse&lt;List&lt;LusidPropertyToVendorFieldMapping&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -633,7 +633,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<LusidPropertyToVendorFieldMapping> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<List<LusidPropertyToVendorFieldMapping>> executeWithHttpInfo() throws ApiException {
             return getPropertyMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, lusidEntitySubType);
         }
 
@@ -649,7 +649,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<LusidPropertyToVendorFieldMapping> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<LusidPropertyToVendorFieldMapping>> _callback) throws ApiException {
             return getPropertyMappingsForProductEntityAsync(vendorName, productName, lusidEntityType, lusidEntitySubType, _callback);
         }
     }
@@ -731,16 +731,16 @@ public class VendorApi {
     }
 
 
-    private ApiResponse<VendorProduct> queryVendorsWithHttpInfo(Object body) throws ApiException {
+    private ApiResponse<PagedResourceListOfVendorProduct> queryVendorsWithHttpInfo(Object body) throws ApiException {
         okhttp3.Call localVarCall = queryVendorsValidateBeforeCall(body, null);
-        Type localVarReturnType = new TypeToken<VendorProduct>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfVendorProduct>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call queryVendorsAsync(Object body, final ApiCallback<VendorProduct> _callback) throws ApiException {
+    private okhttp3.Call queryVendorsAsync(Object body, final ApiCallback<PagedResourceListOfVendorProduct> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = queryVendorsValidateBeforeCall(body, _callback);
-        Type localVarReturnType = new TypeToken<VendorProduct>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfVendorProduct>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -770,7 +770,7 @@ public class VendorApi {
 
         /**
          * Execute queryVendors request
-         * @return VendorProduct
+         * @return PagedResourceListOfVendorProduct
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -779,14 +779,14 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public VendorProduct execute() throws ApiException {
-            ApiResponse<VendorProduct> localVarResp = queryVendorsWithHttpInfo(body);
+        public PagedResourceListOfVendorProduct execute() throws ApiException {
+            ApiResponse<PagedResourceListOfVendorProduct> localVarResp = queryVendorsWithHttpInfo(body);
             return localVarResp.getData();
         }
 
         /**
          * Execute queryVendors request with HTTP info returned
-         * @return ApiResponse&lt;VendorProduct&gt;
+         * @return ApiResponse&lt;PagedResourceListOfVendorProduct&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -795,7 +795,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<VendorProduct> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<PagedResourceListOfVendorProduct> executeWithHttpInfo() throws ApiException {
             return queryVendorsWithHttpInfo(body);
         }
 
@@ -811,7 +811,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<VendorProduct> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfVendorProduct> _callback) throws ApiException {
             return queryVendorsAsync(body, _callback);
         }
     }
@@ -922,16 +922,16 @@ public class VendorApi {
     }
 
 
-    private ApiResponse<LusidPropertyDefinitionOverridesResponse> setOptionalMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, Map<String, LusidPropertyDefinitionOverrides> requestBody, String lusidEntitySubType) throws ApiException {
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesResponse>> setOptionalMappingsForProductEntityWithHttpInfo(String vendorName, String productName, String lusidEntityType, Map<String, LusidPropertyDefinitionOverrides> requestBody, String lusidEntitySubType) throws ApiException {
         okhttp3.Call localVarCall = setOptionalMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType, null);
-        Type localVarReturnType = new TypeToken<LusidPropertyDefinitionOverridesResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesResponse>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call setOptionalMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, Map<String, LusidPropertyDefinitionOverrides> requestBody, String lusidEntitySubType, final ApiCallback<LusidPropertyDefinitionOverridesResponse> _callback) throws ApiException {
+    private okhttp3.Call setOptionalMappingsForProductEntityAsync(String vendorName, String productName, String lusidEntityType, Map<String, LusidPropertyDefinitionOverrides> requestBody, String lusidEntitySubType, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesResponse>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = setOptionalMappingsForProductEntityValidateBeforeCall(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType, _callback);
-        Type localVarReturnType = new TypeToken<LusidPropertyDefinitionOverridesResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesResponse>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -978,7 +978,7 @@ public class VendorApi {
 
         /**
          * Execute setOptionalMappingsForProductEntity request
-         * @return LusidPropertyDefinitionOverridesResponse
+         * @return Map&lt;String, LusidPropertyDefinitionOverridesResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -987,14 +987,14 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public LusidPropertyDefinitionOverridesResponse execute() throws ApiException {
-            ApiResponse<LusidPropertyDefinitionOverridesResponse> localVarResp = setOptionalMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType);
+        public Map<String, LusidPropertyDefinitionOverridesResponse> execute() throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverridesResponse>> localVarResp = setOptionalMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType);
             return localVarResp.getData();
         }
 
         /**
          * Execute setOptionalMappingsForProductEntity request with HTTP info returned
-         * @return ApiResponse&lt;LusidPropertyDefinitionOverridesResponse&gt;
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesResponse&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1003,7 +1003,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<LusidPropertyDefinitionOverridesResponse> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesResponse>> executeWithHttpInfo() throws ApiException {
             return setOptionalMappingsForProductEntityWithHttpInfo(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType);
         }
 
@@ -1019,7 +1019,7 @@ public class VendorApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<LusidPropertyDefinitionOverridesResponse> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesResponse>> _callback) throws ApiException {
             return setOptionalMappingsForProductEntityAsync(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType, _callback);
         }
     }

@@ -13,7 +13,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 <a id="getCoreFieldMappingsForProductEntity"></a>
 # **getCoreFieldMappingsForProductEntity**
-> LusidField getCoreFieldMappingsForProductEntity(vendorName, productName, lusidEntityType).lusidEntitySubType(lusidEntitySubType).execute();
+> List&lt;LusidField&gt; getCoreFieldMappingsForProductEntity(vendorName, productName, lusidEntityType).lusidEntitySubType(lusidEntitySubType).execute();
 
 [EARLY ACCESS] GetCoreFieldMappingsForProductEntity: Get core field mappings for a given vendor product&#39;s entity.
 
@@ -42,7 +42,7 @@ public class Example {
     String lusidEntityType = "lusidEntityType_example"; // String | 
     String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
     try {
-      LusidField result = apiInstance.getCoreFieldMappingsForProductEntity(vendorName, productName, lusidEntityType)
+      List<LusidField> result = apiInstance.getCoreFieldMappingsForProductEntity(vendorName, productName, lusidEntityType)
             .lusidEntitySubType(lusidEntitySubType)
             .execute();
       System.out.println(result);
@@ -68,7 +68,7 @@ public class Example {
 
 ### Return type
 
-[**LusidField**](LusidField.md)
+[**List&lt;LusidField&gt;**](LusidField.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ public class Example {
 
 <a id="getOptionalMappingsForProductEntity"></a>
 # **getOptionalMappingsForProductEntity**
-> LusidPropertyDefinitionOverrides getOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType).lusidEntitySubType(lusidEntitySubType).execute();
+> Map&lt;String, LusidPropertyDefinitionOverrides&gt; getOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType).lusidEntitySubType(lusidEntitySubType).execute();
 
 [EARLY ACCESS] GetOptionalMappingsForProductEntity: Get a user defined LUSID property mappings for the specified vendor / LUSID entity.
 
@@ -116,7 +116,7 @@ public class Example {
     String lusidEntityType = "lusidEntityType_example"; // String | 
     String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
     try {
-      LusidPropertyDefinitionOverrides result = apiInstance.getOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType)
+      Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType)
             .lusidEntitySubType(lusidEntitySubType)
             .execute();
       System.out.println(result);
@@ -142,7 +142,7 @@ public class Example {
 
 ### Return type
 
-[**LusidPropertyDefinitionOverrides**](LusidPropertyDefinitionOverrides.md)
+[**Map&lt;String, LusidPropertyDefinitionOverrides&gt;**](LusidPropertyDefinitionOverrides.md)
 
 ### Authorization
 
@@ -161,7 +161,7 @@ public class Example {
 
 <a id="getPropertyMappingsForProductEntity"></a>
 # **getPropertyMappingsForProductEntity**
-> LusidPropertyToVendorFieldMapping getPropertyMappingsForProductEntity(vendorName, productName, lusidEntityType).lusidEntitySubType(lusidEntitySubType).execute();
+> List&lt;LusidPropertyToVendorFieldMapping&gt; getPropertyMappingsForProductEntity(vendorName, productName, lusidEntityType).lusidEntitySubType(lusidEntitySubType).execute();
 
 [EARLY ACCESS] GetPropertyMappingsForProductEntity: Gets the property mappings for a given vendor product&#39;s entity
 
@@ -190,7 +190,7 @@ public class Example {
     String lusidEntityType = "lusidEntityType_example"; // String | 
     String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
     try {
-      LusidPropertyToVendorFieldMapping result = apiInstance.getPropertyMappingsForProductEntity(vendorName, productName, lusidEntityType)
+      List<LusidPropertyToVendorFieldMapping> result = apiInstance.getPropertyMappingsForProductEntity(vendorName, productName, lusidEntityType)
             .lusidEntitySubType(lusidEntitySubType)
             .execute();
       System.out.println(result);
@@ -216,7 +216,7 @@ public class Example {
 
 ### Return type
 
-[**LusidPropertyToVendorFieldMapping**](LusidPropertyToVendorFieldMapping.md)
+[**List&lt;LusidPropertyToVendorFieldMapping&gt;**](LusidPropertyToVendorFieldMapping.md)
 
 ### Authorization
 
@@ -235,7 +235,7 @@ public class Example {
 
 <a id="queryVendors"></a>
 # **queryVendors**
-> VendorProduct queryVendors(body).execute();
+> PagedResourceListOfVendorProduct queryVendors(body).execute();
 
 [EARLY ACCESS] QueryVendors: Query for vendors and their packages with entities and sub-entities.
 
@@ -261,7 +261,7 @@ public class Example {
     VendorApi apiInstance = new VendorApi(defaultClient);
     Object body = null; // Object | 
     try {
-      VendorProduct result = apiInstance.queryVendors(body)
+      PagedResourceListOfVendorProduct result = apiInstance.queryVendors(body)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -283,7 +283,7 @@ public class Example {
 
 ### Return type
 
-[**VendorProduct**](VendorProduct.md)
+[**PagedResourceListOfVendorProduct**](PagedResourceListOfVendorProduct.md)
 
 ### Authorization
 
@@ -302,7 +302,7 @@ public class Example {
 
 <a id="setOptionalMappingsForProductEntity"></a>
 # **setOptionalMappingsForProductEntity**
-> LusidPropertyDefinitionOverridesResponse setOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, requestBody).lusidEntitySubType(lusidEntitySubType).execute();
+> Map&lt;String, LusidPropertyDefinitionOverridesResponse&gt; setOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, requestBody).lusidEntitySubType(lusidEntitySubType).execute();
 
 [EARLY ACCESS] SetOptionalMappingsForProductEntity: Create a user defined LUSID property mappings for the specified vendor / LUSID entity.
 
@@ -332,7 +332,7 @@ public class Example {
     Map<String, LusidPropertyDefinitionOverrides> requestBody = new HashMap(); // Map<String, LusidPropertyDefinitionOverrides> | 
     String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
     try {
-      LusidPropertyDefinitionOverridesResponse result = apiInstance.setOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, requestBody)
+      Map<String, LusidPropertyDefinitionOverridesResponse> result = apiInstance.setOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, requestBody)
             .lusidEntitySubType(lusidEntitySubType)
             .execute();
       System.out.println(result);
@@ -359,7 +359,7 @@ public class Example {
 
 ### Return type
 
-[**LusidPropertyDefinitionOverridesResponse**](LusidPropertyDefinitionOverridesResponse.md)
+[**Map&lt;String, LusidPropertyDefinitionOverridesResponse&gt;**](LusidPropertyDefinitionOverridesResponse.md)
 
 ### Authorization
 

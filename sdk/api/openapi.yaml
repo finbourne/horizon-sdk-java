@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.204
+  version: 0.1.208
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -273,7 +273,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProcessInformation'
+                items:
+                  $ref: '#/components/schemas/ProcessInformation'
+                type: array
           description: Success
         default:
           content:
@@ -311,7 +313,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProcessInformation'
+                $ref: '#/components/schemas/PagedResourceListOfProcessInformation'
           description: Success
         default:
           content:
@@ -350,7 +352,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProcessUpdateResult'
+                $ref: '#/components/schemas/PagedResourceListOfProcessUpdateResult'
           description: Success
         default:
           content:
@@ -390,7 +392,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProcessUpdateResult'
+                $ref: '#/components/schemas/AuditCompleteResponse'
           description: Created
         default:
           content:
@@ -430,7 +432,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProcessUpdateResult'
+                $ref: '#/components/schemas/AuditUpdateResponse'
           description: Created
         default:
           content:
@@ -491,7 +493,7 @@ paths:
                   href: http://www.lusid.com/horizon
                   method: GET
               schema:
-                $ref: '#/components/schemas/VendorProduct'
+                $ref: '#/components/schemas/PagedResourceListOfVendorProduct'
           description: Success
         default:
           content:
@@ -555,7 +557,9 @@ paths:
                 - vendor-field-2
                 transformationDescription: transformationDescription
               schema:
-                $ref: '#/components/schemas/LusidField'
+                items:
+                  $ref: '#/components/schemas/LusidField'
+                type: array
           description: Success
         default:
           content:
@@ -621,7 +625,9 @@ paths:
                   displayNameOverride: descriptionOverride
                   descriptionOverride: displayNameOverride
               schema:
-                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                additionalProperties:
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                type: object
           description: Success
         default:
           content:
@@ -738,7 +744,9 @@ paths:
                   displayNameOverride: descriptionOverride
                   descriptionOverride: displayNameOverride
               schema:
-                $ref: '#/components/schemas/LusidPropertyDefinitionOverridesResponse'
+                additionalProperties:
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverridesResponse'
+                type: object
           description: Success
         default:
           content:
@@ -811,7 +819,9 @@ paths:
                 vendorField: example-vendor-field
                 optionality: Mandatory
               schema:
-                $ref: '#/components/schemas/LusidPropertyToVendorFieldMapping'
+                items:
+                  $ref: '#/components/schemas/LusidPropertyToVendorFieldMapping'
+                type: array
           description: Success
         default:
           content:
@@ -920,6 +930,24 @@ components:
       - status
       - userId
       type: object
+    AuditCompleteResponse:
+      additionalProperties: false
+      description: Response type for Horizon Audit Event
+      example:
+        eventId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        processName: processName
+      properties:
+        eventId:
+          description: The GUID of the newly created event
+          format: uuid
+          type: string
+        processName:
+          description: The name of the Process the events will be visible under
+          type: string
+      required:
+      - eventId
+      - processName
+      type: object
     AuditCompleteStatus:
       description: The set of available completion statuses
       enum:
@@ -984,6 +1012,24 @@ components:
       - startTime
       - userId
       type: object
+    AuditUpdateResponse:
+      additionalProperties: false
+      description: Response type for Horizon Audit Event
+      example:
+        eventId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        processName: processName
+      properties:
+        eventId:
+          description: The GUID of the newly created event
+          format: uuid
+          type: string
+        processName:
+          description: The name of the Process the events will be visible under
+          type: string
+      required:
+      - eventId
+      - processName
+      type: object
     FileDetails:
       additionalProperties: false
       description: Information associated with files
@@ -1005,6 +1051,29 @@ components:
       required:
       - fileName
       - id
+      type: object
+    Link:
+      additionalProperties: false
+      example:
+        method: method
+        description: description
+        href: https://openapi-generator.tech
+        relation: relation
+      properties:
+        relation:
+          type: string
+        href:
+          format: uri
+          type: string
+        description:
+          nullable: true
+          type: string
+        method:
+          type: string
+      required:
+      - href
+      - method
+      - relation
       type: object
     LusidEntity:
       additionalProperties: false
@@ -1184,12 +1253,6 @@ components:
     LusidPropertyDefinitionOverridesResponse:
       additionalProperties: false
       description: An item that has been updated as a result of setting LusidPropertyDefinitionOverrides.
-      example:
-        writeErrorDetail: writeErrorDetail
-        displayNameOverride: displayNameOverride
-        action: action
-        descriptionOverride: descriptionOverride
-        writeError: writeError
       properties:
         action:
           description: "The action performed on this property. \"upsert\" for setting\
@@ -1595,6 +1658,203 @@ components:
       - Suggested
       - Optional
       type: string
+    PagedResourceListOfProcessInformation:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - processSummary:
+            fileDetails:
+            - fileName: fileName
+              id: id
+              fileType: fileType
+            - fileName: fileName
+              id: id
+              fileType: fileType
+            endTime: 2000-01-23T04:56:07.000+00:00
+            category: category
+            message: message
+            rows:
+              rowsFailed: 5
+              rowsSucceeded: 6
+              rowsTotal: 0
+              rowsIgnored: 1
+            status: status
+          schemaVersion: schemaVersion
+          processName: processName
+          domain: domain
+          dataAction: dataAction
+          startTime: 2000-01-23T04:56:07.000+00:00
+          runId: runId
+          userId: userId
+        - processSummary:
+            fileDetails:
+            - fileName: fileName
+              id: id
+              fileType: fileType
+            - fileName: fileName
+              id: id
+              fileType: fileType
+            endTime: 2000-01-23T04:56:07.000+00:00
+            category: category
+            message: message
+            rows:
+              rowsFailed: 5
+              rowsSucceeded: 6
+              rowsTotal: 0
+              rowsIgnored: 1
+            status: status
+          schemaVersion: schemaVersion
+          processName: processName
+          domain: domain
+          dataAction: dataAction
+          startTime: 2000-01-23T04:56:07.000+00:00
+          runId: runId
+          userId: userId
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/ProcessInformation'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
+    PagedResourceListOfProcessUpdateResult:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - schemaVersion: schemaVersion
+          processName: processName
+          entryDate: 2000-01-23T04:56:07.000+00:00
+          domain: domain
+          runId: runId
+          message: message
+          entryId: entryId
+          status: status
+        - schemaVersion: schemaVersion
+          processName: processName
+          entryDate: 2000-01-23T04:56:07.000+00:00
+          domain: domain
+          runId: runId
+          message: message
+          entryId: entryId
+          status: status
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/ProcessUpdateResult'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
+    PagedResourceListOfVendorProduct:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - vendorName: vendorName
+          vendorProductKey: vendorProductKey
+          productName: productName
+          lusidEntity:
+            entitySubTypeDisplayName: entitySubTypeDisplayName
+            entityType: entityType
+            entitySubType: entitySubType
+            entityTypeDisplayName: entityTypeDisplayName
+        - vendorName: vendorName
+          vendorProductKey: vendorProductKey
+          productName: productName
+          lusidEntity:
+            entitySubTypeDisplayName: entitySubTypeDisplayName
+            entityType: entityType
+            entitySubType: entitySubType
+            entityTypeDisplayName: entityTypeDisplayName
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/VendorProduct'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PermIdData:
       additionalProperties: false
       description: PermId Data Structure
