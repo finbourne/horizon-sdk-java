@@ -32,6 +32,7 @@ import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.PagedResourceListOfProcessInformation;
 import com.finbourne.horizon.model.PagedResourceListOfProcessUpdateResult;
 import com.finbourne.horizon.model.ProcessInformation;
+import com.finbourne.horizon.model.QueryRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -544,7 +545,7 @@ public class ProcessHistoryApi {
     public APIgetLatestRunsRequest getLatestRuns() {
         return new APIgetLatestRunsRequest();
     }
-    private okhttp3.Call processEntryUpdatesCall(Object body, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call processEntryUpdatesCall(QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -558,7 +559,7 @@ public class ProcessHistoryApi {
             basePath = null;
         }
 
-        Object localVarPostBody = body;
+        Object localVarPostBody = queryRequest;
 
         // create path and map variables
         String localVarPath = "/api/process-history/entries/$query";
@@ -593,36 +594,36 @@ public class ProcessHistoryApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call processEntryUpdatesValidateBeforeCall(Object body, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'body' is set
-        if (body == null) {
-            throw new ApiException("Missing the required parameter 'body' when calling processEntryUpdates(Async)");
+    private okhttp3.Call processEntryUpdatesValidateBeforeCall(QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'queryRequest' is set
+        if (queryRequest == null) {
+            throw new ApiException("Missing the required parameter 'queryRequest' when calling processEntryUpdates(Async)");
         }
 
-        return processEntryUpdatesCall(body, _callback);
+        return processEntryUpdatesCall(queryRequest, _callback);
 
     }
 
 
-    private ApiResponse<PagedResourceListOfProcessUpdateResult> processEntryUpdatesWithHttpInfo(Object body) throws ApiException {
-        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(body, null);
+    private ApiResponse<PagedResourceListOfProcessUpdateResult> processEntryUpdatesWithHttpInfo(QueryRequest queryRequest) throws ApiException {
+        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(queryRequest, null);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call processEntryUpdatesAsync(Object body, final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
+    private okhttp3.Call processEntryUpdatesAsync(QueryRequest queryRequest, final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(body, _callback);
+        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(queryRequest, _callback);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIprocessEntryUpdatesRequest {
-        private final Object body;
+        private final QueryRequest queryRequest;
 
-        private APIprocessEntryUpdatesRequest(Object body) {
-            this.body = body;
+        private APIprocessEntryUpdatesRequest(QueryRequest queryRequest) {
+            this.queryRequest = queryRequest;
         }
 
         /**
@@ -638,7 +639,7 @@ public class ProcessHistoryApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return processEntryUpdatesCall(body, _callback);
+            return processEntryUpdatesCall(queryRequest, _callback);
         }
 
         /**
@@ -653,7 +654,7 @@ public class ProcessHistoryApi {
          </table>
          */
         public PagedResourceListOfProcessUpdateResult execute() throws ApiException {
-            ApiResponse<PagedResourceListOfProcessUpdateResult> localVarResp = processEntryUpdatesWithHttpInfo(body);
+            ApiResponse<PagedResourceListOfProcessUpdateResult> localVarResp = processEntryUpdatesWithHttpInfo(queryRequest);
             return localVarResp.getData();
         }
 
@@ -669,7 +670,7 @@ public class ProcessHistoryApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfProcessUpdateResult> executeWithHttpInfo() throws ApiException {
-            return processEntryUpdatesWithHttpInfo(body);
+            return processEntryUpdatesWithHttpInfo(queryRequest);
         }
 
         /**
@@ -685,14 +686,14 @@ public class ProcessHistoryApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
-            return processEntryUpdatesAsync(body, _callback);
+            return processEntryUpdatesAsync(queryRequest, _callback);
         }
     }
 
     /**
      * [EARLY ACCESS] ProcessEntryUpdates: Get process entry updates for a query
      * 
-     * @param body  (required)
+     * @param queryRequest  (required)
      * @return APIprocessEntryUpdatesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -701,10 +702,10 @@ public class ProcessHistoryApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIprocessEntryUpdatesRequest processEntryUpdates(Object body) {
-        return new APIprocessEntryUpdatesRequest(body);
+    public APIprocessEntryUpdatesRequest processEntryUpdates(QueryRequest queryRequest) {
+        return new APIprocessEntryUpdatesRequest(queryRequest);
     }
-    private okhttp3.Call processHistoryEntriesCall(Object body, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call processHistoryEntriesCall(QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -718,7 +719,7 @@ public class ProcessHistoryApi {
             basePath = null;
         }
 
-        Object localVarPostBody = body;
+        Object localVarPostBody = queryRequest;
 
         // create path and map variables
         String localVarPath = "/api/process-history/$query";
@@ -753,36 +754,36 @@ public class ProcessHistoryApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call processHistoryEntriesValidateBeforeCall(Object body, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'body' is set
-        if (body == null) {
-            throw new ApiException("Missing the required parameter 'body' when calling processHistoryEntries(Async)");
+    private okhttp3.Call processHistoryEntriesValidateBeforeCall(QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'queryRequest' is set
+        if (queryRequest == null) {
+            throw new ApiException("Missing the required parameter 'queryRequest' when calling processHistoryEntries(Async)");
         }
 
-        return processHistoryEntriesCall(body, _callback);
+        return processHistoryEntriesCall(queryRequest, _callback);
 
     }
 
 
-    private ApiResponse<PagedResourceListOfProcessInformation> processHistoryEntriesWithHttpInfo(Object body) throws ApiException {
-        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(body, null);
+    private ApiResponse<PagedResourceListOfProcessInformation> processHistoryEntriesWithHttpInfo(QueryRequest queryRequest) throws ApiException {
+        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, null);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call processHistoryEntriesAsync(Object body, final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
+    private okhttp3.Call processHistoryEntriesAsync(QueryRequest queryRequest, final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(body, _callback);
+        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, _callback);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIprocessHistoryEntriesRequest {
-        private final Object body;
+        private final QueryRequest queryRequest;
 
-        private APIprocessHistoryEntriesRequest(Object body) {
-            this.body = body;
+        private APIprocessHistoryEntriesRequest(QueryRequest queryRequest) {
+            this.queryRequest = queryRequest;
         }
 
         /**
@@ -798,7 +799,7 @@ public class ProcessHistoryApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return processHistoryEntriesCall(body, _callback);
+            return processHistoryEntriesCall(queryRequest, _callback);
         }
 
         /**
@@ -813,7 +814,7 @@ public class ProcessHistoryApi {
          </table>
          */
         public PagedResourceListOfProcessInformation execute() throws ApiException {
-            ApiResponse<PagedResourceListOfProcessInformation> localVarResp = processHistoryEntriesWithHttpInfo(body);
+            ApiResponse<PagedResourceListOfProcessInformation> localVarResp = processHistoryEntriesWithHttpInfo(queryRequest);
             return localVarResp.getData();
         }
 
@@ -829,7 +830,7 @@ public class ProcessHistoryApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfProcessInformation> executeWithHttpInfo() throws ApiException {
-            return processHistoryEntriesWithHttpInfo(body);
+            return processHistoryEntriesWithHttpInfo(queryRequest);
         }
 
         /**
@@ -845,14 +846,14 @@ public class ProcessHistoryApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
-            return processHistoryEntriesAsync(body, _callback);
+            return processHistoryEntriesAsync(queryRequest, _callback);
         }
     }
 
     /**
      * [EARLY ACCESS] ProcessHistoryEntries: Get process history entries
      * 
-     * @param body  (required)
+     * @param queryRequest  (required)
      * @return APIprocessHistoryEntriesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -861,7 +862,7 @@ public class ProcessHistoryApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIprocessHistoryEntriesRequest processHistoryEntries(Object body) {
-        return new APIprocessHistoryEntriesRequest(body);
+    public APIprocessHistoryEntriesRequest processHistoryEntries(QueryRequest queryRequest) {
+        return new APIprocessHistoryEntriesRequest(queryRequest);
     }
 }

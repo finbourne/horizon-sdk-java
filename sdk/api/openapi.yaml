@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.226
+  version: 0.1.230
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -227,6 +227,16 @@ paths:
         schema:
           type: string
         style: form
+      - description: ""
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
       responses:
         "200":
           content:
@@ -2054,6 +2064,24 @@ components:
     QueryRequest:
       additionalProperties: false
       description: "Used to control queries, including getting \"pages\" of data"
+      example:
+        specification:
+          limit: 0
+      properties:
+        specification:
+          $ref: '#/components/schemas/QuerySpecification'
+      type: object
+    QuerySpecification:
+      additionalProperties: false
+      description: Defines the information that can be used to query a set of data.
+      example:
+        limit: 0
+      properties:
+        limit:
+          description: The maximum number of results to be returned in a "page"
+          format: int32
+          nullable: true
+          type: integer
       type: object
     ResourceId:
       additionalProperties: false

@@ -290,7 +290,7 @@ public class Example {
 
 <a id="vendors"></a>
 # **vendors**
-> List&lt;VendorProduct&gt; vendors(marketSector, securityType).execute();
+> List&lt;VendorProduct&gt; vendors(marketSector, securityType).limit(limit).execute();
 
 [EARLY ACCESS] Vendors: Gets the VendorProducts of any supported and licenced integrations for a given market sector and security type.
 
@@ -316,8 +316,10 @@ public class Example {
     InstrumentApi apiInstance = new InstrumentApi(defaultClient);
     String marketSector = "marketSector_example"; // String | 
     String securityType = "securityType_example"; // String | 
+    Integer limit = 56; // Integer | 
     try {
       List<VendorProduct> result = apiInstance.vendors(marketSector, securityType)
+            .limit(limit)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -337,6 +339,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **marketSector** | **String**|  | |
 | **securityType** | **String**|  | |
+| **limit** | **Integer**|  | [optional] |
 
 ### Return type
 

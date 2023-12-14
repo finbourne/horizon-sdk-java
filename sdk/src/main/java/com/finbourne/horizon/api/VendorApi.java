@@ -30,6 +30,7 @@ import com.finbourne.horizon.model.LusidPropertyDefinitionOverrides;
 import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesResponse;
 import com.finbourne.horizon.model.LusidPropertyToVendorFieldMapping;
 import com.finbourne.horizon.model.PagedResourceListOfVendorProduct;
+import com.finbourne.horizon.model.QueryRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -671,7 +672,7 @@ public class VendorApi {
     public APIgetPropertyMappingsForProductEntityRequest getPropertyMappingsForProductEntity(String vendorName, String productName, String lusidEntityType) {
         return new APIgetPropertyMappingsForProductEntityRequest(vendorName, productName, lusidEntityType);
     }
-    private okhttp3.Call queryVendorsCall(Object body, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call queryVendorsCall(QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -685,7 +686,7 @@ public class VendorApi {
             basePath = null;
         }
 
-        Object localVarPostBody = body;
+        Object localVarPostBody = queryRequest;
 
         // create path and map variables
         String localVarPath = "/api/vendor/$query";
@@ -720,36 +721,36 @@ public class VendorApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call queryVendorsValidateBeforeCall(Object body, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'body' is set
-        if (body == null) {
-            throw new ApiException("Missing the required parameter 'body' when calling queryVendors(Async)");
+    private okhttp3.Call queryVendorsValidateBeforeCall(QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'queryRequest' is set
+        if (queryRequest == null) {
+            throw new ApiException("Missing the required parameter 'queryRequest' when calling queryVendors(Async)");
         }
 
-        return queryVendorsCall(body, _callback);
+        return queryVendorsCall(queryRequest, _callback);
 
     }
 
 
-    private ApiResponse<PagedResourceListOfVendorProduct> queryVendorsWithHttpInfo(Object body) throws ApiException {
-        okhttp3.Call localVarCall = queryVendorsValidateBeforeCall(body, null);
+    private ApiResponse<PagedResourceListOfVendorProduct> queryVendorsWithHttpInfo(QueryRequest queryRequest) throws ApiException {
+        okhttp3.Call localVarCall = queryVendorsValidateBeforeCall(queryRequest, null);
         Type localVarReturnType = new TypeToken<PagedResourceListOfVendorProduct>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call queryVendorsAsync(Object body, final ApiCallback<PagedResourceListOfVendorProduct> _callback) throws ApiException {
+    private okhttp3.Call queryVendorsAsync(QueryRequest queryRequest, final ApiCallback<PagedResourceListOfVendorProduct> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = queryVendorsValidateBeforeCall(body, _callback);
+        okhttp3.Call localVarCall = queryVendorsValidateBeforeCall(queryRequest, _callback);
         Type localVarReturnType = new TypeToken<PagedResourceListOfVendorProduct>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIqueryVendorsRequest {
-        private final Object body;
+        private final QueryRequest queryRequest;
 
-        private APIqueryVendorsRequest(Object body) {
-            this.body = body;
+        private APIqueryVendorsRequest(QueryRequest queryRequest) {
+            this.queryRequest = queryRequest;
         }
 
         /**
@@ -765,7 +766,7 @@ public class VendorApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return queryVendorsCall(body, _callback);
+            return queryVendorsCall(queryRequest, _callback);
         }
 
         /**
@@ -780,7 +781,7 @@ public class VendorApi {
          </table>
          */
         public PagedResourceListOfVendorProduct execute() throws ApiException {
-            ApiResponse<PagedResourceListOfVendorProduct> localVarResp = queryVendorsWithHttpInfo(body);
+            ApiResponse<PagedResourceListOfVendorProduct> localVarResp = queryVendorsWithHttpInfo(queryRequest);
             return localVarResp.getData();
         }
 
@@ -796,7 +797,7 @@ public class VendorApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfVendorProduct> executeWithHttpInfo() throws ApiException {
-            return queryVendorsWithHttpInfo(body);
+            return queryVendorsWithHttpInfo(queryRequest);
         }
 
         /**
@@ -812,14 +813,14 @@ public class VendorApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfVendorProduct> _callback) throws ApiException {
-            return queryVendorsAsync(body, _callback);
+            return queryVendorsAsync(queryRequest, _callback);
         }
     }
 
     /**
      * [EARLY ACCESS] QueryVendors: Query for vendors and their packages with entities and sub-entities.
      * 
-     * @param body  (required)
+     * @param queryRequest  (required)
      * @return APIqueryVendorsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -828,8 +829,8 @@ public class VendorApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIqueryVendorsRequest queryVendors(Object body) {
-        return new APIqueryVendorsRequest(body);
+    public APIqueryVendorsRequest queryVendors(QueryRequest queryRequest) {
+        return new APIqueryVendorsRequest(queryRequest);
     }
     private okhttp3.Call setOptionalMappingsForProductEntityCall(String vendorName, String productName, String lusidEntityType, Map<String, LusidPropertyDefinitionOverrides> requestBody, String lusidEntitySubType, final ApiCallback _callback) throws ApiException {
         String basePath = null;

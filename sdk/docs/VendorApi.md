@@ -235,7 +235,7 @@ public class Example {
 
 <a id="queryVendors"></a>
 # **queryVendors**
-> PagedResourceListOfVendorProduct queryVendors(body).execute();
+> PagedResourceListOfVendorProduct queryVendors(queryRequest).execute();
 
 [EARLY ACCESS] QueryVendors: Query for vendors and their packages with entities and sub-entities.
 
@@ -259,9 +259,9 @@ public class Example {
     oauth2.setAccessToken("YOUR ACCESS TOKEN");
 
     VendorApi apiInstance = new VendorApi(defaultClient);
-    Object body = null; // Object | 
+    QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
     try {
-      PagedResourceListOfVendorProduct result = apiInstance.queryVendors(body)
+      PagedResourceListOfVendorProduct result = apiInstance.queryVendors(queryRequest)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -279,7 +279,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **Object**|  | |
+| **queryRequest** | [**QueryRequest**](QueryRequest.md)|  | |
 
 ### Return type
 

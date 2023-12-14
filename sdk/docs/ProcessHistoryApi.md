@@ -210,7 +210,7 @@ This endpoint does not need any parameter.
 
 <a id="processEntryUpdates"></a>
 # **processEntryUpdates**
-> PagedResourceListOfProcessUpdateResult processEntryUpdates(body).execute();
+> PagedResourceListOfProcessUpdateResult processEntryUpdates(queryRequest).execute();
 
 [EARLY ACCESS] ProcessEntryUpdates: Get process entry updates for a query
 
@@ -234,9 +234,9 @@ public class Example {
     oauth2.setAccessToken("YOUR ACCESS TOKEN");
 
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
-    Object body = null; // Object | 
+    QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
     try {
-      PagedResourceListOfProcessUpdateResult result = apiInstance.processEntryUpdates(body)
+      PagedResourceListOfProcessUpdateResult result = apiInstance.processEntryUpdates(queryRequest)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -254,7 +254,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **Object**|  | |
+| **queryRequest** | [**QueryRequest**](QueryRequest.md)|  | |
 
 ### Return type
 
@@ -277,7 +277,7 @@ public class Example {
 
 <a id="processHistoryEntries"></a>
 # **processHistoryEntries**
-> PagedResourceListOfProcessInformation processHistoryEntries(body).execute();
+> PagedResourceListOfProcessInformation processHistoryEntries(queryRequest).execute();
 
 [EARLY ACCESS] ProcessHistoryEntries: Get process history entries
 
@@ -301,9 +301,9 @@ public class Example {
     oauth2.setAccessToken("YOUR ACCESS TOKEN");
 
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
-    Object body = null; // Object | 
+    QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
     try {
-      PagedResourceListOfProcessInformation result = apiInstance.processHistoryEntries(body)
+      PagedResourceListOfProcessInformation result = apiInstance.processHistoryEntries(queryRequest)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -321,7 +321,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **Object**|  | |
+| **queryRequest** | [**QueryRequest**](QueryRequest.md)|  | |
 
 ### Return type
 
