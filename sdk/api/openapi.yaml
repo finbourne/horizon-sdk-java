@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.238
+  version: 0.1.241
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -70,6 +70,63 @@ paths:
       - oauth2: []
       summary: "[EARLY ACCESS] CreateInstrument: Creates and masters instruments with\
         \ third party vendors."
+      tags:
+      - Instrument
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/instrument/onboarding/enrich:
+    post:
+      operationId: EnrichInstrument
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: vendorProductKey
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Identifiers'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Identifiers'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Identifiers'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Identifiers'
+        description: ""
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichmentResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: Bad Request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] EnrichInstrument: Enriches an existing LUSID instrument\
+        \ using vendor data. Enrichment included identifiers, properties and market\
+        \ data."
       tags:
       - Instrument
       x-fbn-apistatus: EarlyAccess
@@ -1040,6 +1097,31 @@ components:
       - eventId
       - processName
       type: object
+    EnrichmentResponse:
+      additionalProperties: false
+      description: Collated enrichment result information
+      example:
+        enrichedInstruments:
+        - enrichedInstruments
+        - enrichedInstruments
+        ignoredInstruments:
+        - ignoredInstruments
+        - ignoredInstruments
+      properties:
+        enrichedInstruments:
+          description: ""
+          items:
+            type: string
+          type: array
+        ignoredInstruments:
+          description: ""
+          items:
+            type: string
+          type: array
+      required:
+      - enrichedInstruments
+      - ignoredInstruments
+      type: object
     FileDetails:
       additionalProperties: false
       description: Information associated with files
@@ -1061,6 +1143,22 @@ components:
       required:
       - fileName
       - id
+      type: object
+    Identifiers:
+      additionalProperties: false
+      description: A list of lusid instrument ids
+      example:
+        lusidInstrumentIds:
+        - lusidInstrumentIds
+        - lusidInstrumentIds
+      properties:
+        lusidInstrumentIds:
+          description: ""
+          items:
+            type: string
+          type: array
+      required:
+      - lusidInstrumentIds
       type: object
     Link:
       additionalProperties: false

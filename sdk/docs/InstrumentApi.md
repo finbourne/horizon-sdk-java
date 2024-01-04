@@ -5,6 +5,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createInstrument**](InstrumentApi.md#createInstrument) | **POST** /api/instrument/onboarding/create | [EARLY ACCESS] CreateInstrument: Creates and masters instruments with third party vendors. |
+| [**enrichInstrument**](InstrumentApi.md#enrichInstrument) | **POST** /api/instrument/onboarding/enrich | [EARLY ACCESS] EnrichInstrument: Enriches an existing LUSID instrument using vendor data. Enrichment included identifiers, properties and market data. |
 | [**getOpenFigiParameterOption**](InstrumentApi.md#getOpenFigiParameterOption) | **GET** /api/instrument/onboarding/search/openfigi/parameterOptions | [EARLY ACCESS] GetOpenFigiParameterOption: Get all supported market sector values for OpenFigi search |
 | [**retrievePermIdResult**](InstrumentApi.md#retrievePermIdResult) | **GET** /api/instrument/onboarding/search/permid/{id} | [EARLY ACCESS] RetrievePermIdResult: Retrieve PermId results from a previous query. |
 | [**searchOpenFigi**](InstrumentApi.md#searchOpenFigi) | **GET** /api/instrument/onboarding/search/openfigi | [EARLY ACCESS] SearchOpenFigi: Search OpenFigi for instruments that match the specified terms. |
@@ -62,6 +63,76 @@ public class Example {
 ### Return type
 
 [**OnboardInstrumentResponse**](OnboardInstrumentResponse.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+| **400** | Bad Request |  -  |
+| **0** | Error response |  -  |
+
+<a id="enrichInstrument"></a>
+# **enrichInstrument**
+> EnrichmentResponse enrichInstrument(vendorProductKey, identifiers).execute();
+
+[EARLY ACCESS] EnrichInstrument: Enriches an existing LUSID instrument using vendor data. Enrichment included identifiers, properties and market data.
+
+### Example
+```java
+// Import classes:
+import com.finbourne.horizon.ApiClient;
+import com.finbourne.horizon.ApiException;
+import com.finbourne.horizon.Configuration;
+import com.finbourne.horizon.auth.*;
+import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.api.InstrumentApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
+    
+    // Configure OAuth2 access token for authorization: oauth2
+    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
+    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
+    String vendorProductKey = "vendorProductKey_example"; // String | 
+    Identifiers identifiers = new Identifiers(); // Identifiers | 
+    try {
+      EnrichmentResponse result = apiInstance.enrichInstrument(vendorProductKey, identifiers)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling InstrumentApi#enrichInstrument");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vendorProductKey** | **String**|  | |
+| **identifiers** | [**Identifiers**](Identifiers.md)|  | |
+
+### Return type
+
+[**EnrichmentResponse**](EnrichmentResponse.md)
 
 ### Authorization
 

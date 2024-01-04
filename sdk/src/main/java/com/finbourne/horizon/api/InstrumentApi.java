@@ -25,6 +25,8 @@ import java.io.IOException;
 
 
 import com.finbourne.horizon.model.AllowedParameterValue;
+import com.finbourne.horizon.model.EnrichmentResponse;
+import com.finbourne.horizon.model.Identifiers;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.OnboardInstrumentRequest;
@@ -241,6 +243,183 @@ public class InstrumentApi {
      */
     public APIcreateInstrumentRequest createInstrument(OnboardInstrumentRequest onboardInstrumentRequest) {
         return new APIcreateInstrumentRequest(onboardInstrumentRequest);
+    }
+    private okhttp3.Call enrichInstrumentCall(String vendorProductKey, Identifiers identifiers, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = identifiers;
+
+        // create path and map variables
+        String localVarPath = "/api/instrument/onboarding/enrich";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (vendorProductKey != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("vendorProductKey", vendorProductKey));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json",
+            "application/json",
+            "text/json",
+            "application/*+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call enrichInstrumentValidateBeforeCall(String vendorProductKey, Identifiers identifiers, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'vendorProductKey' is set
+        if (vendorProductKey == null) {
+            throw new ApiException("Missing the required parameter 'vendorProductKey' when calling enrichInstrument(Async)");
+        }
+
+        // verify the required parameter 'identifiers' is set
+        if (identifiers == null) {
+            throw new ApiException("Missing the required parameter 'identifiers' when calling enrichInstrument(Async)");
+        }
+
+        return enrichInstrumentCall(vendorProductKey, identifiers, _callback);
+
+    }
+
+
+    private ApiResponse<EnrichmentResponse> enrichInstrumentWithHttpInfo(String vendorProductKey, Identifiers identifiers) throws ApiException {
+        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, null);
+        Type localVarReturnType = new TypeToken<EnrichmentResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call enrichInstrumentAsync(String vendorProductKey, Identifiers identifiers, final ApiCallback<EnrichmentResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, _callback);
+        Type localVarReturnType = new TypeToken<EnrichmentResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIenrichInstrumentRequest {
+        private final String vendorProductKey;
+        private final Identifiers identifiers;
+
+        private APIenrichInstrumentRequest(String vendorProductKey, Identifiers identifiers) {
+            this.vendorProductKey = vendorProductKey;
+            this.identifiers = identifiers;
+        }
+
+        /**
+         * Build call for enrichInstrument
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return enrichInstrumentCall(vendorProductKey, identifiers, _callback);
+        }
+
+        /**
+         * Execute enrichInstrument request
+         * @return EnrichmentResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public EnrichmentResponse execute() throws ApiException {
+            ApiResponse<EnrichmentResponse> localVarResp = enrichInstrumentWithHttpInfo(vendorProductKey, identifiers);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute enrichInstrument request with HTTP info returned
+         * @return ApiResponse&lt;EnrichmentResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<EnrichmentResponse> executeWithHttpInfo() throws ApiException {
+            return enrichInstrumentWithHttpInfo(vendorProductKey, identifiers);
+        }
+
+        /**
+         * Execute enrichInstrument request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<EnrichmentResponse> _callback) throws ApiException {
+            return enrichInstrumentAsync(vendorProductKey, identifiers, _callback);
+        }
+    }
+
+    /**
+     * [EARLY ACCESS] EnrichInstrument: Enriches an existing LUSID instrument using vendor data. Enrichment included identifiers, properties and market data.
+     * 
+     * @param vendorProductKey  (required)
+     * @param identifiers  (required)
+     * @return APIenrichInstrumentRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIenrichInstrumentRequest enrichInstrument(String vendorProductKey, Identifiers identifiers) {
+        return new APIenrichInstrumentRequest(vendorProductKey, identifiers);
     }
     private okhttp3.Call getOpenFigiParameterOptionCall(OpenFigiParameterOptionName parameterName, final ApiCallback _callback) throws ApiException {
         String basePath = null;
