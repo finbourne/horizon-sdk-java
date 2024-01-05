@@ -210,7 +210,7 @@ This endpoint does not need any parameter.
 
 <a id="processEntryUpdates"></a>
 # **processEntryUpdates**
-> PagedResourceListOfProcessUpdateResult processEntryUpdates(queryRequest).execute();
+> PagedResourceListOfProcessUpdateResult processEntryUpdates(queryRequest).runId(runId).execute();
 
 [EARLY ACCESS] ProcessEntryUpdates: Get process entry updates for a query
 
@@ -235,8 +235,10 @@ public class Example {
 
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
+    String runId = "runId_example"; // String | 
     try {
       PagedResourceListOfProcessUpdateResult result = apiInstance.processEntryUpdates(queryRequest)
+            .runId(runId)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -255,6 +257,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **queryRequest** | [**QueryRequest**](QueryRequest.md)|  | |
+| **runId** | **String**|  | [optional] |
 
 ### Return type
 

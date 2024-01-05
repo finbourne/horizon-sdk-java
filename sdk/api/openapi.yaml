@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.241
+  version: 0.1.244
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -399,6 +399,14 @@ paths:
   /api/process-history/entries/$query:
     post:
       operationId: ProcessEntryUpdates
+      parameters:
+      - explode: true
+        in: query
+        name: runId
+        required: false
+        schema:
+          type: string
+        style: form
       requestBody:
         content:
           application/json-patch+json:
