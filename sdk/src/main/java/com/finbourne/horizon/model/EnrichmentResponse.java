@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,6 +59,10 @@ public class EnrichmentResponse {
   public static final String SERIALIZED_NAME_IGNORED_INSTRUMENTS = "ignoredInstruments";
   @SerializedName(SERIALIZED_NAME_IGNORED_INSTRUMENTS)
   private List<String> ignoredInstruments = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_ERROR_FILE_ID = "errorFileId";
+  @SerializedName(SERIALIZED_NAME_ERROR_FILE_ID)
+  private String errorFileId;
 
   public EnrichmentResponse() {
   }
@@ -120,6 +125,27 @@ public class EnrichmentResponse {
   }
 
 
+  public EnrichmentResponse errorFileId(String errorFileId) {
+    
+    this.errorFileId = errorFileId;
+    return this;
+  }
+
+   /**
+   * Error File ID, if one was created
+   * @return errorFileId
+  **/
+  @jakarta.annotation.Nullable
+  public String getErrorFileId() {
+    return errorFileId;
+  }
+
+
+  public void setErrorFileId(String errorFileId) {
+    this.errorFileId = errorFileId;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -131,12 +157,24 @@ public class EnrichmentResponse {
     }
     EnrichmentResponse enrichmentResponse = (EnrichmentResponse) o;
     return Objects.equals(this.enrichedInstruments, enrichmentResponse.enrichedInstruments) &&
-        Objects.equals(this.ignoredInstruments, enrichmentResponse.ignoredInstruments);
+        Objects.equals(this.ignoredInstruments, enrichmentResponse.ignoredInstruments) &&
+        Objects.equals(this.errorFileId, enrichmentResponse.errorFileId);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(enrichedInstruments, ignoredInstruments);
+    return Objects.hash(enrichedInstruments, ignoredInstruments, errorFileId);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -145,6 +183,7 @@ public class EnrichmentResponse {
     sb.append("class EnrichmentResponse {\n");
     sb.append("    enrichedInstruments: ").append(toIndentedString(enrichedInstruments)).append("\n");
     sb.append("    ignoredInstruments: ").append(toIndentedString(ignoredInstruments)).append("\n");
+    sb.append("    errorFileId: ").append(toIndentedString(errorFileId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -169,6 +208,7 @@ public class EnrichmentResponse {
     openapiFields = new HashSet<String>();
     openapiFields.add("enrichedInstruments");
     openapiFields.add("ignoredInstruments");
+    openapiFields.add("errorFileId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -207,6 +247,9 @@ public class EnrichmentResponse {
         throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
       } else if (!jsonObj.get("ignoredInstruments").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `ignoredInstruments` to be an array in the JSON string but got `%s`", jsonObj.get("ignoredInstruments").toString()));
+      }
+      if ((jsonObj.get("errorFileId") != null && !jsonObj.get("errorFileId").isJsonNull()) && !jsonObj.get("errorFileId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `errorFileId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("errorFileId").toString()));
       }
   }
 

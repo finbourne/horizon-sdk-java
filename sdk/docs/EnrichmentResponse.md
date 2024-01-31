@@ -10,6 +10,7 @@ Collated enrichment result information
 |------------ | ------------- | ------------- | -------------|
 |**enrichedInstruments** | **List&lt;String&gt;** |  |  |
 |**ignoredInstruments** | **List&lt;String&gt;** |  |  |
+|**errorFileId** | **String** | Error File ID, if one was created |  [optional] |
 
 
 

@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.294
+  version: 0.1.304
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1109,6 +1109,7 @@ components:
       additionalProperties: false
       description: Collated enrichment result information
       example:
+        errorFileId: errorFileId
         enrichedInstruments:
         - enrichedInstruments
         - enrichedInstruments
@@ -1126,6 +1127,10 @@ components:
           items:
             type: string
           type: array
+        errorFileId:
+          description: "Error File ID, if one was created"
+          nullable: true
+          type: string
       required:
       - enrichedInstruments
       - ignoredInstruments
