@@ -18,7 +18,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -71,7 +70,7 @@ public class ResourceId {
    * Get scope
    * @return scope
   **/
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
   public String getScope() {
     return scope;
   }
@@ -92,7 +91,7 @@ public class ResourceId {
    * Get code
    * @return code
   **/
-  @jakarta.annotation.Nullable
+  @jakarta.annotation.Nonnull
   public String getCode() {
     return code;
   }
@@ -117,20 +116,9 @@ public class ResourceId {
         Objects.equals(this.code, resourceId.code);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
     return Objects.hash(scope, code);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -166,6 +154,8 @@ public class ResourceId {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("scope");
+    openapiRequiredFields.add("code");
   }
 
  /**
@@ -180,11 +170,18 @@ public class ResourceId {
           throw new IllegalArgumentException(String.format("The required field(s) %s in ResourceId is not found in the empty JSON string", ResourceId.openapiRequiredFields.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ResourceId.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("scope") != null && !jsonObj.get("scope").isJsonNull()) && !jsonObj.get("scope").isJsonPrimitive()) {
+      if (!jsonObj.get("scope").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `scope` to be a primitive type in the JSON string but got `%s`", jsonObj.get("scope").toString()));
       }
-      if ((jsonObj.get("code") != null && !jsonObj.get("code").isJsonNull()) && !jsonObj.get("code").isJsonPrimitive()) {
+      if (!jsonObj.get("code").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("code").toString()));
       }
   }

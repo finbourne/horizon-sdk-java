@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.304
+  version: 0.1.333
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2201,11 +2201,12 @@ components:
         scope: scope
       properties:
         scope:
-          nullable: true
           type: string
         code:
-          nullable: true
           type: string
+      required:
+      - code
+      - scope
       type: object
     RowDetails:
       additionalProperties: false
