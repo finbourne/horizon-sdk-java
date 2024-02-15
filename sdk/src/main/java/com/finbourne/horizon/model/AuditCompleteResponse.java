@@ -18,7 +18,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,37 +49,12 @@ import com.finbourne.horizon.JSON;
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuditCompleteResponse {
-  public static final String SERIALIZED_NAME_EVENT_ID = "eventId";
-  @SerializedName(SERIALIZED_NAME_EVENT_ID)
-  private UUID eventId;
-
   public static final String SERIALIZED_NAME_PROCESS_NAME = "processName";
   @SerializedName(SERIALIZED_NAME_PROCESS_NAME)
   private String processName;
 
   public AuditCompleteResponse() {
   }
-
-  public AuditCompleteResponse eventId(UUID eventId) {
-    
-    this.eventId = eventId;
-    return this;
-  }
-
-   /**
-   * The GUID of the newly created event
-   * @return eventId
-  **/
-  @jakarta.annotation.Nonnull
-  public UUID getEventId() {
-    return eventId;
-  }
-
-
-  public void setEventId(UUID eventId) {
-    this.eventId = eventId;
-  }
-
 
   public AuditCompleteResponse processName(String processName) {
     
@@ -113,20 +87,18 @@ public class AuditCompleteResponse {
       return false;
     }
     AuditCompleteResponse auditCompleteResponse = (AuditCompleteResponse) o;
-    return Objects.equals(this.eventId, auditCompleteResponse.eventId) &&
-        Objects.equals(this.processName, auditCompleteResponse.processName);
+    return Objects.equals(this.processName, auditCompleteResponse.processName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(eventId, processName);
+    return Objects.hash(processName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AuditCompleteResponse {\n");
-    sb.append("    eventId: ").append(toIndentedString(eventId)).append("\n");
     sb.append("    processName: ").append(toIndentedString(processName)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -150,12 +122,10 @@ public class AuditCompleteResponse {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("eventId");
     openapiFields.add("processName");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("eventId");
     openapiRequiredFields.add("processName");
   }
 
@@ -179,9 +149,6 @@ public class AuditCompleteResponse {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("eventId").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `eventId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("eventId").toString()));
-      }
       if (!jsonObj.get("processName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `processName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("processName").toString()));
       }

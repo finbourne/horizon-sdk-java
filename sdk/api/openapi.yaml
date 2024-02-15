@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.342
+  version: 0.1.345
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1025,18 +1025,12 @@ components:
       additionalProperties: false
       description: Response type for Horizon Audit Event
       example:
-        eventId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         processName: processName
       properties:
-        eventId:
-          description: The GUID of the newly created event
-          format: uuid
-          type: string
         processName:
           description: The name of the Process the events will be visible under
           type: string
       required:
-      - eventId
       - processName
       type: object
     AuditCompleteStatus:
@@ -1107,18 +1101,12 @@ components:
       additionalProperties: false
       description: Response type for Horizon Audit Event
       example:
-        eventId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         processName: processName
       properties:
-        eventId:
-          description: The GUID of the newly created event
-          format: uuid
-          type: string
         processName:
           description: The name of the Process the events will be visible under
           type: string
       required:
-      - eventId
       - processName
       type: object
     EnrichmentResponse:

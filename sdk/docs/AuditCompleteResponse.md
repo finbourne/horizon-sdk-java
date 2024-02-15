@@ -8,7 +8,6 @@ Response type for Horizon Audit Event
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**eventId** | **UUID** | The GUID of the newly created event |  |
 |**processName** | **String** | The name of the Process the events will be visible under |  |
 
 
