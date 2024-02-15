@@ -60,6 +60,14 @@ public class LusidField {
   @SerializedName(SERIALIZED_NAME_DEFAULT_VALUE)
   private String defaultValue;
 
+  public static final String SERIALIZED_NAME_VENDOR_PACKAGES = "vendorPackages";
+  @SerializedName(SERIALIZED_NAME_VENDOR_PACKAGES)
+  private List<String> vendorPackages = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_VENDOR_NAMESPACES = "vendorNamespaces";
+  @SerializedName(SERIALIZED_NAME_VENDOR_NAMESPACES)
+  private List<String> vendorNamespaces = new ArrayList<>();
+
   public static final String SERIALIZED_NAME_VENDOR_FIELDS = "vendorFields";
   @SerializedName(SERIALIZED_NAME_VENDOR_FIELDS)
   private List<String> vendorFields = new ArrayList<>();
@@ -110,6 +118,64 @@ public class LusidField {
 
   public void setDefaultValue(String defaultValue) {
     this.defaultValue = defaultValue;
+  }
+
+
+  public LusidField vendorPackages(List<String> vendorPackages) {
+    
+    this.vendorPackages = vendorPackages;
+    return this;
+  }
+
+  public LusidField addVendorPackagesItem(String vendorPackagesItem) {
+    if (this.vendorPackages == null) {
+      this.vendorPackages = new ArrayList<>();
+    }
+    this.vendorPackages.add(vendorPackagesItem);
+    return this;
+  }
+
+   /**
+   * The vendor package that contributes to this LUSID field.
+   * @return vendorPackages
+  **/
+  @jakarta.annotation.Nonnull
+  public List<String> getVendorPackages() {
+    return vendorPackages;
+  }
+
+
+  public void setVendorPackages(List<String> vendorPackages) {
+    this.vendorPackages = vendorPackages;
+  }
+
+
+  public LusidField vendorNamespaces(List<String> vendorNamespaces) {
+    
+    this.vendorNamespaces = vendorNamespaces;
+    return this;
+  }
+
+  public LusidField addVendorNamespacesItem(String vendorNamespacesItem) {
+    if (this.vendorNamespaces == null) {
+      this.vendorNamespaces = new ArrayList<>();
+    }
+    this.vendorNamespaces.add(vendorNamespacesItem);
+    return this;
+  }
+
+   /**
+   * The vendor namespace that contributes to this LUSID field.
+   * @return vendorNamespaces
+  **/
+  @jakarta.annotation.Nonnull
+  public List<String> getVendorNamespaces() {
+    return vendorNamespaces;
+  }
+
+
+  public void setVendorNamespaces(List<String> vendorNamespaces) {
+    this.vendorNamespaces = vendorNamespaces;
   }
 
 
@@ -175,6 +241,8 @@ public class LusidField {
     LusidField lusidField = (LusidField) o;
     return Objects.equals(this.fieldName, lusidField.fieldName) &&
         Objects.equals(this.defaultValue, lusidField.defaultValue) &&
+        Objects.equals(this.vendorPackages, lusidField.vendorPackages) &&
+        Objects.equals(this.vendorNamespaces, lusidField.vendorNamespaces) &&
         Objects.equals(this.vendorFields, lusidField.vendorFields) &&
         Objects.equals(this.transformationDescription, lusidField.transformationDescription);
   }
@@ -185,7 +253,7 @@ public class LusidField {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fieldName, defaultValue, vendorFields, transformationDescription);
+    return Objects.hash(fieldName, defaultValue, vendorPackages, vendorNamespaces, vendorFields, transformationDescription);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -201,6 +269,8 @@ public class LusidField {
     sb.append("class LusidField {\n");
     sb.append("    fieldName: ").append(toIndentedString(fieldName)).append("\n");
     sb.append("    defaultValue: ").append(toIndentedString(defaultValue)).append("\n");
+    sb.append("    vendorPackages: ").append(toIndentedString(vendorPackages)).append("\n");
+    sb.append("    vendorNamespaces: ").append(toIndentedString(vendorNamespaces)).append("\n");
     sb.append("    vendorFields: ").append(toIndentedString(vendorFields)).append("\n");
     sb.append("    transformationDescription: ").append(toIndentedString(transformationDescription)).append("\n");
     sb.append("}");
@@ -227,12 +297,16 @@ public class LusidField {
     openapiFields = new HashSet<String>();
     openapiFields.add("fieldName");
     openapiFields.add("defaultValue");
+    openapiFields.add("vendorPackages");
+    openapiFields.add("vendorNamespaces");
     openapiFields.add("vendorFields");
     openapiFields.add("transformationDescription");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("fieldName");
+    openapiRequiredFields.add("vendorPackages");
+    openapiRequiredFields.add("vendorNamespaces");
     openapiRequiredFields.add("vendorFields");
   }
 
@@ -261,6 +335,18 @@ public class LusidField {
       }
       if ((jsonObj.get("defaultValue") != null && !jsonObj.get("defaultValue").isJsonNull()) && !jsonObj.get("defaultValue").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `defaultValue` to be a primitive type in the JSON string but got `%s`", jsonObj.get("defaultValue").toString()));
+      }
+      // ensure the required json array is present
+      if (jsonObj.get("vendorPackages") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("vendorPackages").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `vendorPackages` to be an array in the JSON string but got `%s`", jsonObj.get("vendorPackages").toString()));
+      }
+      // ensure the required json array is present
+      if (jsonObj.get("vendorNamespaces") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("vendorNamespaces").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `vendorNamespaces` to be an array in the JSON string but got `%s`", jsonObj.get("vendorNamespaces").toString()));
       }
       // ensure the required json array is present
       if (jsonObj.get("vendorFields") == null) {

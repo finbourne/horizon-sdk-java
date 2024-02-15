@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.338
+  version: 0.1.340
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -360,6 +360,14 @@ paths:
   /api/process-history/$query:
     post:
       operationId: ProcessHistoryEntries
+      parameters:
+      - explode: true
+        in: query
+        name: processName
+        required: false
+        schema:
+          type: string
+        style: form
       requestBody:
         content:
           application/json-patch+json:
@@ -627,6 +635,12 @@ paths:
             application/json:
               example:
               - fieldName: lusid-core-field
+                vendorPackages:
+                - vendor-package-1
+                - vendor-package-2
+                vendorNamespaces:
+                - vendor-namespace-1
+                - vendor-namespace-2
                 vendorFields:
                 - vendor-field-1
                 - vendor-field-2
@@ -892,6 +906,8 @@ paths:
                   lifetime: TimeVariant
                   constraintStyle: Property
                 vendorField: example-vendor-field
+                vendorPackage: example-vendor-package
+                vendorNamespace: example-vendor-namespace
                 optionality: Mandatory
               schema:
                 items:
@@ -1229,12 +1245,18 @@ components:
       additionalProperties: false
       description: A field on a LUSID entity
       example:
+        vendorPackages:
+        - vendorPackages
+        - vendorPackages
         fieldName: fieldName
         defaultValue: defaultValue
         vendorFields:
         - vendorFields
         - vendorFields
         transformationDescription: transformationDescription
+        vendorNamespaces:
+        - vendorNamespaces
+        - vendorNamespaces
       properties:
         fieldName:
           description: The name of the LUSID field.
@@ -1244,6 +1266,16 @@ components:
           description: The default value for the field.
           nullable: true
           type: string
+        vendorPackages:
+          description: The vendor package that contributes to this LUSID field.
+          items:
+            type: string
+          type: array
+        vendorNamespaces:
+          description: The vendor namespace that contributes to this LUSID field.
+          items:
+            type: string
+          type: array
         vendorFields:
           description: The underlying fields on the vendor package that contribute
             to this LUSID field
@@ -1258,6 +1290,8 @@ components:
       required:
       - fieldName
       - vendorFields
+      - vendorNamespaces
+      - vendorPackages
       type: object
     LusidProblemDetails:
       additionalProperties: false
@@ -1418,10 +1452,16 @@ components:
           description: description
           key: key
         vendorField: vendorField
+        vendorNamespace: vendorNamespace
+        vendorPackage: vendorPackage
       properties:
         property:
           $ref: '#/components/schemas/LusidPropertyDefinition'
         vendorField:
+          type: string
+        vendorPackage:
+          type: string
+        vendorNamespace:
           type: string
         optionality:
           $ref: '#/components/schemas/Optionality'
@@ -1429,6 +1469,8 @@ components:
       - optionality
       - property
       - vendorField
+      - vendorNamespace
+      - vendorPackage
       type: object
     LusidValidationProblemDetails:
       additionalProperties: false

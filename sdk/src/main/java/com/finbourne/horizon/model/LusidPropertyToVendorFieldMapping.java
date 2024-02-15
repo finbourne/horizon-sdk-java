@@ -59,6 +59,14 @@ public class LusidPropertyToVendorFieldMapping {
   @SerializedName(SERIALIZED_NAME_VENDOR_FIELD)
   private String vendorField;
 
+  public static final String SERIALIZED_NAME_VENDOR_PACKAGE = "vendorPackage";
+  @SerializedName(SERIALIZED_NAME_VENDOR_PACKAGE)
+  private String vendorPackage;
+
+  public static final String SERIALIZED_NAME_VENDOR_NAMESPACE = "vendorNamespace";
+  @SerializedName(SERIALIZED_NAME_VENDOR_NAMESPACE)
+  private String vendorNamespace;
+
   public static final String SERIALIZED_NAME_OPTIONALITY = "optionality";
   @SerializedName(SERIALIZED_NAME_OPTIONALITY)
   private Optionality optionality;
@@ -108,6 +116,48 @@ public class LusidPropertyToVendorFieldMapping {
   }
 
 
+  public LusidPropertyToVendorFieldMapping vendorPackage(String vendorPackage) {
+    
+    this.vendorPackage = vendorPackage;
+    return this;
+  }
+
+   /**
+   * Get vendorPackage
+   * @return vendorPackage
+  **/
+  @jakarta.annotation.Nonnull
+  public String getVendorPackage() {
+    return vendorPackage;
+  }
+
+
+  public void setVendorPackage(String vendorPackage) {
+    this.vendorPackage = vendorPackage;
+  }
+
+
+  public LusidPropertyToVendorFieldMapping vendorNamespace(String vendorNamespace) {
+    
+    this.vendorNamespace = vendorNamespace;
+    return this;
+  }
+
+   /**
+   * Get vendorNamespace
+   * @return vendorNamespace
+  **/
+  @jakarta.annotation.Nonnull
+  public String getVendorNamespace() {
+    return vendorNamespace;
+  }
+
+
+  public void setVendorNamespace(String vendorNamespace) {
+    this.vendorNamespace = vendorNamespace;
+  }
+
+
   public LusidPropertyToVendorFieldMapping optionality(Optionality optionality) {
     
     this.optionality = optionality;
@@ -141,12 +191,14 @@ public class LusidPropertyToVendorFieldMapping {
     LusidPropertyToVendorFieldMapping lusidPropertyToVendorFieldMapping = (LusidPropertyToVendorFieldMapping) o;
     return Objects.equals(this.property, lusidPropertyToVendorFieldMapping.property) &&
         Objects.equals(this.vendorField, lusidPropertyToVendorFieldMapping.vendorField) &&
+        Objects.equals(this.vendorPackage, lusidPropertyToVendorFieldMapping.vendorPackage) &&
+        Objects.equals(this.vendorNamespace, lusidPropertyToVendorFieldMapping.vendorNamespace) &&
         Objects.equals(this.optionality, lusidPropertyToVendorFieldMapping.optionality);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(property, vendorField, optionality);
+    return Objects.hash(property, vendorField, vendorPackage, vendorNamespace, optionality);
   }
 
   @Override
@@ -155,6 +207,8 @@ public class LusidPropertyToVendorFieldMapping {
     sb.append("class LusidPropertyToVendorFieldMapping {\n");
     sb.append("    property: ").append(toIndentedString(property)).append("\n");
     sb.append("    vendorField: ").append(toIndentedString(vendorField)).append("\n");
+    sb.append("    vendorPackage: ").append(toIndentedString(vendorPackage)).append("\n");
+    sb.append("    vendorNamespace: ").append(toIndentedString(vendorNamespace)).append("\n");
     sb.append("    optionality: ").append(toIndentedString(optionality)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -180,12 +234,16 @@ public class LusidPropertyToVendorFieldMapping {
     openapiFields = new HashSet<String>();
     openapiFields.add("property");
     openapiFields.add("vendorField");
+    openapiFields.add("vendorPackage");
+    openapiFields.add("vendorNamespace");
     openapiFields.add("optionality");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("property");
     openapiRequiredFields.add("vendorField");
+    openapiRequiredFields.add("vendorPackage");
+    openapiRequiredFields.add("vendorNamespace");
     openapiRequiredFields.add("optionality");
   }
 
@@ -213,6 +271,12 @@ public class LusidPropertyToVendorFieldMapping {
       LusidPropertyDefinition.validateJsonElement(jsonObj.get("property"));
       if (!jsonObj.get("vendorField").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `vendorField` to be a primitive type in the JSON string but got `%s`", jsonObj.get("vendorField").toString()));
+      }
+      if (!jsonObj.get("vendorPackage").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `vendorPackage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("vendorPackage").toString()));
+      }
+      if (!jsonObj.get("vendorNamespace").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `vendorNamespace` to be a primitive type in the JSON string but got `%s`", jsonObj.get("vendorNamespace").toString()));
       }
   }
 

@@ -280,7 +280,7 @@ public class Example {
 
 <a id="processHistoryEntries"></a>
 # **processHistoryEntries**
-> PagedResourceListOfProcessInformation processHistoryEntries(queryRequest).execute();
+> PagedResourceListOfProcessInformation processHistoryEntries(queryRequest).processName(processName).execute();
 
 [EARLY ACCESS] ProcessHistoryEntries: Get process history entries
 
@@ -305,8 +305,10 @@ public class Example {
 
     ProcessHistoryApi apiInstance = new ProcessHistoryApi(defaultClient);
     QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
+    String processName = "processName_example"; // String | 
     try {
       PagedResourceListOfProcessInformation result = apiInstance.processHistoryEntries(queryRequest)
+            .processName(processName)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -325,6 +327,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **queryRequest** | [**QueryRequest**](QueryRequest.md)|  | |
+| **processName** | **String**|  | [optional] |
 
 ### Return type
 
