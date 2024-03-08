@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.388
+  version: 0.1.389
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -17,6 +17,8 @@ security:
 tags:
 - description: Provides instrument search and upsert functions.
   name: Instrument
+- description: "Install, configure, and execute Horizon integrations"
+  name: Integrations
 - description: Provides details on Horizon processes
   name: ProcessHistory
 - description: Provides information about Vendor configurations
@@ -331,6 +333,302 @@ paths:
       tags:
       - Instrument
       x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/integrations:
+    get:
+      description: "<br>List all available integrations.\r\n<br />\r\n<br>\r\n ```\"\
+        licensed\"``` indicates your domain is licensed to use this integration. To\
+        \ request a licence\r\n contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).\r\
+        \n<br />\r\n<br>Any authenticated user can call this method."
+      operationId: ListIntegrations
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - type: copp-clark
+                name: Copp Clark
+                description: Market holiday reference data supplied by Copp Clark
+                  Limited (coppclark.com)
+                licensed: true
+              schema:
+                items:
+                  $ref: '#/components/schemas/IntegrationDescription'
+                type: array
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListIntegrations: List available integrations."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/instances:
+    get:
+      description: "<br>The user must be authenticated, entitled to call this method,\
+        \ and the user's domain must be licensed for the integration."
+      operationId: ListInstances
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - id: b64135e7-98a0-41af-a845-d86167d54cc7
+                integrationType: copp-clark
+                name: Payment systems
+                description: Payment systems calendar for GBP only
+                enabled: true
+                triggers:
+                - type: time
+                  cronExpression: 0 0 2 ? generate justfile test_sdk *
+                  timeZone: UTC
+                details:
+                  paymentSystemsCalendar:
+                    currencyFilter:
+                    - GBP
+                    importUnqualified: false
+              schema:
+                $ref: '#/components/schemas/IntegrationInstance'
+          description: Success
+        "404":
+          description: The requested instance(s) do not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListInstances: List instances across all integrations."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    post:
+      description: "<br>Creates a new instance of an integration, returning its identifier.\r\
+        \n<br />\r\n<br />\r\n<br>The user must be authenticated, entitled to call\
+        \ this method, and the user's domain must be licensed for the integration."
+      operationId: CreateInstance
+      requestBody:
+        content:
+          application/json:
+            example:
+              integrationType: copp-clark
+              name: Payment Systems
+              description: Payment systems calendar for GBP only
+              enabled: false
+              triggers:
+              - type: time
+                cronExpression: 0 0 2 ? generate justfile test_sdk *
+                timeZone: UTC
+              details:
+                paymentSystemsCalendar:
+                  currencyFilter:
+                  - EUR
+                  importUnqualified: false
+            schema:
+              $ref: '#/components/schemas/CreateInstanceRequest'
+        description: The new integration instance.
+      responses:
+        "201":
+          content:
+            application/json:
+              example:
+                id: b64135e7-98a0-41af-a845-d86167d54cc7
+              schema:
+                $ref: '#/components/schemas/InstanceIdentifier'
+          description: Identifier of the created instance.
+        "404":
+          description: The integration type does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateInstance: Create a single integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/integrations/instances/{instanceId}:
+    delete:
+      description: "<br>Deletes an existing instance of an integration, returning\
+        \ its identifier.\r\n<br />\r\n<br />\r\n<br>The user must be authenticated,\
+        \ entitled to call this method, and the user's domain must be licensed for\
+        \ the integration."
+      operationId: DeleteInstance
+      parameters:
+      - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: The instance was deleted.
+        "404":
+          description: The instance does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteInstance: Delete a single integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    put:
+      description: "<br>Updates an existing instance of an integration, returning\
+        \ its identifier.\r\n<br />\r\n<br />\r\n<br>The user must be authenticated,\
+        \ entitled to call this method, and the user's domain must be licensed for\
+        \ the integration."
+      operationId: UpdateInstance
+      parameters:
+      - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              id: b64135e7-98a0-41af-a845-d86167d54cc7
+              integrationType: copp-clark
+              name: Payment Systems
+              description: Payment Systems calendar for EUR only
+              enabled: false
+              triggers:
+              - type: time
+                cronExpression: 0 0 5 ? generate justfile test_sdk *
+                timeZone: UTC
+              details:
+                paymentSystemsCalendar:
+                  currencyFilter:
+                  - EUR
+                  importUnqualified: false
+            schema:
+              $ref: '#/components/schemas/UpdateInstanceRequest'
+        description: The new integration instance.
+      responses:
+        "204":
+          description: The instance was updated.
+        "404":
+          description: The instance does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateInstance: Update a single integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/integrations/instances/{instanceId}/execute:
+    post:
+      description: "<br>Starts execution of an instance, returning its execution identifier.\r\
+        \n<br />\r\n<br />\r\n<br>The user must be authenticated, entitled to call\
+        \ this method, and the user's domain must be licensed for the integration."
+      operationId: ExecuteInstance
+      parameters:
+      - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                executionId: 5f498454-e27e-4403-b892-29ae767879d1
+              schema:
+                $ref: '#/components/schemas/ExecuteInstanceResponse'
+          description: The execution id
+        "404":
+          description: The integration instance does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ExecuteInstance: Execute an integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/schema/{integration}:
+    get:
+      description: "<br>The user must be authenticated, entitled to call this method,\
+        \ and the user's domain must be licensed for the integration."
+      operationId: GetSchema
+      parameters:
+      - description: The type of the integration e.g. "copp-clark".
+        explode: false
+        in: path
+        name: integration
+        required: true
+        schema:
+          maxLength: 128
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The system defined JSON schema for the details of a specified
+            integration.
+        "404":
+          description: The integration type does not exist or is not enabled.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetSchema: Get the JSON schema for the details section\
+        \ of an integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
       x-accepts: application/json
   /api/process-history/$latestRuns:
     get:
@@ -1109,6 +1407,45 @@ components:
       required:
       - processName
       type: object
+    CreateInstanceRequest:
+      additionalProperties: false
+      example:
+        integrationType: integrationType
+        name: name
+        description: description
+        details: "{}"
+        triggers:
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        enabled: true
+      properties:
+        integrationType:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        triggers:
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
+        details:
+          additionalProperties: false
+          type: object
+      required:
+      - description
+      - details
+      - enabled
+      - integrationType
+      - name
+      - triggers
+      type: object
     EnrichmentResponse:
       additionalProperties: false
       description: Collated enrichment result information
@@ -1138,6 +1475,18 @@ components:
       required:
       - enrichedInstruments
       - ignoredInstruments
+      type: object
+    ExecuteInstanceResponse:
+      additionalProperties: false
+      description: Response for executing an instance.
+      example:
+        executionId: executionId
+      properties:
+        executionId:
+          description: Identifier for the execution of the integration instance
+          type: string
+      required:
+      - executionId
       type: object
     FileDetails:
       additionalProperties: false
@@ -1176,6 +1525,104 @@ components:
           type: array
       required:
       - lusidInstrumentIds
+      type: object
+    InstanceDetails:
+      additionalProperties: false
+      type: object
+    InstanceIdentifier:
+      additionalProperties: false
+      description: Identifies a single instance of an integration.
+      example:
+        id: id
+      properties:
+        id:
+          description: Instance identifier.
+          type: string
+      required:
+      - id
+      type: object
+    IntegrationDescription:
+      additionalProperties: false
+      description: Response containing the description of an integration.
+      example:
+        licensed: true
+        name: name
+        description: description
+        type: type
+      properties:
+        type:
+          description: Unique identifier of the integration e.g. "copp-clark".
+          type: string
+        name:
+          description: Readable name of the integration e.g. "Copp Clark".
+          type: string
+        description:
+          description: Describes the purpose of the integration.
+          type: string
+        licensed:
+          description: "True if your domain is licensed to use this integration, otherwise\
+            \ false."
+          type: boolean
+      required:
+      - description
+      - licensed
+      - name
+      - type
+      type: object
+    IntegrationInstance:
+      additionalProperties: false
+      description: Response containing an integration instance.
+      example:
+        integrationType: integrationType
+        name: name
+        description: description
+        details: "{}"
+        id: id
+        triggers:
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        enabled: true
+      properties:
+        id:
+          description: Identifies the instance within the integration.
+          maxLength: 36
+          minLength: 36
+          type: string
+        integrationType:
+          description: The integration type.
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        name:
+          description: Name of the instance.
+          type: string
+        description:
+          description: Description of the instance.
+          type: string
+        enabled:
+          description: If true the instance will be executed if its trigger is satisfied.
+          type: boolean
+        triggers:
+          description: Defines what triggers execution of the instance.
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
+        details:
+          additionalProperties: false
+          type: object
+      required:
+      - description
+      - details
+      - enabled
+      - id
+      - integrationType
+      - name
+      - triggers
       type: object
     Link:
       additionalProperties: false
@@ -2268,6 +2715,67 @@ components:
           nullable: true
           type: integer
       type: object
+    Trigger:
+      additionalProperties: false
+      example:
+        cronExpression: cronExpression
+        timeZone: timeZone
+        type: type
+      properties:
+        type:
+          type: string
+        cronExpression:
+          type: string
+        timeZone:
+          type: string
+      required:
+      - cronExpression
+      - timeZone
+      - type
+      type: object
+    UpdateInstanceRequest:
+      additionalProperties: false
+      example:
+        integrationType: integrationType
+        name: name
+        description: description
+        details: "{}"
+        id: id
+        triggers:
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        enabled: true
+      properties:
+        id:
+          type: string
+        integrationType:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        triggers:
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
+        details:
+          additionalProperties: false
+          type: object
+      required:
+      - description
+      - details
+      - enabled
+      - id
+      - integrationType
+      - name
+      - triggers
+      type: object
     VendorProduct:
       additionalProperties: false
       description: "Denormalised information about vendors, the products they provide\
@@ -2308,6 +2816,7 @@ x-tagGroups:
   name: API
   tags:
   - Instrument
+  - Integrations
   - ProcessHistory
   - Vendor
 x-group-parameters: true
