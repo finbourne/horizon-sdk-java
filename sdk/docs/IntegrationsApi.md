@@ -7,6 +7,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**createInstance**](IntegrationsApi.md#createInstance) | **POST** /api/integrations/instances | [EXPERIMENTAL] CreateInstance: Create a single integration instance. |
 | [**deleteInstance**](IntegrationsApi.md#deleteInstance) | **DELETE** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] DeleteInstance: Delete a single integration instance. |
 | [**executeInstance**](IntegrationsApi.md#executeInstance) | **POST** /api/integrations/instances/{instanceId}/execute | [EXPERIMENTAL] ExecuteInstance: Execute an integration instance. |
+| [**getExecutionIdsForInstance**](IntegrationsApi.md#getExecutionIdsForInstance) | **GET** /api/integrations/executions/{instanceId} | [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids. |
 | [**getSchema**](IntegrationsApi.md#getSchema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance. |
 | [**listInstances**](IntegrationsApi.md#listInstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations. |
 | [**listIntegrations**](IntegrationsApi.md#listIntegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations. |
@@ -220,6 +221,79 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | The execution id |  -  |
+| **404** | The integration instance does not exist |  -  |
+| **0** | Error response |  -  |
+
+<a id="getExecutionIdsForInstance"></a>
+# **getExecutionIdsForInstance**
+> String getExecutionIdsForInstance(instanceId).limit(limit).execute();
+
+[EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
+
+&lt;br&gt;Get the most recent execution ids for an integration instance.  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+
+### Example
+```java
+// Import classes:
+import com.finbourne.horizon.ApiClient;
+import com.finbourne.horizon.ApiException;
+import com.finbourne.horizon.Configuration;
+import com.finbourne.horizon.auth.*;
+import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
+    
+    // Configure OAuth2 access token for authorization: oauth2
+    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
+    IntegrationsApi apiInstance = new IntegrationsApi(defaultClient);
+    String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"30dc93c6-a127-46bf-aea8-e466d720b72d\".
+    Integer limit = 56; // Integer | Maximum number of returned execution ids
+    try {
+      String result = apiInstance.getExecutionIdsForInstance(instanceId)
+            .limit(limit)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling IntegrationsApi#getExecutionIdsForInstance");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**| Instance identifier e.g. \&quot;30dc93c6-a127-46bf-aea8-e466d720b72d\&quot;. | |
+| **limit** | **Integer**| Maximum number of returned execution ids | [optional] |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The execution ids sorted by start date (descending) |  -  |
 | **404** | The integration instance does not exist |  -  |
 | **0** | Error response |  -  |
 

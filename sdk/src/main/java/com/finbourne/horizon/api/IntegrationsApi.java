@@ -560,6 +560,183 @@ public class IntegrationsApi {
     public APIexecuteInstanceRequest executeInstance(String instanceId) {
         return new APIexecuteInstanceRequest(instanceId);
     }
+    private okhttp3.Call getExecutionIdsForInstanceCall(String instanceId, Integer limit, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/executions/{instanceId}"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getExecutionIdsForInstanceValidateBeforeCall(String instanceId, Integer limit, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling getExecutionIdsForInstance(Async)");
+        }
+
+        return getExecutionIdsForInstanceCall(instanceId, limit, _callback);
+
+    }
+
+
+    private ApiResponse<String> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit) throws ApiException {
+        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, null);
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<String> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, _callback);
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetExecutionIdsForInstanceRequest {
+        private final String instanceId;
+        private Integer limit;
+
+        private APIgetExecutionIdsForInstanceRequest(String instanceId) {
+            this.instanceId = instanceId;
+        }
+
+        /**
+         * Set limit
+         * @param limit Maximum number of returned execution ids (optional)
+         * @return APIgetExecutionIdsForInstanceRequest
+         */
+        public APIgetExecutionIdsForInstanceRequest limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        /**
+         * Build call for getExecutionIdsForInstance
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getExecutionIdsForInstanceCall(instanceId, limit, _callback);
+        }
+
+        /**
+         * Execute getExecutionIdsForInstance request
+         * @return String
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public String execute() throws ApiException {
+            ApiResponse<String> localVarResp = getExecutionIdsForInstanceWithHttpInfo(instanceId, limit);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getExecutionIdsForInstance request with HTTP info returned
+         * @return ApiResponse&lt;String&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<String> executeWithHttpInfo() throws ApiException {
+            return getExecutionIdsForInstanceWithHttpInfo(instanceId, limit);
+        }
+
+        /**
+         * Execute getExecutionIdsForInstance request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
+            return getExecutionIdsForInstanceAsync(instanceId, limit, _callback);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
+     * &lt;br&gt;Get the most recent execution ids for an integration instance.  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param instanceId Instance identifier e.g. \&quot;30dc93c6-a127-46bf-aea8-e466d720b72d\&quot;. (required)
+     * @return APIgetExecutionIdsForInstanceRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetExecutionIdsForInstanceRequest getExecutionIdsForInstance(String instanceId) {
+        return new APIgetExecutionIdsForInstanceRequest(instanceId);
+    }
     private okhttp3.Call getSchemaCall(String integration, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
