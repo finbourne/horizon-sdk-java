@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.393
+  version: 0.1.394
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -369,54 +369,6 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/integrations/executions/{instanceId}:
-    get:
-      description: "<br>Get the most recent execution ids for an integration instance.\r\
-        \n<br />\r\n<br>The user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
-      operationId: GetExecutionIdsForInstance
-      parameters:
-      - description: Instance identifier e.g. "30dc93c6-a127-46bf-aea8-e466d720b72d".
-        explode: false
-        in: path
-        name: instanceId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Maximum number of returned execution ids
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-        x-nullable: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: The execution ids sorted by start date (descending)
-        "404":
-          description: The integration instance does not exist
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance\
-        \ execution ids."
-      tags:
-      - Integrations
-      x-fbn-apistatus: Experimental
-      x-accepts: application/json
   /api/integrations/instances:
     get:
       description: "<br>The user must be authenticated, entitled to call this method,\
@@ -633,6 +585,54 @@ paths:
       security:
       - oauth2: []
       summary: "[EXPERIMENTAL] ExecuteInstance: Execute an integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/instances/{instanceId}/executions:
+    get:
+      description: "<br>Get the most recent execution ids for an integration instance.\r\
+        \n<br />\r\n<br>The user must be authenticated, entitled to call this method,\
+        \ and the user's domain must be licensed for the integration."
+      operationId: GetExecutionIdsForInstance
+      parameters:
+      - description: Instance identifier e.g. "30dc93c6-a127-46bf-aea8-e466d720b72d".
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Maximum number of returned execution ids
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The execution ids sorted by start date (descending)
+        "404":
+          description: The integration instance does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance\
+        \ execution ids."
       tags:
       - Integrations
       x-fbn-apistatus: Experimental

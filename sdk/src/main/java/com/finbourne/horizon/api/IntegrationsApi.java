@@ -577,7 +577,7 @@ public class IntegrationsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/integrations/executions/{instanceId}"
+        String localVarPath = "/api/integrations/instances/{instanceId}/executions"
             .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
