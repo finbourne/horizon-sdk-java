@@ -13,6 +13,7 @@ An incoming request for a Horizon Update Event
 |**schedulerRunId** | **UUID** | The GUID of the schedule run |  |
 |**startTime** | **OffsetDateTime** | When the run was started in UTC |  |
 |**message** | **String** | A descriptive message to accompany the status |  |
+|**processNameOverride** | **String** | Optional Name for how the process appears in Data Feed Monitoring |  [optional] |
 
 
 

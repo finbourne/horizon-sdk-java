@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.396
+  version: 0.1.397
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1298,15 +1298,16 @@ components:
         - filePathAndName: filePathAndName
           fileType: null
         rowsFailed: 1
-        rowsSucceeded: 6
-        rowsTotal: 0
-        startTime: 2000-01-23T04:56:07.000+00:00
-        id: id
         schedulerRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        endTime: 2000-01-23T04:56:07.000+00:00
         rowsIgnored: 5
         message: message
         userId: userId
+        rowsSucceeded: 6
+        processNameOverride: processNameOverride
+        rowsTotal: 0
+        startTime: 2000-01-23T04:56:07.000+00:00
+        id: id
+        endTime: 2000-01-23T04:56:07.000+00:00
         status: null
       properties:
         id:
@@ -1353,6 +1354,10 @@ components:
           items:
             $ref: '#/components/schemas/AuditFileDetails'
           type: array
+        processNameOverride:
+          description: Optional Name for how the process appears in Data Feed Monitoring
+          nullable: true
+          type: string
       required:
       - auditFiles
       - endTime
@@ -1413,6 +1418,7 @@ components:
       additionalProperties: false
       description: An incoming request for a Horizon Update Event
       example:
+        processNameOverride: processNameOverride
         startTime: 2000-01-23T04:56:07.000+00:00
         id: id
         schedulerRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -1435,6 +1441,10 @@ components:
           type: string
         message:
           description: A descriptive message to accompany the status
+          type: string
+        processNameOverride:
+          description: Optional Name for how the process appears in Data Feed Monitoring
+          nullable: true
           type: string
       required:
       - id

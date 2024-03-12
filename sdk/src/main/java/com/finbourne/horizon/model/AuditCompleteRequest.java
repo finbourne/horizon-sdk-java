@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -102,6 +103,10 @@ public class AuditCompleteRequest {
   public static final String SERIALIZED_NAME_AUDIT_FILES = "auditFiles";
   @SerializedName(SERIALIZED_NAME_AUDIT_FILES)
   private List<AuditFileDetails> auditFiles = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_PROCESS_NAME_OVERRIDE = "processNameOverride";
+  @SerializedName(SERIALIZED_NAME_PROCESS_NAME_OVERRIDE)
+  private String processNameOverride;
 
   public AuditCompleteRequest() {
   }
@@ -366,6 +371,27 @@ public class AuditCompleteRequest {
   }
 
 
+  public AuditCompleteRequest processNameOverride(String processNameOverride) {
+    
+    this.processNameOverride = processNameOverride;
+    return this;
+  }
+
+   /**
+   * Optional Name for how the process appears in Data Feed Monitoring
+   * @return processNameOverride
+  **/
+  @jakarta.annotation.Nullable
+  public String getProcessNameOverride() {
+    return processNameOverride;
+  }
+
+
+  public void setProcessNameOverride(String processNameOverride) {
+    this.processNameOverride = processNameOverride;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -387,12 +413,24 @@ public class AuditCompleteRequest {
         Objects.equals(this.rowsSucceeded, auditCompleteRequest.rowsSucceeded) &&
         Objects.equals(this.rowsFailed, auditCompleteRequest.rowsFailed) &&
         Objects.equals(this.rowsIgnored, auditCompleteRequest.rowsIgnored) &&
-        Objects.equals(this.auditFiles, auditCompleteRequest.auditFiles);
+        Objects.equals(this.auditFiles, auditCompleteRequest.auditFiles) &&
+        Objects.equals(this.processNameOverride, auditCompleteRequest.processNameOverride);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, schedulerRunId, startTime, endTime, message, status, rowsTotal, rowsSucceeded, rowsFailed, rowsIgnored, auditFiles);
+    return Objects.hash(id, userId, schedulerRunId, startTime, endTime, message, status, rowsTotal, rowsSucceeded, rowsFailed, rowsIgnored, auditFiles, processNameOverride);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -411,6 +449,7 @@ public class AuditCompleteRequest {
     sb.append("    rowsFailed: ").append(toIndentedString(rowsFailed)).append("\n");
     sb.append("    rowsIgnored: ").append(toIndentedString(rowsIgnored)).append("\n");
     sb.append("    auditFiles: ").append(toIndentedString(auditFiles)).append("\n");
+    sb.append("    processNameOverride: ").append(toIndentedString(processNameOverride)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -445,6 +484,7 @@ public class AuditCompleteRequest {
     openapiFields.add("rowsFailed");
     openapiFields.add("rowsIgnored");
     openapiFields.add("auditFiles");
+    openapiFields.add("processNameOverride");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -504,6 +544,9 @@ public class AuditCompleteRequest {
       for (int i = 0; i < jsonArrayauditFiles.size(); i++) {
         AuditFileDetails.validateJsonElement(jsonArrayauditFiles.get(i));
       };
+      if ((jsonObj.get("processNameOverride") != null && !jsonObj.get("processNameOverride").isJsonNull()) && !jsonObj.get("processNameOverride").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `processNameOverride` to be a primitive type in the JSON string but got `%s`", jsonObj.get("processNameOverride").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

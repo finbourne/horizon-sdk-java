@@ -20,6 +20,7 @@ An incoming request for a Horizon Complete Event
 |**rowsFailed** | **Integer** | The number of data rows that failed to be operated on |  |
 |**rowsIgnored** | **Integer** | The number of data rows that had no actions taken |  |
 |**auditFiles** | [**List&lt;AuditFileDetails&gt;**](AuditFileDetails.md) | A list of file details for attaching to the event |  |
+|**processNameOverride** | **String** | Optional Name for how the process appears in Data Feed Monitoring |  [optional] |
 
 
 

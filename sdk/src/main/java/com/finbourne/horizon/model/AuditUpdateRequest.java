@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,6 +71,10 @@ public class AuditUpdateRequest {
   public static final String SERIALIZED_NAME_MESSAGE = "message";
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
+
+  public static final String SERIALIZED_NAME_PROCESS_NAME_OVERRIDE = "processNameOverride";
+  @SerializedName(SERIALIZED_NAME_PROCESS_NAME_OVERRIDE)
+  private String processNameOverride;
 
   public AuditUpdateRequest() {
   }
@@ -179,6 +184,27 @@ public class AuditUpdateRequest {
   }
 
 
+  public AuditUpdateRequest processNameOverride(String processNameOverride) {
+    
+    this.processNameOverride = processNameOverride;
+    return this;
+  }
+
+   /**
+   * Optional Name for how the process appears in Data Feed Monitoring
+   * @return processNameOverride
+  **/
+  @jakarta.annotation.Nullable
+  public String getProcessNameOverride() {
+    return processNameOverride;
+  }
+
+
+  public void setProcessNameOverride(String processNameOverride) {
+    this.processNameOverride = processNameOverride;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -193,12 +219,24 @@ public class AuditUpdateRequest {
         Objects.equals(this.userId, auditUpdateRequest.userId) &&
         Objects.equals(this.schedulerRunId, auditUpdateRequest.schedulerRunId) &&
         Objects.equals(this.startTime, auditUpdateRequest.startTime) &&
-        Objects.equals(this.message, auditUpdateRequest.message);
+        Objects.equals(this.message, auditUpdateRequest.message) &&
+        Objects.equals(this.processNameOverride, auditUpdateRequest.processNameOverride);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, schedulerRunId, startTime, message);
+    return Objects.hash(id, userId, schedulerRunId, startTime, message, processNameOverride);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -210,6 +248,7 @@ public class AuditUpdateRequest {
     sb.append("    schedulerRunId: ").append(toIndentedString(schedulerRunId)).append("\n");
     sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    processNameOverride: ").append(toIndentedString(processNameOverride)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -237,6 +276,7 @@ public class AuditUpdateRequest {
     openapiFields.add("schedulerRunId");
     openapiFields.add("startTime");
     openapiFields.add("message");
+    openapiFields.add("processNameOverride");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -278,6 +318,9 @@ public class AuditUpdateRequest {
       }
       if (!jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if ((jsonObj.get("processNameOverride") != null && !jsonObj.get("processNameOverride").isJsonNull()) && !jsonObj.get("processNameOverride").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `processNameOverride` to be a primitive type in the JSON string but got `%s`", jsonObj.get("processNameOverride").toString()));
       }
   }
 
