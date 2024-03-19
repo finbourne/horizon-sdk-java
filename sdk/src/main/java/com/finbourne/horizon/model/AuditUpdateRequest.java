@@ -19,7 +19,6 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
-import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
@@ -62,7 +61,7 @@ public class AuditUpdateRequest {
 
   public static final String SERIALIZED_NAME_SCHEDULER_RUN_ID = "schedulerRunId";
   @SerializedName(SERIALIZED_NAME_SCHEDULER_RUN_ID)
-  private UUID schedulerRunId;
+  private String schedulerRunId;
 
   public static final String SERIALIZED_NAME_START_TIME = "startTime";
   @SerializedName(SERIALIZED_NAME_START_TIME)
@@ -121,7 +120,7 @@ public class AuditUpdateRequest {
   }
 
 
-  public AuditUpdateRequest schedulerRunId(UUID schedulerRunId) {
+  public AuditUpdateRequest schedulerRunId(String schedulerRunId) {
     
     this.schedulerRunId = schedulerRunId;
     return this;
@@ -132,12 +131,12 @@ public class AuditUpdateRequest {
    * @return schedulerRunId
   **/
   @jakarta.annotation.Nonnull
-  public UUID getSchedulerRunId() {
+  public String getSchedulerRunId() {
     return schedulerRunId;
   }
 
 
-  public void setSchedulerRunId(UUID schedulerRunId) {
+  public void setSchedulerRunId(String schedulerRunId) {
     this.schedulerRunId = schedulerRunId;
   }
 

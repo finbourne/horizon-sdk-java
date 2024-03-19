@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.408
+  version: 0.1.411
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1298,7 +1298,7 @@ components:
         - filePathAndName: filePathAndName
           fileType: null
         rowsFailed: 1
-        schedulerRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        schedulerRunId: schedulerRunId
         rowsIgnored: 5
         message: message
         userId: userId
@@ -1318,7 +1318,6 @@ components:
           type: string
         schedulerRunId:
           description: The GUID of the schedule run
-          format: uuid
           type: string
         startTime:
           description: When the run was started in UTC
@@ -1421,7 +1420,7 @@ components:
         processNameOverride: processNameOverride
         startTime: 2000-01-23T04:56:07.000+00:00
         id: id
-        schedulerRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        schedulerRunId: schedulerRunId
         message: message
         userId: userId
       properties:
@@ -1433,7 +1432,6 @@ components:
           type: string
         schedulerRunId:
           description: The GUID of the schedule run
-          format: uuid
           type: string
         startTime:
           description: When the run was started in UTC
