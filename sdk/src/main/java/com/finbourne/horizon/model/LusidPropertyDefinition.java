@@ -89,12 +89,10 @@ public class LusidPropertyDefinition {
   public LusidPropertyDefinition() {
   }
 
-  
-  public LusidPropertyDefinition(
-     String key
-  ) {
-    this();
+  public LusidPropertyDefinition key(String key) {
+    
     this.key = key;
+    return this;
   }
 
    /**
@@ -107,6 +105,9 @@ public class LusidPropertyDefinition {
   }
 
 
+  public void setKey(String key) {
+    this.key = key;
+  }
 
 
   public LusidPropertyDefinition domain(String domain) {

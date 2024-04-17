@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.443
+  version: 0.1.444
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1117,10 +1117,10 @@ paths:
         content:
           application/json-patch+json:
             example:
-              Domain/LUSID-Scope/Code1:
+              "0":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
-              Domain/LUSID-Scope/Code2:
+              "1":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
             schema:
@@ -1129,10 +1129,10 @@ paths:
               type: object
           application/json:
             example:
-              Domain/LUSID-Scope/Code1:
+              "0":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
-              Domain/LUSID-Scope/Code2:
+              "1":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
             schema:
@@ -1141,10 +1141,10 @@ paths:
               type: object
           text/json:
             example:
-              Domain/LUSID-Scope/Code1:
+              "0":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
-              Domain/LUSID-Scope/Code2:
+              "1":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
             schema:
@@ -1153,10 +1153,10 @@ paths:
               type: object
           application/*+json:
             example:
-              Domain/LUSID-Scope/Code1:
+              "0":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
-              Domain/LUSID-Scope/Code2:
+              "1":
                 displayNameOverride: descriptionOverride
                 descriptionOverride: displayNameOverride
             schema:
@@ -1240,7 +1240,7 @@ paths:
             application/json:
               example:
               - property:
-                  key: Instrument/Lusid-horizon/example-code
+                  key: "0"
                   domain: Instrument
                   scope: Lusid-horizon
                   code: example-code
@@ -1838,7 +1838,7 @@ components:
       properties:
         key:
           description: Property key associated with the mapping
-          readOnly: true
+          minLength: 1
           type: string
         domain:
           description: The domain of this definition.
