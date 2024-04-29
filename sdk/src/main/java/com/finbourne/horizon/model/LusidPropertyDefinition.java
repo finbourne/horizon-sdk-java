@@ -54,6 +54,10 @@ public class LusidPropertyDefinition {
   @SerializedName(SERIALIZED_NAME_KEY)
   private String key;
 
+  public static final String SERIALIZED_NAME_PRODUCT_ENTITY_ITEM_KEY = "productEntityItemKey";
+  @SerializedName(SERIALIZED_NAME_PRODUCT_ENTITY_ITEM_KEY)
+  private String productEntityItemKey;
+
   public static final String SERIALIZED_NAME_DOMAIN = "domain";
   @SerializedName(SERIALIZED_NAME_DOMAIN)
   private String domain;
@@ -89,14 +93,16 @@ public class LusidPropertyDefinition {
   public LusidPropertyDefinition() {
   }
 
-  public LusidPropertyDefinition key(String key) {
-    
+  
+  public LusidPropertyDefinition(
+     String key
+  ) {
+    this();
     this.key = key;
-    return this;
   }
 
    /**
-   * Property key associated with the mapping
+   * Get key
    * @return key
   **/
   @jakarta.annotation.Nonnull
@@ -105,8 +111,26 @@ public class LusidPropertyDefinition {
   }
 
 
-  public void setKey(String key) {
-    this.key = key;
+
+
+  public LusidPropertyDefinition productEntityItemKey(String productEntityItemKey) {
+    
+    this.productEntityItemKey = productEntityItemKey;
+    return this;
+  }
+
+   /**
+   * Property key associated with the mapping
+   * @return productEntityItemKey
+  **/
+  @jakarta.annotation.Nonnull
+  public String getProductEntityItemKey() {
+    return productEntityItemKey;
+  }
+
+
+  public void setProductEntityItemKey(String productEntityItemKey) {
+    this.productEntityItemKey = productEntityItemKey;
   }
 
 
@@ -289,6 +313,7 @@ public class LusidPropertyDefinition {
     }
     LusidPropertyDefinition lusidPropertyDefinition = (LusidPropertyDefinition) o;
     return Objects.equals(this.key, lusidPropertyDefinition.key) &&
+        Objects.equals(this.productEntityItemKey, lusidPropertyDefinition.productEntityItemKey) &&
         Objects.equals(this.domain, lusidPropertyDefinition.domain) &&
         Objects.equals(this.scope, lusidPropertyDefinition.scope) &&
         Objects.equals(this.code, lusidPropertyDefinition.code) &&
@@ -301,7 +326,7 @@ public class LusidPropertyDefinition {
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, domain, scope, code, displayName, dataTypeId, description, lifetime, constraintStyle);
+    return Objects.hash(key, productEntityItemKey, domain, scope, code, displayName, dataTypeId, description, lifetime, constraintStyle);
   }
 
   @Override
@@ -309,6 +334,7 @@ public class LusidPropertyDefinition {
     StringBuilder sb = new StringBuilder();
     sb.append("class LusidPropertyDefinition {\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    productEntityItemKey: ").append(toIndentedString(productEntityItemKey)).append("\n");
     sb.append("    domain: ").append(toIndentedString(domain)).append("\n");
     sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
@@ -340,6 +366,7 @@ public class LusidPropertyDefinition {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("key");
+    openapiFields.add("productEntityItemKey");
     openapiFields.add("domain");
     openapiFields.add("scope");
     openapiFields.add("code");
@@ -352,6 +379,7 @@ public class LusidPropertyDefinition {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("key");
+    openapiRequiredFields.add("productEntityItemKey");
     openapiRequiredFields.add("domain");
     openapiRequiredFields.add("scope");
     openapiRequiredFields.add("code");
@@ -384,6 +412,9 @@ public class LusidPropertyDefinition {
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if (!jsonObj.get("key").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `key` to be a primitive type in the JSON string but got `%s`", jsonObj.get("key").toString()));
+      }
+      if (!jsonObj.get("productEntityItemKey").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `productEntityItemKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("productEntityItemKey").toString()));
       }
       if (!jsonObj.get("domain").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `domain` to be a primitive type in the JSON string but got `%s`", jsonObj.get("domain").toString()));

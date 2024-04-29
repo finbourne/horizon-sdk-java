@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.447
+  version: 0.1.448
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1241,6 +1241,7 @@ paths:
               example:
               - property:
                   key: "0"
+                  productEntityItemKey: "0"
                   domain: Instrument
                   scope: Lusid-horizon
                   code: example-code
@@ -1826,6 +1827,7 @@ components:
       example:
         constraintStyle: constraintStyle
         code: code
+        productEntityItemKey: productEntityItemKey
         displayName: displayName
         domain: domain
         scope: scope
@@ -1837,6 +1839,9 @@ components:
         key: key
       properties:
         key:
+          readOnly: true
+          type: string
+        productEntityItemKey:
           description: Property key associated with the mapping
           minLength: 1
           type: string
@@ -1878,6 +1883,7 @@ components:
       - domain
       - key
       - lifetime
+      - productEntityItemKey
       - scope
       type: object
     LusidPropertyDefinitionOverrides:
@@ -1933,6 +1939,7 @@ components:
         property:
           constraintStyle: constraintStyle
           code: code
+          productEntityItemKey: productEntityItemKey
           displayName: displayName
           domain: domain
           scope: scope

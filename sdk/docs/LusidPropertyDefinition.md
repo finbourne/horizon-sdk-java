@@ -8,7 +8,8 @@ Defines the information in a LUSID Property Definition
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**key** | **String** | Property key associated with the mapping |  |
+|**key** | **String** |  |  [readonly] |
+|**productEntityItemKey** | **String** | Property key associated with the mapping |  |
 |**domain** | **String** | The domain of this definition. |  |
 |**scope** | **String** | The scope of this definition. |  |
 |**code** | **String** | The code of this definition. |  |
