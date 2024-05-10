@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.464
+  version: 0.1.465
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1240,11 +1240,11 @@ paths:
             application/json:
               example:
               - property:
-                  key: "0"
+                  key: Domain/LUSID-Scope/Code1
                   productEntityItemKey: "0"
-                  domain: Instrument
-                  scope: Lusid-horizon
-                  code: example-code
+                  domain: Domain
+                  scope: LUSID-Scope
+                  code: Code1
                   displayName: Example Property
                   dataTypeId:
                     scope: data-type-id-scope
