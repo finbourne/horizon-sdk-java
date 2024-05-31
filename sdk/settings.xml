@@ -9,14 +9,6 @@
       <id>ossrh</id>
       <username>finbourne</username>
       <password>${env.MAVEN_TOKEN}</password>
-      <configuration>
-        <httpConfiguration>
-            <all>
-                <connectionTimeout>300000</connectionTimeout>
-                <readTimeout>600000</readTimeout>
-            </all>
-        </httpConfiguration>
-      </configuration>
     </server>
   </servers>
 
