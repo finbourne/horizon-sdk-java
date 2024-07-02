@@ -46,7 +46,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Denormalised information about vendors, the products they provide and the LUSID entity types hey can be ued to populate.
+ * Denormalised information about vendors, the products they provide and the LUSID entity types they can be used to populate.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VendorProduct {

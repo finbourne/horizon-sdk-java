@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.587
+  version: 0.1.588
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2842,7 +2842,7 @@ components:
     VendorProduct:
       additionalProperties: false
       description: "Denormalised information about vendors, the products they provide\
-        \ and the LUSID entity types hey can be ued to populate."
+        \ and the LUSID entity types they can be used to populate."
       example:
         vendorName: vendorName
         vendorProductKey: vendorProductKey
