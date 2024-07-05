@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.600
+  version: 0.1.601
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -386,7 +386,9 @@ paths:
                 enabled: true
                 triggers:
                 - type: time
-                  cronExpression: 0 0 2 ? generate justfile test_sdk *
+                  cronExpression: 0 0 2 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    *
                   timeZone: UTC
                 details:
                   paymentSystemsCalendar:
@@ -426,7 +428,9 @@ paths:
               enabled: false
               triggers:
               - type: time
-                cronExpression: 0 0 2 ? generate justfile test_sdk *
+                cronExpression: 0 0 2 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                  docker-compose.yml docs generate justfile publish resources test_sdk
+                  *
                 timeZone: UTC
               details:
                 paymentSystemsCalendar:
@@ -521,7 +525,9 @@ paths:
               enabled: false
               triggers:
               - type: time
-                cronExpression: 0 0 5 ? generate justfile test_sdk *
+                cronExpression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                  docker-compose.yml docs generate justfile publish resources test_sdk
+                  *
                 timeZone: UTC
               details:
                 paymentSystemsCalendar:
