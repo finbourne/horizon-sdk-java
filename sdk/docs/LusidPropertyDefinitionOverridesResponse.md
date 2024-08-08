@@ -16,3 +16,6 @@ An item that has been updated as a result of setting LusidPropertyDefinitionOver
 
 
 
+[Back to Model list](../README.md#documentation-for-models) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to README](../README.md)
+
+

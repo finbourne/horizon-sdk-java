@@ -12,3 +12,6 @@ Defines the information that can be used to query a set of data.
 
 
 
+[Back to Model list](../README.md#documentation-for-models) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to README](../README.md)
+
+

@@ -12,49 +12,60 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**vendors**](InstrumentApi.md#vendors) | **GET** /api/instrument/onboarding/vendors | [EARLY ACCESS] Vendors: Gets the VendorProducts of any supported and licenced integrations for a given market sector and security type. |
 
 
-<a id="createInstrument"></a>
-# **createInstrument**
-> OnboardInstrumentResponse createInstrument(onboardInstrumentRequest).execute();
+
+## createInstrument
+
+> OnboardInstrumentResponse createInstrument(onboardInstrumentRequest)
 
 [EARLY ACCESS] CreateInstrument: Creates and masters instruments with third party vendors.
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.horizon.ApiClient;
-import com.finbourne.horizon.ApiException;
-import com.finbourne.horizon.Configuration;
-import com.finbourne.horizon.auth.*;
-import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.model.*;
 import com.finbourne.horizon.api.InstrumentApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
-    OnboardInstrumentRequest onboardInstrumentRequest = new OnboardInstrumentRequest(); // OnboardInstrumentRequest | 
-    try {
-      OnboardInstrumentResponse result = apiInstance.createInstrument(onboardInstrumentRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InstrumentApi#createInstrument");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class InstrumentApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
+        OnboardInstrumentRequest onboardInstrumentRequest = new OnboardInstrumentRequest(); // OnboardInstrumentRequest | 
+        try {
+            OnboardInstrumentResponse result = apiInstance.createInstrument(onboardInstrumentRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling InstrumentApi#createInstrument");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -64,14 +75,11 @@ public class Example {
 
 [**OnboardInstrumentResponse**](OnboardInstrumentResponse.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -80,50 +88,63 @@ public class Example {
 | **400** | Bad Request |  -  |
 | **0** | Error response |  -  |
 
-<a id="enrichInstrument"></a>
-# **enrichInstrument**
-> EnrichmentResponse enrichInstrument(vendorProductKey, identifiers).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## enrichInstrument
+
+> EnrichmentResponse enrichInstrument(vendorProductKey, identifiers)
 
 [EARLY ACCESS] EnrichInstrument: Enriches an existing LUSID instrument using vendor data. Enrichment included identifiers, properties and market data.
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.horizon.ApiClient;
-import com.finbourne.horizon.ApiException;
-import com.finbourne.horizon.Configuration;
-import com.finbourne.horizon.auth.*;
-import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.model.*;
 import com.finbourne.horizon.api.InstrumentApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
-    String vendorProductKey = "vendorProductKey_example"; // String | 
-    Identifiers identifiers = new Identifiers(); // Identifiers | 
-    try {
-      EnrichmentResponse result = apiInstance.enrichInstrument(vendorProductKey, identifiers)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InstrumentApi#enrichInstrument");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class InstrumentApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
+        String vendorProductKey = "vendorProductKey_example"; // String | 
+        Identifiers identifiers = new Identifiers(); // Identifiers | 
+        try {
+            EnrichmentResponse result = apiInstance.enrichInstrument(vendorProductKey, identifiers).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling InstrumentApi#enrichInstrument");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -134,14 +155,11 @@ public class Example {
 
 [**EnrichmentResponse**](EnrichmentResponse.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -150,49 +168,62 @@ public class Example {
 | **400** | Bad Request |  -  |
 | **0** | Error response |  -  |
 
-<a id="getOpenFigiParameterOption"></a>
-# **getOpenFigiParameterOption**
-> List&lt;AllowedParameterValue&gt; getOpenFigiParameterOption(parameterName).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getOpenFigiParameterOption
+
+> List&lt;AllowedParameterValue&gt; getOpenFigiParameterOption(parameterName)
 
 [EARLY ACCESS] GetOpenFigiParameterOption: Get all supported market sector values for OpenFigi search
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.horizon.ApiClient;
-import com.finbourne.horizon.ApiException;
-import com.finbourne.horizon.Configuration;
-import com.finbourne.horizon.auth.*;
-import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.model.*;
 import com.finbourne.horizon.api.InstrumentApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
-    OpenFigiParameterOptionName parameterName = OpenFigiParameterOptionName.fromValue("IdType"); // OpenFigiParameterOptionName | 
-    try {
-      List<AllowedParameterValue> result = apiInstance.getOpenFigiParameterOption(parameterName)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InstrumentApi#getOpenFigiParameterOption");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class InstrumentApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
+        OpenFigiParameterOptionName parameterName = OpenFigiParameterOptionName.fromValue("IdType"); // OpenFigiParameterOptionName | 
+        try {
+            List<AllowedParameterValue> result = apiInstance.getOpenFigiParameterOption(parameterName).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling InstrumentApi#getOpenFigiParameterOption");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -202,14 +233,11 @@ public class Example {
 
 [**List&lt;AllowedParameterValue&gt;**](AllowedParameterValue.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -217,49 +245,62 @@ public class Example {
 | **200** | Success |  -  |
 | **0** | Error response |  -  |
 
-<a id="retrievePermIdResult"></a>
-# **retrievePermIdResult**
-> List&lt;PermIdData&gt; retrievePermIdResult(id).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## retrievePermIdResult
+
+> List&lt;PermIdData&gt; retrievePermIdResult(id)
 
 [EARLY ACCESS] RetrievePermIdResult: Retrieve PermId results from a previous query.
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.horizon.ApiClient;
-import com.finbourne.horizon.ApiException;
-import com.finbourne.horizon.Configuration;
-import com.finbourne.horizon.auth.*;
-import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.model.*;
 import com.finbourne.horizon.api.InstrumentApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
-    String id = "id_example"; // String | The execution ID returned by a previous query
-    try {
-      List<PermIdData> result = apiInstance.retrievePermIdResult(id)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InstrumentApi#retrievePermIdResult");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class InstrumentApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
+        String id = "id_example"; // String | The execution ID returned by a previous query
+        try {
+            List<PermIdData> result = apiInstance.retrievePermIdResult(id).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling InstrumentApi#retrievePermIdResult");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -269,14 +310,11 @@ public class Example {
 
 [**List&lt;PermIdData&gt;**](PermIdData.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -284,54 +322,65 @@ public class Example {
 | **200** | Success |  -  |
 | **0** | Error response |  -  |
 
-<a id="searchOpenFigi"></a>
-# **searchOpenFigi**
-> OpenFigiSearchResult searchOpenFigi(query, usePermId).limit(limit).marketSector(marketSector).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## searchOpenFigi
+
+> OpenFigiSearchResult searchOpenFigi(query, usePermId, limit, marketSector)
 
 [EARLY ACCESS] SearchOpenFigi: Search OpenFigi for instruments that match the specified terms.
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.horizon.ApiClient;
-import com.finbourne.horizon.ApiException;
-import com.finbourne.horizon.Configuration;
-import com.finbourne.horizon.auth.*;
-import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.model.*;
 import com.finbourne.horizon.api.InstrumentApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
-    String query = "query_example"; // String | 
-    Boolean usePermId = false; // Boolean | Should also search PermId for additional information, defaults to `false`.
-    Integer limit = 25; // Integer | Only affects results rom OpenFigi general text search
-    String marketSector = "All"; // String | The market sector to search, defaults to `All`.
-    try {
-      OpenFigiSearchResult result = apiInstance.searchOpenFigi(query, usePermId)
-            .limit(limit)
-            .marketSector(marketSector)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InstrumentApi#searchOpenFigi");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class InstrumentApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
+        String query = "query_example"; // String | 
+        Boolean usePermId = false; // Boolean | Should also search PermId for additional information, defaults to `false`.
+        Integer limit = 25; // Integer | Only affects results rom OpenFigi general text search
+        String marketSector = "All"; // String | The market sector to search, defaults to `All`.
+        try {
+            OpenFigiSearchResult result = apiInstance.searchOpenFigi(query, usePermId, limit, marketSector).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling InstrumentApi#searchOpenFigi");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -344,14 +393,11 @@ public class Example {
 
 [**OpenFigiSearchResult**](OpenFigiSearchResult.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -359,52 +405,64 @@ public class Example {
 | **200** | Success |  -  |
 | **0** | Error response |  -  |
 
-<a id="vendors"></a>
-# **vendors**
-> List&lt;VendorProduct&gt; vendors(marketSector, securityType).limit(limit).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## vendors
+
+> List&lt;VendorProduct&gt; vendors(marketSector, securityType, limit)
 
 [EARLY ACCESS] Vendors: Gets the VendorProducts of any supported and licenced integrations for a given market sector and security type.
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.horizon.ApiClient;
-import com.finbourne.horizon.ApiException;
-import com.finbourne.horizon.Configuration;
-import com.finbourne.horizon.auth.*;
-import com.finbourne.horizon.models.*;
+import com.finbourne.horizon.model.*;
 import com.finbourne.horizon.api.InstrumentApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/horizon");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    InstrumentApi apiInstance = new InstrumentApi(defaultClient);
-    String marketSector = "marketSector_example"; // String | 
-    String securityType = "securityType_example"; // String | 
-    Integer limit = 56; // Integer | 
-    try {
-      List<VendorProduct> result = apiInstance.vendors(marketSector, securityType)
-            .limit(limit)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling InstrumentApi#vendors");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class InstrumentApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
+        String marketSector = "marketSector_example"; // String | 
+        String securityType = "securityType_example"; // String | 
+        Integer limit = 56; // Integer | 
+        try {
+            List<VendorProduct> result = apiInstance.vendors(marketSector, securityType, limit).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling InstrumentApi#vendors");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -416,14 +474,11 @@ public class Example {
 
 [**List&lt;VendorProduct&gt;**](VendorProduct.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -431,4 +486,6 @@ public class Example {
 | **200** | Success |  -  |
 | **400** | Bad Request |  -  |
 | **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
