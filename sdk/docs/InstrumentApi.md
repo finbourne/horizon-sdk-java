@@ -410,7 +410,7 @@ public class InstrumentApiExample {
 
 ## vendors
 
-> List&lt;VendorProduct&gt; vendors(marketSector, securityType, limit)
+> List&lt;VendorProduct&gt; vendors(marketSector, securityType, generalSecurityType)
 
 [EARLY ACCESS] Vendors: Gets the VendorProducts of any supported and licenced integrations for a given market sector and security type.
 
@@ -447,9 +447,9 @@ public class InstrumentApiExample {
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         String marketSector = "marketSector_example"; // String | 
         String securityType = "securityType_example"; // String | 
-        Integer limit = 56; // Integer | 
+        String generalSecurityType = "generalSecurityType_example"; // String | 
         try {
-            List<VendorProduct> result = apiInstance.vendors(marketSector, securityType, limit).execute();
+            List<VendorProduct> result = apiInstance.vendors(marketSector, securityType, generalSecurityType).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling InstrumentApi#vendors");
@@ -468,7 +468,7 @@ public class InstrumentApiExample {
 |------------- | ------------- | ------------- | -------------|
 | **marketSector** | **String**|  | |
 | **securityType** | **String**|  | |
-| **limit** | **Integer**|  | [optional] |
+| **generalSecurityType** | **String**|  | |
 
 ### Return type
 

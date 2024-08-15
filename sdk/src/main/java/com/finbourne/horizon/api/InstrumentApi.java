@@ -940,7 +940,7 @@ public class InstrumentApi {
     public APIsearchOpenFigiRequest searchOpenFigi(String query, Boolean usePermId) {
         return new APIsearchOpenFigiRequest(query, usePermId);
     }
-    private okhttp3.Call vendorsCall(String marketSector, String securityType, Integer limit, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call vendorsCall(String marketSector, String securityType, String generalSecurityType, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -973,8 +973,8 @@ public class InstrumentApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("securityType", securityType));
         }
 
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        if (generalSecurityType != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("generalSecurityType", generalSecurityType));
         }
 
         final String[] localVarAccepts = {
@@ -997,7 +997,7 @@ public class InstrumentApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call vendorsValidateBeforeCall(String marketSector, String securityType, Integer limit, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call vendorsValidateBeforeCall(String marketSector, String securityType, String generalSecurityType, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'marketSector' is set
         if (marketSector == null) {
             throw new ApiException("Missing the required parameter 'marketSector' when calling vendors(Async)");
@@ -1008,20 +1008,25 @@ public class InstrumentApi {
             throw new ApiException("Missing the required parameter 'securityType' when calling vendors(Async)");
         }
 
-        return vendorsCall(marketSector, securityType, limit, _callback);
+        // verify the required parameter 'generalSecurityType' is set
+        if (generalSecurityType == null) {
+            throw new ApiException("Missing the required parameter 'generalSecurityType' when calling vendors(Async)");
+        }
+
+        return vendorsCall(marketSector, securityType, generalSecurityType, _callback);
 
     }
 
 
-    private ApiResponse<List<VendorProduct>> vendorsWithHttpInfo(String marketSector, String securityType, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, limit, null);
+    private ApiResponse<List<VendorProduct>> vendorsWithHttpInfo(String marketSector, String securityType, String generalSecurityType) throws ApiException {
+        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, null);
         Type localVarReturnType = new TypeToken<List<VendorProduct>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call vendorsAsync(String marketSector, String securityType, Integer limit, final ApiCallback<List<VendorProduct>> _callback) throws ApiException {
+    private okhttp3.Call vendorsAsync(String marketSector, String securityType, String generalSecurityType, final ApiCallback<List<VendorProduct>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, limit, _callback);
+        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, _callback);
         Type localVarReturnType = new TypeToken<List<VendorProduct>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1030,21 +1035,12 @@ public class InstrumentApi {
     public class APIvendorsRequest {
         private final String marketSector;
         private final String securityType;
-        private Integer limit;
+        private final String generalSecurityType;
 
-        private APIvendorsRequest(String marketSector, String securityType) {
+        private APIvendorsRequest(String marketSector, String securityType, String generalSecurityType) {
             this.marketSector = marketSector;
             this.securityType = securityType;
-        }
-
-        /**
-         * Set limit
-         * @param limit  (optional)
-         * @return APIvendorsRequest
-         */
-        public APIvendorsRequest limit(Integer limit) {
-            this.limit = limit;
-            return this;
+            this.generalSecurityType = generalSecurityType;
         }
 
         /**
@@ -1061,7 +1057,7 @@ public class InstrumentApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return vendorsCall(marketSector, securityType, limit, _callback);
+            return vendorsCall(marketSector, securityType, generalSecurityType, _callback);
         }
 
         /**
@@ -1077,7 +1073,7 @@ public class InstrumentApi {
          </table>
          */
         public List<VendorProduct> execute() throws ApiException {
-            ApiResponse<List<VendorProduct>> localVarResp = vendorsWithHttpInfo(marketSector, securityType, limit);
+            ApiResponse<List<VendorProduct>> localVarResp = vendorsWithHttpInfo(marketSector, securityType, generalSecurityType);
             return localVarResp.getData();
         }
 
@@ -1094,7 +1090,7 @@ public class InstrumentApi {
          </table>
          */
         public ApiResponse<List<VendorProduct>> executeWithHttpInfo() throws ApiException {
-            return vendorsWithHttpInfo(marketSector, securityType, limit);
+            return vendorsWithHttpInfo(marketSector, securityType, generalSecurityType);
         }
 
         /**
@@ -1111,7 +1107,7 @@ public class InstrumentApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<VendorProduct>> _callback) throws ApiException {
-            return vendorsAsync(marketSector, securityType, limit, _callback);
+            return vendorsAsync(marketSector, securityType, generalSecurityType, _callback);
         }
     }
 
@@ -1120,6 +1116,7 @@ public class InstrumentApi {
      * 
      * @param marketSector  (required)
      * @param securityType  (required)
+     * @param generalSecurityType  (required)
      * @return APIvendorsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1129,7 +1126,7 @@ public class InstrumentApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIvendorsRequest vendors(String marketSector, String securityType) {
-        return new APIvendorsRequest(marketSector, securityType);
+    public APIvendorsRequest vendors(String marketSector, String securityType, String generalSecurityType) {
+        return new APIvendorsRequest(marketSector, securityType, generalSecurityType);
     }
 }

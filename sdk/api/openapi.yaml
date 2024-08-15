@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.639
+  version: 0.1.651
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -289,13 +289,11 @@ paths:
       - description: ""
         explode: true
         in: query
-        name: limit
-        required: false
+        name: generalSecurityType
+        required: true
         schema:
-          format: int32
-          type: integer
+          type: string
         style: form
-        x-nullable: true
       responses:
         "200":
           content:
