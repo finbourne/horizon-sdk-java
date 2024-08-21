@@ -47,7 +47,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * The mapping of a LUSID Property to the Vendor Field that would populate it
+ * The mapping of a LUSID Property from the Vendor Field that would populate it
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LusidPropertyToVendorFieldMapping {

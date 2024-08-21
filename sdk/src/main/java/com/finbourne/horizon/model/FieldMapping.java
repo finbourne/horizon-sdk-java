@@ -11,6 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.VendorField;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -48,10 +49,10 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * A field on a LUSID entity
+ * Mapping from a set of Vendor Fields to a LUSID core entity field
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class LusidField {
+public class FieldMapping {
   public static final String SERIALIZED_NAME_FIELD_NAME = "fieldName";
   @SerializedName(SERIALIZED_NAME_FIELD_NAME)
   private String fieldName;
@@ -60,17 +61,9 @@ public class LusidField {
   @SerializedName(SERIALIZED_NAME_DEFAULT_VALUE)
   private String defaultValue;
 
-  public static final String SERIALIZED_NAME_VENDOR_PACKAGES = "vendorPackages";
-  @SerializedName(SERIALIZED_NAME_VENDOR_PACKAGES)
-  private List<String> vendorPackages = new ArrayList<>();
-
-  public static final String SERIALIZED_NAME_VENDOR_NAMESPACES = "vendorNamespaces";
-  @SerializedName(SERIALIZED_NAME_VENDOR_NAMESPACES)
-  private List<String> vendorNamespaces = new ArrayList<>();
-
   public static final String SERIALIZED_NAME_VENDOR_FIELDS = "vendorFields";
   @SerializedName(SERIALIZED_NAME_VENDOR_FIELDS)
-  private List<String> vendorFields = new ArrayList<>();
+  private List<VendorField> vendorFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TRANSFORMATION_DESCRIPTION = "transformationDescription";
   @SerializedName(SERIALIZED_NAME_TRANSFORMATION_DESCRIPTION)
@@ -84,17 +77,21 @@ public class LusidField {
   @SerializedName(SERIALIZED_NAME_ENTITY_SUB_TYPE)
   private String entitySubType;
 
-  public LusidField() {
+  public static final String SERIALIZED_NAME_VERSIONS = "versions";
+  @SerializedName(SERIALIZED_NAME_VERSIONS)
+  private List<String> versions = new ArrayList<>();
+
+  public FieldMapping() {
   }
 
-  public LusidField fieldName(String fieldName) {
+  public FieldMapping fieldName(String fieldName) {
     
     this.fieldName = fieldName;
     return this;
   }
 
    /**
-   * The name of the LUSID field.
+   * The LUSID core entity field
    * @return fieldName
   **/
   @jakarta.annotation.Nonnull
@@ -108,14 +105,14 @@ public class LusidField {
   }
 
 
-  public LusidField defaultValue(String defaultValue) {
+  public FieldMapping defaultValue(String defaultValue) {
     
     this.defaultValue = defaultValue;
     return this;
   }
 
    /**
-   * The default value for the field.
+   * Default value if needed
    * @return defaultValue
   **/
   @jakarta.annotation.Nullable
@@ -129,71 +126,13 @@ public class LusidField {
   }
 
 
-  public LusidField vendorPackages(List<String> vendorPackages) {
-    
-    this.vendorPackages = vendorPackages;
-    return this;
-  }
-
-  public LusidField addVendorPackagesItem(String vendorPackagesItem) {
-    if (this.vendorPackages == null) {
-      this.vendorPackages = new ArrayList<>();
-    }
-    this.vendorPackages.add(vendorPackagesItem);
-    return this;
-  }
-
-   /**
-   * The vendor package that contributes to this LUSID field.
-   * @return vendorPackages
-  **/
-  @jakarta.annotation.Nonnull
-  public List<String> getVendorPackages() {
-    return vendorPackages;
-  }
-
-
-  public void setVendorPackages(List<String> vendorPackages) {
-    this.vendorPackages = vendorPackages;
-  }
-
-
-  public LusidField vendorNamespaces(List<String> vendorNamespaces) {
-    
-    this.vendorNamespaces = vendorNamespaces;
-    return this;
-  }
-
-  public LusidField addVendorNamespacesItem(String vendorNamespacesItem) {
-    if (this.vendorNamespaces == null) {
-      this.vendorNamespaces = new ArrayList<>();
-    }
-    this.vendorNamespaces.add(vendorNamespacesItem);
-    return this;
-  }
-
-   /**
-   * The vendor namespace that contributes to this LUSID field.
-   * @return vendorNamespaces
-  **/
-  @jakarta.annotation.Nonnull
-  public List<String> getVendorNamespaces() {
-    return vendorNamespaces;
-  }
-
-
-  public void setVendorNamespaces(List<String> vendorNamespaces) {
-    this.vendorNamespaces = vendorNamespaces;
-  }
-
-
-  public LusidField vendorFields(List<String> vendorFields) {
+  public FieldMapping vendorFields(List<VendorField> vendorFields) {
     
     this.vendorFields = vendorFields;
     return this;
   }
 
-  public LusidField addVendorFieldsItem(String vendorFieldsItem) {
+  public FieldMapping addVendorFieldsItem(VendorField vendorFieldsItem) {
     if (this.vendorFields == null) {
       this.vendorFields = new ArrayList<>();
     }
@@ -202,28 +141,28 @@ public class LusidField {
   }
 
    /**
-   * The underlying fields on the vendor package that contribute to this LUSID field
+   * Fields that will be used to map to this field
    * @return vendorFields
   **/
   @jakarta.annotation.Nonnull
-  public List<String> getVendorFields() {
+  public List<VendorField> getVendorFields() {
     return vendorFields;
   }
 
 
-  public void setVendorFields(List<String> vendorFields) {
+  public void setVendorFields(List<VendorField> vendorFields) {
     this.vendorFields = vendorFields;
   }
 
 
-  public LusidField transformationDescription(String transformationDescription) {
+  public FieldMapping transformationDescription(String transformationDescription) {
     
     this.transformationDescription = transformationDescription;
     return this;
   }
 
    /**
-   * A description of how the vendor package&#39;s field(s) get mapped to the LUSID field
+   * The transformation, if required, to map from VendorFields to the LUSID Property
    * @return transformationDescription
   **/
   @jakarta.annotation.Nullable
@@ -237,14 +176,14 @@ public class LusidField {
   }
 
 
-  public LusidField entityType(String entityType) {
+  public FieldMapping entityType(String entityType) {
     
     this.entityType = entityType;
     return this;
   }
 
    /**
-   * LUSID Entity this refers to (e.g. Instrument)
+   * The LUSID Entity this is valid for
    * @return entityType
   **/
   @jakarta.annotation.Nonnull
@@ -258,14 +197,14 @@ public class LusidField {
   }
 
 
-  public LusidField entitySubType(String entitySubType) {
+  public FieldMapping entitySubType(String entitySubType) {
     
     this.entitySubType = entitySubType;
     return this;
   }
 
    /**
-   * Sub-Entity this field refers to (e.g. Equity)
+   * The LUSID Entity sub type this is valid for
    * @return entitySubType
   **/
   @jakarta.annotation.Nullable
@@ -279,6 +218,35 @@ public class LusidField {
   }
 
 
+  public FieldMapping versions(List<String> versions) {
+    
+    this.versions = versions;
+    return this;
+  }
+
+  public FieldMapping addVersionsItem(String versionsItem) {
+    if (this.versions == null) {
+      this.versions = new ArrayList<>();
+    }
+    this.versions.add(versionsItem);
+    return this;
+  }
+
+   /**
+   * The versions of the Vendor integration this mapping is valid for
+   * @return versions
+  **/
+  @jakarta.annotation.Nonnull
+  public List<String> getVersions() {
+    return versions;
+  }
+
+
+  public void setVersions(List<String> versions) {
+    this.versions = versions;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -288,15 +256,14 @@ public class LusidField {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LusidField lusidField = (LusidField) o;
-    return Objects.equals(this.fieldName, lusidField.fieldName) &&
-        Objects.equals(this.defaultValue, lusidField.defaultValue) &&
-        Objects.equals(this.vendorPackages, lusidField.vendorPackages) &&
-        Objects.equals(this.vendorNamespaces, lusidField.vendorNamespaces) &&
-        Objects.equals(this.vendorFields, lusidField.vendorFields) &&
-        Objects.equals(this.transformationDescription, lusidField.transformationDescription) &&
-        Objects.equals(this.entityType, lusidField.entityType) &&
-        Objects.equals(this.entitySubType, lusidField.entitySubType);
+    FieldMapping fieldMapping = (FieldMapping) o;
+    return Objects.equals(this.fieldName, fieldMapping.fieldName) &&
+        Objects.equals(this.defaultValue, fieldMapping.defaultValue) &&
+        Objects.equals(this.vendorFields, fieldMapping.vendorFields) &&
+        Objects.equals(this.transformationDescription, fieldMapping.transformationDescription) &&
+        Objects.equals(this.entityType, fieldMapping.entityType) &&
+        Objects.equals(this.entitySubType, fieldMapping.entitySubType) &&
+        Objects.equals(this.versions, fieldMapping.versions);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -305,7 +272,7 @@ public class LusidField {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fieldName, defaultValue, vendorPackages, vendorNamespaces, vendorFields, transformationDescription, entityType, entitySubType);
+    return Objects.hash(fieldName, defaultValue, vendorFields, transformationDescription, entityType, entitySubType, versions);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -318,15 +285,14 @@ public class LusidField {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class LusidField {\n");
+    sb.append("class FieldMapping {\n");
     sb.append("    fieldName: ").append(toIndentedString(fieldName)).append("\n");
     sb.append("    defaultValue: ").append(toIndentedString(defaultValue)).append("\n");
-    sb.append("    vendorPackages: ").append(toIndentedString(vendorPackages)).append("\n");
-    sb.append("    vendorNamespaces: ").append(toIndentedString(vendorNamespaces)).append("\n");
     sb.append("    vendorFields: ").append(toIndentedString(vendorFields)).append("\n");
     sb.append("    transformationDescription: ").append(toIndentedString(transformationDescription)).append("\n");
     sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
     sb.append("    entitySubType: ").append(toIndentedString(entitySubType)).append("\n");
+    sb.append("    versions: ").append(toIndentedString(versions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -351,37 +317,35 @@ public class LusidField {
     openapiFields = new HashSet<String>();
     openapiFields.add("fieldName");
     openapiFields.add("defaultValue");
-    openapiFields.add("vendorPackages");
-    openapiFields.add("vendorNamespaces");
     openapiFields.add("vendorFields");
     openapiFields.add("transformationDescription");
     openapiFields.add("entityType");
     openapiFields.add("entitySubType");
+    openapiFields.add("versions");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("fieldName");
-    openapiRequiredFields.add("vendorPackages");
-    openapiRequiredFields.add("vendorNamespaces");
     openapiRequiredFields.add("vendorFields");
     openapiRequiredFields.add("entityType");
+    openapiRequiredFields.add("versions");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to LusidField
+  * @throws IOException if the JSON Element is invalid with respect to FieldMapping
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!LusidField.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in LusidField is not found in the empty JSON string", LusidField.openapiRequiredFields.toString()));
+        if (!FieldMapping.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in FieldMapping is not found in the empty JSON string", FieldMapping.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : LusidField.openapiRequiredFields) {
+      for (String requiredField : FieldMapping.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
@@ -393,24 +357,16 @@ public class LusidField {
       if ((jsonObj.get("defaultValue") != null && !jsonObj.get("defaultValue").isJsonNull()) && !jsonObj.get("defaultValue").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `defaultValue` to be a primitive type in the JSON string but got `%s`", jsonObj.get("defaultValue").toString()));
       }
-      // ensure the required json array is present
-      if (jsonObj.get("vendorPackages") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("vendorPackages").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `vendorPackages` to be an array in the JSON string but got `%s`", jsonObj.get("vendorPackages").toString()));
-      }
-      // ensure the required json array is present
-      if (jsonObj.get("vendorNamespaces") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("vendorNamespaces").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `vendorNamespaces` to be an array in the JSON string but got `%s`", jsonObj.get("vendorNamespaces").toString()));
-      }
-      // ensure the required json array is present
-      if (jsonObj.get("vendorFields") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("vendorFields").isJsonArray()) {
+      // ensure the json data is an array
+      if (!jsonObj.get("vendorFields").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `vendorFields` to be an array in the JSON string but got `%s`", jsonObj.get("vendorFields").toString()));
       }
+
+      JsonArray jsonArrayvendorFields = jsonObj.getAsJsonArray("vendorFields");
+      // validate the required field `vendorFields` (array)
+      for (int i = 0; i < jsonArrayvendorFields.size(); i++) {
+        VendorField.validateJsonElement(jsonArrayvendorFields.get(i));
+      };
       if ((jsonObj.get("transformationDescription") != null && !jsonObj.get("transformationDescription").isJsonNull()) && !jsonObj.get("transformationDescription").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `transformationDescription` to be a primitive type in the JSON string but got `%s`", jsonObj.get("transformationDescription").toString()));
       }
@@ -420,28 +376,34 @@ public class LusidField {
       if ((jsonObj.get("entitySubType") != null && !jsonObj.get("entitySubType").isJsonNull()) && !jsonObj.get("entitySubType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `entitySubType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("entitySubType").toString()));
       }
+      // ensure the required json array is present
+      if (jsonObj.get("versions") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("versions").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `versions` to be an array in the JSON string but got `%s`", jsonObj.get("versions").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!LusidField.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'LusidField' and its subtypes
+       if (!FieldMapping.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'FieldMapping' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<LusidField> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(LusidField.class));
+       final TypeAdapter<FieldMapping> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(FieldMapping.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<LusidField>() {
+       return (TypeAdapter<T>) new TypeAdapter<FieldMapping>() {
            @Override
-           public void write(JsonWriter out, LusidField value) throws IOException {
+           public void write(JsonWriter out, FieldMapping value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public LusidField read(JsonReader in) throws IOException {
+           public FieldMapping read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -452,18 +414,18 @@ public class LusidField {
   }
 
  /**
-  * Create an instance of LusidField given an JSON string
+  * Create an instance of FieldMapping given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of LusidField
-  * @throws IOException if the JSON string is invalid with respect to LusidField
+  * @return An instance of FieldMapping
+  * @throws IOException if the JSON string is invalid with respect to FieldMapping
   */
-  public static LusidField fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, LusidField.class);
+  public static FieldMapping fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, FieldMapping.class);
   }
 
  /**
-  * Convert an instance of LusidField to an JSON string
+  * Convert an instance of FieldMapping to an JSON string
   *
   * @return JSON string
   */

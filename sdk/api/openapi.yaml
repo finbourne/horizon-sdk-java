@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.661
+  version: 0.1.664
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -367,6 +367,158 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/integrations/configuration/{integration}:
+    get:
+      description: "<br>The user must be authenticated, entitled to call this method,\
+        \ but the user's domain does not need to be licensed for the integration."
+      operationId: GetIntegrationConfiguration
+      parameters:
+      - explode: false
+        in: path
+        name: integration
+        required: true
+        schema:
+          maxLength: 128
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                type: Test-MarketData-Provider
+                properties:
+                - property:
+                    key: Instrument/TestVendor/CreditRating
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: CreditRating
+                    displayName: Credit Rating
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Instrument Credit Rating
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: INSTRUMENT_CREDIT_RATING
+                  optionality: Optional
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - property:
+                    key: Instrument/TestVendor/SourceFile
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: SourceFile
+                    displayName: Source File
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Source File
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: SOURCE_FILE
+                  optionality: Mandatory
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - property:
+                    key: Instrument/TestVendor/ExchangeCode
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: ExchangeCode
+                    displayName: Exchange Code
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Code for the exchange
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: TNC_ExchangeCode
+                  optionality: Mandatory
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                fields:
+                - fieldName: Instrument.Identifiers:Instrument/default/Ticker
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: TICKER
+                  transformationDescription: ""
+                  entityType: Instrument
+                  entitySubType: Equity
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - fieldName: Instrument.Identifiers:Instrument/default/VendorID
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: VendorID
+                  transformationDescription: ""
+                  entityType: Instrument
+                  entitySubType: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - fieldName: Instrument.Identifiers:Instrument/default/Cusip
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: Cusip
+                  - package: SecurityMaster
+                    field: Cusip_Type
+                  - package: SecurityMaster
+                    field: "CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
+                  transformationDescription: "If CUSIP_TYPE is 'CUSIP' or 'PPN' then\
+                    \ set from CUSIP field. Otherwise use CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
+                  entityType: Instrument
+                  entitySubType: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+              schema:
+                items:
+                  $ref: '#/components/schemas/IntegrationPropertyConfiguration'
+                type: array
+          description: Success
+        "404":
+          description: The requested integration does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property\
+        \ Mapping configuration for a given integration"
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/integrations/instances:
     get:
       description: "<br>The user must be authenticated, entitled to call this method,\
@@ -458,6 +610,225 @@ paths:
       security:
       - oauth2: []
       summary: "[EXPERIMENTAL] CreateInstance: Create a single integration instance."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/integrations/instances/configuration/{integration}/{instanceId}:
+    get:
+      description: Will return the full list of optional properties configured for
+        this integration instance and any naming overrides
+      operationId: GetInstanceOptionalPropertyMapping
+      parameters:
+      - description: The type of the integration e.g. "copp-clark".
+        explode: false
+        in: path
+        name: integration
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Identifier of the instance
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "404":
+          description: The requested instance(s) do not exist.
+        "200":
+          content:
+            application/json:
+              example:
+                type: Test-MarketData-Provider
+                properties:
+                - property:
+                    key: Instrument/TestVendor/CreditRating
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: CreditRating
+                    displayName: Credit Rating
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Instrument Credit Rating
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: INSTRUMENT_CREDIT_RATING
+                  optionality: Optional
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - property:
+                    key: Instrument/TestVendor/SourceFile
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: SourceFile
+                    displayName: Source File
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Source File
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: SOURCE_FILE
+                  optionality: Mandatory
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - property:
+                    key: Instrument/TestVendor/ExchangeCode
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: ExchangeCode
+                    displayName: Exchange Code
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Code for the exchange
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: TNC_ExchangeCode
+                  optionality: Mandatory
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                fields:
+                - fieldName: Instrument.Identifiers:Instrument/default/Ticker
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: TICKER
+                  transformationDescription: ""
+                  entityType: Instrument
+                  entitySubType: Equity
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - fieldName: Instrument.Identifiers:Instrument/default/VendorID
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: VendorID
+                  transformationDescription: ""
+                  entityType: Instrument
+                  entitySubType: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - fieldName: Instrument.Identifiers:Instrument/default/Cusip
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: Cusip
+                  - package: SecurityMaster
+                    field: Cusip_Type
+                  - package: SecurityMaster
+                    field: "CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
+                  transformationDescription: "If CUSIP_TYPE is 'CUSIP' or 'PPN' then\
+                    \ set from CUSIP field. Otherwise use CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
+                  entityType: Instrument
+                  entitySubType: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                type: object
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional\
+        \ Property Mapping for an Integration Instance"
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    put:
+      description: "The full list of properties must be supplied, the removal of a\
+        \ property from this list will remove it from the integration instance"
+      operationId: SetInstanceOptionalPropertyMapping
+      parameters:
+      - description: Identifier of the instance
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The type of the integration e.g. "copp-clark".
+        explode: false
+        in: path
+        name: integration
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              Instrument/TestVendor/CreditRating:
+                displayNameOverride: Vendor Credit Rating
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+              type: object
+        description: Properties to be included and any overrides
+      responses:
+        "404":
+          description: The requested instance(s) do not exist.
+        "200":
+          content:
+            application/json:
+              example:
+                Instrument/TestVendor/CreditRating:
+                  displayNameOverride: Vendor Credit Rating
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                type: object
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional\
+        \ Property Mapping for an Integration Instance"
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
@@ -1549,6 +1920,60 @@ components:
       required:
       - executionId
       type: object
+    FieldMapping:
+      additionalProperties: false
+      description: Mapping from a set of Vendor Fields to a LUSID core entity field
+      example:
+        fieldName: fieldName
+        versions:
+        - versions
+        - versions
+        defaultValue: defaultValue
+        entityType: entityType
+        entitySubType: entitySubType
+        vendorFields:
+        - package: package
+          field: field
+        - package: package
+          field: field
+        transformationDescription: transformationDescription
+      properties:
+        fieldName:
+          description: The LUSID core entity field
+          type: string
+        defaultValue:
+          description: Default value if needed
+          nullable: true
+          type: string
+        vendorFields:
+          description: Fields that will be used to map to this field
+          items:
+            $ref: '#/components/schemas/VendorField'
+          type: array
+        transformationDescription:
+          description: "The transformation, if required, to map from VendorFields\
+            \ to the LUSID Property"
+          nullable: true
+          type: string
+        entityType:
+          description: The LUSID Entity this is valid for
+          type: string
+        entitySubType:
+          description: The LUSID Entity sub type this is valid for
+          nullable: true
+          type: string
+        versions:
+          description: The versions of the Vendor integration this mapping is valid
+            for
+          items:
+            type: string
+          type: array
+      required:
+      - entityType
+      - fieldName
+      - vendorFields
+      - versions
+      type: object
     FileDetails:
       additionalProperties: false
       description: Information associated with files
@@ -1685,6 +2110,108 @@ components:
       - name
       - triggers
       type: object
+    IntegrationPropertyConfiguration:
+      additionalProperties: false
+      description: Response containing the description of an integration.
+      example:
+        type: type
+        fields:
+        - fieldName: fieldName
+          versions:
+          - versions
+          - versions
+          defaultValue: defaultValue
+          entityType: entityType
+          entitySubType: entitySubType
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        - fieldName: fieldName
+          versions:
+          - versions
+          - versions
+          defaultValue: defaultValue
+          entityType: entityType
+          entitySubType: entitySubType
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        properties:
+        - optionality: null
+          versions:
+          - versions
+          - versions
+          entityType: entityType
+          entitySubType: entitySubType
+          property:
+            constraintStyle: constraintStyle
+            code: code
+            productEntityItemKey: productEntityItemKey
+            displayName: displayName
+            domain: domain
+            scope: scope
+            dataTypeId:
+              code: code
+              scope: scope
+            lifetime: lifetime
+            description: description
+            key: key
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        - optionality: null
+          versions:
+          - versions
+          - versions
+          entityType: entityType
+          entitySubType: entitySubType
+          property:
+            constraintStyle: constraintStyle
+            code: code
+            productEntityItemKey: productEntityItemKey
+            displayName: displayName
+            domain: domain
+            scope: scope
+            dataTypeId:
+              code: code
+              scope: scope
+            lifetime: lifetime
+            description: description
+            key: key
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+      properties:
+        type:
+          description: The Integration this property configuration applies to
+          type: string
+        properties:
+          description: The mandatory and optional properties available in this integration
+          items:
+            $ref: '#/components/schemas/PropertyMapping'
+          type: array
+        fields:
+          description: The fields available in this integration
+          items:
+            $ref: '#/components/schemas/FieldMapping'
+          type: array
+      required:
+      - fields
+      - properties
+      - type
+      type: object
     Link:
       additionalProperties: false
       example:
@@ -1746,6 +2273,8 @@ components:
         - vendorPackages
         fieldName: fieldName
         defaultValue: defaultValue
+        entityType: entityType
+        entitySubType: entitySubType
         vendorFields:
         - vendorFields
         - vendorFields
@@ -1783,7 +2312,15 @@ components:
             to the LUSID field
           nullable: true
           type: string
+        entityType:
+          description: LUSID Entity this refers to (e.g. Instrument)
+          type: string
+        entitySubType:
+          description: Sub-Entity this field refers to (e.g. Equity)
+          nullable: true
+          type: string
       required:
+      - entityType
       - fieldName
       - vendorFields
       - vendorNamespaces
@@ -1936,7 +2473,7 @@ components:
       type: object
     LusidPropertyToVendorFieldMapping:
       additionalProperties: false
-      description: The mapping of a LUSID Property to the Vendor Field that would
+      description: The mapping of a LUSID Property from the Vendor Field that would
         populate it
       example:
         optionality: null
@@ -2716,6 +3253,70 @@ components:
       - runId
       - status
       type: object
+    PropertyMapping:
+      additionalProperties: false
+      description: Mapping from a set of VendorFields to a LUSID Property
+      example:
+        optionality: null
+        versions:
+        - versions
+        - versions
+        entityType: entityType
+        entitySubType: entitySubType
+        property:
+          constraintStyle: constraintStyle
+          code: code
+          productEntityItemKey: productEntityItemKey
+          displayName: displayName
+          domain: domain
+          scope: scope
+          dataTypeId:
+            code: code
+            scope: scope
+          lifetime: lifetime
+          description: description
+          key: key
+        vendorFields:
+        - package: package
+          field: field
+        - package: package
+          field: field
+        transformationDescription: transformationDescription
+      properties:
+        property:
+          $ref: '#/components/schemas/LusidPropertyDefinition'
+        vendorFields:
+          description: Fields that will be used to map to this Property Definition
+          items:
+            $ref: '#/components/schemas/VendorField'
+          type: array
+        optionality:
+          $ref: '#/components/schemas/Optionality'
+        entityType:
+          description: The LUSID Entity this is valid for
+          type: string
+        entitySubType:
+          description: The LUSID Entity sub type this is valid for
+          nullable: true
+          type: string
+        transformationDescription:
+          description: "The transformation, if required, to map from VendorFields\
+            \ to the LUSID Property"
+          nullable: true
+          type: string
+        versions:
+          description: The versions of the Vendor integration this mapping is valid
+            for
+          items:
+            type: string
+          type: array
+      required:
+      - entityType
+      - optionality
+      - property
+      - vendorFields
+      - versions
+      type: object
     QueryRequest:
       additionalProperties: false
       description: "Used to control queries, including getting \"pages\" of data"
@@ -2842,6 +3443,23 @@ components:
       - integrationType
       - name
       - triggers
+      type: object
+    VendorField:
+      additionalProperties: false
+      description: Reference to a specific vendor field
+      example:
+        package: package
+        field: field
+      properties:
+        package:
+          description: The vendor package it is included in
+          type: string
+        field:
+          description: The name of the field
+          type: string
+      required:
+      - field
+      - package
       type: object
     VendorProduct:
       additionalProperties: false

@@ -29,7 +29,9 @@ import com.finbourne.horizon.model.ExecuteInstanceResponse;
 import com.finbourne.horizon.model.InstanceIdentifier;
 import com.finbourne.horizon.model.IntegrationDescription;
 import com.finbourne.horizon.model.IntegrationInstance;
+import com.finbourne.horizon.model.IntegrationPropertyConfiguration;
 import com.finbourne.horizon.model.LusidProblemDetails;
+import com.finbourne.horizon.model.LusidPropertyDefinitionOverrides;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
 
 import java.lang.reflect.Type;
@@ -737,6 +739,339 @@ public class IntegrationsApi {
     public APIgetExecutionIdsForInstanceRequest getExecutionIdsForInstance(String instanceId) {
         return new APIgetExecutionIdsForInstanceRequest(instanceId);
     }
+    private okhttp3.Call getInstanceOptionalPropertyMappingCall(String integration, String instanceId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/instances/configuration/{integration}/{instanceId}"
+            .replace("{" + "integration" + "}", localVarApiClient.escapeString(integration.toString()))
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getInstanceOptionalPropertyMappingValidateBeforeCall(String integration, String instanceId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'integration' is set
+        if (integration == null) {
+            throw new ApiException("Missing the required parameter 'integration' when calling getInstanceOptionalPropertyMapping(Async)");
+        }
+
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling getInstanceOptionalPropertyMapping(Async)");
+        }
+
+        return getInstanceOptionalPropertyMappingCall(integration, instanceId, _callback);
+
+    }
+
+
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId) throws ApiException {
+        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null);
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback);
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetInstanceOptionalPropertyMappingRequest {
+        private final String integration;
+        private final String instanceId;
+
+        private APIgetInstanceOptionalPropertyMappingRequest(String integration, String instanceId) {
+            this.integration = integration;
+            this.instanceId = instanceId;
+        }
+
+        /**
+         * Build call for getInstanceOptionalPropertyMapping
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getInstanceOptionalPropertyMappingCall(integration, instanceId, _callback);
+        }
+
+        /**
+         * Execute getInstanceOptionalPropertyMapping request
+         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Map<String, LusidPropertyDefinitionOverrides> execute() throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getInstanceOptionalPropertyMapping request with HTTP info returned
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
+            return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
+        }
+
+        /**
+         * Execute getInstanceOptionalPropertyMapping request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+            return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance
+     * Will return the full list of optional properties configured for this integration instance and any naming overrides
+     * @param integration The type of the integration e.g. \&quot;copp-clark\&quot;. (required)
+     * @param instanceId Identifier of the instance (required)
+     * @return APIgetInstanceOptionalPropertyMappingRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetInstanceOptionalPropertyMappingRequest getInstanceOptionalPropertyMapping(String integration, String instanceId) {
+        return new APIgetInstanceOptionalPropertyMappingRequest(integration, instanceId);
+    }
+    private okhttp3.Call getIntegrationConfigurationCall(String integration, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/configuration/{integration}"
+            .replace("{" + "integration" + "}", localVarApiClient.escapeString(integration.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getIntegrationConfigurationValidateBeforeCall(String integration, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'integration' is set
+        if (integration == null) {
+            throw new ApiException("Missing the required parameter 'integration' when calling getIntegrationConfiguration(Async)");
+        }
+
+        return getIntegrationConfigurationCall(integration, _callback);
+
+    }
+
+
+    private ApiResponse<List<IntegrationPropertyConfiguration>> getIntegrationConfigurationWithHttpInfo(String integration) throws ApiException {
+        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, null);
+        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<List<IntegrationPropertyConfiguration>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, _callback);
+        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetIntegrationConfigurationRequest {
+        private final String integration;
+
+        private APIgetIntegrationConfigurationRequest(String integration) {
+            this.integration = integration;
+        }
+
+        /**
+         * Build call for getIntegrationConfiguration
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getIntegrationConfigurationCall(integration, _callback);
+        }
+
+        /**
+         * Execute getIntegrationConfiguration request
+         * @return List&lt;IntegrationPropertyConfiguration&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<IntegrationPropertyConfiguration> execute() throws ApiException {
+            ApiResponse<List<IntegrationPropertyConfiguration>> localVarResp = getIntegrationConfigurationWithHttpInfo(integration);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getIntegrationConfiguration request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;IntegrationPropertyConfiguration&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<IntegrationPropertyConfiguration>> executeWithHttpInfo() throws ApiException {
+            return getIntegrationConfigurationWithHttpInfo(integration);
+        }
+
+        /**
+         * Execute getIntegrationConfiguration request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationPropertyConfiguration>> _callback) throws ApiException {
+            return getIntegrationConfigurationAsync(integration, _callback);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration
+     * &lt;br&gt;The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
+     * @param integration  (required)
+     * @return APIgetIntegrationConfigurationRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetIntegrationConfigurationRequest getIntegrationConfiguration(String integration) {
+        return new APIgetIntegrationConfigurationRequest(integration);
+    }
     private okhttp3.Call getSchemaCall(String integration, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -1199,6 +1534,189 @@ public class IntegrationsApi {
      */
     public APIlistIntegrationsRequest listIntegrations() {
         return new APIlistIntegrationsRequest();
+    }
+    private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = requestBody;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/instances/configuration/{integration}/{instanceId}"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()))
+            .replace("{" + "integration" + "}", localVarApiClient.escapeString(integration.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call setInstanceOptionalPropertyMappingValidateBeforeCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling setInstanceOptionalPropertyMapping(Async)");
+        }
+
+        // verify the required parameter 'integration' is set
+        if (integration == null) {
+            throw new ApiException("Missing the required parameter 'integration' when calling setInstanceOptionalPropertyMapping(Async)");
+        }
+
+        return setInstanceOptionalPropertyMappingCall(instanceId, integration, requestBody, _callback);
+
+    }
+
+
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody) throws ApiException {
+        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null);
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback);
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIsetInstanceOptionalPropertyMappingRequest {
+        private final String instanceId;
+        private final String integration;
+        private Map<String, LusidPropertyDefinitionOverrides> requestBody;
+
+        private APIsetInstanceOptionalPropertyMappingRequest(String instanceId, String integration) {
+            this.instanceId = instanceId;
+            this.integration = integration;
+        }
+
+        /**
+         * Set requestBody
+         * @param requestBody Properties to be included and any overrides (optional)
+         * @return APIsetInstanceOptionalPropertyMappingRequest
+         */
+        public APIsetInstanceOptionalPropertyMappingRequest requestBody(Map<String, LusidPropertyDefinitionOverrides> requestBody) {
+            this.requestBody = requestBody;
+            return this;
+        }
+
+        /**
+         * Build call for setInstanceOptionalPropertyMapping
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return setInstanceOptionalPropertyMappingCall(instanceId, integration, requestBody, _callback);
+        }
+
+        /**
+         * Execute setInstanceOptionalPropertyMapping request
+         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Map<String, LusidPropertyDefinitionOverrides> execute() throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute setInstanceOptionalPropertyMapping request with HTTP info returned
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
+            return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
+        }
+
+        /**
+         * Execute setInstanceOptionalPropertyMapping request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+            return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an Integration Instance
+     * The full list of properties must be supplied, the removal of a property from this list will remove it from the integration instance
+     * @param instanceId Identifier of the instance (required)
+     * @param integration The type of the integration e.g. \&quot;copp-clark\&quot;. (required)
+     * @return APIsetInstanceOptionalPropertyMappingRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIsetInstanceOptionalPropertyMappingRequest setInstanceOptionalPropertyMapping(String instanceId, String integration) {
+        return new APIsetInstanceOptionalPropertyMappingRequest(instanceId, integration);
     }
     private okhttp3.Call updateInstanceCall(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;

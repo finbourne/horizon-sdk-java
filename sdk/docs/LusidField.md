@@ -14,6 +14,8 @@ A field on a LUSID entity
 |**vendorNamespaces** | **List&lt;String&gt;** | The vendor namespace that contributes to this LUSID field. |  |
 |**vendorFields** | **List&lt;String&gt;** | The underlying fields on the vendor package that contribute to this LUSID field |  |
 |**transformationDescription** | **String** | A description of how the vendor package&#39;s field(s) get mapped to the LUSID field |  [optional] |
+|**entityType** | **String** | LUSID Entity this refers to (e.g. Instrument) |  |
+|**entitySubType** | **String** | Sub-Entity this field refers to (e.g. Equity) |  [optional] |
 
 
 
