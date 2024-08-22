@@ -18,6 +18,7 @@ import com.finbourne.horizon.Configuration;
 import com.finbourne.horizon.Pair;
 import com.finbourne.horizon.ProgressRequestBody;
 import com.finbourne.horizon.ProgressResponseBody;
+import com.finbourne.horizon.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -80,6 +81,10 @@ public class InstrumentApi {
     }
 
     private okhttp3.Call createInstrumentCall(OnboardInstrumentRequest onboardInstrumentRequest, final ApiCallback _callback) throws ApiException {
+        return createInstrumentCall(onboardInstrumentRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createInstrumentCall(OnboardInstrumentRequest onboardInstrumentRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -124,30 +129,44 @@ public class InstrumentApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createInstrumentValidateBeforeCall(OnboardInstrumentRequest onboardInstrumentRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createInstrumentValidateBeforeCall(OnboardInstrumentRequest onboardInstrumentRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'onboardInstrumentRequest' is set
         if (onboardInstrumentRequest == null) {
             throw new ApiException("Missing the required parameter 'onboardInstrumentRequest' when calling createInstrument(Async)");
         }
 
-        return createInstrumentCall(onboardInstrumentRequest, _callback);
+        return createInstrumentCall(onboardInstrumentRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<OnboardInstrumentResponse> createInstrumentWithHttpInfo(OnboardInstrumentRequest onboardInstrumentRequest) throws ApiException {
-        okhttp3.Call localVarCall = createInstrumentValidateBeforeCall(onboardInstrumentRequest, null);
+        okhttp3.Call localVarCall = createInstrumentValidateBeforeCall(onboardInstrumentRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<OnboardInstrumentResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<OnboardInstrumentResponse> createInstrumentWithHttpInfo(OnboardInstrumentRequest onboardInstrumentRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createInstrumentValidateBeforeCall(onboardInstrumentRequest, null, opts);
         Type localVarReturnType = new TypeToken<OnboardInstrumentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createInstrumentAsync(OnboardInstrumentRequest onboardInstrumentRequest, final ApiCallback<OnboardInstrumentResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createInstrumentValidateBeforeCall(onboardInstrumentRequest, _callback);
+        okhttp3.Call localVarCall = createInstrumentValidateBeforeCall(onboardInstrumentRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<OnboardInstrumentResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createInstrumentAsync(OnboardInstrumentRequest onboardInstrumentRequest, final ApiCallback<OnboardInstrumentResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createInstrumentValidateBeforeCall(onboardInstrumentRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<OnboardInstrumentResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -195,6 +214,23 @@ public class InstrumentApi {
         }
 
         /**
+         * Execute createInstrument request. Use any specified configuration options to override any other configuration for this request only.
+         * @return OnboardInstrumentResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public OnboardInstrumentResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<OnboardInstrumentResponse> localVarResp = createInstrumentWithHttpInfo(onboardInstrumentRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createInstrument request with HTTP info returned
          * @return ApiResponse&lt;OnboardInstrumentResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -208,6 +244,22 @@ public class InstrumentApi {
          */
         public ApiResponse<OnboardInstrumentResponse> executeWithHttpInfo() throws ApiException {
             return createInstrumentWithHttpInfo(onboardInstrumentRequest);
+        }
+
+        /**
+         * Execute createInstrument request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;OnboardInstrumentResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<OnboardInstrumentResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createInstrumentWithHttpInfo(onboardInstrumentRequest, opts);
         }
 
         /**
@@ -225,6 +277,23 @@ public class InstrumentApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<OnboardInstrumentResponse> _callback) throws ApiException {
             return createInstrumentAsync(onboardInstrumentRequest, _callback);
+        }
+
+        /**
+         * Execute createInstrument request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<OnboardInstrumentResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return createInstrumentAsync(onboardInstrumentRequest, _callback, opts);
         }
     }
 
@@ -245,6 +314,10 @@ public class InstrumentApi {
         return new APIcreateInstrumentRequest(onboardInstrumentRequest);
     }
     private okhttp3.Call enrichInstrumentCall(String vendorProductKey, Identifiers identifiers, final ApiCallback _callback) throws ApiException {
+        return enrichInstrumentCall(vendorProductKey, identifiers,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call enrichInstrumentCall(String vendorProductKey, Identifiers identifiers, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -293,11 +366,11 @@ public class InstrumentApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call enrichInstrumentValidateBeforeCall(String vendorProductKey, Identifiers identifiers, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call enrichInstrumentValidateBeforeCall(String vendorProductKey, Identifiers identifiers, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'vendorProductKey' is set
         if (vendorProductKey == null) {
             throw new ApiException("Missing the required parameter 'vendorProductKey' when calling enrichInstrument(Async)");
@@ -308,20 +381,34 @@ public class InstrumentApi {
             throw new ApiException("Missing the required parameter 'identifiers' when calling enrichInstrument(Async)");
         }
 
-        return enrichInstrumentCall(vendorProductKey, identifiers, _callback);
+        return enrichInstrumentCall(vendorProductKey, identifiers, _callback, opts);
 
     }
 
 
     private ApiResponse<EnrichmentResponse> enrichInstrumentWithHttpInfo(String vendorProductKey, Identifiers identifiers) throws ApiException {
-        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, null);
+        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<EnrichmentResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<EnrichmentResponse> enrichInstrumentWithHttpInfo(String vendorProductKey, Identifiers identifiers, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, null, opts);
         Type localVarReturnType = new TypeToken<EnrichmentResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call enrichInstrumentAsync(String vendorProductKey, Identifiers identifiers, final ApiCallback<EnrichmentResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, _callback);
+        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<EnrichmentResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call enrichInstrumentAsync(String vendorProductKey, Identifiers identifiers, final ApiCallback<EnrichmentResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = enrichInstrumentValidateBeforeCall(vendorProductKey, identifiers, _callback, opts);
         Type localVarReturnType = new TypeToken<EnrichmentResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -371,6 +458,23 @@ public class InstrumentApi {
         }
 
         /**
+         * Execute enrichInstrument request. Use any specified configuration options to override any other configuration for this request only.
+         * @return EnrichmentResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public EnrichmentResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<EnrichmentResponse> localVarResp = enrichInstrumentWithHttpInfo(vendorProductKey, identifiers, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute enrichInstrument request with HTTP info returned
          * @return ApiResponse&lt;EnrichmentResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -384,6 +488,22 @@ public class InstrumentApi {
          */
         public ApiResponse<EnrichmentResponse> executeWithHttpInfo() throws ApiException {
             return enrichInstrumentWithHttpInfo(vendorProductKey, identifiers);
+        }
+
+        /**
+         * Execute enrichInstrument request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;EnrichmentResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<EnrichmentResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return enrichInstrumentWithHttpInfo(vendorProductKey, identifiers, opts);
         }
 
         /**
@@ -401,6 +521,23 @@ public class InstrumentApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<EnrichmentResponse> _callback) throws ApiException {
             return enrichInstrumentAsync(vendorProductKey, identifiers, _callback);
+        }
+
+        /**
+         * Execute enrichInstrument request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<EnrichmentResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return enrichInstrumentAsync(vendorProductKey, identifiers, _callback, opts);
         }
     }
 
@@ -422,6 +559,10 @@ public class InstrumentApi {
         return new APIenrichInstrumentRequest(vendorProductKey, identifiers);
     }
     private okhttp3.Call getOpenFigiParameterOptionCall(OpenFigiParameterOptionName parameterName, final ApiCallback _callback) throws ApiException {
+        return getOpenFigiParameterOptionCall(parameterName,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getOpenFigiParameterOptionCall(OpenFigiParameterOptionName parameterName, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -466,30 +607,44 @@ public class InstrumentApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getOpenFigiParameterOptionValidateBeforeCall(OpenFigiParameterOptionName parameterName, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getOpenFigiParameterOptionValidateBeforeCall(OpenFigiParameterOptionName parameterName, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'parameterName' is set
         if (parameterName == null) {
             throw new ApiException("Missing the required parameter 'parameterName' when calling getOpenFigiParameterOption(Async)");
         }
 
-        return getOpenFigiParameterOptionCall(parameterName, _callback);
+        return getOpenFigiParameterOptionCall(parameterName, _callback, opts);
 
     }
 
 
     private ApiResponse<List<AllowedParameterValue>> getOpenFigiParameterOptionWithHttpInfo(OpenFigiParameterOptionName parameterName) throws ApiException {
-        okhttp3.Call localVarCall = getOpenFigiParameterOptionValidateBeforeCall(parameterName, null);
+        okhttp3.Call localVarCall = getOpenFigiParameterOptionValidateBeforeCall(parameterName, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<AllowedParameterValue>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<AllowedParameterValue>> getOpenFigiParameterOptionWithHttpInfo(OpenFigiParameterOptionName parameterName, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getOpenFigiParameterOptionValidateBeforeCall(parameterName, null, opts);
         Type localVarReturnType = new TypeToken<List<AllowedParameterValue>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getOpenFigiParameterOptionAsync(OpenFigiParameterOptionName parameterName, final ApiCallback<List<AllowedParameterValue>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getOpenFigiParameterOptionValidateBeforeCall(parameterName, _callback);
+        okhttp3.Call localVarCall = getOpenFigiParameterOptionValidateBeforeCall(parameterName, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<AllowedParameterValue>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getOpenFigiParameterOptionAsync(OpenFigiParameterOptionName parameterName, final ApiCallback<List<AllowedParameterValue>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getOpenFigiParameterOptionValidateBeforeCall(parameterName, _callback, opts);
         Type localVarReturnType = new TypeToken<List<AllowedParameterValue>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -535,6 +690,22 @@ public class InstrumentApi {
         }
 
         /**
+         * Execute getOpenFigiParameterOption request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;AllowedParameterValue&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<AllowedParameterValue> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<AllowedParameterValue>> localVarResp = getOpenFigiParameterOptionWithHttpInfo(parameterName, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getOpenFigiParameterOption request with HTTP info returned
          * @return ApiResponse&lt;List&lt;AllowedParameterValue&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -547,6 +718,21 @@ public class InstrumentApi {
          */
         public ApiResponse<List<AllowedParameterValue>> executeWithHttpInfo() throws ApiException {
             return getOpenFigiParameterOptionWithHttpInfo(parameterName);
+        }
+
+        /**
+         * Execute getOpenFigiParameterOption request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;AllowedParameterValue&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<AllowedParameterValue>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getOpenFigiParameterOptionWithHttpInfo(parameterName, opts);
         }
 
         /**
@@ -563,6 +749,22 @@ public class InstrumentApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<AllowedParameterValue>> _callback) throws ApiException {
             return getOpenFigiParameterOptionAsync(parameterName, _callback);
+        }
+
+        /**
+         * Execute getOpenFigiParameterOption request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<AllowedParameterValue>> _callback, ConfigurationOptions opts) throws ApiException {
+            return getOpenFigiParameterOptionAsync(parameterName, _callback, opts);
         }
     }
 
@@ -582,6 +784,10 @@ public class InstrumentApi {
         return new APIgetOpenFigiParameterOptionRequest(parameterName);
     }
     private okhttp3.Call retrievePermIdResultCall(String id, final ApiCallback _callback) throws ApiException {
+        return retrievePermIdResultCall(id,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call retrievePermIdResultCall(String id, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -623,30 +829,44 @@ public class InstrumentApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call retrievePermIdResultValidateBeforeCall(String id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call retrievePermIdResultValidateBeforeCall(String id, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new ApiException("Missing the required parameter 'id' when calling retrievePermIdResult(Async)");
         }
 
-        return retrievePermIdResultCall(id, _callback);
+        return retrievePermIdResultCall(id, _callback, opts);
 
     }
 
 
     private ApiResponse<List<PermIdData>> retrievePermIdResultWithHttpInfo(String id) throws ApiException {
-        okhttp3.Call localVarCall = retrievePermIdResultValidateBeforeCall(id, null);
+        okhttp3.Call localVarCall = retrievePermIdResultValidateBeforeCall(id, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<PermIdData>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<PermIdData>> retrievePermIdResultWithHttpInfo(String id, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = retrievePermIdResultValidateBeforeCall(id, null, opts);
         Type localVarReturnType = new TypeToken<List<PermIdData>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call retrievePermIdResultAsync(String id, final ApiCallback<List<PermIdData>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = retrievePermIdResultValidateBeforeCall(id, _callback);
+        okhttp3.Call localVarCall = retrievePermIdResultValidateBeforeCall(id, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<PermIdData>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call retrievePermIdResultAsync(String id, final ApiCallback<List<PermIdData>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = retrievePermIdResultValidateBeforeCall(id, _callback, opts);
         Type localVarReturnType = new TypeToken<List<PermIdData>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -692,6 +912,22 @@ public class InstrumentApi {
         }
 
         /**
+         * Execute retrievePermIdResult request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;PermIdData&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<PermIdData> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<PermIdData>> localVarResp = retrievePermIdResultWithHttpInfo(id, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute retrievePermIdResult request with HTTP info returned
          * @return ApiResponse&lt;List&lt;PermIdData&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -704,6 +940,21 @@ public class InstrumentApi {
          */
         public ApiResponse<List<PermIdData>> executeWithHttpInfo() throws ApiException {
             return retrievePermIdResultWithHttpInfo(id);
+        }
+
+        /**
+         * Execute retrievePermIdResult request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;PermIdData&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<PermIdData>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return retrievePermIdResultWithHttpInfo(id, opts);
         }
 
         /**
@@ -720,6 +971,22 @@ public class InstrumentApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<PermIdData>> _callback) throws ApiException {
             return retrievePermIdResultAsync(id, _callback);
+        }
+
+        /**
+         * Execute retrievePermIdResult request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<PermIdData>> _callback, ConfigurationOptions opts) throws ApiException {
+            return retrievePermIdResultAsync(id, _callback, opts);
         }
     }
 
@@ -739,6 +1006,10 @@ public class InstrumentApi {
         return new APIretrievePermIdResultRequest(id);
     }
     private okhttp3.Call searchOpenFigiCall(String query, Boolean usePermId, Integer limit, String marketSector, final ApiCallback _callback) throws ApiException {
+        return searchOpenFigiCall(query, usePermId, limit, marketSector,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call searchOpenFigiCall(String query, Boolean usePermId, Integer limit, String marketSector, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -795,11 +1066,11 @@ public class InstrumentApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchOpenFigiValidateBeforeCall(String query, Boolean usePermId, Integer limit, String marketSector, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call searchOpenFigiValidateBeforeCall(String query, Boolean usePermId, Integer limit, String marketSector, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'query' is set
         if (query == null) {
             throw new ApiException("Missing the required parameter 'query' when calling searchOpenFigi(Async)");
@@ -810,20 +1081,34 @@ public class InstrumentApi {
             throw new ApiException("Missing the required parameter 'usePermId' when calling searchOpenFigi(Async)");
         }
 
-        return searchOpenFigiCall(query, usePermId, limit, marketSector, _callback);
+        return searchOpenFigiCall(query, usePermId, limit, marketSector, _callback, opts);
 
     }
 
 
     private ApiResponse<OpenFigiSearchResult> searchOpenFigiWithHttpInfo(String query, Boolean usePermId, Integer limit, String marketSector) throws ApiException {
-        okhttp3.Call localVarCall = searchOpenFigiValidateBeforeCall(query, usePermId, limit, marketSector, null);
+        okhttp3.Call localVarCall = searchOpenFigiValidateBeforeCall(query, usePermId, limit, marketSector, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<OpenFigiSearchResult>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<OpenFigiSearchResult> searchOpenFigiWithHttpInfo(String query, Boolean usePermId, Integer limit, String marketSector, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = searchOpenFigiValidateBeforeCall(query, usePermId, limit, marketSector, null, opts);
         Type localVarReturnType = new TypeToken<OpenFigiSearchResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call searchOpenFigiAsync(String query, Boolean usePermId, Integer limit, String marketSector, final ApiCallback<OpenFigiSearchResult> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = searchOpenFigiValidateBeforeCall(query, usePermId, limit, marketSector, _callback);
+        okhttp3.Call localVarCall = searchOpenFigiValidateBeforeCall(query, usePermId, limit, marketSector, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<OpenFigiSearchResult>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call searchOpenFigiAsync(String query, Boolean usePermId, Integer limit, String marketSector, final ApiCallback<OpenFigiSearchResult> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = searchOpenFigiValidateBeforeCall(query, usePermId, limit, marketSector, _callback, opts);
         Type localVarReturnType = new TypeToken<OpenFigiSearchResult>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -893,6 +1178,22 @@ public class InstrumentApi {
         }
 
         /**
+         * Execute searchOpenFigi request. Use any specified configuration options to override any other configuration for this request only.
+         * @return OpenFigiSearchResult
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public OpenFigiSearchResult execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<OpenFigiSearchResult> localVarResp = searchOpenFigiWithHttpInfo(query, usePermId, limit, marketSector, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute searchOpenFigi request with HTTP info returned
          * @return ApiResponse&lt;OpenFigiSearchResult&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -905,6 +1206,21 @@ public class InstrumentApi {
          */
         public ApiResponse<OpenFigiSearchResult> executeWithHttpInfo() throws ApiException {
             return searchOpenFigiWithHttpInfo(query, usePermId, limit, marketSector);
+        }
+
+        /**
+         * Execute searchOpenFigi request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;OpenFigiSearchResult&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<OpenFigiSearchResult> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return searchOpenFigiWithHttpInfo(query, usePermId, limit, marketSector, opts);
         }
 
         /**
@@ -921,6 +1237,22 @@ public class InstrumentApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<OpenFigiSearchResult> _callback) throws ApiException {
             return searchOpenFigiAsync(query, usePermId, limit, marketSector, _callback);
+        }
+
+        /**
+         * Execute searchOpenFigi request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<OpenFigiSearchResult> _callback, ConfigurationOptions opts) throws ApiException {
+            return searchOpenFigiAsync(query, usePermId, limit, marketSector, _callback, opts);
         }
     }
 
@@ -941,6 +1273,10 @@ public class InstrumentApi {
         return new APIsearchOpenFigiRequest(query, usePermId);
     }
     private okhttp3.Call vendorsCall(String marketSector, String securityType, String generalSecurityType, final ApiCallback _callback) throws ApiException {
+        return vendorsCall(marketSector, securityType, generalSecurityType,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call vendorsCall(String marketSector, String securityType, String generalSecurityType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -993,11 +1329,11 @@ public class InstrumentApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call vendorsValidateBeforeCall(String marketSector, String securityType, String generalSecurityType, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call vendorsValidateBeforeCall(String marketSector, String securityType, String generalSecurityType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'marketSector' is set
         if (marketSector == null) {
             throw new ApiException("Missing the required parameter 'marketSector' when calling vendors(Async)");
@@ -1013,20 +1349,34 @@ public class InstrumentApi {
             throw new ApiException("Missing the required parameter 'generalSecurityType' when calling vendors(Async)");
         }
 
-        return vendorsCall(marketSector, securityType, generalSecurityType, _callback);
+        return vendorsCall(marketSector, securityType, generalSecurityType, _callback, opts);
 
     }
 
 
     private ApiResponse<List<VendorProduct>> vendorsWithHttpInfo(String marketSector, String securityType, String generalSecurityType) throws ApiException {
-        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, null);
+        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VendorProduct>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<VendorProduct>> vendorsWithHttpInfo(String marketSector, String securityType, String generalSecurityType, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, null, opts);
         Type localVarReturnType = new TypeToken<List<VendorProduct>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call vendorsAsync(String marketSector, String securityType, String generalSecurityType, final ApiCallback<List<VendorProduct>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, _callback);
+        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VendorProduct>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call vendorsAsync(String marketSector, String securityType, String generalSecurityType, final ApiCallback<List<VendorProduct>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = vendorsValidateBeforeCall(marketSector, securityType, generalSecurityType, _callback, opts);
         Type localVarReturnType = new TypeToken<List<VendorProduct>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1078,6 +1428,23 @@ public class InstrumentApi {
         }
 
         /**
+         * Execute vendors request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;VendorProduct&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<VendorProduct> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<VendorProduct>> localVarResp = vendorsWithHttpInfo(marketSector, securityType, generalSecurityType, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute vendors request with HTTP info returned
          * @return ApiResponse&lt;List&lt;VendorProduct&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1091,6 +1458,22 @@ public class InstrumentApi {
          */
         public ApiResponse<List<VendorProduct>> executeWithHttpInfo() throws ApiException {
             return vendorsWithHttpInfo(marketSector, securityType, generalSecurityType);
+        }
+
+        /**
+         * Execute vendors request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;VendorProduct&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<VendorProduct>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return vendorsWithHttpInfo(marketSector, securityType, generalSecurityType, opts);
         }
 
         /**
@@ -1108,6 +1491,23 @@ public class InstrumentApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<VendorProduct>> _callback) throws ApiException {
             return vendorsAsync(marketSector, securityType, generalSecurityType, _callback);
+        }
+
+        /**
+         * Execute vendors request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<VendorProduct>> _callback, ConfigurationOptions opts) throws ApiException {
+            return vendorsAsync(marketSector, securityType, generalSecurityType, _callback, opts);
         }
     }
 

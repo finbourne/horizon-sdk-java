@@ -56,9 +56,20 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         CreateInstanceRequest createInstanceRequest = new CreateInstanceRequest(); // CreateInstanceRequest | The new integration instance.
         try {
+            // uncomment the below to set overrides at the request level
+            // InstanceIdentifier result = apiInstance.createInstance(createInstanceRequest).execute(opts);
+
             InstanceIdentifier result = apiInstance.createInstance(createInstanceRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -136,9 +147,20 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.deleteInstance(instanceId).execute(opts);
+
             apiInstance.deleteInstance(instanceId).execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#deleteInstance");
@@ -215,9 +237,20 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
         try {
+            // uncomment the below to set overrides at the request level
+            // ExecuteInstanceResponse result = apiInstance.executeInstance(instanceId).execute(opts);
+
             ExecuteInstanceResponse result = apiInstance.executeInstance(instanceId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -295,10 +328,21 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"30dc93c6-a127-46bf-aea8-e466d720b72d\".
         Integer limit = 56; // Integer | Maximum number of returned execution ids
         try {
+            // uncomment the below to set overrides at the request level
+            // String result = apiInstance.getExecutionIdsForInstance(instanceId, limit).execute(opts);
+
             String result = apiInstance.getExecutionIdsForInstance(instanceId, limit).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -377,10 +421,21 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String integration = "integration_example"; // String | The type of the integration e.g. \"copp-clark\".
         String instanceId = "instanceId_example"; // String | Identifier of the instance
         try {
+            // uncomment the below to set overrides at the request level
+            // Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
+
             Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -459,9 +514,20 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String integration = "integration_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // List<IntegrationPropertyConfiguration> result = apiInstance.getIntegrationConfiguration(integration).execute(opts);
+
             List<IntegrationPropertyConfiguration> result = apiInstance.getIntegrationConfiguration(integration).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -539,9 +605,20 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String integration = "integration_example"; // String | The type of the integration e.g. \"copp-clark\".
         try {
+            // uncomment the below to set overrides at the request level
+            // String result = apiInstance.getSchema(integration).execute(opts);
+
             String result = apiInstance.getSchema(integration).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -619,8 +696,19 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         try {
+            // uncomment the below to set overrides at the request level
+            // IntegrationInstance result = apiInstance.listInstances().execute(opts);
+
             IntegrationInstance result = apiInstance.listInstances().execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -695,8 +783,19 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         try {
+            // uncomment the below to set overrides at the request level
+            // List<IntegrationDescription> result = apiInstance.listIntegrations().execute(opts);
+
             List<IntegrationDescription> result = apiInstance.listIntegrations().execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -770,11 +869,22 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Identifier of the instance
         String integration = "integration_example"; // String | The type of the integration e.g. \"copp-clark\".
         Map<String, LusidPropertyDefinitionOverrides> requestBody = new HashMap(); // Map<String, LusidPropertyDefinitionOverrides> | Properties to be included and any overrides
         try {
+            // uncomment the below to set overrides at the request level
+            // Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute(opts);
+
             Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -854,10 +964,21 @@ public class IntegrationsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
         UpdateInstanceRequest updateInstanceRequest = new UpdateInstanceRequest(); // UpdateInstanceRequest | The new integration instance.
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.updateInstance(instanceId, updateInstanceRequest).execute(opts);
+
             apiInstance.updateInstance(instanceId, updateInstanceRequest).execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#updateInstance");

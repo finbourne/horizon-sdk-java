@@ -18,6 +18,7 @@ import com.finbourne.horizon.Configuration;
 import com.finbourne.horizon.Pair;
 import com.finbourne.horizon.ProgressRequestBody;
 import com.finbourne.horizon.ProgressResponseBody;
+import com.finbourne.horizon.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -78,6 +79,10 @@ public class IntegrationsApi {
     }
 
     private okhttp3.Call createInstanceCall(CreateInstanceRequest createInstanceRequest, final ApiCallback _callback) throws ApiException {
+        return createInstanceCall(createInstanceRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createInstanceCall(CreateInstanceRequest createInstanceRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -119,25 +124,39 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createInstanceValidateBeforeCall(CreateInstanceRequest createInstanceRequest, final ApiCallback _callback) throws ApiException {
-        return createInstanceCall(createInstanceRequest, _callback);
+    private okhttp3.Call createInstanceValidateBeforeCall(CreateInstanceRequest createInstanceRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return createInstanceCall(createInstanceRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<InstanceIdentifier> createInstanceWithHttpInfo(CreateInstanceRequest createInstanceRequest) throws ApiException {
-        okhttp3.Call localVarCall = createInstanceValidateBeforeCall(createInstanceRequest, null);
+        okhttp3.Call localVarCall = createInstanceValidateBeforeCall(createInstanceRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<InstanceIdentifier>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<InstanceIdentifier> createInstanceWithHttpInfo(CreateInstanceRequest createInstanceRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createInstanceValidateBeforeCall(createInstanceRequest, null, opts);
         Type localVarReturnType = new TypeToken<InstanceIdentifier>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createInstanceAsync(CreateInstanceRequest createInstanceRequest, final ApiCallback<InstanceIdentifier> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createInstanceValidateBeforeCall(createInstanceRequest, _callback);
+        okhttp3.Call localVarCall = createInstanceValidateBeforeCall(createInstanceRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<InstanceIdentifier>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createInstanceAsync(CreateInstanceRequest createInstanceRequest, final ApiCallback<InstanceIdentifier> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createInstanceValidateBeforeCall(createInstanceRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<InstanceIdentifier>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -194,6 +213,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute createInstance request. Use any specified configuration options to override any other configuration for this request only.
+         * @return InstanceIdentifier
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Identifier of the created instance. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public InstanceIdentifier execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<InstanceIdentifier> localVarResp = createInstanceWithHttpInfo(createInstanceRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createInstance request with HTTP info returned
          * @return ApiResponse&lt;InstanceIdentifier&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -207,6 +243,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<InstanceIdentifier> executeWithHttpInfo() throws ApiException {
             return createInstanceWithHttpInfo(createInstanceRequest);
+        }
+
+        /**
+         * Execute createInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;InstanceIdentifier&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Identifier of the created instance. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<InstanceIdentifier> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createInstanceWithHttpInfo(createInstanceRequest, opts);
         }
 
         /**
@@ -224,6 +276,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<InstanceIdentifier> _callback) throws ApiException {
             return createInstanceAsync(createInstanceRequest, _callback);
+        }
+
+        /**
+         * Execute createInstance request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Identifier of the created instance. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<InstanceIdentifier> _callback, ConfigurationOptions opts) throws ApiException {
+            return createInstanceAsync(createInstanceRequest, _callback, opts);
         }
     }
 
@@ -243,6 +312,10 @@ public class IntegrationsApi {
         return new APIcreateInstanceRequest();
     }
     private okhttp3.Call deleteInstanceCall(String instanceId, final ApiCallback _callback) throws ApiException {
+        return deleteInstanceCall(instanceId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteInstanceCall(String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -284,29 +357,41 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteInstanceValidateBeforeCall(String instanceId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteInstanceValidateBeforeCall(String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling deleteInstance(Async)");
         }
 
-        return deleteInstanceCall(instanceId, _callback);
+        return deleteInstanceCall(instanceId, _callback, opts);
 
     }
 
 
     private ApiResponse<Void> deleteInstanceWithHttpInfo(String instanceId) throws ApiException {
-        okhttp3.Call localVarCall = deleteInstanceValidateBeforeCall(instanceId, null);
+        okhttp3.Call localVarCall = deleteInstanceValidateBeforeCall(instanceId, null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> deleteInstanceWithHttpInfo(String instanceId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteInstanceValidateBeforeCall(instanceId, null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call deleteInstanceAsync(String instanceId, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteInstanceValidateBeforeCall(instanceId, _callback);
+        okhttp3.Call localVarCall = deleteInstanceValidateBeforeCall(instanceId, _callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteInstanceAsync(String instanceId, final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteInstanceValidateBeforeCall(instanceId, _callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -351,6 +436,21 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute deleteInstance request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            deleteInstanceWithHttpInfo(instanceId, opts);
+        }
+
+        /**
          * Execute deleteInstance request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -364,6 +464,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return deleteInstanceWithHttpInfo(instanceId);
+        }
+
+        /**
+         * Execute deleteInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteInstanceWithHttpInfo(instanceId, opts);
         }
 
         /**
@@ -381,6 +497,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return deleteInstanceAsync(instanceId, _callback);
+        }
+
+        /**
+         * Execute deleteInstance request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteInstanceAsync(instanceId, _callback, opts);
         }
     }
 
@@ -401,6 +534,10 @@ public class IntegrationsApi {
         return new APIdeleteInstanceRequest(instanceId);
     }
     private okhttp3.Call executeInstanceCall(String instanceId, final ApiCallback _callback) throws ApiException {
+        return executeInstanceCall(instanceId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call executeInstanceCall(String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -442,30 +579,44 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call executeInstanceValidateBeforeCall(String instanceId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call executeInstanceValidateBeforeCall(String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling executeInstance(Async)");
         }
 
-        return executeInstanceCall(instanceId, _callback);
+        return executeInstanceCall(instanceId, _callback, opts);
 
     }
 
 
     private ApiResponse<ExecuteInstanceResponse> executeInstanceWithHttpInfo(String instanceId) throws ApiException {
-        okhttp3.Call localVarCall = executeInstanceValidateBeforeCall(instanceId, null);
+        okhttp3.Call localVarCall = executeInstanceValidateBeforeCall(instanceId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithHttpInfo(String instanceId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = executeInstanceValidateBeforeCall(instanceId, null, opts);
         Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call executeInstanceAsync(String instanceId, final ApiCallback<ExecuteInstanceResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = executeInstanceValidateBeforeCall(instanceId, _callback);
+        okhttp3.Call localVarCall = executeInstanceValidateBeforeCall(instanceId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call executeInstanceAsync(String instanceId, final ApiCallback<ExecuteInstanceResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = executeInstanceValidateBeforeCall(instanceId, _callback, opts);
         Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -513,6 +664,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute executeInstance request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ExecuteInstanceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ExecuteInstanceResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ExecuteInstanceResponse> localVarResp = executeInstanceWithHttpInfo(instanceId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute executeInstance request with HTTP info returned
          * @return ApiResponse&lt;ExecuteInstanceResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -526,6 +694,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<ExecuteInstanceResponse> executeWithHttpInfo() throws ApiException {
             return executeInstanceWithHttpInfo(instanceId);
+        }
+
+        /**
+         * Execute executeInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ExecuteInstanceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ExecuteInstanceResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return executeInstanceWithHttpInfo(instanceId, opts);
         }
 
         /**
@@ -543,6 +727,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ExecuteInstanceResponse> _callback) throws ApiException {
             return executeInstanceAsync(instanceId, _callback);
+        }
+
+        /**
+         * Execute executeInstance request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ExecuteInstanceResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return executeInstanceAsync(instanceId, _callback, opts);
         }
     }
 
@@ -563,6 +764,10 @@ public class IntegrationsApi {
         return new APIexecuteInstanceRequest(instanceId);
     }
     private okhttp3.Call getExecutionIdsForInstanceCall(String instanceId, Integer limit, final ApiCallback _callback) throws ApiException {
+        return getExecutionIdsForInstanceCall(instanceId, limit,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getExecutionIdsForInstanceCall(String instanceId, Integer limit, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -608,30 +813,44 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getExecutionIdsForInstanceValidateBeforeCall(String instanceId, Integer limit, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getExecutionIdsForInstanceValidateBeforeCall(String instanceId, Integer limit, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling getExecutionIdsForInstance(Async)");
         }
 
-        return getExecutionIdsForInstanceCall(instanceId, limit, _callback);
+        return getExecutionIdsForInstanceCall(instanceId, limit, _callback, opts);
 
     }
 
 
     private ApiResponse<String> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, null);
+        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<String> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, null, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<String> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, _callback);
+        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, _callback, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -690,6 +909,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute getExecutionIdsForInstance request. Use any specified configuration options to override any other configuration for this request only.
+         * @return String
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public String execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<String> localVarResp = getExecutionIdsForInstanceWithHttpInfo(instanceId, limit, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getExecutionIdsForInstance request with HTTP info returned
          * @return ApiResponse&lt;String&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -703,6 +939,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<String> executeWithHttpInfo() throws ApiException {
             return getExecutionIdsForInstanceWithHttpInfo(instanceId, limit);
+        }
+
+        /**
+         * Execute getExecutionIdsForInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;String&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<String> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getExecutionIdsForInstanceWithHttpInfo(instanceId, limit, opts);
         }
 
         /**
@@ -720,6 +972,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
             return getExecutionIdsForInstanceAsync(instanceId, limit, _callback);
+        }
+
+        /**
+         * Execute getExecutionIdsForInstance request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution ids sorted by start date (descending) </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+            return getExecutionIdsForInstanceAsync(instanceId, limit, _callback, opts);
         }
     }
 
@@ -740,6 +1009,10 @@ public class IntegrationsApi {
         return new APIgetExecutionIdsForInstanceRequest(instanceId);
     }
     private okhttp3.Call getInstanceOptionalPropertyMappingCall(String integration, String instanceId, final ApiCallback _callback) throws ApiException {
+        return getInstanceOptionalPropertyMappingCall(integration, instanceId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getInstanceOptionalPropertyMappingCall(String integration, String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -782,11 +1055,11 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getInstanceOptionalPropertyMappingValidateBeforeCall(String integration, String instanceId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getInstanceOptionalPropertyMappingValidateBeforeCall(String integration, String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'integration' is set
         if (integration == null) {
             throw new ApiException("Missing the required parameter 'integration' when calling getInstanceOptionalPropertyMapping(Async)");
@@ -797,20 +1070,34 @@ public class IntegrationsApi {
             throw new ApiException("Missing the required parameter 'instanceId' when calling getInstanceOptionalPropertyMapping(Async)");
         }
 
-        return getInstanceOptionalPropertyMappingCall(integration, instanceId, _callback);
+        return getInstanceOptionalPropertyMappingCall(integration, instanceId, _callback, opts);
 
     }
 
 
     private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId) throws ApiException {
-        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null);
+        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null, opts);
         Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback);
+        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback, opts);
         Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -860,6 +1147,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute getInstanceOptionalPropertyMapping request. Use any specified configuration options to override any other configuration for this request only.
+         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Map<String, LusidPropertyDefinitionOverrides> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getInstanceOptionalPropertyMapping request with HTTP info returned
          * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -873,6 +1177,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
             return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
+        }
+
+        /**
+         * Execute getInstanceOptionalPropertyMapping request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
         }
 
         /**
@@ -890,6 +1210,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
             return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback);
+        }
+
+        /**
+         * Execute getInstanceOptionalPropertyMapping request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+            return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback, opts);
         }
     }
 
@@ -911,6 +1248,10 @@ public class IntegrationsApi {
         return new APIgetInstanceOptionalPropertyMappingRequest(integration, instanceId);
     }
     private okhttp3.Call getIntegrationConfigurationCall(String integration, final ApiCallback _callback) throws ApiException {
+        return getIntegrationConfigurationCall(integration,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getIntegrationConfigurationCall(String integration, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -952,30 +1293,44 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getIntegrationConfigurationValidateBeforeCall(String integration, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getIntegrationConfigurationValidateBeforeCall(String integration, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'integration' is set
         if (integration == null) {
             throw new ApiException("Missing the required parameter 'integration' when calling getIntegrationConfiguration(Async)");
         }
 
-        return getIntegrationConfigurationCall(integration, _callback);
+        return getIntegrationConfigurationCall(integration, _callback, opts);
 
     }
 
 
     private ApiResponse<List<IntegrationPropertyConfiguration>> getIntegrationConfigurationWithHttpInfo(String integration) throws ApiException {
-        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, null);
+        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<IntegrationPropertyConfiguration>> getIntegrationConfigurationWithHttpInfo(String integration, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, null, opts);
         Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<List<IntegrationPropertyConfiguration>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, _callback);
+        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<List<IntegrationPropertyConfiguration>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, _callback, opts);
         Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1023,6 +1378,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute getIntegrationConfiguration request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;IntegrationPropertyConfiguration&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<IntegrationPropertyConfiguration> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<IntegrationPropertyConfiguration>> localVarResp = getIntegrationConfigurationWithHttpInfo(integration, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getIntegrationConfiguration request with HTTP info returned
          * @return ApiResponse&lt;List&lt;IntegrationPropertyConfiguration&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1036,6 +1408,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<List<IntegrationPropertyConfiguration>> executeWithHttpInfo() throws ApiException {
             return getIntegrationConfigurationWithHttpInfo(integration);
+        }
+
+        /**
+         * Execute getIntegrationConfiguration request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;IntegrationPropertyConfiguration&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<IntegrationPropertyConfiguration>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getIntegrationConfigurationWithHttpInfo(integration, opts);
         }
 
         /**
@@ -1053,6 +1441,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationPropertyConfiguration>> _callback) throws ApiException {
             return getIntegrationConfigurationAsync(integration, _callback);
+        }
+
+        /**
+         * Execute getIntegrationConfiguration request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationPropertyConfiguration>> _callback, ConfigurationOptions opts) throws ApiException {
+            return getIntegrationConfigurationAsync(integration, _callback, opts);
         }
     }
 
@@ -1073,6 +1478,10 @@ public class IntegrationsApi {
         return new APIgetIntegrationConfigurationRequest(integration);
     }
     private okhttp3.Call getSchemaCall(String integration, final ApiCallback _callback) throws ApiException {
+        return getSchemaCall(integration,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getSchemaCall(String integration, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1114,30 +1523,44 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSchemaValidateBeforeCall(String integration, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSchemaValidateBeforeCall(String integration, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'integration' is set
         if (integration == null) {
             throw new ApiException("Missing the required parameter 'integration' when calling getSchema(Async)");
         }
 
-        return getSchemaCall(integration, _callback);
+        return getSchemaCall(integration, _callback, opts);
 
     }
 
 
     private ApiResponse<String> getSchemaWithHttpInfo(String integration) throws ApiException {
-        okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, null);
+        okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<String> getSchemaWithHttpInfo(String integration, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, null, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getSchemaAsync(String integration, final ApiCallback<String> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, _callback);
+        okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getSchemaAsync(String integration, final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, _callback, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1185,6 +1608,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute getSchema request. Use any specified configuration options to override any other configuration for this request only.
+         * @return String
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The system defined JSON schema for the details of a specified integration. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration type does not exist or is not enabled. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public String execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<String> localVarResp = getSchemaWithHttpInfo(integration, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getSchema request with HTTP info returned
          * @return ApiResponse&lt;String&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1198,6 +1638,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<String> executeWithHttpInfo() throws ApiException {
             return getSchemaWithHttpInfo(integration);
+        }
+
+        /**
+         * Execute getSchema request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;String&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The system defined JSON schema for the details of a specified integration. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration type does not exist or is not enabled. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<String> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getSchemaWithHttpInfo(integration, opts);
         }
 
         /**
@@ -1215,6 +1671,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
             return getSchemaAsync(integration, _callback);
+        }
+
+        /**
+         * Execute getSchema request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The system defined JSON schema for the details of a specified integration. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration type does not exist or is not enabled. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+            return getSchemaAsync(integration, _callback, opts);
         }
     }
 
@@ -1235,6 +1708,10 @@ public class IntegrationsApi {
         return new APIgetSchemaRequest(integration);
     }
     private okhttp3.Call listInstancesCall(final ApiCallback _callback) throws ApiException {
+        return listInstancesCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listInstancesCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1275,25 +1752,39 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listInstancesValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return listInstancesCall(_callback);
+    private okhttp3.Call listInstancesValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listInstancesCall(_callback, opts);
 
     }
 
 
     private ApiResponse<IntegrationInstance> listInstancesWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null);
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<IntegrationInstance> listInstancesWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null, opts);
         Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listInstancesAsync(final ApiCallback<IntegrationInstance> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listInstancesAsync(final ApiCallback<IntegrationInstance> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback, opts);
         Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1339,6 +1830,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute listInstances request. Use any specified configuration options to override any other configuration for this request only.
+         * @return IntegrationInstance
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public IntegrationInstance execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<IntegrationInstance> localVarResp = listInstancesWithHttpInfo(opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listInstances request with HTTP info returned
          * @return ApiResponse&lt;IntegrationInstance&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1352,6 +1860,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<IntegrationInstance> executeWithHttpInfo() throws ApiException {
             return listInstancesWithHttpInfo();
+        }
+
+        /**
+         * Execute listInstances request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;IntegrationInstance&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<IntegrationInstance> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listInstancesWithHttpInfo(opts);
         }
 
         /**
@@ -1369,6 +1893,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<IntegrationInstance> _callback) throws ApiException {
             return listInstancesAsync(_callback);
+        }
+
+        /**
+         * Execute listInstances request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<IntegrationInstance> _callback, ConfigurationOptions opts) throws ApiException {
+            return listInstancesAsync(_callback, opts);
         }
     }
 
@@ -1388,6 +1929,10 @@ public class IntegrationsApi {
         return new APIlistInstancesRequest();
     }
     private okhttp3.Call listIntegrationsCall(final ApiCallback _callback) throws ApiException {
+        return listIntegrationsCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listIntegrationsCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1428,25 +1973,39 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listIntegrationsValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return listIntegrationsCall(_callback);
+    private okhttp3.Call listIntegrationsValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listIntegrationsCall(_callback, opts);
 
     }
 
 
     private ApiResponse<List<IntegrationDescription>> listIntegrationsWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = listIntegrationsValidateBeforeCall(null);
+        okhttp3.Call localVarCall = listIntegrationsValidateBeforeCall(null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<IntegrationDescription>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<IntegrationDescription>> listIntegrationsWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listIntegrationsValidateBeforeCall(null, opts);
         Type localVarReturnType = new TypeToken<List<IntegrationDescription>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listIntegrationsAsync(final ApiCallback<List<IntegrationDescription>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listIntegrationsValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = listIntegrationsValidateBeforeCall(_callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<IntegrationDescription>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listIntegrationsAsync(final ApiCallback<List<IntegrationDescription>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listIntegrationsValidateBeforeCall(_callback, opts);
         Type localVarReturnType = new TypeToken<List<IntegrationDescription>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1490,6 +2049,22 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute listIntegrations request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;IntegrationDescription&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<IntegrationDescription> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<IntegrationDescription>> localVarResp = listIntegrationsWithHttpInfo(opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listIntegrations request with HTTP info returned
          * @return ApiResponse&lt;List&lt;IntegrationDescription&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1502,6 +2077,21 @@ public class IntegrationsApi {
          */
         public ApiResponse<List<IntegrationDescription>> executeWithHttpInfo() throws ApiException {
             return listIntegrationsWithHttpInfo();
+        }
+
+        /**
+         * Execute listIntegrations request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;IntegrationDescription&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<IntegrationDescription>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listIntegrationsWithHttpInfo(opts);
         }
 
         /**
@@ -1518,6 +2108,22 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationDescription>> _callback) throws ApiException {
             return listIntegrationsAsync(_callback);
+        }
+
+        /**
+         * Execute listIntegrations request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationDescription>> _callback, ConfigurationOptions opts) throws ApiException {
+            return listIntegrationsAsync(_callback, opts);
         }
     }
 
@@ -1536,6 +2142,10 @@ public class IntegrationsApi {
         return new APIlistIntegrationsRequest();
     }
     private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback) throws ApiException {
+        return setInstanceOptionalPropertyMappingCall(instanceId, integration, requestBody,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1579,11 +2189,11 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call setInstanceOptionalPropertyMappingValidateBeforeCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingValidateBeforeCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling setInstanceOptionalPropertyMapping(Async)");
@@ -1594,20 +2204,34 @@ public class IntegrationsApi {
             throw new ApiException("Missing the required parameter 'integration' when calling setInstanceOptionalPropertyMapping(Async)");
         }
 
-        return setInstanceOptionalPropertyMappingCall(instanceId, integration, requestBody, _callback);
+        return setInstanceOptionalPropertyMappingCall(instanceId, integration, requestBody, _callback, opts);
 
     }
 
 
     private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody) throws ApiException {
-        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null);
+        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null, opts);
         Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback);
+        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback, opts);
         Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1668,6 +2292,23 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute setInstanceOptionalPropertyMapping request. Use any specified configuration options to override any other configuration for this request only.
+         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Map<String, LusidPropertyDefinitionOverrides> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute setInstanceOptionalPropertyMapping request with HTTP info returned
          * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1681,6 +2322,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
             return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
+        }
+
+        /**
+         * Execute setInstanceOptionalPropertyMapping request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
         }
 
         /**
@@ -1698,6 +2355,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
             return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback);
+        }
+
+        /**
+         * Execute setInstanceOptionalPropertyMapping request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+            return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback, opts);
         }
     }
 
@@ -1719,6 +2393,10 @@ public class IntegrationsApi {
         return new APIsetInstanceOptionalPropertyMappingRequest(instanceId, integration);
     }
     private okhttp3.Call updateInstanceCall(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback _callback) throws ApiException {
+        return updateInstanceCall(instanceId, updateInstanceRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call updateInstanceCall(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1761,29 +2439,41 @@ public class IntegrationsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateInstanceValidateBeforeCall(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateInstanceValidateBeforeCall(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling updateInstance(Async)");
         }
 
-        return updateInstanceCall(instanceId, updateInstanceRequest, _callback);
+        return updateInstanceCall(instanceId, updateInstanceRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<Void> updateInstanceWithHttpInfo(String instanceId, UpdateInstanceRequest updateInstanceRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateInstanceValidateBeforeCall(instanceId, updateInstanceRequest, null);
+        okhttp3.Call localVarCall = updateInstanceValidateBeforeCall(instanceId, updateInstanceRequest, null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> updateInstanceWithHttpInfo(String instanceId, UpdateInstanceRequest updateInstanceRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = updateInstanceValidateBeforeCall(instanceId, updateInstanceRequest, null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call updateInstanceAsync(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateInstanceValidateBeforeCall(instanceId, updateInstanceRequest, _callback);
+        okhttp3.Call localVarCall = updateInstanceValidateBeforeCall(instanceId, updateInstanceRequest, _callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call updateInstanceAsync(String instanceId, UpdateInstanceRequest updateInstanceRequest, final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = updateInstanceValidateBeforeCall(instanceId, updateInstanceRequest, _callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -1839,6 +2529,21 @@ public class IntegrationsApi {
         }
 
         /**
+         * Execute updateInstance request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            updateInstanceWithHttpInfo(instanceId, updateInstanceRequest, opts);
+        }
+
+        /**
          * Execute updateInstance request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1852,6 +2557,22 @@ public class IntegrationsApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return updateInstanceWithHttpInfo(instanceId, updateInstanceRequest);
+        }
+
+        /**
+         * Execute updateInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return updateInstanceWithHttpInfo(instanceId, updateInstanceRequest, opts);
         }
 
         /**
@@ -1869,6 +2590,23 @@ public class IntegrationsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return updateInstanceAsync(instanceId, updateInstanceRequest, _callback);
+        }
+
+        /**
+         * Execute updateInstance request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return updateInstanceAsync(instanceId, updateInstanceRequest, _callback, opts);
         }
     }
 

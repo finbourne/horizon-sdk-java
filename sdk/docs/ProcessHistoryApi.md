@@ -48,9 +48,20 @@ public class ProcessHistoryApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ProcessHistoryApi apiInstance = apiFactory.build(ProcessHistoryApi.class);
+
         ProcessHistoryApi apiInstance = ApiFactoryBuilder.build(fileName).build(ProcessHistoryApi.class);
         AuditCompleteRequest auditCompleteRequest = new AuditCompleteRequest(); // AuditCompleteRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // AuditCompleteResponse result = apiInstance.createCompleteEvent(auditCompleteRequest).execute(opts);
+
             AuditCompleteResponse result = apiInstance.createCompleteEvent(auditCompleteRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -125,9 +136,20 @@ public class ProcessHistoryApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ProcessHistoryApi apiInstance = apiFactory.build(ProcessHistoryApi.class);
+
         ProcessHistoryApi apiInstance = ApiFactoryBuilder.build(fileName).build(ProcessHistoryApi.class);
         AuditUpdateRequest auditUpdateRequest = new AuditUpdateRequest(); // AuditUpdateRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // AuditUpdateResponse result = apiInstance.createUpdateEvent(auditUpdateRequest).execute(opts);
+
             AuditUpdateResponse result = apiInstance.createUpdateEvent(auditUpdateRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -202,8 +224,19 @@ public class ProcessHistoryApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ProcessHistoryApi apiInstance = apiFactory.build(ProcessHistoryApi.class);
+
         ProcessHistoryApi apiInstance = ApiFactoryBuilder.build(fileName).build(ProcessHistoryApi.class);
         try {
+            // uncomment the below to set overrides at the request level
+            // List<ProcessInformation> result = apiInstance.getLatestRuns().execute(opts);
+
             List<ProcessInformation> result = apiInstance.getLatestRuns().execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -275,10 +308,21 @@ public class ProcessHistoryApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ProcessHistoryApi apiInstance = apiFactory.build(ProcessHistoryApi.class);
+
         ProcessHistoryApi apiInstance = ApiFactoryBuilder.build(fileName).build(ProcessHistoryApi.class);
         String runId = "runId_example"; // String | 
         QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // PagedResourceListOfProcessUpdateResult result = apiInstance.processEntryUpdates(runId, queryRequest).execute(opts);
+
             PagedResourceListOfProcessUpdateResult result = apiInstance.processEntryUpdates(runId, queryRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -354,10 +398,21 @@ public class ProcessHistoryApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ProcessHistoryApi apiInstance = apiFactory.build(ProcessHistoryApi.class);
+
         ProcessHistoryApi apiInstance = ApiFactoryBuilder.build(fileName).build(ProcessHistoryApi.class);
         QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
         String processName = "processName_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // PagedResourceListOfProcessInformation result = apiInstance.processHistoryEntries(queryRequest, processName).execute(opts);
+
             PagedResourceListOfProcessInformation result = apiInstance.processHistoryEntries(queryRequest, processName).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {

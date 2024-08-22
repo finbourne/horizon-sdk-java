@@ -48,12 +48,23 @@ public class VendorApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VendorApi apiInstance = apiFactory.build(VendorApi.class);
+
         VendorApi apiInstance = ApiFactoryBuilder.build(fileName).build(VendorApi.class);
         String vendorName = "vendorName_example"; // String | 
         String productName = "productName_example"; // String | 
         String lusidEntityType = "lusidEntityType_example"; // String | 
         String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // List<LusidField> result = apiInstance.getCoreFieldMappingsForProductEntity(vendorName, productName, lusidEntityType, lusidEntitySubType).execute(opts);
+
             List<LusidField> result = apiInstance.getCoreFieldMappingsForProductEntity(vendorName, productName, lusidEntityType, lusidEntitySubType).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -131,12 +142,23 @@ public class VendorApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VendorApi apiInstance = apiFactory.build(VendorApi.class);
+
         VendorApi apiInstance = ApiFactoryBuilder.build(fileName).build(VendorApi.class);
         String vendorName = "vendorName_example"; // String | 
         String productName = "productName_example"; // String | 
         String lusidEntityType = "lusidEntityType_example"; // String | 
         String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, lusidEntitySubType).execute(opts);
+
             Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, lusidEntitySubType).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -214,12 +236,23 @@ public class VendorApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VendorApi apiInstance = apiFactory.build(VendorApi.class);
+
         VendorApi apiInstance = ApiFactoryBuilder.build(fileName).build(VendorApi.class);
         String vendorName = "vendorName_example"; // String | 
         String productName = "productName_example"; // String | 
         String lusidEntityType = "lusidEntityType_example"; // String | 
         String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // List<LusidPropertyToVendorFieldMapping> result = apiInstance.getPropertyMappingsForProductEntity(vendorName, productName, lusidEntityType, lusidEntitySubType).execute(opts);
+
             List<LusidPropertyToVendorFieldMapping> result = apiInstance.getPropertyMappingsForProductEntity(vendorName, productName, lusidEntityType, lusidEntitySubType).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -297,9 +330,20 @@ public class VendorApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VendorApi apiInstance = apiFactory.build(VendorApi.class);
+
         VendorApi apiInstance = ApiFactoryBuilder.build(fileName).build(VendorApi.class);
         QueryRequest queryRequest = new QueryRequest(); // QueryRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // PagedResourceListOfVendorProduct result = apiInstance.queryVendors(queryRequest).execute(opts);
+
             PagedResourceListOfVendorProduct result = apiInstance.queryVendors(queryRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -374,6 +418,14 @@ public class VendorApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VendorApi apiInstance = apiFactory.build(VendorApi.class);
+
         VendorApi apiInstance = ApiFactoryBuilder.build(fileName).build(VendorApi.class);
         String vendorName = "vendorName_example"; // String | 
         String productName = "productName_example"; // String | 
@@ -381,6 +433,9 @@ public class VendorApiExample {
         Map<String, LusidPropertyDefinitionOverrides> requestBody = new HashMap(); // Map<String, LusidPropertyDefinitionOverrides> | 
         String lusidEntitySubType = "lusidEntitySubType_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // Map<String, LusidPropertyDefinitionOverridesResponse> result = apiInstance.setOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType).execute(opts);
+
             Map<String, LusidPropertyDefinitionOverridesResponse> result = apiInstance.setOptionalMappingsForProductEntity(vendorName, productName, lusidEntityType, requestBody, lusidEntitySubType).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {

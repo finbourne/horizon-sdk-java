@@ -18,6 +18,7 @@ import com.finbourne.horizon.Configuration;
 import com.finbourne.horizon.Pair;
 import com.finbourne.horizon.ProgressRequestBody;
 import com.finbourne.horizon.ProgressResponseBody;
+import com.finbourne.horizon.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -78,6 +79,10 @@ public class ProcessHistoryApi {
     }
 
     private okhttp3.Call createCompleteEventCall(AuditCompleteRequest auditCompleteRequest, final ApiCallback _callback) throws ApiException {
+        return createCompleteEventCall(auditCompleteRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createCompleteEventCall(AuditCompleteRequest auditCompleteRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -122,30 +127,44 @@ public class ProcessHistoryApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCompleteEventValidateBeforeCall(AuditCompleteRequest auditCompleteRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createCompleteEventValidateBeforeCall(AuditCompleteRequest auditCompleteRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'auditCompleteRequest' is set
         if (auditCompleteRequest == null) {
             throw new ApiException("Missing the required parameter 'auditCompleteRequest' when calling createCompleteEvent(Async)");
         }
 
-        return createCompleteEventCall(auditCompleteRequest, _callback);
+        return createCompleteEventCall(auditCompleteRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<AuditCompleteResponse> createCompleteEventWithHttpInfo(AuditCompleteRequest auditCompleteRequest) throws ApiException {
-        okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, null);
+        okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<AuditCompleteResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<AuditCompleteResponse> createCompleteEventWithHttpInfo(AuditCompleteRequest auditCompleteRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, null, opts);
         Type localVarReturnType = new TypeToken<AuditCompleteResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createCompleteEventAsync(AuditCompleteRequest auditCompleteRequest, final ApiCallback<AuditCompleteResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, _callback);
+        okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<AuditCompleteResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createCompleteEventAsync(AuditCompleteRequest auditCompleteRequest, final ApiCallback<AuditCompleteResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createCompleteEventValidateBeforeCall(auditCompleteRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<AuditCompleteResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -191,6 +210,22 @@ public class ProcessHistoryApi {
         }
 
         /**
+         * Execute createCompleteEvent request. Use any specified configuration options to override any other configuration for this request only.
+         * @return AuditCompleteResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public AuditCompleteResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<AuditCompleteResponse> localVarResp = createCompleteEventWithHttpInfo(auditCompleteRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createCompleteEvent request with HTTP info returned
          * @return ApiResponse&lt;AuditCompleteResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -203,6 +238,21 @@ public class ProcessHistoryApi {
          */
         public ApiResponse<AuditCompleteResponse> executeWithHttpInfo() throws ApiException {
             return createCompleteEventWithHttpInfo(auditCompleteRequest);
+        }
+
+        /**
+         * Execute createCompleteEvent request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;AuditCompleteResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<AuditCompleteResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createCompleteEventWithHttpInfo(auditCompleteRequest, opts);
         }
 
         /**
@@ -219,6 +269,22 @@ public class ProcessHistoryApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<AuditCompleteResponse> _callback) throws ApiException {
             return createCompleteEventAsync(auditCompleteRequest, _callback);
+        }
+
+        /**
+         * Execute createCompleteEvent request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<AuditCompleteResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return createCompleteEventAsync(auditCompleteRequest, _callback, opts);
         }
     }
 
@@ -238,6 +304,10 @@ public class ProcessHistoryApi {
         return new APIcreateCompleteEventRequest(auditCompleteRequest);
     }
     private okhttp3.Call createUpdateEventCall(AuditUpdateRequest auditUpdateRequest, final ApiCallback _callback) throws ApiException {
+        return createUpdateEventCall(auditUpdateRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createUpdateEventCall(AuditUpdateRequest auditUpdateRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -282,30 +352,44 @@ public class ProcessHistoryApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createUpdateEventValidateBeforeCall(AuditUpdateRequest auditUpdateRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createUpdateEventValidateBeforeCall(AuditUpdateRequest auditUpdateRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'auditUpdateRequest' is set
         if (auditUpdateRequest == null) {
             throw new ApiException("Missing the required parameter 'auditUpdateRequest' when calling createUpdateEvent(Async)");
         }
 
-        return createUpdateEventCall(auditUpdateRequest, _callback);
+        return createUpdateEventCall(auditUpdateRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<AuditUpdateResponse> createUpdateEventWithHttpInfo(AuditUpdateRequest auditUpdateRequest) throws ApiException {
-        okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, null);
+        okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<AuditUpdateResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<AuditUpdateResponse> createUpdateEventWithHttpInfo(AuditUpdateRequest auditUpdateRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, null, opts);
         Type localVarReturnType = new TypeToken<AuditUpdateResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createUpdateEventAsync(AuditUpdateRequest auditUpdateRequest, final ApiCallback<AuditUpdateResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, _callback);
+        okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<AuditUpdateResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createUpdateEventAsync(AuditUpdateRequest auditUpdateRequest, final ApiCallback<AuditUpdateResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createUpdateEventValidateBeforeCall(auditUpdateRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<AuditUpdateResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -351,6 +435,22 @@ public class ProcessHistoryApi {
         }
 
         /**
+         * Execute createUpdateEvent request. Use any specified configuration options to override any other configuration for this request only.
+         * @return AuditUpdateResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public AuditUpdateResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<AuditUpdateResponse> localVarResp = createUpdateEventWithHttpInfo(auditUpdateRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createUpdateEvent request with HTTP info returned
          * @return ApiResponse&lt;AuditUpdateResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -363,6 +463,21 @@ public class ProcessHistoryApi {
          */
         public ApiResponse<AuditUpdateResponse> executeWithHttpInfo() throws ApiException {
             return createUpdateEventWithHttpInfo(auditUpdateRequest);
+        }
+
+        /**
+         * Execute createUpdateEvent request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;AuditUpdateResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<AuditUpdateResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createUpdateEventWithHttpInfo(auditUpdateRequest, opts);
         }
 
         /**
@@ -379,6 +494,22 @@ public class ProcessHistoryApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<AuditUpdateResponse> _callback) throws ApiException {
             return createUpdateEventAsync(auditUpdateRequest, _callback);
+        }
+
+        /**
+         * Execute createUpdateEvent request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<AuditUpdateResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return createUpdateEventAsync(auditUpdateRequest, _callback, opts);
         }
     }
 
@@ -398,6 +529,10 @@ public class ProcessHistoryApi {
         return new APIcreateUpdateEventRequest(auditUpdateRequest);
     }
     private okhttp3.Call getLatestRunsCall(final ApiCallback _callback) throws ApiException {
+        return getLatestRunsCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getLatestRunsCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -438,25 +573,39 @@ public class ProcessHistoryApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getLatestRunsValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return getLatestRunsCall(_callback);
+    private okhttp3.Call getLatestRunsValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return getLatestRunsCall(_callback, opts);
 
     }
 
 
     private ApiResponse<List<ProcessInformation>> getLatestRunsWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(null);
+        okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<ProcessInformation>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<ProcessInformation>> getLatestRunsWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(null, opts);
         Type localVarReturnType = new TypeToken<List<ProcessInformation>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getLatestRunsAsync(final ApiCallback<List<ProcessInformation>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(_callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<ProcessInformation>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getLatestRunsAsync(final ApiCallback<List<ProcessInformation>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getLatestRunsValidateBeforeCall(_callback, opts);
         Type localVarReturnType = new TypeToken<List<ProcessInformation>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -500,6 +649,22 @@ public class ProcessHistoryApi {
         }
 
         /**
+         * Execute getLatestRuns request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;ProcessInformation&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<ProcessInformation> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<ProcessInformation>> localVarResp = getLatestRunsWithHttpInfo(opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getLatestRuns request with HTTP info returned
          * @return ApiResponse&lt;List&lt;ProcessInformation&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -512,6 +677,21 @@ public class ProcessHistoryApi {
          */
         public ApiResponse<List<ProcessInformation>> executeWithHttpInfo() throws ApiException {
             return getLatestRunsWithHttpInfo();
+        }
+
+        /**
+         * Execute getLatestRuns request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;ProcessInformation&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<ProcessInformation>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getLatestRunsWithHttpInfo(opts);
         }
 
         /**
@@ -528,6 +708,22 @@ public class ProcessHistoryApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<ProcessInformation>> _callback) throws ApiException {
             return getLatestRunsAsync(_callback);
+        }
+
+        /**
+         * Execute getLatestRuns request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<ProcessInformation>> _callback, ConfigurationOptions opts) throws ApiException {
+            return getLatestRunsAsync(_callback, opts);
         }
     }
 
@@ -546,6 +742,10 @@ public class ProcessHistoryApi {
         return new APIgetLatestRunsRequest();
     }
     private okhttp3.Call processEntryUpdatesCall(String runId, QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
+        return processEntryUpdatesCall(runId, queryRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call processEntryUpdatesCall(String runId, QueryRequest queryRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -594,11 +794,11 @@ public class ProcessHistoryApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call processEntryUpdatesValidateBeforeCall(String runId, QueryRequest queryRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call processEntryUpdatesValidateBeforeCall(String runId, QueryRequest queryRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'runId' is set
         if (runId == null) {
             throw new ApiException("Missing the required parameter 'runId' when calling processEntryUpdates(Async)");
@@ -609,20 +809,34 @@ public class ProcessHistoryApi {
             throw new ApiException("Missing the required parameter 'queryRequest' when calling processEntryUpdates(Async)");
         }
 
-        return processEntryUpdatesCall(runId, queryRequest, _callback);
+        return processEntryUpdatesCall(runId, queryRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<PagedResourceListOfProcessUpdateResult> processEntryUpdatesWithHttpInfo(String runId, QueryRequest queryRequest) throws ApiException {
-        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(runId, queryRequest, null);
+        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(runId, queryRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<PagedResourceListOfProcessUpdateResult> processEntryUpdatesWithHttpInfo(String runId, QueryRequest queryRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(runId, queryRequest, null, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call processEntryUpdatesAsync(String runId, QueryRequest queryRequest, final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(runId, queryRequest, _callback);
+        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(runId, queryRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call processEntryUpdatesAsync(String runId, QueryRequest queryRequest, final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = processEntryUpdatesValidateBeforeCall(runId, queryRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessUpdateResult>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -670,6 +884,22 @@ public class ProcessHistoryApi {
         }
 
         /**
+         * Execute processEntryUpdates request. Use any specified configuration options to override any other configuration for this request only.
+         * @return PagedResourceListOfProcessUpdateResult
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public PagedResourceListOfProcessUpdateResult execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<PagedResourceListOfProcessUpdateResult> localVarResp = processEntryUpdatesWithHttpInfo(runId, queryRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute processEntryUpdates request with HTTP info returned
          * @return ApiResponse&lt;PagedResourceListOfProcessUpdateResult&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -682,6 +912,21 @@ public class ProcessHistoryApi {
          */
         public ApiResponse<PagedResourceListOfProcessUpdateResult> executeWithHttpInfo() throws ApiException {
             return processEntryUpdatesWithHttpInfo(runId, queryRequest);
+        }
+
+        /**
+         * Execute processEntryUpdates request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;PagedResourceListOfProcessUpdateResult&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PagedResourceListOfProcessUpdateResult> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return processEntryUpdatesWithHttpInfo(runId, queryRequest, opts);
         }
 
         /**
@@ -698,6 +943,22 @@ public class ProcessHistoryApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback) throws ApiException {
             return processEntryUpdatesAsync(runId, queryRequest, _callback);
+        }
+
+        /**
+         * Execute processEntryUpdates request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessUpdateResult> _callback, ConfigurationOptions opts) throws ApiException {
+            return processEntryUpdatesAsync(runId, queryRequest, _callback, opts);
         }
     }
 
@@ -718,6 +979,10 @@ public class ProcessHistoryApi {
         return new APIprocessEntryUpdatesRequest(runId, queryRequest);
     }
     private okhttp3.Call processHistoryEntriesCall(QueryRequest queryRequest, String processName, final ApiCallback _callback) throws ApiException {
+        return processHistoryEntriesCall(queryRequest, processName,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call processHistoryEntriesCall(QueryRequest queryRequest, String processName, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -766,30 +1031,44 @@ public class ProcessHistoryApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call processHistoryEntriesValidateBeforeCall(QueryRequest queryRequest, String processName, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call processHistoryEntriesValidateBeforeCall(QueryRequest queryRequest, String processName, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'queryRequest' is set
         if (queryRequest == null) {
             throw new ApiException("Missing the required parameter 'queryRequest' when calling processHistoryEntries(Async)");
         }
 
-        return processHistoryEntriesCall(queryRequest, processName, _callback);
+        return processHistoryEntriesCall(queryRequest, processName, _callback, opts);
 
     }
 
 
     private ApiResponse<PagedResourceListOfProcessInformation> processHistoryEntriesWithHttpInfo(QueryRequest queryRequest, String processName) throws ApiException {
-        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, processName, null);
+        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, processName, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<PagedResourceListOfProcessInformation> processHistoryEntriesWithHttpInfo(QueryRequest queryRequest, String processName, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, processName, null, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call processHistoryEntriesAsync(QueryRequest queryRequest, String processName, final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, processName, _callback);
+        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, processName, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call processHistoryEntriesAsync(QueryRequest queryRequest, String processName, final ApiCallback<PagedResourceListOfProcessInformation> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = processHistoryEntriesValidateBeforeCall(queryRequest, processName, _callback, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfProcessInformation>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -846,6 +1125,22 @@ public class ProcessHistoryApi {
         }
 
         /**
+         * Execute processHistoryEntries request. Use any specified configuration options to override any other configuration for this request only.
+         * @return PagedResourceListOfProcessInformation
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public PagedResourceListOfProcessInformation execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<PagedResourceListOfProcessInformation> localVarResp = processHistoryEntriesWithHttpInfo(queryRequest, processName, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute processHistoryEntries request with HTTP info returned
          * @return ApiResponse&lt;PagedResourceListOfProcessInformation&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -858,6 +1153,21 @@ public class ProcessHistoryApi {
          */
         public ApiResponse<PagedResourceListOfProcessInformation> executeWithHttpInfo() throws ApiException {
             return processHistoryEntriesWithHttpInfo(queryRequest, processName);
+        }
+
+        /**
+         * Execute processHistoryEntries request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;PagedResourceListOfProcessInformation&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PagedResourceListOfProcessInformation> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return processHistoryEntriesWithHttpInfo(queryRequest, processName, opts);
         }
 
         /**
@@ -874,6 +1184,22 @@ public class ProcessHistoryApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessInformation> _callback) throws ApiException {
             return processHistoryEntriesAsync(queryRequest, processName, _callback);
+        }
+
+        /**
+         * Execute processHistoryEntries request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfProcessInformation> _callback, ConfigurationOptions opts) throws ApiException {
+            return processHistoryEntriesAsync(queryRequest, processName, _callback, opts);
         }
     }
 

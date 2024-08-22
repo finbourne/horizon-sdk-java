@@ -49,9 +49,20 @@ public class InstrumentApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
+
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         OnboardInstrumentRequest onboardInstrumentRequest = new OnboardInstrumentRequest(); // OnboardInstrumentRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // OnboardInstrumentResponse result = apiInstance.createInstrument(onboardInstrumentRequest).execute(opts);
+
             OnboardInstrumentResponse result = apiInstance.createInstrument(onboardInstrumentRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -127,10 +138,21 @@ public class InstrumentApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
+
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         String vendorProductKey = "vendorProductKey_example"; // String | 
         Identifiers identifiers = new Identifiers(); // Identifiers | 
         try {
+            // uncomment the below to set overrides at the request level
+            // EnrichmentResponse result = apiInstance.enrichInstrument(vendorProductKey, identifiers).execute(opts);
+
             EnrichmentResponse result = apiInstance.enrichInstrument(vendorProductKey, identifiers).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -207,9 +229,20 @@ public class InstrumentApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
+
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         OpenFigiParameterOptionName parameterName = OpenFigiParameterOptionName.fromValue("IdType"); // OpenFigiParameterOptionName | 
         try {
+            // uncomment the below to set overrides at the request level
+            // List<AllowedParameterValue> result = apiInstance.getOpenFigiParameterOption(parameterName).execute(opts);
+
             List<AllowedParameterValue> result = apiInstance.getOpenFigiParameterOption(parameterName).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -284,9 +317,20 @@ public class InstrumentApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
+
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         String id = "id_example"; // String | The execution ID returned by a previous query
         try {
+            // uncomment the below to set overrides at the request level
+            // List<PermIdData> result = apiInstance.retrievePermIdResult(id).execute(opts);
+
             List<PermIdData> result = apiInstance.retrievePermIdResult(id).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -361,12 +405,23 @@ public class InstrumentApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
+
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         String query = "query_example"; // String | 
         Boolean usePermId = false; // Boolean | Should also search PermId for additional information, defaults to `false`.
         Integer limit = 25; // Integer | Only affects results rom OpenFigi general text search
         String marketSector = "All"; // String | The market sector to search, defaults to `All`.
         try {
+            // uncomment the below to set overrides at the request level
+            // OpenFigiSearchResult result = apiInstance.searchOpenFigi(query, usePermId, limit, marketSector).execute(opts);
+
             OpenFigiSearchResult result = apiInstance.searchOpenFigi(query, usePermId, limit, marketSector).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -444,11 +499,22 @@ public class InstrumentApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
+
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
         String marketSector = "marketSector_example"; // String | 
         String securityType = "securityType_example"; // String | 
         String generalSecurityType = "generalSecurityType_example"; // String | 
         try {
+            // uncomment the below to set overrides at the request level
+            // List<VendorProduct> result = apiInstance.vendors(marketSector, securityType, generalSecurityType).execute(opts);
+
             List<VendorProduct> result = apiInstance.vendors(marketSector, securityType, generalSecurityType).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
