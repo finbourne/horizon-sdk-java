@@ -17,7 +17,9 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,6 +62,10 @@ public class IntegrationDescription {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
+
+  public static final String SERIALIZED_NAME_SUPPORTED_TRIGGER_TYPES = "supportedTriggerTypes";
+  @SerializedName(SERIALIZED_NAME_SUPPORTED_TRIGGER_TYPES)
+  private List<String> supportedTriggerTypes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_LICENSED = "licensed";
   @SerializedName(SERIALIZED_NAME_LICENSED)
@@ -131,6 +137,35 @@ public class IntegrationDescription {
   }
 
 
+  public IntegrationDescription supportedTriggerTypes(List<String> supportedTriggerTypes) {
+    
+    this.supportedTriggerTypes = supportedTriggerTypes;
+    return this;
+  }
+
+  public IntegrationDescription addSupportedTriggerTypesItem(String supportedTriggerTypesItem) {
+    if (this.supportedTriggerTypes == null) {
+      this.supportedTriggerTypes = new ArrayList<>();
+    }
+    this.supportedTriggerTypes.add(supportedTriggerTypesItem);
+    return this;
+  }
+
+   /**
+   * Trigger types (Time, File) the integration supports.
+   * @return supportedTriggerTypes
+  **/
+  @jakarta.annotation.Nonnull
+  public List<String> getSupportedTriggerTypes() {
+    return supportedTriggerTypes;
+  }
+
+
+  public void setSupportedTriggerTypes(List<String> supportedTriggerTypes) {
+    this.supportedTriggerTypes = supportedTriggerTypes;
+  }
+
+
   public IntegrationDescription licensed(Boolean licensed) {
     
     this.licensed = licensed;
@@ -165,12 +200,13 @@ public class IntegrationDescription {
     return Objects.equals(this.type, integrationDescription.type) &&
         Objects.equals(this.name, integrationDescription.name) &&
         Objects.equals(this.description, integrationDescription.description) &&
+        Objects.equals(this.supportedTriggerTypes, integrationDescription.supportedTriggerTypes) &&
         Objects.equals(this.licensed, integrationDescription.licensed);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, description, licensed);
+    return Objects.hash(type, name, description, supportedTriggerTypes, licensed);
   }
 
   @Override
@@ -180,6 +216,7 @@ public class IntegrationDescription {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    supportedTriggerTypes: ").append(toIndentedString(supportedTriggerTypes)).append("\n");
     sb.append("    licensed: ").append(toIndentedString(licensed)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -206,6 +243,7 @@ public class IntegrationDescription {
     openapiFields.add("type");
     openapiFields.add("name");
     openapiFields.add("description");
+    openapiFields.add("supportedTriggerTypes");
     openapiFields.add("licensed");
 
     // a set of required properties/fields (JSON key names)
@@ -213,6 +251,7 @@ public class IntegrationDescription {
     openapiRequiredFields.add("type");
     openapiRequiredFields.add("name");
     openapiRequiredFields.add("description");
+    openapiRequiredFields.add("supportedTriggerTypes");
     openapiRequiredFields.add("licensed");
   }
 
@@ -244,6 +283,12 @@ public class IntegrationDescription {
       }
       if (!jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+      }
+      // ensure the required json array is present
+      if (jsonObj.get("supportedTriggerTypes") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("supportedTriggerTypes").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `supportedTriggerTypes` to be an array in the JSON string but got `%s`", jsonObj.get("supportedTriggerTypes").toString()));
       }
   }
 

@@ -11,6 +11,7 @@ Response containing the description of an integration.
 |**type** | **String** | Unique identifier of the integration e.g. \&quot;copp-clark\&quot;. |  |
 |**name** | **String** | Readable name of the integration e.g. \&quot;Copp Clark\&quot;. |  |
 |**description** | **String** | Describes the purpose of the integration. |  |
+|**supportedTriggerTypes** | **List&lt;String&gt;** | Trigger types (Time, File) the integration supports. |  |
 |**licensed** | **Boolean** | True if your domain is licensed to use this integration, otherwise false. |  |
 
 

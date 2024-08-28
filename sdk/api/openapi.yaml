@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.671
+  version: 0.1.675
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -348,6 +348,8 @@ paths:
                 name: Copp Clark
                 description: Market holiday reference data supplied by Copp Clark
                   Limited (coppclark.com)
+                supportedTriggerTypes:
+                - Time
                 licensed: true
               schema:
                 items:
@@ -2032,6 +2034,9 @@ components:
       description: Response containing the description of an integration.
       example:
         licensed: true
+        supportedTriggerTypes:
+        - supportedTriggerTypes
+        - supportedTriggerTypes
         name: name
         description: description
         type: type
@@ -2045,6 +2050,11 @@ components:
         description:
           description: Describes the purpose of the integration.
           type: string
+        supportedTriggerTypes:
+          description: "Trigger types (Time, File) the integration supports."
+          items:
+            type: string
+          type: array
         licensed:
           description: "True if your domain is licensed to use this integration, otherwise\
             \ false."
@@ -2053,6 +2063,7 @@ components:
       - description
       - licensed
       - name
+      - supportedTriggerTypes
       - type
       type: object
     IntegrationInstance:
