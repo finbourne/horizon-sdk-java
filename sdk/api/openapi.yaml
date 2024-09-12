@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.725
+  version: 0.1.736
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -21,6 +21,8 @@ tags:
   name: Integrations
 - description: Provides details on Horizon processes
   name: ProcessHistory
+- description: Get horizon runs
+  name: Runs
 - description: Provides information about Vendor configurations
   name: Vendor
 paths:
@@ -1255,6 +1257,76 @@ paths:
       x-fbn-apistatus: EarlyAccess
       x-content-type: application/json-patch+json
       x-accepts: application/json
+  /api/runs:
+    get:
+      description: Get run results
+      operationId: GetRunResults
+      parameters:
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: pageToken
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationRunResponse'
+          description: Success
+        "404":
+          description: Not Found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetRunResults: "
+      tags:
+      - Runs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/vendor/$query:
     post:
       operationId: QueryVendors
@@ -2222,6 +2294,114 @@ components:
       - fields
       - properties
       - type
+      type: object
+    IntegrationRunIntegration:
+      additionalProperties: false
+      example:
+        name: name
+        type: type
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+      required:
+      - name
+      - type
+      type: object
+    IntegrationRunLog:
+      additionalProperties: false
+      example:
+        count: 0
+        link:
+          description: description
+          href: href
+      properties:
+        count:
+          format: int64
+          type: integer
+        link:
+          $ref: '#/components/schemas/IntegrationRunLogLink'
+      required:
+      - count
+      - link
+      type: object
+    IntegrationRunLogLink:
+      additionalProperties: false
+      example:
+        description: description
+        href: href
+      properties:
+        href:
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - href
+      type: object
+    IntegrationRunResponse:
+      additionalProperties: false
+      example:
+        instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        integration:
+          name: name
+          type: type
+        integrationLogs:
+          key:
+            key:
+              count: 0
+              link:
+                description: description
+                href: href
+        runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        version:
+          asAtModified: 2000-01-23T04:56:07.000+00:00
+          asAtCreated: 2000-01-23T04:56:07.000+00:00
+        status: status
+      properties:
+        runId:
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          type: string
+        instanceId:
+          format: uuid
+          nullable: true
+          type: string
+        status:
+          nullable: true
+          type: string
+        integration:
+          $ref: '#/components/schemas/IntegrationRunIntegration'
+        version:
+          $ref: '#/components/schemas/IntegrationRunVersion'
+        integrationLogs:
+          additionalProperties:
+            additionalProperties:
+              $ref: '#/components/schemas/IntegrationRunLog'
+            type: object
+          nullable: true
+          type: object
+      required:
+      - integration
+      - runId
+      - version
+      type: object
+    IntegrationRunVersion:
+      additionalProperties: false
+      example:
+        asAtModified: 2000-01-23T04:56:07.000+00:00
+        asAtCreated: 2000-01-23T04:56:07.000+00:00
+      properties:
+        asAtCreated:
+          format: date-time
+          nullable: true
+          type: string
+        asAtModified:
+          format: date-time
+          nullable: true
+          type: string
       type: object
     Link:
       additionalProperties: false
@@ -3514,6 +3694,7 @@ x-tagGroups:
   - Instrument
   - Integrations
   - ProcessHistory
+  - Runs
   - Vendor
 x-group-parameters: true
 
