@@ -1,26 +1,26 @@
-# RunsApi
+# LogsApi
 
 All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getRunResults**](RunsApi.md#getRunResults) | **GET** /api/runs | [EXPERIMENTAL] GetRunResults: Get run results |
+| [**getIntegrationLogResults**](LogsApi.md#getIntegrationLogResults) | **GET** /api/logs | [EXPERIMENTAL] GetIntegrationLogResults: Get integration log results |
 
 
 
-## getRunResults
+## getIntegrationLogResults
 
-> IntegrationRunResponse getRunResults(filter, sortBy, limit, pageToken)
+> IIntegrationLogResponse getIntegrationLogResults(filter, sortBy, limit, pageToken)
 
-[EXPERIMENTAL] GetRunResults: Get run results
+[EXPERIMENTAL] GetIntegrationLogResults: Get integration log results
 
-Get run results
+Get integration log results
 
 ### Example
 
 ```java
 import com.finbourne.horizon.model.*;
-import com.finbourne.horizon.api.RunsApi;
+import com.finbourne.horizon.api.LogsApi;
 import com.finbourne.horizon.extensions.ApiConfigurationException;
 import com.finbourne.horizon.extensions.ApiFactoryBuilder;
 import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
@@ -29,7 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-public class RunsApiExample {
+public class LogsApiExample {
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
         String fileName = "secrets.json";
@@ -52,21 +52,21 @@ public class RunsApiExample {
         
         // uncomment the below to use an api factory with overrides
         // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
-        // RunsApi apiInstance = apiFactory.build(RunsApi.class);
+        // LogsApi apiInstance = apiFactory.build(LogsApi.class);
 
-        RunsApi apiInstance = ApiFactoryBuilder.build(fileName).build(RunsApi.class);
+        LogsApi apiInstance = ApiFactoryBuilder.build(fileName).build(LogsApi.class);
         String filter = "filter_example"; // String | Expression to filter the result set.
         List<String> sortBy = Arrays.asList(); // List<String> | A list of field names or properties to sort by, each suffixed by \" ASC\" or \" DESC\".
-        Integer limit = 10; // Integer | When paginating, limit the results to this number.
-        String pageToken = ""; // String | The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
+        Integer limit = 100; // Integer | When paginating, limit the results to this number.
+        String pageToken = ""; // String | The pagination token to use to continue listing integration logs; this value is returned from   the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.   For more information, see https://support.lusid.com/knowledgebase/article/KA-01915.
         try {
             // uncomment the below to set overrides at the request level
-            // IntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute(opts);
+            // IIntegrationLogResponse result = apiInstance.getIntegrationLogResults(filter, sortBy, limit, pageToken).execute(opts);
 
-            IntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute();
+            IIntegrationLogResponse result = apiInstance.getIntegrationLogResults(filter, sortBy, limit, pageToken).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
-            System.err.println("Exception when calling RunsApi#getRunResults");
+            System.err.println("Exception when calling LogsApi#getIntegrationLogResults");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
@@ -82,12 +82,12 @@ public class RunsApiExample {
 |------------- | ------------- | ------------- | -------------|
 | **filter** | **String**| Expression to filter the result set. | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| A list of field names or properties to sort by, each suffixed by \&quot; ASC\&quot; or \&quot; DESC\&quot;. | [optional] |
-| **limit** | **Integer**| When paginating, limit the results to this number. | [optional] [default to 10] |
-| **pageToken** | **String**| The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. | [optional] [default to ] |
+| **limit** | **Integer**| When paginating, limit the results to this number. | [optional] [default to 100] |
+| **pageToken** | **String**| The pagination token to use to continue listing integration logs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request.   For more information, see https://support.lusid.com/knowledgebase/article/KA-01915. | [optional] [default to ] |
 
 ### Return type
 
-[**IntegrationRunResponse**](IntegrationRunResponse.md)
+[**IIntegrationLogResponse**](IIntegrationLogResponse.md)
 
 ### HTTP request headers
 

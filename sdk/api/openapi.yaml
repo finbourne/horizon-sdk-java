@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.812
+  version: 0.1.813
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -19,9 +19,11 @@ tags:
   name: Instrument
 - description: "Install, configure, and execute Horizon integrations"
   name: Integrations
+- description: Get Integration Logs
+  name: Logs
 - description: Provides details on Horizon processes
   name: ProcessHistory
-- description: Get horizon runs
+- description: Get Integration runs
   name: Runs
 - description: Provides information about Vendor configurations
   name: Vendor
@@ -1063,6 +1065,121 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/logs:
+    get:
+      description: Get integration log results
+      operationId: GetIntegrationLogResults
+      parameters:
+      - description: Expression to filter the result set.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: "A list of field names or properties to sort by, each suffixed\
+          \ by \" ASC\" or \" DESC\"."
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "When paginating, limit the results to this number."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "The pagination token to use to continue listing integration\
+          \ logs; this value is returned from\r\n the previous call. If a pagination\
+          \ token is provided, the <i>sortBy</i> and <i>filter</i> fields must not\
+          \ have changed since the original request.\r\n For more information, see\
+          \ https://support.lusid.com/knowledgebase/article/KA-01915."
+        explode: true
+        in: query
+        name: pageToken
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - logId: 3
+                  runId: 25a7cd55-0df1-47ac-a893-280b8c99ea3c
+                  parentLogId: 1
+                  logType: Resource
+                  firstActivity: 2024-02-04T00:00:00.0000000+00:00
+                  lastActivity: 2024-02-05T00:00:00.0000000+00:00
+                  status: PayloadFailed
+                  sourceRecord:
+                    recordType: Security
+                    idType: IMOS-ID
+                    idValue: sec-4
+                    attributeName: country
+                    attributeValue: Beeelgium
+                  targetRecord:
+                    recordType: Instrument
+                    idType: LusidInstrumentId
+                    idValue: LUID_4
+                    attributeName: country
+                    attributeValue: Beeelgium
+                  activities:
+                  - timestamp: 2024-02-05T00:00:00.0000000+00:00
+                    resultingStatus: ResourcePartLoaded
+                    messageType: Information
+                    description: Existing target record resolved
+                href: http://www.lusid.com/horizon/logs
+                nextPage: nextPage
+                previousPage: prevPage
+                links:
+                - relation: NextPage
+                  href: http://www.lusid.com/horizon/logs
+                  method: GET
+                - relation: PreviousPage
+                  href: http://www.lusid.com/horizon/logs
+                  method: GET
+              schema:
+                $ref: '#/components/schemas/IIntegrationLogResponse'
+          description: Success
+        "404":
+          description: Not Found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetIntegrationLogResults: Get integration log results"
+      tags:
+      - Logs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/process-history/$latestRuns:
     get:
       operationId: GetLatestRuns
@@ -1268,7 +1385,8 @@ paths:
       description: Get run results
       operationId: GetRunResults
       parameters:
-      - explode: true
+      - description: Expression to filter the result set.
+        explode: true
         in: query
         name: filter
         required: false
@@ -1278,7 +1396,9 @@ paths:
           pattern: "^[\\s\\S]*$"
           type: string
         style: form
-      - explode: true
+      - description: "A list of field names or properties to sort by, each suffixed\
+          \ by \" ASC\" or \" DESC\"."
+        explode: true
         in: query
         name: sortBy
         required: false
@@ -1288,7 +1408,8 @@ paths:
           type: array
         style: form
         x-nullable: true
-      - explode: true
+      - description: "When paginating, limit the results to this number."
+        explode: true
         in: query
         name: limit
         required: false
@@ -1300,7 +1421,11 @@ paths:
           type: integer
         style: form
         x-nullable: true
-      - explode: true
+      - description: "The pagination token to use to continue listing integration\
+          \ runs; this value is returned from\r\n the previous call. If a pagination\
+          \ token is provided, the <i>sortBy</i> and <i>filter</i> fields must not\
+          \ have changed since the original request."
+        explode: true
         in: query
         name: pageToken
         required: false
@@ -1328,7 +1453,7 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetRunResults: "
+      summary: "[EXPERIMENTAL] GetRunResults: Get run results"
       tags:
       - Runs
       x-fbn-apistatus: Experimental
@@ -2091,6 +2216,18 @@ components:
           type: array
       required:
       - lusidInstrumentIds
+      type: object
+    IIntegrationLogResponse:
+      additionalProperties: false
+      example:
+        logId: 0
+      properties:
+        logId:
+          format: int64
+          readOnly: true
+          type: integer
+      required:
+      - logId
       type: object
     InstanceDetails:
       additionalProperties: false
@@ -3724,6 +3861,7 @@ x-tagGroups:
   tags:
   - Instrument
   - Integrations
+  - Logs
   - ProcessHistory
   - Runs
   - Vendor

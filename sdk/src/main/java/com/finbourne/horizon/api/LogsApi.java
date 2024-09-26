@@ -25,7 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.finbourne.horizon.model.IntegrationRunResponse;
+import com.finbourne.horizon.model.IIntegrationLogResponse;
 import com.finbourne.horizon.model.LusidProblemDetails;
 
 import java.lang.reflect.Type;
@@ -34,16 +34,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RunsApi {
+public class LogsApi {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public RunsApi() {
+    public LogsApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public RunsApi(ApiClient apiClient) {
+    public LogsApi(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 
@@ -71,11 +71,11 @@ public class RunsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    private okhttp3.Call getRunResultsCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback) throws ApiException {
-        return getRunResultsCall(filter, sortBy, limit, pageToken,  _callback, new ConfigurationOptions());
+    private okhttp3.Call getIntegrationLogResultsCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback) throws ApiException {
+        return getIntegrationLogResultsCall(filter, sortBy, limit, pageToken,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call getRunResultsCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getIntegrationLogResultsCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -92,7 +92,7 @@ public class RunsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/runs";
+        String localVarPath = "/api/logs";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -136,55 +136,55 @@ public class RunsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRunResultsValidateBeforeCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
-        return getRunResultsCall(filter, sortBy, limit, pageToken, _callback, opts);
+    private okhttp3.Call getIntegrationLogResultsValidateBeforeCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return getIntegrationLogResultsCall(filter, sortBy, limit, pageToken, _callback, opts);
 
     }
 
 
-    private ApiResponse<IntegrationRunResponse> getRunResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken) throws ApiException {
-        okhttp3.Call localVarCall = getRunResultsValidateBeforeCall(filter, sortBy, limit, pageToken, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<IntegrationRunResponse>(){}.getType();
+    private ApiResponse<IIntegrationLogResponse> getIntegrationLogResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken) throws ApiException {
+        okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<IntegrationRunResponse> getRunResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = getRunResultsValidateBeforeCall(filter, sortBy, limit, pageToken, null, opts);
-        Type localVarReturnType = new TypeToken<IntegrationRunResponse>(){}.getType();
+    private ApiResponse<IIntegrationLogResponse> getIntegrationLogResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, null, opts);
+        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getRunResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<IntegrationRunResponse> _callback) throws ApiException {
+    private okhttp3.Call getIntegrationLogResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<IIntegrationLogResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getRunResultsValidateBeforeCall(filter, sortBy, limit, pageToken, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<IntegrationRunResponse>(){}.getType();
+        okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getRunResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<IntegrationRunResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getIntegrationLogResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<IIntegrationLogResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = getRunResultsValidateBeforeCall(filter, sortBy, limit, pageToken, _callback, opts);
-        Type localVarReturnType = new TypeToken<IntegrationRunResponse>(){}.getType();
+        okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, _callback, opts);
+        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public class APIgetRunResultsRequest {
+    public class APIgetIntegrationLogResultsRequest {
         private String filter;
         private List<String> sortBy;
         private Integer limit;
         private String pageToken;
 
-        private APIgetRunResultsRequest() {
+        private APIgetIntegrationLogResultsRequest() {
         }
 
         /**
          * Set filter
          * @param filter Expression to filter the result set. (optional)
-         * @return APIgetRunResultsRequest
+         * @return APIgetIntegrationLogResultsRequest
          */
-        public APIgetRunResultsRequest filter(String filter) {
+        public APIgetIntegrationLogResultsRequest filter(String filter) {
             this.filter = filter;
             return this;
         }
@@ -192,35 +192,35 @@ public class RunsApi {
         /**
          * Set sortBy
          * @param sortBy A list of field names or properties to sort by, each suffixed by \&quot; ASC\&quot; or \&quot; DESC\&quot;. (optional)
-         * @return APIgetRunResultsRequest
+         * @return APIgetIntegrationLogResultsRequest
          */
-        public APIgetRunResultsRequest sortBy(List<String> sortBy) {
+        public APIgetIntegrationLogResultsRequest sortBy(List<String> sortBy) {
             this.sortBy = sortBy;
             return this;
         }
 
         /**
          * Set limit
-         * @param limit When paginating, limit the results to this number. (optional, default to 10)
-         * @return APIgetRunResultsRequest
+         * @param limit When paginating, limit the results to this number. (optional, default to 100)
+         * @return APIgetIntegrationLogResultsRequest
          */
-        public APIgetRunResultsRequest limit(Integer limit) {
+        public APIgetIntegrationLogResultsRequest limit(Integer limit) {
             this.limit = limit;
             return this;
         }
 
         /**
          * Set pageToken
-         * @param pageToken The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. (optional, default to )
-         * @return APIgetRunResultsRequest
+         * @param pageToken The pagination token to use to continue listing integration logs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request.   For more information, see https://support.lusid.com/knowledgebase/article/KA-01915. (optional, default to )
+         * @return APIgetIntegrationLogResultsRequest
          */
-        public APIgetRunResultsRequest pageToken(String pageToken) {
+        public APIgetIntegrationLogResultsRequest pageToken(String pageToken) {
             this.pageToken = pageToken;
             return this;
         }
 
         /**
-         * Build call for getRunResults
+         * Build call for getIntegrationLogResults
          * @param _callback ApiCallback API callback
          * @return Call to execute
          * @throws ApiException If fail to serialize the request body object
@@ -233,12 +233,12 @@ public class RunsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return getRunResultsCall(filter, sortBy, limit, pageToken, _callback);
+            return getIntegrationLogResultsCall(filter, sortBy, limit, pageToken, _callback);
         }
 
         /**
-         * Execute getRunResults request
-         * @return IntegrationRunResponse
+         * Execute getIntegrationLogResults request
+         * @return IIntegrationLogResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -248,14 +248,14 @@ public class RunsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public IntegrationRunResponse execute() throws ApiException {
-            ApiResponse<IntegrationRunResponse> localVarResp = getRunResultsWithHttpInfo(filter, sortBy, limit, pageToken);
+        public IIntegrationLogResponse execute() throws ApiException {
+            ApiResponse<IIntegrationLogResponse> localVarResp = getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken);
             return localVarResp.getData();
         }
 
         /**
-         * Execute getRunResults request. Use any specified configuration options to override any other configuration for this request only.
-         * @return IntegrationRunResponse
+         * Execute getIntegrationLogResults request. Use any specified configuration options to override any other configuration for this request only.
+         * @return IIntegrationLogResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -265,14 +265,14 @@ public class RunsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public IntegrationRunResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<IntegrationRunResponse> localVarResp = getRunResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
+        public IIntegrationLogResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<IIntegrationLogResponse> localVarResp = getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
             return localVarResp.getData();
         }
 
         /**
-         * Execute getRunResults request with HTTP info returned
-         * @return ApiResponse&lt;IntegrationRunResponse&gt;
+         * Execute getIntegrationLogResults request with HTTP info returned
+         * @return ApiResponse&lt;IIntegrationLogResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -282,13 +282,13 @@ public class RunsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<IntegrationRunResponse> executeWithHttpInfo() throws ApiException {
-            return getRunResultsWithHttpInfo(filter, sortBy, limit, pageToken);
+        public ApiResponse<IIntegrationLogResponse> executeWithHttpInfo() throws ApiException {
+            return getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken);
         }
 
         /**
-         * Execute getRunResults request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;IntegrationRunResponse&gt;
+         * Execute getIntegrationLogResults request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;IIntegrationLogResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -298,12 +298,12 @@ public class RunsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<IntegrationRunResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return getRunResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
+        public ApiResponse<IIntegrationLogResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
         }
 
         /**
-         * Execute getRunResults request (asynchronously)
+         * Execute getIntegrationLogResults request (asynchronously)
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -315,12 +315,12 @@ public class RunsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<IntegrationRunResponse> _callback) throws ApiException {
-            return getRunResultsAsync(filter, sortBy, limit, pageToken, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<IIntegrationLogResponse> _callback) throws ApiException {
+            return getIntegrationLogResultsAsync(filter, sortBy, limit, pageToken, _callback);
         }
 
         /**
-         * Execute getRunResults request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * Execute getIntegrationLogResults request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -332,15 +332,15 @@ public class RunsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<IntegrationRunResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return getRunResultsAsync(filter, sortBy, limit, pageToken, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<IIntegrationLogResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return getIntegrationLogResultsAsync(filter, sortBy, limit, pageToken, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] GetRunResults: Get run results
-     * Get run results
-     * @return APIgetRunResultsRequest
+     * [EXPERIMENTAL] GetIntegrationLogResults: Get integration log results
+     * Get integration log results
+     * @return APIgetIntegrationLogResultsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -349,7 +349,7 @@ public class RunsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIgetRunResultsRequest getRunResults() {
-        return new APIgetRunResultsRequest();
+    public APIgetIntegrationLogResultsRequest getIntegrationLogResults() {
+        return new APIgetIntegrationLogResultsRequest();
     }
 }
