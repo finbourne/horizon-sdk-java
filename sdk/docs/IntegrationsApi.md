@@ -385,7 +385,7 @@ public class IntegrationsApiExample {
 
 ## getInstanceOptionalPropertyMapping
 
-> Map&lt;String, LusidPropertyDefinitionOverrides&gt; getInstanceOptionalPropertyMapping(integration, instanceId)
+> Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; getInstanceOptionalPropertyMapping(integration, instanceId)
 
 [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance
 
@@ -434,9 +434,9 @@ public class IntegrationsApiExample {
         String instanceId = "instanceId_example"; // String | Identifier of the instance
         try {
             // uncomment the below to set overrides at the request level
-            // Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
+            // Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
 
-            Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
+            Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#getInstanceOptionalPropertyMapping");
@@ -458,7 +458,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-[**Map&lt;String, LusidPropertyDefinitionOverrides&gt;**](LusidPropertyDefinitionOverrides.md)
+[**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md)
 
 ### HTTP request headers
 
@@ -833,7 +833,7 @@ This endpoint does not need any parameter.
 
 ## setInstanceOptionalPropertyMapping
 
-> Map&lt;String, LusidPropertyDefinitionOverrides&gt; setInstanceOptionalPropertyMapping(instanceId, integration, requestBody)
+> Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; setInstanceOptionalPropertyMapping(instanceId, integration, requestBody)
 
 [EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an Integration Instance
 
@@ -880,12 +880,12 @@ public class IntegrationsApiExample {
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Identifier of the instance
         String integration = "integration_example"; // String | The type of the integration e.g. \"copp-clark\".
-        Map<String, LusidPropertyDefinitionOverrides> requestBody = new HashMap(); // Map<String, LusidPropertyDefinitionOverrides> | Properties to be included and any overrides
+        Map<String, LusidPropertyDefinitionOverridesByType> requestBody = new HashMap(); // Map<String, LusidPropertyDefinitionOverridesByType> | Properties to be included and any overrides
         try {
             // uncomment the below to set overrides at the request level
-            // Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute(opts);
+            // Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute(opts);
 
-            Map<String, LusidPropertyDefinitionOverrides> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute();
+            Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#setInstanceOptionalPropertyMapping");
@@ -904,11 +904,11 @@ public class IntegrationsApiExample {
 |------------- | ------------- | ------------- | -------------|
 | **instanceId** | **String**| Identifier of the instance | |
 | **integration** | **String**| The type of the integration e.g. \&quot;copp-clark\&quot;. | |
-| **requestBody** | [**Map&lt;String, LusidPropertyDefinitionOverrides&gt;**](LusidPropertyDefinitionOverrides.md)| Properties to be included and any overrides | [optional] |
+| **requestBody** | [**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md)| Properties to be included and any overrides | [optional] |
 
 ### Return type
 
-[**Map&lt;String, LusidPropertyDefinitionOverrides&gt;**](LusidPropertyDefinitionOverrides.md)
+[**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md)
 
 ### HTTP request headers
 

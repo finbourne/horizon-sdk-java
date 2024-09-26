@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.809
+  version: 0.1.810
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -760,7 +760,7 @@ paths:
                   - "1.2"
               schema:
                 additionalProperties:
-                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
                 type: object
           description: Success
         default:
@@ -804,9 +804,12 @@ paths:
             example:
               Instrument/TestVendor/CreditRating:
                 displayNameOverride: Vendor Credit Rating
+                entityType: Instrument
+                entitySubType:
+                - Equity
             schema:
               additionalProperties:
-                $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
               type: object
         description: Properties to be included and any overrides
       responses:
@@ -818,9 +821,12 @@ paths:
               example:
                 Instrument/TestVendor/CreditRating:
                   displayNameOverride: Vendor Credit Rating
+                  entityType: Instrument
+                  entitySubType:
+                  - Equity
               schema:
                 additionalProperties:
-                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
                 type: object
           description: Success
         default:
@@ -2633,6 +2639,31 @@ components:
           description: ""
           nullable: true
           type: string
+      type: object
+    LusidPropertyDefinitionOverridesByType:
+      additionalProperties: false
+      example:
+        displayNameOverride: displayNameOverride
+        entityType: entityType
+        entitySubType:
+        - entitySubType
+        - entitySubType
+        descriptionOverride: descriptionOverride
+      properties:
+        displayNameOverride:
+          nullable: true
+          type: string
+        descriptionOverride:
+          nullable: true
+          type: string
+        entityType:
+          nullable: true
+          type: string
+        entitySubType:
+          items:
+            type: string
+          nullable: true
+          type: array
       type: object
     LusidPropertyDefinitionOverridesResponse:
       additionalProperties: false

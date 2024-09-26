@@ -32,7 +32,7 @@ import com.finbourne.horizon.model.IntegrationDescription;
 import com.finbourne.horizon.model.IntegrationInstance;
 import com.finbourne.horizon.model.IntegrationPropertyConfiguration;
 import com.finbourne.horizon.model.LusidProblemDetails;
-import com.finbourne.horizon.model.LusidPropertyDefinitionOverrides;
+import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
 
 import java.lang.reflect.Type;
@@ -1075,30 +1075,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId) throws ApiException {
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId) throws ApiException {
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1131,7 +1131,7 @@ public class IntegrationsApi {
 
         /**
          * Execute getInstanceOptionalPropertyMapping request
-         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1141,14 +1141,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverrides> execute() throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
+        public Map<String, LusidPropertyDefinitionOverridesByType> execute() throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
             return localVarResp.getData();
         }
 
         /**
          * Execute getInstanceOptionalPropertyMapping request. Use any specified configuration options to override any other configuration for this request only.
-         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1158,14 +1158,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverrides> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
+        public Map<String, LusidPropertyDefinitionOverridesByType> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute getInstanceOptionalPropertyMapping request with HTTP info returned
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1175,13 +1175,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo() throws ApiException {
             return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
         }
 
         /**
          * Execute getInstanceOptionalPropertyMapping request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1191,7 +1191,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
         }
 
@@ -1208,7 +1208,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
             return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback);
         }
 
@@ -1225,7 +1225,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
             return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback, opts);
         }
     }
@@ -2141,11 +2141,11 @@ public class IntegrationsApi {
     public APIlistIntegrationsRequest listIntegrations() {
         return new APIlistIntegrationsRequest();
     }
-    private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback _callback) throws ApiException {
         return setInstanceOptionalPropertyMappingCall(instanceId, integration, requestBody,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2193,7 +2193,7 @@ public class IntegrationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call setInstanceOptionalPropertyMappingValidateBeforeCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingValidateBeforeCall(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling setInstanceOptionalPropertyMapping(Async)");
@@ -2209,30 +2209,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody) throws ApiException {
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody) throws ApiException {
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverrides> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverrides>>(){}.getType();
+        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -2240,7 +2240,7 @@ public class IntegrationsApi {
     public class APIsetInstanceOptionalPropertyMappingRequest {
         private final String instanceId;
         private final String integration;
-        private Map<String, LusidPropertyDefinitionOverrides> requestBody;
+        private Map<String, LusidPropertyDefinitionOverridesByType> requestBody;
 
         private APIsetInstanceOptionalPropertyMappingRequest(String instanceId, String integration) {
             this.instanceId = instanceId;
@@ -2252,7 +2252,7 @@ public class IntegrationsApi {
          * @param requestBody Properties to be included and any overrides (optional)
          * @return APIsetInstanceOptionalPropertyMappingRequest
          */
-        public APIsetInstanceOptionalPropertyMappingRequest requestBody(Map<String, LusidPropertyDefinitionOverrides> requestBody) {
+        public APIsetInstanceOptionalPropertyMappingRequest requestBody(Map<String, LusidPropertyDefinitionOverridesByType> requestBody) {
             this.requestBody = requestBody;
             return this;
         }
@@ -2276,7 +2276,7 @@ public class IntegrationsApi {
 
         /**
          * Execute setInstanceOptionalPropertyMapping request
-         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -2286,14 +2286,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverrides> execute() throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
+        public Map<String, LusidPropertyDefinitionOverridesByType> execute() throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
             return localVarResp.getData();
         }
 
         /**
          * Execute setInstanceOptionalPropertyMapping request. Use any specified configuration options to override any other configuration for this request only.
-         * @return Map&lt;String, LusidPropertyDefinitionOverrides&gt;
+         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -2303,14 +2303,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverrides> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
+        public Map<String, LusidPropertyDefinitionOverridesByType> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute setInstanceOptionalPropertyMapping request with HTTP info returned
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -2320,13 +2320,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo() throws ApiException {
             return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
         }
 
         /**
          * Execute setInstanceOptionalPropertyMapping request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverrides&gt;&gt;
+         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -2336,7 +2336,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverrides>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
         }
 
@@ -2353,7 +2353,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
             return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback);
         }
 
@@ -2370,7 +2370,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverrides>> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
             return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback, opts);
         }
     }
