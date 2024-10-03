@@ -202,7 +202,7 @@ public class RunsApi {
 
         /**
          * Set limit
-         * @param limit When paginating, limit the results to this number. (optional, default to 10)
+         * @param limit When paginating, limit the results to this number. (optional, default to 100)
          * @return APIgetRunResultsRequest
          */
         public APIgetRunResultsRequest limit(Integer limit) {

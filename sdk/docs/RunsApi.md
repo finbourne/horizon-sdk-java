@@ -58,7 +58,7 @@ public class RunsApiExample {
         RunsApi apiInstance = ApiFactoryBuilder.build(fileName).build(RunsApi.class);
         String filter = "filter_example"; // String | Expression to filter the result set.
         List<String> sortBy = Arrays.asList(); // List<String> | A list of field names or properties to sort by, each suffixed by \" ASC\" or \" DESC\".
-        Integer limit = 10; // Integer | When paginating, limit the results to this number.
+        Integer limit = 100; // Integer | When paginating, limit the results to this number.
         String pageToken = ""; // String | The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
         try {
             // uncomment the below to set overrides at the request level
@@ -83,7 +83,7 @@ public class RunsApiExample {
 |------------- | ------------- | ------------- | -------------|
 | **filter** | **String**| Expression to filter the result set. | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| A list of field names or properties to sort by, each suffixed by \&quot; ASC\&quot; or \&quot; DESC\&quot;. | [optional] |
-| **limit** | **Integer**| When paginating, limit the results to this number. | [optional] [default to 10] |
+| **limit** | **Integer**| When paginating, limit the results to this number. | [optional] [default to 100] |
 | **pageToken** | **String**| The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. | [optional] [default to ] |
 
 ### Return type
