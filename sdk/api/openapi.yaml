@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.906
+  version: 0.1.910
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -809,6 +809,8 @@ paths:
                 entityType: Instrument
                 entitySubType:
                 - Equity
+                vendorPackage:
+                - Transaction
             schema:
               additionalProperties:
                 $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
@@ -826,6 +828,8 @@ paths:
                   entityType: Instrument
                   entitySubType:
                   - Equity
+                  vendorPackage:
+                  - Transaction
               schema:
                 additionalProperties:
                   $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
@@ -2846,6 +2850,9 @@ components:
         - entitySubType
         - entitySubType
         descriptionOverride: descriptionOverride
+        vendorPackage:
+        - vendorPackage
+        - vendorPackage
       properties:
         displayNameOverride:
           nullable: true
@@ -2857,6 +2864,11 @@ components:
           nullable: true
           type: string
         entitySubType:
+          items:
+            type: string
+          nullable: true
+          type: array
+        vendorPackage:
           items:
             type: string
           nullable: true

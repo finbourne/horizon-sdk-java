@@ -68,6 +68,10 @@ public class LusidPropertyDefinitionOverridesByType {
   @SerializedName(SERIALIZED_NAME_ENTITY_SUB_TYPE)
   private List<String> entitySubType;
 
+  public static final String SERIALIZED_NAME_VENDOR_PACKAGE = "vendorPackage";
+  @SerializedName(SERIALIZED_NAME_VENDOR_PACKAGE)
+  private List<String> vendorPackage;
+
   public LusidPropertyDefinitionOverridesByType() {
   }
 
@@ -163,6 +167,35 @@ public class LusidPropertyDefinitionOverridesByType {
   }
 
 
+  public LusidPropertyDefinitionOverridesByType vendorPackage(List<String> vendorPackage) {
+    
+    this.vendorPackage = vendorPackage;
+    return this;
+  }
+
+  public LusidPropertyDefinitionOverridesByType addVendorPackageItem(String vendorPackageItem) {
+    if (this.vendorPackage == null) {
+      this.vendorPackage = new ArrayList<>();
+    }
+    this.vendorPackage.add(vendorPackageItem);
+    return this;
+  }
+
+   /**
+   * Get vendorPackage
+   * @return vendorPackage
+  **/
+  @jakarta.annotation.Nullable
+  public List<String> getVendorPackage() {
+    return vendorPackage;
+  }
+
+
+  public void setVendorPackage(List<String> vendorPackage) {
+    this.vendorPackage = vendorPackage;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -176,7 +209,8 @@ public class LusidPropertyDefinitionOverridesByType {
     return Objects.equals(this.displayNameOverride, lusidPropertyDefinitionOverridesByType.displayNameOverride) &&
         Objects.equals(this.descriptionOverride, lusidPropertyDefinitionOverridesByType.descriptionOverride) &&
         Objects.equals(this.entityType, lusidPropertyDefinitionOverridesByType.entityType) &&
-        Objects.equals(this.entitySubType, lusidPropertyDefinitionOverridesByType.entitySubType);
+        Objects.equals(this.entitySubType, lusidPropertyDefinitionOverridesByType.entitySubType) &&
+        Objects.equals(this.vendorPackage, lusidPropertyDefinitionOverridesByType.vendorPackage);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -185,7 +219,7 @@ public class LusidPropertyDefinitionOverridesByType {
 
   @Override
   public int hashCode() {
-    return Objects.hash(displayNameOverride, descriptionOverride, entityType, entitySubType);
+    return Objects.hash(displayNameOverride, descriptionOverride, entityType, entitySubType, vendorPackage);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -203,6 +237,7 @@ public class LusidPropertyDefinitionOverridesByType {
     sb.append("    descriptionOverride: ").append(toIndentedString(descriptionOverride)).append("\n");
     sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
     sb.append("    entitySubType: ").append(toIndentedString(entitySubType)).append("\n");
+    sb.append("    vendorPackage: ").append(toIndentedString(vendorPackage)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -229,6 +264,7 @@ public class LusidPropertyDefinitionOverridesByType {
     openapiFields.add("descriptionOverride");
     openapiFields.add("entityType");
     openapiFields.add("entitySubType");
+    openapiFields.add("vendorPackage");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -259,6 +295,10 @@ public class LusidPropertyDefinitionOverridesByType {
       // ensure the optional json data is an array if present
       if (jsonObj.get("entitySubType") != null && !jsonObj.get("entitySubType").isJsonNull() && !jsonObj.get("entitySubType").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `entitySubType` to be an array in the JSON string but got `%s`", jsonObj.get("entitySubType").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("vendorPackage") != null && !jsonObj.get("vendorPackage").isJsonNull() && !jsonObj.get("vendorPackage").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `vendorPackage` to be an array in the JSON string but got `%s`", jsonObj.get("vendorPackage").toString()));
       }
   }
 

@@ -11,6 +11,7 @@
 |**descriptionOverride** | **String** |  |  [optional] |
 |**entityType** | **String** |  |  [optional] |
 |**entitySubType** | **List&lt;String&gt;** |  |  [optional] |
+|**vendorPackage** | **List&lt;String&gt;** |  |  [optional] |
 
 
 
