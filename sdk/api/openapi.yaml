@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.944
+  version: 0.1.945
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -505,9 +505,7 @@ paths:
                   - "1.1"
                   - "1.2"
               schema:
-                items:
-                  $ref: '#/components/schemas/IntegrationPropertyConfiguration'
-                type: array
+                $ref: '#/components/schemas/IntegrationPropertyConfiguration'
           description: Success
         "404":
           description: The requested integration does not exist.
@@ -552,7 +550,9 @@ paths:
                     - GBP
                     importUnqualified: false
               schema:
-                $ref: '#/components/schemas/IntegrationInstance'
+                items:
+                  $ref: '#/components/schemas/IntegrationInstance'
+                type: array
           description: Success
         "404":
           description: The requested instance(s) do not exist.
@@ -650,116 +650,13 @@ paths:
           content:
             application/json:
               example:
-                type: Test-MarketData-Provider
-                properties:
-                - property:
-                    key: Instrument/TestVendor/CreditRating
-                    productEntityItemKey: o
-                    domain: Instrument
-                    scope: TestVendor
-                    code: CreditRating
-                    displayName: Credit Rating
-                    dataTypeId:
-                      scope: system
-                      code: string
-                    description: Instrument Credit Rating
-                    lifetime: TimeVariant
-                    constraintStyle: Property
-                  vendorFields:
-                  - package: SecurityMaster
-                    field: INSTRUMENT_CREDIT_RATING
-                  optionality: Optional
+                Instrument/TestVendor/CreditRating:
+                  displayNameOverride: Vendor Credit Rating
                   entityType: Instrument
-                  entitySubType: ""
-                  transformationDescription: ""
-                  versions:
-                  - "1.1"
-                  - "1.2"
-                - property:
-                    key: Instrument/TestVendor/SourceFile
-                    productEntityItemKey: o
-                    domain: Instrument
-                    scope: TestVendor
-                    code: SourceFile
-                    displayName: Source File
-                    dataTypeId:
-                      scope: system
-                      code: string
-                    description: Source File
-                    lifetime: TimeVariant
-                    constraintStyle: Property
-                  vendorFields:
-                  - package: SecurityMaster
-                    field: SOURCE_FILE
-                  optionality: Mandatory
-                  entityType: Instrument
-                  entitySubType: ""
-                  transformationDescription: ""
-                  versions:
-                  - "1.1"
-                  - "1.2"
-                - property:
-                    key: Instrument/TestVendor/ExchangeCode
-                    productEntityItemKey: o
-                    domain: Instrument
-                    scope: TestVendor
-                    code: ExchangeCode
-                    displayName: Exchange Code
-                    dataTypeId:
-                      scope: system
-                      code: string
-                    description: Code for the exchange
-                    lifetime: TimeVariant
-                    constraintStyle: Property
-                  vendorFields:
-                  - package: SecurityMaster
-                    field: TNC_ExchangeCode
-                  optionality: Mandatory
-                  entityType: Instrument
-                  entitySubType: ""
-                  transformationDescription: ""
-                  versions:
-                  - "1.1"
-                  - "1.2"
-                fields:
-                - fieldName: Instrument.Identifiers:Instrument/default/Ticker
-                  defaultValue: ""
-                  vendorFields:
-                  - package: SecurityMaster
-                    field: TICKER
-                  transformationDescription: ""
-                  entityType: Instrument
-                  entitySubType: Equity
-                  versions:
-                  - "1.1"
-                  - "1.2"
-                - fieldName: Instrument.Identifiers:Instrument/default/VendorID
-                  defaultValue: ""
-                  vendorFields:
-                  - package: SecurityMaster
-                    field: VendorID
-                  transformationDescription: ""
-                  entityType: Instrument
-                  entitySubType: ""
-                  versions:
-                  - "1.1"
-                  - "1.2"
-                - fieldName: Instrument.Identifiers:Instrument/default/Cusip
-                  defaultValue: ""
-                  vendorFields:
-                  - package: SecurityMaster
-                    field: Cusip
-                  - package: SecurityMaster
-                    field: Cusip_Type
-                  - package: SecurityMaster
-                    field: "CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
-                  transformationDescription: "If CUSIP_TYPE is 'CUSIP' or 'PPN' then\
-                    \ set from CUSIP field. Otherwise use CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
-                  entityType: Instrument
-                  entitySubType: ""
-                  versions:
-                  - "1.1"
-                  - "1.2"
+                  entitySubType:
+                  - Equity
+                  vendorPackage:
+                  - Transaction
               schema:
                 additionalProperties:
                   $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'

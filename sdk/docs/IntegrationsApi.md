@@ -478,7 +478,7 @@ public class IntegrationsApiExample {
 
 ## getIntegrationConfiguration
 
-> List&lt;IntegrationPropertyConfiguration&gt; getIntegrationConfiguration(integration)
+> IntegrationPropertyConfiguration getIntegrationConfiguration(integration)
 
 [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration
 
@@ -526,9 +526,9 @@ public class IntegrationsApiExample {
         String integration = "integration_example"; // String | 
         try {
             // uncomment the below to set overrides at the request level
-            // List<IntegrationPropertyConfiguration> result = apiInstance.getIntegrationConfiguration(integration).execute(opts);
+            // IntegrationPropertyConfiguration result = apiInstance.getIntegrationConfiguration(integration).execute(opts);
 
-            List<IntegrationPropertyConfiguration> result = apiInstance.getIntegrationConfiguration(integration).execute();
+            IntegrationPropertyConfiguration result = apiInstance.getIntegrationConfiguration(integration).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#getIntegrationConfiguration");
@@ -549,7 +549,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-[**List&lt;IntegrationPropertyConfiguration&gt;**](IntegrationPropertyConfiguration.md)
+[**IntegrationPropertyConfiguration**](IntegrationPropertyConfiguration.md)
 
 ### HTTP request headers
 
@@ -660,7 +660,7 @@ public class IntegrationsApiExample {
 
 ## listInstances
 
-> IntegrationInstance listInstances()
+> List&lt;IntegrationInstance&gt; listInstances()
 
 [EXPERIMENTAL] ListInstances: List instances across all integrations.
 
@@ -707,9 +707,9 @@ public class IntegrationsApiExample {
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         try {
             // uncomment the below to set overrides at the request level
-            // IntegrationInstance result = apiInstance.listInstances().execute(opts);
+            // List<IntegrationInstance> result = apiInstance.listInstances().execute(opts);
 
-            IntegrationInstance result = apiInstance.listInstances().execute();
+            List<IntegrationInstance> result = apiInstance.listInstances().execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#listInstances");
@@ -727,7 +727,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**IntegrationInstance**](IntegrationInstance.md)
+[**List&lt;IntegrationInstance&gt;**](IntegrationInstance.md)
 
 ### HTTP request headers
 

@@ -1308,30 +1308,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<List<IntegrationPropertyConfiguration>> getIntegrationConfigurationWithHttpInfo(String integration) throws ApiException {
+    private ApiResponse<IntegrationPropertyConfiguration> getIntegrationConfigurationWithHttpInfo(String integration) throws ApiException {
         okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        Type localVarReturnType = new TypeToken<IntegrationPropertyConfiguration>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<List<IntegrationPropertyConfiguration>> getIntegrationConfigurationWithHttpInfo(String integration, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<IntegrationPropertyConfiguration> getIntegrationConfigurationWithHttpInfo(String integration, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, null, opts);
-        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        Type localVarReturnType = new TypeToken<IntegrationPropertyConfiguration>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<List<IntegrationPropertyConfiguration>> _callback) throws ApiException {
+    private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<IntegrationPropertyConfiguration> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        Type localVarReturnType = new TypeToken<IntegrationPropertyConfiguration>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<List<IntegrationPropertyConfiguration>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getIntegrationConfigurationAsync(String integration, final ApiCallback<IntegrationPropertyConfiguration> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = getIntegrationConfigurationValidateBeforeCall(integration, _callback, opts);
-        Type localVarReturnType = new TypeToken<List<IntegrationPropertyConfiguration>>(){}.getType();
+        Type localVarReturnType = new TypeToken<IntegrationPropertyConfiguration>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1362,7 +1362,7 @@ public class IntegrationsApi {
 
         /**
          * Execute getIntegrationConfiguration request
-         * @return List&lt;IntegrationPropertyConfiguration&gt;
+         * @return IntegrationPropertyConfiguration
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1372,14 +1372,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public List<IntegrationPropertyConfiguration> execute() throws ApiException {
-            ApiResponse<List<IntegrationPropertyConfiguration>> localVarResp = getIntegrationConfigurationWithHttpInfo(integration);
+        public IntegrationPropertyConfiguration execute() throws ApiException {
+            ApiResponse<IntegrationPropertyConfiguration> localVarResp = getIntegrationConfigurationWithHttpInfo(integration);
             return localVarResp.getData();
         }
 
         /**
          * Execute getIntegrationConfiguration request. Use any specified configuration options to override any other configuration for this request only.
-         * @return List&lt;IntegrationPropertyConfiguration&gt;
+         * @return IntegrationPropertyConfiguration
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1389,14 +1389,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public List<IntegrationPropertyConfiguration> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<List<IntegrationPropertyConfiguration>> localVarResp = getIntegrationConfigurationWithHttpInfo(integration, opts);
+        public IntegrationPropertyConfiguration execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<IntegrationPropertyConfiguration> localVarResp = getIntegrationConfigurationWithHttpInfo(integration, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute getIntegrationConfiguration request with HTTP info returned
-         * @return ApiResponse&lt;List&lt;IntegrationPropertyConfiguration&gt;&gt;
+         * @return ApiResponse&lt;IntegrationPropertyConfiguration&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1406,13 +1406,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<List<IntegrationPropertyConfiguration>> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<IntegrationPropertyConfiguration> executeWithHttpInfo() throws ApiException {
             return getIntegrationConfigurationWithHttpInfo(integration);
         }
 
         /**
          * Execute getIntegrationConfiguration request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;List&lt;IntegrationPropertyConfiguration&gt;&gt;
+         * @return ApiResponse&lt;IntegrationPropertyConfiguration&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1422,7 +1422,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<List<IntegrationPropertyConfiguration>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<IntegrationPropertyConfiguration> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return getIntegrationConfigurationWithHttpInfo(integration, opts);
         }
 
@@ -1439,7 +1439,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationPropertyConfiguration>> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<IntegrationPropertyConfiguration> _callback) throws ApiException {
             return getIntegrationConfigurationAsync(integration, _callback);
         }
 
@@ -1456,7 +1456,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationPropertyConfiguration>> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<IntegrationPropertyConfiguration> _callback, ConfigurationOptions opts) throws ApiException {
             return getIntegrationConfigurationAsync(integration, _callback, opts);
         }
     }
@@ -1762,30 +1762,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<IntegrationInstance> listInstancesWithHttpInfo() throws ApiException {
+    private ApiResponse<List<IntegrationInstance>> listInstancesWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<IntegrationInstance> listInstancesWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<List<IntegrationInstance>> listInstancesWithHttpInfo(ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null, opts);
-        Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listInstancesAsync(final ApiCallback<IntegrationInstance> _callback) throws ApiException {
+    private okhttp3.Call listInstancesAsync(final ApiCallback<List<IntegrationInstance>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call listInstancesAsync(final ApiCallback<IntegrationInstance> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listInstancesAsync(final ApiCallback<List<IntegrationInstance>> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback, opts);
-        Type localVarReturnType = new TypeToken<IntegrationInstance>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1814,7 +1814,7 @@ public class IntegrationsApi {
 
         /**
          * Execute listInstances request
-         * @return IntegrationInstance
+         * @return List&lt;IntegrationInstance&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1824,14 +1824,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public IntegrationInstance execute() throws ApiException {
-            ApiResponse<IntegrationInstance> localVarResp = listInstancesWithHttpInfo();
+        public List<IntegrationInstance> execute() throws ApiException {
+            ApiResponse<List<IntegrationInstance>> localVarResp = listInstancesWithHttpInfo();
             return localVarResp.getData();
         }
 
         /**
          * Execute listInstances request. Use any specified configuration options to override any other configuration for this request only.
-         * @return IntegrationInstance
+         * @return List&lt;IntegrationInstance&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1841,14 +1841,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public IntegrationInstance execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<IntegrationInstance> localVarResp = listInstancesWithHttpInfo(opts);
+        public List<IntegrationInstance> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<IntegrationInstance>> localVarResp = listInstancesWithHttpInfo(opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute listInstances request with HTTP info returned
-         * @return ApiResponse&lt;IntegrationInstance&gt;
+         * @return ApiResponse&lt;List&lt;IntegrationInstance&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1858,13 +1858,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<IntegrationInstance> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<List<IntegrationInstance>> executeWithHttpInfo() throws ApiException {
             return listInstancesWithHttpInfo();
         }
 
         /**
          * Execute listInstances request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;IntegrationInstance&gt;
+         * @return ApiResponse&lt;List&lt;IntegrationInstance&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1874,7 +1874,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<IntegrationInstance> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<List<IntegrationInstance>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return listInstancesWithHttpInfo(opts);
         }
 
@@ -1891,7 +1891,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<IntegrationInstance> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationInstance>> _callback) throws ApiException {
             return listInstancesAsync(_callback);
         }
 
@@ -1908,7 +1908,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<IntegrationInstance> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationInstance>> _callback, ConfigurationOptions opts) throws ApiException {
             return listInstancesAsync(_callback, opts);
         }
     }
