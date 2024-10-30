@@ -9,6 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**runId** | **UUID** |  |  |
 |**instanceId** | **UUID** |  |  [optional] |
+|**instanceName** | **String** |  |  [optional] |
 |**status** | **String** |  |  [optional] |
 |**integration** | [**IntegrationRunIntegration**](IntegrationRunIntegration.md) |  |  |
 |**version** | [**IntegrationRunVersion**](IntegrationRunVersion.md) |  |  |

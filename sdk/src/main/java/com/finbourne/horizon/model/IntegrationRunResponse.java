@@ -64,6 +64,10 @@ public class IntegrationRunResponse {
   @SerializedName(SERIALIZED_NAME_INSTANCE_ID)
   private UUID instanceId;
 
+  public static final String SERIALIZED_NAME_INSTANCE_NAME = "instanceName";
+  @SerializedName(SERIALIZED_NAME_INSTANCE_NAME)
+  private String instanceName;
+
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
   private String status;
@@ -122,6 +126,27 @@ public class IntegrationRunResponse {
 
   public void setInstanceId(UUID instanceId) {
     this.instanceId = instanceId;
+  }
+
+
+  public IntegrationRunResponse instanceName(String instanceName) {
+    
+    this.instanceName = instanceName;
+    return this;
+  }
+
+   /**
+   * Get instanceName
+   * @return instanceName
+  **/
+  @jakarta.annotation.Nullable
+  public String getInstanceName() {
+    return instanceName;
+  }
+
+
+  public void setInstanceName(String instanceName) {
+    this.instanceName = instanceName;
   }
 
 
@@ -229,6 +254,7 @@ public class IntegrationRunResponse {
     IntegrationRunResponse integrationRunResponse = (IntegrationRunResponse) o;
     return Objects.equals(this.runId, integrationRunResponse.runId) &&
         Objects.equals(this.instanceId, integrationRunResponse.instanceId) &&
+        Objects.equals(this.instanceName, integrationRunResponse.instanceName) &&
         Objects.equals(this.status, integrationRunResponse.status) &&
         Objects.equals(this.integration, integrationRunResponse.integration) &&
         Objects.equals(this.version, integrationRunResponse.version) &&
@@ -241,7 +267,7 @@ public class IntegrationRunResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, instanceId, status, integration, version, integrationLogs);
+    return Objects.hash(runId, instanceId, instanceName, status, integration, version, integrationLogs);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -257,6 +283,7 @@ public class IntegrationRunResponse {
     sb.append("class IntegrationRunResponse {\n");
     sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
     sb.append("    instanceId: ").append(toIndentedString(instanceId)).append("\n");
+    sb.append("    instanceName: ").append(toIndentedString(instanceName)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    integration: ").append(toIndentedString(integration)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
@@ -285,6 +312,7 @@ public class IntegrationRunResponse {
     openapiFields = new HashSet<String>();
     openapiFields.add("runId");
     openapiFields.add("instanceId");
+    openapiFields.add("instanceName");
     openapiFields.add("status");
     openapiFields.add("integration");
     openapiFields.add("version");
@@ -322,6 +350,9 @@ public class IntegrationRunResponse {
       }
       if ((jsonObj.get("instanceId") != null && !jsonObj.get("instanceId").isJsonNull()) && !jsonObj.get("instanceId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instanceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instanceId").toString()));
+      }
+      if ((jsonObj.get("instanceName") != null && !jsonObj.get("instanceName").isJsonNull()) && !jsonObj.get("instanceName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `instanceName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instanceName").toString()));
       }
       if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
