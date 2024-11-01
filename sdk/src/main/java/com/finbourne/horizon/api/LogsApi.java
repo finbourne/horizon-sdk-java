@@ -25,8 +25,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.finbourne.horizon.model.IIntegrationLogResponse;
 import com.finbourne.horizon.model.LusidProblemDetails;
+import com.finbourne.horizon.model.PagedResourceListOfIIntegrationLogResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -142,30 +142,30 @@ public class LogsApi {
     }
 
 
-    private ApiResponse<IIntegrationLogResponse> getIntegrationLogResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken) throws ApiException {
+    private ApiResponse<PagedResourceListOfIIntegrationLogResponse> getIntegrationLogResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken) throws ApiException {
         okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfIIntegrationLogResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<IIntegrationLogResponse> getIntegrationLogResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<PagedResourceListOfIIntegrationLogResponse> getIntegrationLogResultsWithHttpInfo(String filter, List<String> sortBy, Integer limit, String pageToken, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, null, opts);
-        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfIIntegrationLogResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getIntegrationLogResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<IIntegrationLogResponse> _callback) throws ApiException {
+    private okhttp3.Call getIntegrationLogResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<PagedResourceListOfIIntegrationLogResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfIIntegrationLogResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getIntegrationLogResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<IIntegrationLogResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getIntegrationLogResultsAsync(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback<PagedResourceListOfIIntegrationLogResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = getIntegrationLogResultsValidateBeforeCall(filter, sortBy, limit, pageToken, _callback, opts);
-        Type localVarReturnType = new TypeToken<IIntegrationLogResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<PagedResourceListOfIIntegrationLogResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -238,7 +238,7 @@ public class LogsApi {
 
         /**
          * Execute getIntegrationLogResults request
-         * @return IIntegrationLogResponse
+         * @return PagedResourceListOfIIntegrationLogResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -248,14 +248,14 @@ public class LogsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public IIntegrationLogResponse execute() throws ApiException {
-            ApiResponse<IIntegrationLogResponse> localVarResp = getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken);
+        public PagedResourceListOfIIntegrationLogResponse execute() throws ApiException {
+            ApiResponse<PagedResourceListOfIIntegrationLogResponse> localVarResp = getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken);
             return localVarResp.getData();
         }
 
         /**
          * Execute getIntegrationLogResults request. Use any specified configuration options to override any other configuration for this request only.
-         * @return IIntegrationLogResponse
+         * @return PagedResourceListOfIIntegrationLogResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -265,14 +265,14 @@ public class LogsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public IIntegrationLogResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<IIntegrationLogResponse> localVarResp = getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
+        public PagedResourceListOfIIntegrationLogResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<PagedResourceListOfIIntegrationLogResponse> localVarResp = getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute getIntegrationLogResults request with HTTP info returned
-         * @return ApiResponse&lt;IIntegrationLogResponse&gt;
+         * @return ApiResponse&lt;PagedResourceListOfIIntegrationLogResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -282,13 +282,13 @@ public class LogsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<IIntegrationLogResponse> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<PagedResourceListOfIIntegrationLogResponse> executeWithHttpInfo() throws ApiException {
             return getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken);
         }
 
         /**
          * Execute getIntegrationLogResults request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;IIntegrationLogResponse&gt;
+         * @return ApiResponse&lt;PagedResourceListOfIIntegrationLogResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -298,7 +298,7 @@ public class LogsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<IIntegrationLogResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<PagedResourceListOfIIntegrationLogResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return getIntegrationLogResultsWithHttpInfo(filter, sortBy, limit, pageToken, opts);
         }
 
@@ -315,7 +315,7 @@ public class LogsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<IIntegrationLogResponse> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfIIntegrationLogResponse> _callback) throws ApiException {
             return getIntegrationLogResultsAsync(filter, sortBy, limit, pageToken, _callback);
         }
 
@@ -332,7 +332,7 @@ public class LogsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<IIntegrationLogResponse> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfIIntegrationLogResponse> _callback, ConfigurationOptions opts) throws ApiException {
             return getIntegrationLogResultsAsync(filter, sortBy, limit, pageToken, _callback, opts);
         }
     }

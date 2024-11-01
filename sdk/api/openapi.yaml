@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.987
+  version: 0.1.996
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1065,7 +1065,7 @@ paths:
                   href: http://www.lusid.com/horizon/logs
                   method: GET
               schema:
-                $ref: '#/components/schemas/IIntegrationLogResponse'
+                $ref: '#/components/schemas/PagedResourceListOfIIntegrationLogResponse'
           description: Success
         "404":
           description: Not Found
@@ -1510,6 +1510,7 @@ paths:
                 - vendor-field-1
                 - vendor-field-2
                 transformationDescription: transformationDescription
+                entityType: Instrument
               schema:
                 items:
                   $ref: '#/components/schemas/LusidField'
@@ -3192,6 +3193,47 @@ components:
       - Suggested
       - Optional
       type: string
+    PagedResourceListOfIIntegrationLogResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - logId: 0
+        - logId: 0
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/IIntegrationLogResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfProcessInformation:
       additionalProperties: false
       example:

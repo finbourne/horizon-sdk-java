@@ -10,7 +10,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 ## getIntegrationLogResults
 
-> IIntegrationLogResponse getIntegrationLogResults(filter, sortBy, limit, pageToken)
+> PagedResourceListOfIIntegrationLogResponse getIntegrationLogResults(filter, sortBy, limit, pageToken)
 
 [EXPERIMENTAL] GetIntegrationLogResults: Get integration log results
 
@@ -61,9 +61,9 @@ public class LogsApiExample {
         String pageToken = ""; // String | The pagination token to use to continue listing integration logs; this value is returned from   the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.   For more information, see https://support.lusid.com/knowledgebase/article/KA-01915.
         try {
             // uncomment the below to set overrides at the request level
-            // IIntegrationLogResponse result = apiInstance.getIntegrationLogResults(filter, sortBy, limit, pageToken).execute(opts);
+            // PagedResourceListOfIIntegrationLogResponse result = apiInstance.getIntegrationLogResults(filter, sortBy, limit, pageToken).execute(opts);
 
-            IIntegrationLogResponse result = apiInstance.getIntegrationLogResults(filter, sortBy, limit, pageToken).execute();
+            PagedResourceListOfIIntegrationLogResponse result = apiInstance.getIntegrationLogResults(filter, sortBy, limit, pageToken).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#getIntegrationLogResults");
@@ -87,7 +87,7 @@ public class LogsApiExample {
 
 ### Return type
 
-[**IIntegrationLogResponse**](IIntegrationLogResponse.md)
+[**PagedResourceListOfIIntegrationLogResponse**](PagedResourceListOfIIntegrationLogResponse.md)
 
 ### HTTP request headers
 
