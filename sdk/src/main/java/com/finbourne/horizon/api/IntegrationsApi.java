@@ -31,6 +31,7 @@ import com.finbourne.horizon.model.InstanceIdentifier;
 import com.finbourne.horizon.model.IntegrationDescription;
 import com.finbourne.horizon.model.IntegrationInstance;
 import com.finbourne.horizon.model.IntegrationPropertyConfiguration;
+import com.finbourne.horizon.model.JSchema;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
@@ -411,7 +412,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -426,7 +427,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -441,7 +442,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -457,7 +458,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -473,7 +474,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -490,7 +491,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -507,7 +508,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -525,7 +526,7 @@ public class IntegrationsApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> The instance was deleted. </td><td>  -  </td></tr>
+        <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
@@ -828,30 +829,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<String> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit) throws ApiException {
+    private ApiResponse<List<String>> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit) throws ApiException {
         okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<String>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<String> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<List<String>> getExecutionIdsForInstanceWithHttpInfo(String instanceId, Integer limit, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, null, opts);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<String>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<String> _callback) throws ApiException {
+    private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<List<String>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<String>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getExecutionIdsForInstanceAsync(String instanceId, Integer limit, final ApiCallback<List<String>> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = getExecutionIdsForInstanceValidateBeforeCall(instanceId, limit, _callback, opts);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<String>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -893,7 +894,7 @@ public class IntegrationsApi {
 
         /**
          * Execute getExecutionIdsForInstance request
-         * @return String
+         * @return List&lt;String&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -903,14 +904,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public String execute() throws ApiException {
-            ApiResponse<String> localVarResp = getExecutionIdsForInstanceWithHttpInfo(instanceId, limit);
+        public List<String> execute() throws ApiException {
+            ApiResponse<List<String>> localVarResp = getExecutionIdsForInstanceWithHttpInfo(instanceId, limit);
             return localVarResp.getData();
         }
 
         /**
          * Execute getExecutionIdsForInstance request. Use any specified configuration options to override any other configuration for this request only.
-         * @return String
+         * @return List&lt;String&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -920,14 +921,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public String execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<String> localVarResp = getExecutionIdsForInstanceWithHttpInfo(instanceId, limit, opts);
+        public List<String> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<String>> localVarResp = getExecutionIdsForInstanceWithHttpInfo(instanceId, limit, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute getExecutionIdsForInstance request with HTTP info returned
-         * @return ApiResponse&lt;String&gt;
+         * @return ApiResponse&lt;List&lt;String&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -937,13 +938,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<String> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<List<String>> executeWithHttpInfo() throws ApiException {
             return getExecutionIdsForInstanceWithHttpInfo(instanceId, limit);
         }
 
         /**
          * Execute getExecutionIdsForInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;String&gt;
+         * @return ApiResponse&lt;List&lt;String&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -953,7 +954,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<String> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<List<String>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return getExecutionIdsForInstanceWithHttpInfo(instanceId, limit, opts);
         }
 
@@ -970,7 +971,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<String>> _callback) throws ApiException {
             return getExecutionIdsForInstanceAsync(instanceId, limit, _callback);
         }
 
@@ -987,7 +988,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<List<String>> _callback, ConfigurationOptions opts) throws ApiException {
             return getExecutionIdsForInstanceAsync(instanceId, limit, _callback, opts);
         }
     }
@@ -1538,30 +1539,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<String> getSchemaWithHttpInfo(String integration) throws ApiException {
+    private ApiResponse<JSchema> getSchemaWithHttpInfo(String integration) throws ApiException {
         okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<JSchema>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<String> getSchemaWithHttpInfo(String integration, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<JSchema> getSchemaWithHttpInfo(String integration, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, null, opts);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<JSchema>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getSchemaAsync(String integration, final ApiCallback<String> _callback) throws ApiException {
+    private okhttp3.Call getSchemaAsync(String integration, final ApiCallback<JSchema> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<JSchema>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getSchemaAsync(String integration, final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getSchemaAsync(String integration, final ApiCallback<JSchema> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = getSchemaValidateBeforeCall(integration, _callback, opts);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<JSchema>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1592,7 +1593,7 @@ public class IntegrationsApi {
 
         /**
          * Execute getSchema request
-         * @return String
+         * @return JSchema
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1602,14 +1603,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public String execute() throws ApiException {
-            ApiResponse<String> localVarResp = getSchemaWithHttpInfo(integration);
+        public JSchema execute() throws ApiException {
+            ApiResponse<JSchema> localVarResp = getSchemaWithHttpInfo(integration);
             return localVarResp.getData();
         }
 
         /**
          * Execute getSchema request. Use any specified configuration options to override any other configuration for this request only.
-         * @return String
+         * @return JSchema
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1619,14 +1620,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public String execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<String> localVarResp = getSchemaWithHttpInfo(integration, opts);
+        public JSchema execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<JSchema> localVarResp = getSchemaWithHttpInfo(integration, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute getSchema request with HTTP info returned
-         * @return ApiResponse&lt;String&gt;
+         * @return ApiResponse&lt;JSchema&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1636,13 +1637,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<String> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<JSchema> executeWithHttpInfo() throws ApiException {
             return getSchemaWithHttpInfo(integration);
         }
 
         /**
          * Execute getSchema request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;String&gt;
+         * @return ApiResponse&lt;JSchema&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1652,7 +1653,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<String> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<JSchema> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return getSchemaWithHttpInfo(integration, opts);
         }
 
@@ -1669,7 +1670,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<JSchema> _callback) throws ApiException {
             return getSchemaAsync(integration, _callback);
         }
 
@@ -1686,7 +1687,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<JSchema> _callback, ConfigurationOptions opts) throws ApiException {
             return getSchemaAsync(integration, _callback, opts);
         }
     }
@@ -2504,7 +2505,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2519,7 +2520,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2534,7 +2535,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2550,7 +2551,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2566,7 +2567,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2583,7 +2584,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2600,7 +2601,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -2618,7 +2619,7 @@ public class IntegrationsApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> The instance was updated. </td><td>  -  </td></tr>
+        <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> The instance does not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>

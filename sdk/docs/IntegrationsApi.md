@@ -192,7 +192,7 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | The instance was deleted. |  -  |
+| **204** | No Content |  -  |
 | **404** | The instance does not exist. |  -  |
 | **0** | Error response |  -  |
 
@@ -292,7 +292,7 @@ public class IntegrationsApiExample {
 
 ## getExecutionIdsForInstance
 
-> String getExecutionIdsForInstance(instanceId, limit)
+> List&lt;String&gt; getExecutionIdsForInstance(instanceId, limit)
 
 [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
 
@@ -341,9 +341,9 @@ public class IntegrationsApiExample {
         Integer limit = 56; // Integer | Maximum number of returned execution ids
         try {
             // uncomment the below to set overrides at the request level
-            // String result = apiInstance.getExecutionIdsForInstance(instanceId, limit).execute(opts);
+            // List<String> result = apiInstance.getExecutionIdsForInstance(instanceId, limit).execute(opts);
 
-            String result = apiInstance.getExecutionIdsForInstance(instanceId, limit).execute();
+            List<String> result = apiInstance.getExecutionIdsForInstance(instanceId, limit).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#getExecutionIdsForInstance");
@@ -365,7 +365,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-**String**
+**List&lt;String&gt;**
 
 ### HTTP request headers
 
@@ -569,7 +569,7 @@ public class IntegrationsApiExample {
 
 ## getSchema
 
-> String getSchema(integration)
+> JSchema getSchema(integration)
 
 [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance.
 
@@ -617,9 +617,9 @@ public class IntegrationsApiExample {
         String integration = "integration_example"; // String | The type of the integration e.g. \"copp-clark\".
         try {
             // uncomment the below to set overrides at the request level
-            // String result = apiInstance.getSchema(integration).execute(opts);
+            // JSchema result = apiInstance.getSchema(integration).execute(opts);
 
-            String result = apiInstance.getSchema(integration).execute();
+            JSchema result = apiInstance.getSchema(integration).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#getSchema");
@@ -640,7 +640,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-**String**
+[**JSchema**](JSchema.md)
 
 ### HTTP request headers
 
@@ -1011,7 +1011,7 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | The instance was updated. |  -  |
+| **204** | No Content |  -  |
 | **404** | The instance does not exist. |  -  |
 | **0** | Error response |  -  |
 

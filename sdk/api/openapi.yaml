@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1022
+  version: 0.1.1023
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -765,7 +765,7 @@ paths:
         style: simple
       responses:
         "204":
-          description: The instance was deleted.
+          description: No Content
         "404":
           description: The instance does not exist.
         default:
@@ -821,7 +821,7 @@ paths:
         description: The new integration instance.
       responses:
         "204":
-          description: The instance was updated.
+          description: No Content
         "404":
           description: The instance does not exist.
         default:
@@ -907,7 +907,9 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                items:
+                  type: string
+                type: array
           description: The execution ids sorted by start date (descending)
         "404":
           description: The integration instance does not exist
@@ -947,7 +949,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/JSchema'
           description: The system defined JSON schema for the details of a specified
             integration.
         "404":
@@ -1343,7 +1345,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IntegrationRunResponse'
+                $ref: '#/components/schemas/PagedResourceListOfIntegrationRunResponse'
           description: Success
         "404":
           description: Not Found
@@ -2512,6 +2514,339 @@ components:
           nullable: true
           type: string
       type: object
+    JSchema:
+      additionalProperties: false
+      example:
+        minimumProperties: 7
+        writeOnly: true
+        allowUnevaluatedProperties: true
+        minimumLength: 0
+        maximumContains: 2
+        validators:
+        - null
+        - null
+        type: null
+        required:
+        - required
+        - required
+        reference: https://openapi-generator.tech
+        maximumProperties: 9
+        ref: null
+        oneOf:
+        - null
+        - null
+        else: null
+        additionalItems: null
+        contentEncoding: contentEncoding
+        id: https://openapi-generator.tech
+        exclusiveMinimum: true
+        if: null
+        allowAdditionalProperties: true
+        maximumItems: 2
+        allowUnevaluatedItems: true
+        itemsPositionValidation: true
+        allowAdditionalItemsSpecified: true
+        dependentSchemas:
+          key: null
+        contentMediaType: contentMediaType
+        format: format
+        readOnly: true
+        then: null
+        enum:
+        - ""
+        - ""
+        extensionData:
+          key: ""
+        dependencies:
+          key: ""
+        unevaluatedItems: null
+        contains: null
+        allowAdditionalPropertiesSpecified: true
+        propertyNames: null
+        uniqueItems: true
+        minimumItems: 5
+        additionalProperties: null
+        items:
+        - null
+        - null
+        const: ""
+        recursiveAnchor: true
+        pattern: pattern
+        description: description
+        title: title
+        unevaluatedProperties: null
+        valid: true
+        exclusiveMaximum: true
+        patternProperties:
+          key: null
+        allOf:
+        - null
+        - null
+        default: ""
+        not: null
+        maximumLength: 6
+        allowAdditionalItems: true
+        recursiveReference: https://openapi-generator.tech
+        multipleOf: 4.145608029883936
+        schemaVersion: https://openapi-generator.tech
+        minimumContains: 3
+        anyOf:
+        - null
+        - null
+        dependentRequired:
+          key:
+          - dependentRequired
+          - dependentRequired
+        anchor: anchor
+        maximum: 5.962133916683182
+        minimum: 1.4658129805029452
+        properties:
+          key: null
+      properties:
+        schemaVersion:
+          format: uri
+          nullable: true
+          type: string
+        valid:
+          nullable: true
+          type: boolean
+        reference:
+          format: uri
+          nullable: true
+          type: string
+        ref:
+          $ref: '#/components/schemas/JSchema'
+        recursiveReference:
+          format: uri
+          nullable: true
+          type: string
+        recursiveAnchor:
+          nullable: true
+          type: boolean
+        id:
+          format: uri
+          nullable: true
+          type: string
+        anchor:
+          nullable: true
+          type: string
+        type:
+          $ref: '#/components/schemas/JSchemaType'
+        default:
+          nullable: true
+        properties:
+          additionalProperties:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: object
+        items:
+          items:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: array
+        itemsPositionValidation:
+          type: boolean
+        required:
+          items:
+            type: string
+          readOnly: true
+          type: array
+        allOf:
+          items:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: array
+        anyOf:
+          items:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: array
+        oneOf:
+          items:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: array
+        if:
+          $ref: '#/components/schemas/JSchema'
+        then:
+          $ref: '#/components/schemas/JSchema'
+        else:
+          $ref: '#/components/schemas/JSchema'
+        not:
+          $ref: '#/components/schemas/JSchema'
+        contains:
+          $ref: '#/components/schemas/JSchema'
+        propertyNames:
+          $ref: '#/components/schemas/JSchema'
+        enum:
+          items: {}
+          readOnly: true
+          type: array
+        const:
+          nullable: true
+        uniqueItems:
+          type: boolean
+        minimumLength:
+          format: int64
+          nullable: true
+          type: integer
+        maximumLength:
+          format: int64
+          nullable: true
+          type: integer
+        minimum:
+          format: double
+          nullable: true
+          type: number
+        maximum:
+          format: double
+          nullable: true
+          type: number
+        exclusiveMinimum:
+          type: boolean
+        exclusiveMaximum:
+          type: boolean
+        minimumItems:
+          format: int64
+          nullable: true
+          type: integer
+        maximumItems:
+          format: int64
+          nullable: true
+          type: integer
+        minimumProperties:
+          format: int64
+          nullable: true
+          type: integer
+        maximumProperties:
+          format: int64
+          nullable: true
+          type: integer
+        minimumContains:
+          format: int64
+          nullable: true
+          type: integer
+        maximumContains:
+          format: int64
+          nullable: true
+          type: integer
+        contentEncoding:
+          nullable: true
+          type: string
+        contentMediaType:
+          nullable: true
+          type: string
+        writeOnly:
+          nullable: true
+          type: boolean
+        readOnly:
+          nullable: true
+          type: boolean
+        extensionData:
+          additionalProperties: {}
+          readOnly: true
+          type: object
+        title:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        multipleOf:
+          format: double
+          nullable: true
+          type: number
+        pattern:
+          nullable: true
+          type: string
+        dependencies:
+          additionalProperties: {}
+          readOnly: true
+          type: object
+        dependentRequired:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          readOnly: true
+          type: object
+        dependentSchemas:
+          additionalProperties:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: object
+        patternProperties:
+          additionalProperties:
+            $ref: '#/components/schemas/JSchema'
+          readOnly: true
+          type: object
+        additionalProperties:
+          $ref: '#/components/schemas/JSchema'
+        allowAdditionalProperties:
+          type: boolean
+        allowAdditionalPropertiesSpecified:
+          type: boolean
+        unevaluatedProperties:
+          $ref: '#/components/schemas/JSchema'
+        allowUnevaluatedProperties:
+          nullable: true
+          type: boolean
+        additionalItems:
+          $ref: '#/components/schemas/JSchema'
+        allowAdditionalItems:
+          type: boolean
+        allowAdditionalItemsSpecified:
+          type: boolean
+        unevaluatedItems:
+          $ref: '#/components/schemas/JSchema'
+        allowUnevaluatedItems:
+          nullable: true
+          type: boolean
+        format:
+          nullable: true
+          type: string
+        validators:
+          items:
+            $ref: '#/components/schemas/JsonValidator'
+          readOnly: true
+          type: array
+      required:
+      - allOf
+      - allowAdditionalItems
+      - allowAdditionalItemsSpecified
+      - allowAdditionalProperties
+      - allowAdditionalPropertiesSpecified
+      - anyOf
+      - dependencies
+      - dependentRequired
+      - dependentSchemas
+      - enum
+      - exclusiveMaximum
+      - exclusiveMinimum
+      - extensionData
+      - items
+      - itemsPositionValidation
+      - oneOf
+      - patternProperties
+      - properties
+      - required
+      - uniqueItems
+      - validators
+      type: object
+    JSchemaType:
+      enum:
+      - None
+      - String
+      - Number
+      - Integer
+      - Boolean
+      - Object
+      - Array
+      - "Null"
+      type: string
+    JsonValidator:
+      additionalProperties: false
+      type: object
     Link:
       additionalProperties: false
       example:
@@ -3221,6 +3556,79 @@ components:
         values:
           items:
             $ref: '#/components/schemas/IIntegrationLogResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
+    PagedResourceListOfIntegrationRunResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          instanceName: instanceName
+          integration:
+            name: name
+            type: type
+          integrationLogs:
+            key:
+              key:
+                count: 0
+                link:
+                  description: description
+                  href: href
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          version:
+            asAtModified: 2000-01-23T04:56:07.000+00:00
+            asAtCreated: 2000-01-23T04:56:07.000+00:00
+          status: status
+        - instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          instanceName: instanceName
+          integration:
+            name: name
+            type: type
+          integrationLogs:
+            key:
+              key:
+                count: 0
+                link:
+                  description: description
+                  href: href
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          version:
+            asAtModified: 2000-01-23T04:56:07.000+00:00
+            asAtCreated: 2000-01-23T04:56:07.000+00:00
+          status: status
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/IntegrationRunResponse'
           type: array
         href:
           format: uri

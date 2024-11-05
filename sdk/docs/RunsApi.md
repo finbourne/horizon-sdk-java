@@ -11,7 +11,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 ## getRunResults
 
-> IntegrationRunResponse getRunResults(filter, sortBy, limit, pageToken)
+> PagedResourceListOfIntegrationRunResponse getRunResults(filter, sortBy, limit, pageToken)
 
 [EXPERIMENTAL] GetRunResults: Get run results
 
@@ -62,9 +62,9 @@ public class RunsApiExample {
         String pageToken = ""; // String | The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
         try {
             // uncomment the below to set overrides at the request level
-            // IntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute(opts);
+            // PagedResourceListOfIntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute(opts);
 
-            IntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute();
+            PagedResourceListOfIntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling RunsApi#getRunResults");
@@ -88,7 +88,7 @@ public class RunsApiExample {
 
 ### Return type
 
-[**IntegrationRunResponse**](IntegrationRunResponse.md)
+[**PagedResourceListOfIntegrationRunResponse**](PagedResourceListOfIntegrationRunResponse.md)
 
 ### HTTP request headers
 
