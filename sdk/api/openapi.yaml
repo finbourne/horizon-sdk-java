@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1040
+  version: 0.1.1042
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -578,6 +578,14 @@ paths:
         content:
           application/json:
             example:
+              instanceOptionalProps:
+                CreditRating:
+                  displayNameOverride: Vendor Credit Rating
+                  entityType: Instrument
+                  entitySubType:
+                  - Equity
+                  vendorPackage:
+                  - Transaction
               integrationType: copp-clark
               name: Payment Systems
               description: Payment systems calendar for GBP only
@@ -1989,6 +1997,17 @@ components:
     CreateInstanceRequest:
       additionalProperties: false
       example:
+        instanceOptionalProps:
+          key:
+            displayNameOverride: displayNameOverride
+            entityType: entityType
+            entitySubType:
+            - entitySubType
+            - entitySubType
+            descriptionOverride: descriptionOverride
+            vendorPackage:
+            - vendorPackage
+            - vendorPackage
         integrationType: integrationType
         name: name
         description: description
@@ -2002,6 +2021,11 @@ components:
           type: type
         enabled: true
       properties:
+        instanceOptionalProps:
+          additionalProperties:
+            $ref: '#/components/schemas/InstancePropertyDefinitionOverrides'
+          nullable: true
+          type: object
         integrationType:
           type: string
         name:
@@ -2196,6 +2220,40 @@ components:
           type: string
       required:
       - id
+      type: object
+    InstancePropertyDefinitionOverrides:
+      additionalProperties: false
+      example:
+        displayNameOverride: displayNameOverride
+        entityType: entityType
+        entitySubType:
+        - entitySubType
+        - entitySubType
+        descriptionOverride: descriptionOverride
+        vendorPackage:
+        - vendorPackage
+        - vendorPackage
+      properties:
+        displayNameOverride:
+          nullable: true
+          type: string
+        descriptionOverride:
+          nullable: true
+          type: string
+        entityType:
+          type: string
+        entitySubType:
+          items:
+            type: string
+          nullable: true
+          type: array
+        vendorPackage:
+          items:
+            type: string
+          nullable: true
+          type: array
+      required:
+      - entityType
       type: object
     IntegrationDescription:
       additionalProperties: false

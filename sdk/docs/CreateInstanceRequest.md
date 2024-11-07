@@ -7,6 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**instanceOptionalProps** | [**Map&lt;String, InstancePropertyDefinitionOverrides&gt;**](InstancePropertyDefinitionOverrides.md) |  |  [optional] |
 |**integrationType** | **String** |  |  |
 |**name** | **String** |  |  |
 |**description** | **String** |  |  |

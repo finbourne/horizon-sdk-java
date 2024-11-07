@@ -11,6 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.InstancePropertyDefinitionOverrides;
 import com.finbourne.horizon.model.Trigger;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -20,7 +21,10 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,6 +56,10 @@ import com.finbourne.horizon.JSON;
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateInstanceRequest {
+  public static final String SERIALIZED_NAME_INSTANCE_OPTIONAL_PROPS = "instanceOptionalProps";
+  @SerializedName(SERIALIZED_NAME_INSTANCE_OPTIONAL_PROPS)
+  private Map<String, InstancePropertyDefinitionOverrides> instanceOptionalProps;
+
   public static final String SERIALIZED_NAME_INTEGRATION_TYPE = "integrationType";
   @SerializedName(SERIALIZED_NAME_INTEGRATION_TYPE)
   private String integrationType;
@@ -78,6 +86,35 @@ public class CreateInstanceRequest {
 
   public CreateInstanceRequest() {
   }
+
+  public CreateInstanceRequest instanceOptionalProps(Map<String, InstancePropertyDefinitionOverrides> instanceOptionalProps) {
+    
+    this.instanceOptionalProps = instanceOptionalProps;
+    return this;
+  }
+
+  public CreateInstanceRequest putInstanceOptionalPropsItem(String key, InstancePropertyDefinitionOverrides instanceOptionalPropsItem) {
+    if (this.instanceOptionalProps == null) {
+      this.instanceOptionalProps = new HashMap<>();
+    }
+    this.instanceOptionalProps.put(key, instanceOptionalPropsItem);
+    return this;
+  }
+
+   /**
+   * Get instanceOptionalProps
+   * @return instanceOptionalProps
+  **/
+  @jakarta.annotation.Nullable
+  public Map<String, InstancePropertyDefinitionOverrides> getInstanceOptionalProps() {
+    return instanceOptionalProps;
+  }
+
+
+  public void setInstanceOptionalProps(Map<String, InstancePropertyDefinitionOverrides> instanceOptionalProps) {
+    this.instanceOptionalProps = instanceOptionalProps;
+  }
+
 
   public CreateInstanceRequest integrationType(String integrationType) {
     
@@ -223,7 +260,8 @@ public class CreateInstanceRequest {
       return false;
     }
     CreateInstanceRequest createInstanceRequest = (CreateInstanceRequest) o;
-    return Objects.equals(this.integrationType, createInstanceRequest.integrationType) &&
+    return Objects.equals(this.instanceOptionalProps, createInstanceRequest.instanceOptionalProps) &&
+        Objects.equals(this.integrationType, createInstanceRequest.integrationType) &&
         Objects.equals(this.name, createInstanceRequest.name) &&
         Objects.equals(this.description, createInstanceRequest.description) &&
         Objects.equals(this.enabled, createInstanceRequest.enabled) &&
@@ -231,15 +269,27 @@ public class CreateInstanceRequest {
         Objects.equals(this.details, createInstanceRequest.details);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(integrationType, name, description, enabled, triggers, details);
+    return Objects.hash(instanceOptionalProps, integrationType, name, description, enabled, triggers, details);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateInstanceRequest {\n");
+    sb.append("    instanceOptionalProps: ").append(toIndentedString(instanceOptionalProps)).append("\n");
     sb.append("    integrationType: ").append(toIndentedString(integrationType)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -268,6 +318,7 @@ public class CreateInstanceRequest {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("instanceOptionalProps");
     openapiFields.add("integrationType");
     openapiFields.add("name");
     openapiFields.add("description");
