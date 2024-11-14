@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**instanceOptionalProps** | [**Map&lt;String, InstancePropertyDefinitionOverrides&gt;**](InstancePropertyDefinitionOverrides.md) |  |  [optional] |
+|**instanceOptionalProps** | [**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md) |  |  [optional] |
 |**integrationType** | **String** |  |  |
 |**name** | **String** |  |  |
 |**description** | **String** |  |  |

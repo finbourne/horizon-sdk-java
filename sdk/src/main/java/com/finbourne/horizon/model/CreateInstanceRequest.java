@@ -11,7 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
-import com.finbourne.horizon.model.InstancePropertyDefinitionOverrides;
+import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
 import com.finbourne.horizon.model.Trigger;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -58,7 +58,7 @@ import com.finbourne.horizon.JSON;
 public class CreateInstanceRequest {
   public static final String SERIALIZED_NAME_INSTANCE_OPTIONAL_PROPS = "instanceOptionalProps";
   @SerializedName(SERIALIZED_NAME_INSTANCE_OPTIONAL_PROPS)
-  private Map<String, InstancePropertyDefinitionOverrides> instanceOptionalProps;
+  private Map<String, LusidPropertyDefinitionOverridesByType> instanceOptionalProps;
 
   public static final String SERIALIZED_NAME_INTEGRATION_TYPE = "integrationType";
   @SerializedName(SERIALIZED_NAME_INTEGRATION_TYPE)
@@ -87,13 +87,13 @@ public class CreateInstanceRequest {
   public CreateInstanceRequest() {
   }
 
-  public CreateInstanceRequest instanceOptionalProps(Map<String, InstancePropertyDefinitionOverrides> instanceOptionalProps) {
+  public CreateInstanceRequest instanceOptionalProps(Map<String, LusidPropertyDefinitionOverridesByType> instanceOptionalProps) {
     
     this.instanceOptionalProps = instanceOptionalProps;
     return this;
   }
 
-  public CreateInstanceRequest putInstanceOptionalPropsItem(String key, InstancePropertyDefinitionOverrides instanceOptionalPropsItem) {
+  public CreateInstanceRequest putInstanceOptionalPropsItem(String key, LusidPropertyDefinitionOverridesByType instanceOptionalPropsItem) {
     if (this.instanceOptionalProps == null) {
       this.instanceOptionalProps = new HashMap<>();
     }
@@ -106,12 +106,12 @@ public class CreateInstanceRequest {
    * @return instanceOptionalProps
   **/
   @jakarta.annotation.Nullable
-  public Map<String, InstancePropertyDefinitionOverrides> getInstanceOptionalProps() {
+  public Map<String, LusidPropertyDefinitionOverridesByType> getInstanceOptionalProps() {
     return instanceOptionalProps;
   }
 
 
-  public void setInstanceOptionalProps(Map<String, InstancePropertyDefinitionOverrides> instanceOptionalProps) {
+  public void setInstanceOptionalProps(Map<String, LusidPropertyDefinitionOverridesByType> instanceOptionalProps) {
     this.instanceOptionalProps = instanceOptionalProps;
   }
 

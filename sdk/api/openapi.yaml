@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1067
+  version: 0.1.1080
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2023,7 +2023,7 @@ components:
       properties:
         instanceOptionalProps:
           additionalProperties:
-            $ref: '#/components/schemas/InstancePropertyDefinitionOverrides'
+            $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
           nullable: true
           type: object
         integrationType:
@@ -2220,40 +2220,6 @@ components:
           type: string
       required:
       - id
-      type: object
-    InstancePropertyDefinitionOverrides:
-      additionalProperties: false
-      example:
-        displayNameOverride: displayNameOverride
-        entityType: entityType
-        entitySubType:
-        - entitySubType
-        - entitySubType
-        descriptionOverride: descriptionOverride
-        vendorPackage:
-        - vendorPackage
-        - vendorPackage
-      properties:
-        displayNameOverride:
-          nullable: true
-          type: string
-        descriptionOverride:
-          nullable: true
-          type: string
-        entityType:
-          type: string
-        entitySubType:
-          items:
-            type: string
-          nullable: true
-          type: array
-        vendorPackage:
-          items:
-            type: string
-          nullable: true
-          type: array
-      required:
-      - entityType
       type: object
     IntegrationDescription:
       additionalProperties: false
