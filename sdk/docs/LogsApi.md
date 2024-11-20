@@ -99,6 +99,7 @@ public class LogsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | Not Found |  -  |
 | **0** | Error response |  -  |
 

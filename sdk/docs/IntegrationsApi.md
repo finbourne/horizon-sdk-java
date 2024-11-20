@@ -103,6 +103,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Identifier of the created instance. |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The integration type does not exist. |  -  |
 | **0** | Error response |  -  |
 
@@ -193,6 +194,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | No Content |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The instance does not exist. |  -  |
 | **0** | Error response |  -  |
 
@@ -284,6 +286,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | The execution id |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The integration instance does not exist |  -  |
 | **0** | Error response |  -  |
 
@@ -377,6 +380,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | The execution ids sorted by start date (descending) |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The integration instance does not exist |  -  |
 | **0** | Error response |  -  |
 
@@ -470,6 +474,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **404** | The requested instance(s) do not exist. |  -  |
+| **400** | The details of the input related failure |  -  |
 | **200** | Success |  -  |
 | **0** | Error response |  -  |
 
@@ -561,6 +566,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The requested integration does not exist. |  -  |
 | **0** | Error response |  -  |
 
@@ -652,6 +658,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | The system defined JSON schema for the details of a specified integration. |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The integration type does not exist or is not enabled. |  -  |
 | **0** | Error response |  -  |
 
@@ -920,6 +927,7 @@ public class IntegrationsApiExample {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **404** | The requested instance(s) do not exist. |  -  |
+| **400** | The details of the input related failure |  -  |
 | **200** | Success |  -  |
 | **0** | Error response |  -  |
 
@@ -1012,6 +1020,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | No Content |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The instance does not exist. |  -  |
 | **0** | Error response |  -  |
 
