@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1126
+  version: 0.1.1133
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2422,14 +2422,9 @@ components:
       properties:
         id:
           description: Identifies the instance within the integration.
-          maxLength: 36
-          minLength: 36
           type: string
         integrationType:
           description: The integration type.
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         name:
           description: Name of the instance.
@@ -2638,8 +2633,6 @@ components:
       properties:
         runId:
           format: uuid
-          maxLength: 36
-          minLength: 36
           type: string
         instanceId:
           format: uuid
