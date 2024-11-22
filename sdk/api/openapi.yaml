@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1134
+  version: 0.1.1143
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1478,6 +1478,52 @@ paths:
       - Runs
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/runs/{runId}/cancel:
+    put:
+      description: "<br>Cancels an execution instance of an integration.\r\n<br />\r\
+        \n<br />\r\n<br>The execution instance must be queued, the user must be authenticated,\
+        \ entitled to call this method, and the user's domain must be licensed for\
+        \ the integration."
+      operationId: CancelInstance
+      parameters:
+      - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationCancellationResponse'
+          description: The instance was cancelled.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The execution does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CancelInstance: Cancels a single instance execution."
+      tags:
+      - Runs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/runs/{runId}/rerun:
     put:
       description: "<br>Reruns an execution instance of an integration.\r\n<br />\r\
@@ -1491,6 +1537,8 @@ paths:
         name: runId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
           type: string
         style: simple
       responses:
@@ -2364,6 +2412,9 @@ components:
           type: string
       required:
       - id
+      type: object
+    IntegrationCancellationResponse:
+      additionalProperties: false
       type: object
     IntegrationDescription:
       additionalProperties: false

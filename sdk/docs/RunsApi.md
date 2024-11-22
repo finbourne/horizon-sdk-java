@@ -4,9 +4,102 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**cancelInstance**](RunsApi.md#cancelInstance) | **PUT** /api/runs/{runId}/cancel | [EXPERIMENTAL] CancelInstance: Cancels a single instance execution. |
 | [**getRunResults**](RunsApi.md#getRunResults) | **GET** /api/runs | [EXPERIMENTAL] GetRunResults: Get run results |
 | [**rerunInstance**](RunsApi.md#rerunInstance) | **PUT** /api/runs/{runId}/rerun | [EXPERIMENTAL] RerunInstance: Reruns a single instance execution. |
 
+
+
+## cancelInstance
+
+> Object cancelInstance(runId)
+
+[EXPERIMENTAL] CancelInstance: Cancels a single instance execution.
+
+&lt;br&gt;Cancels an execution instance of an integration.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.RunsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class RunsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // RunsApi apiInstance = apiFactory.build(RunsApi.class);
+
+        RunsApi apiInstance = ApiFactoryBuilder.build(fileName).build(RunsApi.class);
+        String runId = "runId_example"; // String | Run identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
+        try {
+            // uncomment the below to set overrides at the request level
+            // Object result = apiInstance.cancelInstance(runId).execute(opts);
+
+            Object result = apiInstance.cancelInstance(runId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RunsApi#cancelInstance");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **runId** | **String**| Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
+
+### Return type
+
+**Object**
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The instance was cancelled. |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The execution does not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 
 ## getRunResults
