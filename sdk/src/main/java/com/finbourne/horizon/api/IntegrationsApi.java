@@ -307,7 +307,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] CreateInstance: Create a single integration instance.
-     * &lt;br&gt;Creates a new instance of an integration, returning its identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     *  Creates a new instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @return APIcreateInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -536,7 +536,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] DeleteInstance: Delete a single integration instance.
-     * &lt;br&gt;Deletes an existing instance of an integration, returning its identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     *  Deletes an existing instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIdeleteInstanceRequest
      * @http.response.details
@@ -773,9 +773,9 @@ public class IntegrationsApi {
     }
 
     /**
-     * [EXPERIMENTAL] ExecuteInstance: Execute an integration instance.
-     * &lt;br&gt;Starts execution of an instance, returning its execution identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
-     * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
+     * [EXPERIMENTAL] ExecuteInstance: 
+     * Starts an execution of an integration instance, returning an execution id. You can check the status of your execution using either the ProcessHistory API or in the Data Feed Monitoring dashboard in the LUSID UI.
+     * @param instanceId  (required)
      * @return APIexecuteInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1027,7 +1027,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
-     * &lt;br&gt;Get the most recent execution ids for an integration instance.  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     *  Get the most recent execution ids for an integration instance.      The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;30dc93c6-a127-46bf-aea8-e466d720b72d\&quot;. (required)
      * @return APIgetExecutionIdsForInstanceRequest
      * @http.response.details
@@ -1156,7 +1156,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1173,7 +1173,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1191,7 +1191,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1209,7 +1209,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1226,7 +1226,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1244,7 +1244,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1262,7 +1262,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1282,7 +1282,7 @@ public class IntegrationsApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
@@ -1393,7 +1393,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1410,7 +1410,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1428,7 +1428,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1446,7 +1446,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1463,7 +1463,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1481,7 +1481,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1499,7 +1499,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1512,13 +1512,13 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration
-     * &lt;br&gt;The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
+     *  The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
      * @param integration  (required)
      * @return APIgetIntegrationConfigurationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> The requested integration does not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
@@ -1750,7 +1750,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance.
-     * &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     *  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param integration The type of the integration e.g. \&quot;copp-clark\&quot;. (required)
      * @return APIgetSchemaRequest
      * @http.response.details
@@ -1861,7 +1861,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1877,7 +1877,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1894,7 +1894,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1911,7 +1911,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1927,7 +1927,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1944,7 +1944,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1961,7 +1961,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
@@ -1973,12 +1973,12 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] ListInstances: List instances across all integrations.
-     * &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     *  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @return APIlistInstancesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
@@ -2082,7 +2082,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2097,7 +2097,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2113,7 +2113,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2129,7 +2129,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2144,7 +2144,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2160,7 +2160,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2176,7 +2176,7 @@ public class IntegrationsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2187,12 +2187,12 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] ListIntegrations: List available integrations.
-     * &lt;br&gt;List all available integrations.  &lt;br /&gt;  &lt;br&gt;   &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence   contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).  &lt;br /&gt;  &lt;br&gt;Any authenticated user can call this method.
+     *  List all available integrations.         &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence   contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).      Any authenticated user can call this method.
      * @return APIlistIntegrationsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
@@ -2325,7 +2325,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2342,7 +2342,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2360,7 +2360,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2378,7 +2378,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2395,7 +2395,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2413,7 +2413,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2431,7 +2431,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -2451,7 +2451,7 @@ public class IntegrationsApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-        <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
@@ -2685,7 +2685,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] UpdateInstance: Update a single integration instance.
-     * &lt;br&gt;Updates an existing instance of an integration, returning its identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     *  Updates an existing instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIupdateInstanceRequest
      * @http.response.details

@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1347
+  version: 0.1.1524
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -34,15 +34,131 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              dataResults:
+              - openFigiResult:
+                  figi: BBG000C6K6G9
+                  name: VODAFONE GROUP PLC
+                  ticker: VOD
+                  exchangeCode: LN
+                  mic: ICE
+                  exchangeName: IFLL
+                  marketSector: Equity
+                  generalSecurityType: Common Stock
+                  securityType: Common Stock
+                  securityDescription: VOD
+                  compositeFigi: BBG000C6K5W3
+                  shareClassFigi: BBG001S6PJ31
+                  matchType: TICKER
+                  searchInput: VOD LN Equity
+                  lusidInstrumentId: LUID_00003LQ6
+                  lusidInstrumentScope: default
+                permIdResult:
+                  figi: BBG000C6K6G9
+                  ticker: VOD
+                  mic: XLON
+                  quotePermId: "55836053361"
+                  isPrimaryQuote: true
+                  legalEntityIdentifier: LEI000000
+              primaryVendorKey: Vendor-ProductKey
+              secondaryVendorKeys:
+              - Vendor-ProductKey
             schema:
               $ref: '#/components/schemas/OnboardInstrumentRequest'
           application/json:
+            example:
+              dataResults:
+              - openFigiResult:
+                  figi: BBG000C6K6G9
+                  name: VODAFONE GROUP PLC
+                  ticker: VOD
+                  exchangeCode: LN
+                  mic: ICE
+                  exchangeName: IFLL
+                  marketSector: Equity
+                  generalSecurityType: Common Stock
+                  securityType: Common Stock
+                  securityDescription: VOD
+                  compositeFigi: BBG000C6K5W3
+                  shareClassFigi: BBG001S6PJ31
+                  matchType: TICKER
+                  searchInput: VOD LN Equity
+                  lusidInstrumentId: LUID_00003LQ6
+                  lusidInstrumentScope: default
+                permIdResult:
+                  figi: BBG000C6K6G9
+                  ticker: VOD
+                  mic: XLON
+                  quotePermId: "55836053361"
+                  isPrimaryQuote: true
+                  legalEntityIdentifier: LEI000000
+              primaryVendorKey: Vendor-ProductKey
+              secondaryVendorKeys:
+              - Vendor-ProductKey
             schema:
               $ref: '#/components/schemas/OnboardInstrumentRequest'
           text/json:
+            example:
+              dataResults:
+              - openFigiResult:
+                  figi: BBG000C6K6G9
+                  name: VODAFONE GROUP PLC
+                  ticker: VOD
+                  exchangeCode: LN
+                  mic: ICE
+                  exchangeName: IFLL
+                  marketSector: Equity
+                  generalSecurityType: Common Stock
+                  securityType: Common Stock
+                  securityDescription: VOD
+                  compositeFigi: BBG000C6K5W3
+                  shareClassFigi: BBG001S6PJ31
+                  matchType: TICKER
+                  searchInput: VOD LN Equity
+                  lusidInstrumentId: LUID_00003LQ6
+                  lusidInstrumentScope: default
+                permIdResult:
+                  figi: BBG000C6K6G9
+                  ticker: VOD
+                  mic: XLON
+                  quotePermId: "55836053361"
+                  isPrimaryQuote: true
+                  legalEntityIdentifier: LEI000000
+              primaryVendorKey: Vendor-ProductKey
+              secondaryVendorKeys:
+              - Vendor-ProductKey
             schema:
               $ref: '#/components/schemas/OnboardInstrumentRequest'
           application/*+json:
+            example:
+              dataResults:
+              - openFigiResult:
+                  figi: BBG000C6K6G9
+                  name: VODAFONE GROUP PLC
+                  ticker: VOD
+                  exchangeCode: LN
+                  mic: ICE
+                  exchangeName: IFLL
+                  marketSector: Equity
+                  generalSecurityType: Common Stock
+                  securityType: Common Stock
+                  securityDescription: VOD
+                  compositeFigi: BBG000C6K5W3
+                  shareClassFigi: BBG001S6PJ31
+                  matchType: TICKER
+                  searchInput: VOD LN Equity
+                  lusidInstrumentId: LUID_00003LQ6
+                  lusidInstrumentScope: default
+                permIdResult:
+                  figi: BBG000C6K6G9
+                  ticker: VOD
+                  mic: XLON
+                  quotePermId: "55836053361"
+                  isPrimaryQuote: true
+                  legalEntityIdentifier: LEI000000
+              primaryVendorKey: Vendor-ProductKey
+              secondaryVendorKeys:
+              - Vendor-ProductKey
             schema:
               $ref: '#/components/schemas/OnboardInstrumentRequest'
         description: ""
@@ -59,7 +175,7 @@ paths:
                   LUID_3U7CH0EZ: Invalid values were supplied.
               schema:
                 $ref: '#/components/schemas/OnboardInstrumentResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -96,15 +212,27 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              lusidInstrumentIds:
+              - LUID_00000000
             schema:
               $ref: '#/components/schemas/Identifiers'
           application/json:
+            example:
+              lusidInstrumentIds:
+              - LUID_00000000
             schema:
               $ref: '#/components/schemas/Identifiers'
           text/json:
+            example:
+              lusidInstrumentIds:
+              - LUID_00000000
             schema:
               $ref: '#/components/schemas/Identifiers'
           application/*+json:
+            example:
+              lusidInstrumentIds:
+              - LUID_00000000
             schema:
               $ref: '#/components/schemas/Identifiers'
         description: ""
@@ -115,7 +243,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EnrichmentResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -186,7 +314,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OpenFigiSearchResult'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -211,7 +339,9 @@ paths:
     get:
       operationId: GetOpenFigiParameterOption
       parameters:
-      - explode: true
+      - description: OpenFigi API Parameters that have a restricted / permitted range
+          of values.
+        explode: true
         in: query
         name: parameterName
         required: true
@@ -226,7 +356,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/AllowedParameterValue'
                 type: array
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -267,7 +397,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/PermIdData'
                 type: array
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -333,7 +463,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/VendorProduct'
                 type: array
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -356,10 +486,10 @@ paths:
       x-accepts: application/json
   /api/integrations:
     get:
-      description: "<br>List all available integrations.\r\n<br />\r\n<br>\r\n ```\"\
-        licensed\"``` indicates your domain is licensed to use this integration. To\
-        \ request a licence\r\n contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).\r\
-        \n<br />\r\n<br>Any authenticated user can call this method."
+      description: "\nList all available integrations.\r\n\n\r\n\n\r\n ```\"licensed\"\
+        ``` indicates your domain is licensed to use this integration. To request\
+        \ a licence\r\n contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).\r\
+        \n\n\r\n\nAny authenticated user can call this method."
       operationId: ListIntegrations
       responses:
         "200":
@@ -377,7 +507,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/IntegrationDescription'
                 type: array
-          description: Success
+          description: OK
         default:
           content:
             application/json:
@@ -393,8 +523,9 @@ paths:
       x-accepts: application/json
   /api/integrations/configuration/{integration}:
     get:
-      description: "<br>The user must be authenticated, entitled to call this method,\
-        \ but the user's domain does not need to be licensed for the integration."
+      description: |2-
+
+        The user must be authenticated, entitled to call this method, but the user's domain does not need to be licensed for the integration.
       operationId: GetIntegrationConfiguration
       parameters:
       - explode: false
@@ -524,7 +655,7 @@ paths:
                   - "1.2"
               schema:
                 $ref: '#/components/schemas/IntegrationPropertyConfiguration'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -549,8 +680,9 @@ paths:
       x-accepts: application/json
   /api/integrations/instances:
     get:
-      description: "<br>The user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+      description: |2-
+
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: ListInstances
       responses:
         "200":
@@ -577,7 +709,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/IntegrationInstance'
                 type: array
-          description: Success
+          description: OK
         "404":
           description: The requested instance(s) do not exist.
         default:
@@ -594,9 +726,9 @@ paths:
       x-fbn-apistatus: Experimental
       x-accepts: application/json
     post:
-      description: "<br>Creates a new instance of an integration, returning its identifier.\r\
-        \n<br />\r\n<br />\r\n<br>The user must be authenticated, entitled to call\
-        \ this method, and the user's domain must be licensed for the integration."
+      description: "\nCreates a new instance of an integration, returning its identifier.\r\
+        \n\n\r\n\n\r\n\nThe user must be authenticated, entitled to call this method,\
+        \ and the user's domain must be licensed for the integration."
       operationId: CreateInstance
       requestBody:
         content:
@@ -705,7 +837,7 @@ paths:
                 additionalProperties:
                   $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
                 type: object
-          description: Success
+          description: OK
         default:
           content:
             application/json:
@@ -781,7 +913,7 @@ paths:
                 additionalProperties:
                   $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
                 type: object
-          description: Success
+          description: OK
         default:
           content:
             application/json:
@@ -799,10 +931,9 @@ paths:
       x-accepts: application/json
   /api/integrations/instances/{instanceId}:
     delete:
-      description: "<br>Deletes an existing instance of an integration, returning\
-        \ its identifier.\r\n<br />\r\n<br />\r\n<br>The user must be authenticated,\
-        \ entitled to call this method, and the user's domain must be licensed for\
-        \ the integration."
+      description: "\nDeletes an existing instance of an integration, returning its\
+        \ identifier.\r\n\n\r\n\n\r\n\nThe user must be authenticated, entitled to\
+        \ call this method, and the user's domain must be licensed for the integration."
       operationId: DeleteInstance
       parameters:
       - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -838,10 +969,9 @@ paths:
       x-fbn-apistatus: Experimental
       x-accepts: application/json
     put:
-      description: "<br>Updates an existing instance of an integration, returning\
-        \ its identifier.\r\n<br />\r\n<br />\r\n<br>The user must be authenticated,\
-        \ entitled to call this method, and the user's domain must be licensed for\
-        \ the integration."
+      description: "\nUpdates an existing instance of an integration, returning its\
+        \ identifier.\r\n\n\r\n\n\r\n\nThe user must be authenticated, entitled to\
+        \ call this method, and the user's domain must be licensed for the integration."
       operationId: UpdateInstance
       parameters:
       - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -902,13 +1032,12 @@ paths:
       x-accepts: application/json
   /api/integrations/instances/{instanceId}/execute:
     post:
-      description: "<br>Starts execution of an instance, returning its execution identifier.\r\
-        \n<br />\r\n<br />\r\n<br>The user must be authenticated, entitled to call\
-        \ this method, and the user's domain must be licensed for the integration."
+      description: "Starts an execution of an integration instance, returning an execution\
+        \ id. You can check the status of your execution using either the ProcessHistory\
+        \ API or in the Data Feed Monitoring dashboard in the LUSID UI."
       operationId: ExecuteInstance
       parameters:
-      - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
-        explode: false
+      - explode: false
         in: path
         name: instanceId
         required: true
@@ -940,16 +1069,16 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ExecuteInstance: Execute an integration instance."
+      summary: "[EXPERIMENTAL] ExecuteInstance: "
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
   /api/integrations/instances/{instanceId}/executions:
     get:
-      description: "<br>Get the most recent execution ids for an integration instance.\r\
-        \n<br />\r\n<br>The user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+      description: "\nGet the most recent execution ids for an integration instance.\r\
+        \n\n\r\n\nThe user must be authenticated, entitled to call this method, and\
+        \ the user's domain must be licensed for the integration."
       operationId: GetExecutionIdsForInstance
       parameters:
       - description: Instance identifier e.g. "30dc93c6-a127-46bf-aea8-e466d720b72d".
@@ -1003,8 +1132,9 @@ paths:
       x-accepts: application/json
   /api/integrations/schema/{integration}:
     get:
-      description: "<br>The user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+      description: |2-
+
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: GetSchema
       parameters:
       - description: The type of the integration e.g. "copp-clark".
@@ -1148,7 +1278,7 @@ paths:
                   method: GET
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfIIntegrationLogResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -1181,7 +1311,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ProcessInformation'
                 type: array
-          description: Success
+          description: OK
         default:
           content:
             application/json:
@@ -1209,15 +1339,27 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           application/json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           text/json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           application/*+json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
         required: true
@@ -1227,7 +1369,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfProcessInformation'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -1262,15 +1404,27 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           application/json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           text/json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           application/*+json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
         required: true
@@ -1280,7 +1434,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfProcessUpdateResult'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -1308,15 +1462,83 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              id: HorizonErrorNotification
+              userId: lusid-scheduler
+              schedulerRunId: 58d2f99c-4ed1-4e1b-8765-dcd604182312
+              startTime: 2024-11-13T12:39:44.0000000+00:00
+              endTime: 2024-11-13T12:40:59.0000000+00:00
+              message: Process returned non-zero exit status 1
+              status: Error
+              rowsTotal: 0
+              rowsSucceeded: 0
+              rowsFailed: 0
+              rowsIgnored: 0
+              auditFiles:
+              - fileType: Error
+                filePathAndName: Some/Drive/File/Path
+              processNameOverride: SIX Instrument Reference Data Load (job manual
+                run)
             schema:
               $ref: '#/components/schemas/AuditCompleteRequest'
           application/json:
+            example:
+              id: HorizonErrorNotification
+              userId: lusid-scheduler
+              schedulerRunId: 58d2f99c-4ed1-4e1b-8765-dcd604182312
+              startTime: 2024-11-13T12:39:44.0000000+00:00
+              endTime: 2024-11-13T12:40:59.0000000+00:00
+              message: Process returned non-zero exit status 1
+              status: Error
+              rowsTotal: 0
+              rowsSucceeded: 0
+              rowsFailed: 0
+              rowsIgnored: 0
+              auditFiles:
+              - fileType: Error
+                filePathAndName: Some/Drive/File/Path
+              processNameOverride: SIX Instrument Reference Data Load (job manual
+                run)
             schema:
               $ref: '#/components/schemas/AuditCompleteRequest'
           text/json:
+            example:
+              id: HorizonErrorNotification
+              userId: lusid-scheduler
+              schedulerRunId: 58d2f99c-4ed1-4e1b-8765-dcd604182312
+              startTime: 2024-11-13T12:39:44.0000000+00:00
+              endTime: 2024-11-13T12:40:59.0000000+00:00
+              message: Process returned non-zero exit status 1
+              status: Error
+              rowsTotal: 0
+              rowsSucceeded: 0
+              rowsFailed: 0
+              rowsIgnored: 0
+              auditFiles:
+              - fileType: Error
+                filePathAndName: Some/Drive/File/Path
+              processNameOverride: SIX Instrument Reference Data Load (job manual
+                run)
             schema:
               $ref: '#/components/schemas/AuditCompleteRequest'
           application/*+json:
+            example:
+              id: HorizonErrorNotification
+              userId: lusid-scheduler
+              schedulerRunId: 58d2f99c-4ed1-4e1b-8765-dcd604182312
+              startTime: 2024-11-13T12:39:44.0000000+00:00
+              endTime: 2024-11-13T12:40:59.0000000+00:00
+              message: Process returned non-zero exit status 1
+              status: Error
+              rowsTotal: 0
+              rowsSucceeded: 0
+              rowsFailed: 0
+              rowsIgnored: 0
+              auditFiles:
+              - fileType: Error
+                filePathAndName: Some/Drive/File/Path
+              processNameOverride: SIX Instrument Reference Data Load (job manual
+                run)
             schema:
               $ref: '#/components/schemas/AuditCompleteRequest'
         required: true
@@ -1354,15 +1576,43 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              id: HorizonStatusEventStartedOrProcessing
+              userId: lusid-scheduler
+              schedulerRunId: 56f799b5-fdee-4b60-a099-bf0542304e83
+              startTime: 2024-11-13T12:40:44.0000000+00:00
+              message: Process starting
+              processNameOverride: Some Integration Schedule
             schema:
               $ref: '#/components/schemas/AuditUpdateRequest'
           application/json:
+            example:
+              id: HorizonStatusEventStartedOrProcessing
+              userId: lusid-scheduler
+              schedulerRunId: 56f799b5-fdee-4b60-a099-bf0542304e83
+              startTime: 2024-11-13T12:40:44.0000000+00:00
+              message: Process starting
+              processNameOverride: Some Integration Schedule
             schema:
               $ref: '#/components/schemas/AuditUpdateRequest'
           text/json:
+            example:
+              id: HorizonStatusEventStartedOrProcessing
+              userId: lusid-scheduler
+              schedulerRunId: 56f799b5-fdee-4b60-a099-bf0542304e83
+              startTime: 2024-11-13T12:40:44.0000000+00:00
+              message: Process starting
+              processNameOverride: Some Integration Schedule
             schema:
               $ref: '#/components/schemas/AuditUpdateRequest'
           application/*+json:
+            example:
+              id: HorizonStatusEventStartedOrProcessing
+              userId: lusid-scheduler
+              schedulerRunId: 56f799b5-fdee-4b60-a099-bf0542304e83
+              startTime: 2024-11-13T12:40:44.0000000+00:00
+              message: Process starting
+              processNameOverride: Some Integration Schedule
             schema:
               $ref: '#/components/schemas/AuditUpdateRequest'
         required: true
@@ -1456,7 +1706,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfIntegrationRunResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -1480,8 +1730,8 @@ paths:
       x-accepts: application/json
   /api/runs/{runId}/cancel:
     put:
-      description: "<br>Cancels an execution instance of an integration.\r\n<br />\r\
-        \n<br />\r\n<br>The execution instance must be queued, the user must be authenticated,\
+      description: "\nCancels an execution instance of an integration.\r\n\n\r\n\n\
+        \r\n\nThe execution instance must be queued, the user must be authenticated,\
         \ entitled to call this method, and the user's domain must be licensed for\
         \ the integration."
       operationId: CancelInstance
@@ -1526,9 +1776,9 @@ paths:
       x-accepts: application/json
   /api/runs/{runId}/rerun:
     put:
-      description: "<br>Reruns an execution instance of an integration.\r\n<br />\r\
-        \n<br />\r\n<br>The user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+      description: "\nReruns an execution instance of an integration.\r\n\n\r\n\n\r\
+        \n\nThe user must be authenticated, entitled to call this method, and the\
+        \ user's domain must be licensed for the integration."
       operationId: RerunInstance
       parameters:
       - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -1575,15 +1825,27 @@ paths:
       requestBody:
         content:
           application/json-patch+json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           application/json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           text/json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
           application/*+json:
+            example:
+              specification:
+                limit: 10
             schema:
               $ref: '#/components/schemas/QueryRequest'
         description: ""
@@ -1614,7 +1876,7 @@ paths:
                   method: GET
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfVendorProduct'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -1693,7 +1955,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/LusidField'
                 type: array
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -1751,29 +2013,27 @@ paths:
           type: string
         style: form
       responses:
-        "200":
-          content:
-            application/json:
-              example:
-                Domain/LUSID-Scope/Code1:
-                  action: upsert
-                  displayNameOverride: descriptionOverride
-                  descriptionOverride: displayNameOverride
-                Domain/LUSID-Scope/Code2:
-                  action: delete
-                  displayNameOverride: descriptionOverride
-                  descriptionOverride: displayNameOverride
-              schema:
-                additionalProperties:
-                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
-                type: object
-          description: Success
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LusidValidationProblemDetails'
           description: The details of the input related failure
+        "200":
+          content:
+            application/json:
+              example:
+                "0":
+                  displayNameOverride: descriptionOverride
+                  descriptionOverride: displayNameOverride
+                "1":
+                  displayNameOverride: descriptionOverride
+                  descriptionOverride: displayNameOverride
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverrides'
+                type: object
+          description: OK
         default:
           content:
             application/json:
@@ -1876,6 +2136,12 @@ paths:
         description: ""
         required: true
       responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
         "200":
           content:
             application/json:
@@ -1892,13 +2158,7 @@ paths:
                 additionalProperties:
                   $ref: '#/components/schemas/LusidPropertyDefinitionOverridesResponse'
                 type: object
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
+          description: OK
         default:
           content:
             application/json:
@@ -1976,7 +2236,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/LusidPropertyToVendorFieldMapping'
                 type: array
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -2378,14 +2638,80 @@ components:
     IIntegrationLogResponse:
       additionalProperties: false
       example:
+        logType: logType
+        firstActivity: 2000-01-23T04:56:07.000+00:00
+        parentLogId: 6
+        activities:
+        - messageType: messageType
+          description: description
+          resultingStatus: resultingStatus
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        - messageType: messageType
+          description: description
+          resultingStatus: resultingStatus
+          timestamp: 2000-01-23T04:56:07.000+00:00
         logId: 0
+        lastActivity: 2000-01-23T04:56:07.000+00:00
+        sourceRecord:
+          idType: idType
+          attributeValue: attributeValue
+          recordType: recordType
+          idValue: idValue
+          attributeName: attributeName
+        targetRecord:
+          idType: idType
+          recordAction: recordAction
+          attributeValue: attributeValue
+          recordType: recordType
+          idValue: idValue
+          attributeName: attributeName
+        runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        status: status
       properties:
         logId:
           format: int64
           readOnly: true
           type: integer
+        runId:
+          format: uuid
+          nullable: true
+          readOnly: true
+          type: string
+        parentLogId:
+          format: int64
+          nullable: true
+          readOnly: true
+          type: integer
+        logType:
+          readOnly: true
+          type: string
+        firstActivity:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        lastActivity:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        status:
+          nullable: true
+          readOnly: true
+          type: string
+        sourceRecord:
+          $ref: '#/components/schemas/IntegrationLogRecord'
+        targetRecord:
+          $ref: '#/components/schemas/IntegrationLogTargetRecord'
+        activities:
+          items:
+            $ref: '#/components/schemas/IntegrationLogActivity'
+          readOnly: true
+          type: array
       required:
+      - activities
       - logId
+      - logType
       type: object
     InstanceDetails:
       additionalProperties: false
@@ -2502,6 +2828,83 @@ components:
       - integrationType
       - name
       - triggers
+      type: object
+    IntegrationLogActivity:
+      additionalProperties: false
+      example:
+        messageType: messageType
+        description: description
+        resultingStatus: resultingStatus
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        timestamp:
+          format: date-time
+          type: string
+        resultingStatus:
+          type: string
+        messageType:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - resultingStatus
+      - timestamp
+      type: object
+    IntegrationLogRecord:
+      additionalProperties: false
+      example:
+        idType: idType
+        attributeValue: attributeValue
+        recordType: recordType
+        idValue: idValue
+        attributeName: attributeName
+      properties:
+        recordType:
+          nullable: true
+          type: string
+        idType:
+          nullable: true
+          type: string
+        idValue:
+          nullable: true
+          type: string
+        attributeName:
+          nullable: true
+          type: string
+        attributeValue:
+          nullable: true
+          type: string
+      type: object
+    IntegrationLogTargetRecord:
+      additionalProperties: false
+      example:
+        idType: idType
+        recordAction: recordAction
+        attributeValue: attributeValue
+        recordType: recordType
+        idValue: idValue
+        attributeName: attributeName
+      properties:
+        recordAction:
+          nullable: true
+          type: string
+        recordType:
+          nullable: true
+          type: string
+        idType:
+          nullable: true
+          type: string
+        idValue:
+          nullable: true
+          type: string
+        attributeName:
+          nullable: true
+          type: string
+        attributeValue:
+          nullable: true
+          type: string
       type: object
     IntegrationPropertyConfiguration:
       additionalProperties: false
@@ -3746,8 +4149,64 @@ components:
         previousPage: previousPage
         nextPage: nextPage
         values:
-        - logId: 0
-        - logId: 0
+        - logType: logType
+          firstActivity: 2000-01-23T04:56:07.000+00:00
+          parentLogId: 6
+          activities:
+          - messageType: messageType
+            description: description
+            resultingStatus: resultingStatus
+            timestamp: 2000-01-23T04:56:07.000+00:00
+          - messageType: messageType
+            description: description
+            resultingStatus: resultingStatus
+            timestamp: 2000-01-23T04:56:07.000+00:00
+          logId: 0
+          lastActivity: 2000-01-23T04:56:07.000+00:00
+          sourceRecord:
+            idType: idType
+            attributeValue: attributeValue
+            recordType: recordType
+            idValue: idValue
+            attributeName: attributeName
+          targetRecord:
+            idType: idType
+            recordAction: recordAction
+            attributeValue: attributeValue
+            recordType: recordType
+            idValue: idValue
+            attributeName: attributeName
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          status: status
+        - logType: logType
+          firstActivity: 2000-01-23T04:56:07.000+00:00
+          parentLogId: 6
+          activities:
+          - messageType: messageType
+            description: description
+            resultingStatus: resultingStatus
+            timestamp: 2000-01-23T04:56:07.000+00:00
+          - messageType: messageType
+            description: description
+            resultingStatus: resultingStatus
+            timestamp: 2000-01-23T04:56:07.000+00:00
+          logId: 0
+          lastActivity: 2000-01-23T04:56:07.000+00:00
+          sourceRecord:
+            idType: idType
+            attributeValue: attributeValue
+            recordType: recordType
+            idValue: idValue
+            attributeName: attributeName
+          targetRecord:
+            idType: idType
+            recordAction: recordAction
+            attributeValue: attributeValue
+            recordType: recordType
+            idValue: idValue
+            attributeName: attributeName
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          status: status
         links:
         - method: method
           description: description

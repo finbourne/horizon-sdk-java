@@ -95,7 +95,7 @@ public class InstrumentApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
@@ -186,7 +186,7 @@ public class InstrumentApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
@@ -238,7 +238,7 @@ public class InstrumentApiExample {
         // InstrumentApi apiInstance = apiFactory.build(InstrumentApi.class);
 
         InstrumentApi apiInstance = ApiFactoryBuilder.build(fileName).build(InstrumentApi.class);
-        OpenFigiParameterOptionName parameterName = OpenFigiParameterOptionName.fromValue("IdType"); // OpenFigiParameterOptionName | 
+        OpenFigiParameterOptionName parameterName = OpenFigiParameterOptionName.fromValue("IdType"); // OpenFigiParameterOptionName | OpenFigi API Parameters that have a restricted / permitted range of values.
         try {
             // uncomment the below to set overrides at the request level
             // List<AllowedParameterValue> result = apiInstance.getOpenFigiParameterOption(parameterName).execute(opts);
@@ -260,7 +260,7 @@ public class InstrumentApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **parameterName** | [**OpenFigiParameterOptionName**](.md)|  | [enum: IdType, ExchangeCode, MicCode, Currency, MarketSector, SecurityType, GeneralSecurityType, StateCode] |
+| **parameterName** | [**OpenFigiParameterOptionName**](.md)| OpenFigi API Parameters that have a restricted / permitted range of values. | [enum: IdType, ExchangeCode, MicCode, Currency, MarketSector, SecurityType, GeneralSecurityType, StateCode] |
 
 ### Return type
 
@@ -275,7 +275,7 @@ public class InstrumentApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
@@ -364,7 +364,7 @@ public class InstrumentApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
@@ -459,7 +459,7 @@ public class InstrumentApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
@@ -552,7 +552,7 @@ public class InstrumentApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 

@@ -6,7 +6,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 |------------- | ------------- | -------------|
 | [**createInstance**](IntegrationsApi.md#createInstance) | **POST** /api/integrations/instances | [EXPERIMENTAL] CreateInstance: Create a single integration instance. |
 | [**deleteInstance**](IntegrationsApi.md#deleteInstance) | **DELETE** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] DeleteInstance: Delete a single integration instance. |
-| [**executeInstance**](IntegrationsApi.md#executeInstance) | **POST** /api/integrations/instances/{instanceId}/execute | [EXPERIMENTAL] ExecuteInstance: Execute an integration instance. |
+| [**executeInstance**](IntegrationsApi.md#executeInstance) | **POST** /api/integrations/instances/{instanceId}/execute | [EXPERIMENTAL] ExecuteInstance:  |
 | [**getExecutionIdsForInstance**](IntegrationsApi.md#getExecutionIdsForInstance) | **GET** /api/integrations/instances/{instanceId}/executions | [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids. |
 | [**getInstanceOptionalPropertyMapping**](IntegrationsApi.md#getInstanceOptionalPropertyMapping) | **GET** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance |
 | [**getIntegrationConfiguration**](IntegrationsApi.md#getIntegrationConfiguration) | **GET** /api/integrations/configuration/{integration} | [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration |
@@ -24,7 +24,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 [EXPERIMENTAL] CreateInstance: Create a single integration instance.
 
-&lt;br&gt;Creates a new instance of an integration, returning its identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+ Creates a new instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -116,7 +116,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] DeleteInstance: Delete a single integration instance.
 
-&lt;br&gt;Deletes an existing instance of an integration, returning its identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+ Deletes an existing instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -205,9 +205,9 @@ null (empty response body)
 
 > ExecuteInstanceResponse executeInstance(instanceId)
 
-[EXPERIMENTAL] ExecuteInstance: Execute an integration instance.
+[EXPERIMENTAL] ExecuteInstance: 
 
-&lt;br&gt;Starts execution of an instance, returning its execution identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Starts an execution of an integration instance, returning an execution id. You can check the status of your execution using either the ProcessHistory API or in the Data Feed Monitoring dashboard in the LUSID UI.
 
 ### Example
 
@@ -248,7 +248,7 @@ public class IntegrationsApiExample {
         // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
 
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
-        String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
+        String instanceId = "instanceId_example"; // String | 
         try {
             // uncomment the below to set overrides at the request level
             // ExecuteInstanceResponse result = apiInstance.executeInstance(instanceId).execute(opts);
@@ -270,7 +270,7 @@ public class IntegrationsApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **instanceId** | **String**| Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
+| **instanceId** | **String**|  | |
 
 ### Return type
 
@@ -299,7 +299,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
 
-&lt;br&gt;Get the most recent execution ids for an integration instance.  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+ Get the most recent execution ids for an integration instance.      The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -475,7 +475,7 @@ public class IntegrationsApiExample {
 |-------------|-------------|------------------|
 | **404** | The requested instance(s) do not exist. |  -  |
 | **400** | The details of the input related failure |  -  |
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -487,7 +487,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration
 
-&lt;br&gt;The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
+ The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
 
 ### Example
 
@@ -565,7 +565,7 @@ public class IntegrationsApiExample {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The requested integration does not exist. |  -  |
 | **0** | Error response |  -  |
@@ -579,7 +579,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance.
 
-&lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+ The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -671,7 +671,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] ListInstances: List instances across all integrations.
 
-&lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+ The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -745,7 +745,7 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **404** | The requested instance(s) do not exist. |  -  |
 | **0** | Error response |  -  |
 
@@ -758,7 +758,7 @@ This endpoint does not need any parameter.
 
 [EXPERIMENTAL] ListIntegrations: List available integrations.
 
-&lt;br&gt;List all available integrations.  &lt;br /&gt;  &lt;br&gt;   &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence   contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).  &lt;br /&gt;  &lt;br&gt;Any authenticated user can call this method.
+ List all available integrations.         &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence   contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).      Any authenticated user can call this method.
 
 ### Example
 
@@ -832,7 +832,7 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -928,7 +928,7 @@ public class IntegrationsApiExample {
 |-------------|-------------|------------------|
 | **404** | The requested instance(s) do not exist. |  -  |
 | **400** | The details of the input related failure |  -  |
-| **200** | Success |  -  |
+| **200** | OK |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -940,7 +940,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] UpdateInstance: Update a single integration instance.
 
-&lt;br&gt;Updates an existing instance of an integration, returning its identifier.  &lt;br /&gt;  &lt;br /&gt;  &lt;br&gt;The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+ Updates an existing instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 

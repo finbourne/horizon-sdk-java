@@ -11,13 +11,21 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.IntegrationLogActivity;
+import com.finbourne.horizon.model.IntegrationLogRecord;
+import com.finbourne.horizon.model.IntegrationLogTargetRecord;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -53,15 +61,65 @@ public class IIntegrationLogResponse {
   @SerializedName(SERIALIZED_NAME_LOG_ID)
   private Long logId;
 
+  public static final String SERIALIZED_NAME_RUN_ID = "runId";
+  @SerializedName(SERIALIZED_NAME_RUN_ID)
+  private UUID runId;
+
+  public static final String SERIALIZED_NAME_PARENT_LOG_ID = "parentLogId";
+  @SerializedName(SERIALIZED_NAME_PARENT_LOG_ID)
+  private Long parentLogId;
+
+  public static final String SERIALIZED_NAME_LOG_TYPE = "logType";
+  @SerializedName(SERIALIZED_NAME_LOG_TYPE)
+  private String logType;
+
+  public static final String SERIALIZED_NAME_FIRST_ACTIVITY = "firstActivity";
+  @SerializedName(SERIALIZED_NAME_FIRST_ACTIVITY)
+  private OffsetDateTime firstActivity;
+
+  public static final String SERIALIZED_NAME_LAST_ACTIVITY = "lastActivity";
+  @SerializedName(SERIALIZED_NAME_LAST_ACTIVITY)
+  private OffsetDateTime lastActivity;
+
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private String status;
+
+  public static final String SERIALIZED_NAME_SOURCE_RECORD = "sourceRecord";
+  @SerializedName(SERIALIZED_NAME_SOURCE_RECORD)
+  private IntegrationLogRecord sourceRecord;
+
+  public static final String SERIALIZED_NAME_TARGET_RECORD = "targetRecord";
+  @SerializedName(SERIALIZED_NAME_TARGET_RECORD)
+  private IntegrationLogTargetRecord targetRecord;
+
+  public static final String SERIALIZED_NAME_ACTIVITIES = "activities";
+  @SerializedName(SERIALIZED_NAME_ACTIVITIES)
+  private List<IntegrationLogActivity> activities = new ArrayList<>();
+
   public IIntegrationLogResponse() {
   }
 
   
   public IIntegrationLogResponse(
-     Long logId
+     Long logId, 
+     UUID runId, 
+     Long parentLogId, 
+     String logType, 
+     OffsetDateTime firstActivity, 
+     OffsetDateTime lastActivity, 
+     String status, 
+     List<IntegrationLogActivity> activities
   ) {
     this();
     this.logId = logId;
+    this.runId = runId;
+    this.parentLogId = parentLogId;
+    this.logType = logType;
+    this.firstActivity = firstActivity;
+    this.lastActivity = lastActivity;
+    this.status = status;
+    this.activities = activities;
   }
 
    /**
@@ -71,6 +129,132 @@ public class IIntegrationLogResponse {
   @jakarta.annotation.Nonnull
   public Long getLogId() {
     return logId;
+  }
+
+
+
+
+   /**
+   * Get runId
+   * @return runId
+  **/
+  @jakarta.annotation.Nullable
+  public UUID getRunId() {
+    return runId;
+  }
+
+
+
+
+   /**
+   * Get parentLogId
+   * @return parentLogId
+  **/
+  @jakarta.annotation.Nullable
+  public Long getParentLogId() {
+    return parentLogId;
+  }
+
+
+
+
+   /**
+   * Get logType
+   * @return logType
+  **/
+  @jakarta.annotation.Nonnull
+  public String getLogType() {
+    return logType;
+  }
+
+
+
+
+   /**
+   * Get firstActivity
+   * @return firstActivity
+  **/
+  @jakarta.annotation.Nullable
+  public OffsetDateTime getFirstActivity() {
+    return firstActivity;
+  }
+
+
+
+
+   /**
+   * Get lastActivity
+   * @return lastActivity
+  **/
+  @jakarta.annotation.Nullable
+  public OffsetDateTime getLastActivity() {
+    return lastActivity;
+  }
+
+
+
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @jakarta.annotation.Nullable
+  public String getStatus() {
+    return status;
+  }
+
+
+
+
+  public IIntegrationLogResponse sourceRecord(IntegrationLogRecord sourceRecord) {
+    
+    this.sourceRecord = sourceRecord;
+    return this;
+  }
+
+   /**
+   * Get sourceRecord
+   * @return sourceRecord
+  **/
+  @jakarta.annotation.Nullable
+  public IntegrationLogRecord getSourceRecord() {
+    return sourceRecord;
+  }
+
+
+  public void setSourceRecord(IntegrationLogRecord sourceRecord) {
+    this.sourceRecord = sourceRecord;
+  }
+
+
+  public IIntegrationLogResponse targetRecord(IntegrationLogTargetRecord targetRecord) {
+    
+    this.targetRecord = targetRecord;
+    return this;
+  }
+
+   /**
+   * Get targetRecord
+   * @return targetRecord
+  **/
+  @jakarta.annotation.Nullable
+  public IntegrationLogTargetRecord getTargetRecord() {
+    return targetRecord;
+  }
+
+
+  public void setTargetRecord(IntegrationLogTargetRecord targetRecord) {
+    this.targetRecord = targetRecord;
+  }
+
+
+   /**
+   * Get activities
+   * @return activities
+  **/
+  @jakarta.annotation.Nonnull
+  public List<IntegrationLogActivity> getActivities() {
+    return activities;
   }
 
 
@@ -86,12 +270,32 @@ public class IIntegrationLogResponse {
       return false;
     }
     IIntegrationLogResponse iintegrationLogResponse = (IIntegrationLogResponse) o;
-    return Objects.equals(this.logId, iintegrationLogResponse.logId);
+    return Objects.equals(this.logId, iintegrationLogResponse.logId) &&
+        Objects.equals(this.runId, iintegrationLogResponse.runId) &&
+        Objects.equals(this.parentLogId, iintegrationLogResponse.parentLogId) &&
+        Objects.equals(this.logType, iintegrationLogResponse.logType) &&
+        Objects.equals(this.firstActivity, iintegrationLogResponse.firstActivity) &&
+        Objects.equals(this.lastActivity, iintegrationLogResponse.lastActivity) &&
+        Objects.equals(this.status, iintegrationLogResponse.status) &&
+        Objects.equals(this.sourceRecord, iintegrationLogResponse.sourceRecord) &&
+        Objects.equals(this.targetRecord, iintegrationLogResponse.targetRecord) &&
+        Objects.equals(this.activities, iintegrationLogResponse.activities);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(logId);
+    return Objects.hash(logId, runId, parentLogId, logType, firstActivity, lastActivity, status, sourceRecord, targetRecord, activities);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -99,6 +303,15 @@ public class IIntegrationLogResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class IIntegrationLogResponse {\n");
     sb.append("    logId: ").append(toIndentedString(logId)).append("\n");
+    sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
+    sb.append("    parentLogId: ").append(toIndentedString(parentLogId)).append("\n");
+    sb.append("    logType: ").append(toIndentedString(logType)).append("\n");
+    sb.append("    firstActivity: ").append(toIndentedString(firstActivity)).append("\n");
+    sb.append("    lastActivity: ").append(toIndentedString(lastActivity)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    sourceRecord: ").append(toIndentedString(sourceRecord)).append("\n");
+    sb.append("    targetRecord: ").append(toIndentedString(targetRecord)).append("\n");
+    sb.append("    activities: ").append(toIndentedString(activities)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -122,10 +335,21 @@ public class IIntegrationLogResponse {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("logId");
+    openapiFields.add("runId");
+    openapiFields.add("parentLogId");
+    openapiFields.add("logType");
+    openapiFields.add("firstActivity");
+    openapiFields.add("lastActivity");
+    openapiFields.add("status");
+    openapiFields.add("sourceRecord");
+    openapiFields.add("targetRecord");
+    openapiFields.add("activities");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("logId");
+    openapiRequiredFields.add("logType");
+    openapiRequiredFields.add("activities");
   }
 
  /**
@@ -148,6 +372,33 @@ public class IIntegrationLogResponse {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("runId") != null && !jsonObj.get("runId").isJsonNull()) && !jsonObj.get("runId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `runId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("runId").toString()));
+      }
+      if (!jsonObj.get("logType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `logType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("logType").toString()));
+      }
+      if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
+      }
+      // validate the optional field `sourceRecord`
+      if (jsonObj.get("sourceRecord") != null && !jsonObj.get("sourceRecord").isJsonNull()) {
+        IntegrationLogRecord.validateJsonElement(jsonObj.get("sourceRecord"));
+      }
+      // validate the optional field `targetRecord`
+      if (jsonObj.get("targetRecord") != null && !jsonObj.get("targetRecord").isJsonNull()) {
+        IntegrationLogTargetRecord.validateJsonElement(jsonObj.get("targetRecord"));
+      }
+      // ensure the json data is an array
+      if (!jsonObj.get("activities").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `activities` to be an array in the JSON string but got `%s`", jsonObj.get("activities").toString()));
+      }
+
+      JsonArray jsonArrayactivities = jsonObj.getAsJsonArray("activities");
+      // validate the required field `activities` (array)
+      for (int i = 0; i < jsonArrayactivities.size(); i++) {
+        IntegrationLogActivity.validateJsonElement(jsonArrayactivities.get(i));
+      };
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
