@@ -11,6 +11,7 @@
 |**instanceId** | **UUID** |  |  [optional] |
 |**instanceName** | **String** |  |  [optional] |
 |**status** | **String** |  |  [optional] |
+|**message** | **String** |  |  [optional] |
 |**integration** | [**IntegrationRunIntegration**](IntegrationRunIntegration.md) |  |  |
 |**version** | [**IntegrationRunVersion**](IntegrationRunVersion.md) |  |  |
 |**integrationLogs** | **Map&lt;String, Map&lt;String, IntegrationRunLog&gt;&gt;** |  |  [optional] |

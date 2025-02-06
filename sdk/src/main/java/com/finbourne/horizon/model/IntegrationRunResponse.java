@@ -72,6 +72,10 @@ public class IntegrationRunResponse {
   @SerializedName(SERIALIZED_NAME_STATUS)
   private String status;
 
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
+  private String message;
+
   public static final String SERIALIZED_NAME_INTEGRATION = "integration";
   @SerializedName(SERIALIZED_NAME_INTEGRATION)
   private IntegrationRunIntegration integration;
@@ -171,6 +175,27 @@ public class IntegrationRunResponse {
   }
 
 
+  public IntegrationRunResponse message(String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Get message
+   * @return message
+  **/
+  @jakarta.annotation.Nullable
+  public String getMessage() {
+    return message;
+  }
+
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+
   public IntegrationRunResponse integration(IntegrationRunIntegration integration) {
     
     this.integration = integration;
@@ -256,6 +281,7 @@ public class IntegrationRunResponse {
         Objects.equals(this.instanceId, integrationRunResponse.instanceId) &&
         Objects.equals(this.instanceName, integrationRunResponse.instanceName) &&
         Objects.equals(this.status, integrationRunResponse.status) &&
+        Objects.equals(this.message, integrationRunResponse.message) &&
         Objects.equals(this.integration, integrationRunResponse.integration) &&
         Objects.equals(this.version, integrationRunResponse.version) &&
         Objects.equals(this.integrationLogs, integrationRunResponse.integrationLogs);
@@ -267,7 +293,7 @@ public class IntegrationRunResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, instanceId, instanceName, status, integration, version, integrationLogs);
+    return Objects.hash(runId, instanceId, instanceName, status, message, integration, version, integrationLogs);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -285,6 +311,7 @@ public class IntegrationRunResponse {
     sb.append("    instanceId: ").append(toIndentedString(instanceId)).append("\n");
     sb.append("    instanceName: ").append(toIndentedString(instanceName)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    integration: ").append(toIndentedString(integration)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    integrationLogs: ").append(toIndentedString(integrationLogs)).append("\n");
@@ -314,6 +341,7 @@ public class IntegrationRunResponse {
     openapiFields.add("instanceId");
     openapiFields.add("instanceName");
     openapiFields.add("status");
+    openapiFields.add("message");
     openapiFields.add("integration");
     openapiFields.add("version");
     openapiFields.add("integrationLogs");
@@ -356,6 +384,9 @@ public class IntegrationRunResponse {
       }
       if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
+      }
+      if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
       }
       // validate the required field `integration`
       IntegrationRunIntegration.validateJsonElement(jsonObj.get("integration"));

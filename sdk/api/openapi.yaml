@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1524
+  version: 0.1.1543
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3080,6 +3080,7 @@ components:
                 description: description
                 href: href
         runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        message: message
         version:
           asAtModified: 2000-01-23T04:56:07.000+00:00
           asAtCreated: 2000-01-23T04:56:07.000+00:00
@@ -3096,6 +3097,9 @@ components:
           nullable: true
           type: string
         status:
+          nullable: true
+          type: string
+        message:
           nullable: true
           type: string
         integration:
@@ -4259,6 +4263,7 @@ components:
                   description: description
                   href: href
           runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          message: message
           version:
             asAtModified: 2000-01-23T04:56:07.000+00:00
             asAtCreated: 2000-01-23T04:56:07.000+00:00
@@ -4276,6 +4281,7 @@ components:
                   description: description
                   href: href
           runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          message: message
           version:
             asAtModified: 2000-01-23T04:56:07.000+00:00
             asAtCreated: 2000-01-23T04:56:07.000+00:00
