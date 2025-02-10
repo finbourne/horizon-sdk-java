@@ -307,7 +307,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] CreateInstance: Create a single integration instance.
-     *  Creates a new instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Creates a new instance of an integration, returning its identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @return APIcreateInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -536,7 +536,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] DeleteInstance: Delete a single integration instance.
-     *  Deletes an existing instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Deletes an existing instance of an integration, returning its identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIdeleteInstanceRequest
      * @http.response.details
@@ -773,9 +773,9 @@ public class IntegrationsApi {
     }
 
     /**
-     * [EXPERIMENTAL] ExecuteInstance: 
-     * Starts an execution of an integration instance, returning an execution id. You can check the status of your execution using either the ProcessHistory API or in the Data Feed Monitoring dashboard in the LUSID UI.
-     * @param instanceId  (required)
+     * [EXPERIMENTAL] ExecuteInstance: Execute an integration instance.
+     * Starts execution of an instance, returning its execution identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIexecuteInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -788,6 +788,253 @@ public class IntegrationsApi {
      */
     public APIexecuteInstanceRequest executeInstance(String instanceId) {
         return new APIexecuteInstanceRequest(instanceId);
+    }
+    private okhttp3.Call executeInstanceWithParamsCall(String instanceId, Map<String, String> requestBody, final ApiCallback _callback) throws ApiException {
+        return executeInstanceWithParamsCall(instanceId, requestBody,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call executeInstanceWithParamsCall(String instanceId, Map<String, String> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = requestBody;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/instances/{instanceId}/executewithparams"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call executeInstanceWithParamsValidateBeforeCall(String instanceId, Map<String, String> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling executeInstanceWithParams(Async)");
+        }
+
+        // verify the required parameter 'requestBody' is set
+        if (requestBody == null) {
+            throw new ApiException("Missing the required parameter 'requestBody' when calling executeInstanceWithParams(Async)");
+        }
+
+        return executeInstanceWithParamsCall(instanceId, requestBody, _callback, opts);
+
+    }
+
+
+    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithParamsWithHttpInfo(String instanceId, Map<String, String> requestBody) throws ApiException {
+        okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithParamsWithHttpInfo(String instanceId, Map<String, String> requestBody, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, null, opts);
+        Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call executeInstanceWithParamsAsync(String instanceId, Map<String, String> requestBody, final ApiCallback<ExecuteInstanceResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call executeInstanceWithParamsAsync(String instanceId, Map<String, String> requestBody, final ApiCallback<ExecuteInstanceResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, _callback, opts);
+        Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIexecuteInstanceWithParamsRequest {
+        private final String instanceId;
+        private final Map<String, String> requestBody;
+
+        private APIexecuteInstanceWithParamsRequest(String instanceId, Map<String, String> requestBody) {
+            this.instanceId = instanceId;
+            this.requestBody = requestBody;
+        }
+
+        /**
+         * Build call for executeInstanceWithParams
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return executeInstanceWithParamsCall(instanceId, requestBody, _callback);
+        }
+
+        /**
+         * Execute executeInstanceWithParams request
+         * @return ExecuteInstanceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ExecuteInstanceResponse execute() throws ApiException {
+            ApiResponse<ExecuteInstanceResponse> localVarResp = executeInstanceWithParamsWithHttpInfo(instanceId, requestBody);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute executeInstanceWithParams request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ExecuteInstanceResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ExecuteInstanceResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ExecuteInstanceResponse> localVarResp = executeInstanceWithParamsWithHttpInfo(instanceId, requestBody, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute executeInstanceWithParams request with HTTP info returned
+         * @return ApiResponse&lt;ExecuteInstanceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ExecuteInstanceResponse> executeWithHttpInfo() throws ApiException {
+            return executeInstanceWithParamsWithHttpInfo(instanceId, requestBody);
+        }
+
+        /**
+         * Execute executeInstanceWithParams request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ExecuteInstanceResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ExecuteInstanceResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return executeInstanceWithParamsWithHttpInfo(instanceId, requestBody, opts);
+        }
+
+        /**
+         * Execute executeInstanceWithParams request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ExecuteInstanceResponse> _callback) throws ApiException {
+            return executeInstanceWithParamsAsync(instanceId, requestBody, _callback);
+        }
+
+        /**
+         * Execute executeInstanceWithParams request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ExecuteInstanceResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return executeInstanceWithParamsAsync(instanceId, requestBody, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] ExecuteInstanceWithParams: Execute an integration instance with runtime parameters
+     * Starts execution of an instance, returning its execution identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
+     * @param requestBody Dictionary(string,string) of runtime parameters passed to the integration instance (required)
+     * @return APIexecuteInstanceWithParamsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> The execution id </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIexecuteInstanceWithParamsRequest executeInstanceWithParams(String instanceId, Map<String, String> requestBody) {
+        return new APIexecuteInstanceWithParamsRequest(instanceId, requestBody);
     }
     private okhttp3.Call getExecutionIdsForInstanceCall(String instanceId, Integer limit, final ApiCallback _callback) throws ApiException {
         return getExecutionIdsForInstanceCall(instanceId, limit,  _callback, new ConfigurationOptions());
@@ -1027,7 +1274,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
-     *  Get the most recent execution ids for an integration instance.      The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Get the most recent execution ids for an integration instance.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;30dc93c6-a127-46bf-aea8-e466d720b72d\&quot;. (required)
      * @return APIgetExecutionIdsForInstanceRequest
      * @http.response.details
@@ -1512,7 +1759,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration
-     *  The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
+     * The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
      * @param integration  (required)
      * @return APIgetIntegrationConfigurationRequest
      * @http.response.details
@@ -1750,7 +1997,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance.
-     *  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param integration The type of the integration e.g. \&quot;copp-clark\&quot;. (required)
      * @return APIgetSchemaRequest
      * @http.response.details
@@ -1973,7 +2220,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] ListInstances: List instances across all integrations.
-     *  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @return APIlistInstancesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -2187,7 +2434,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] ListIntegrations: List available integrations.
-     *  List all available integrations.         &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence   contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).      Any authenticated user can call this method.
+     * List all available integrations.  &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence  contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).  Any authenticated user can call this method.
      * @return APIlistIntegrationsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -2685,7 +2932,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] UpdateInstance: Update a single integration instance.
-     *  Updates an existing instance of an integration, returning its identifier.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Updates an existing instance of an integration, returning its identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIupdateInstanceRequest
      * @http.response.details

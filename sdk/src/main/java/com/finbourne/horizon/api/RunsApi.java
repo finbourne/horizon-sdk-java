@@ -296,7 +296,7 @@ public class RunsApi {
 
     /**
      * [EXPERIMENTAL] CancelInstance: Cancels a single instance execution.
-     *  Cancels an execution instance of an integration.         The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Cancels an execution instance of an integration.  The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIcancelInstanceRequest
      * @http.response.details
@@ -823,7 +823,7 @@ public class RunsApi {
 
     /**
      * [EXPERIMENTAL] RerunInstance: Reruns a single instance execution.
-     *  Reruns an execution instance of an integration.         The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Reruns an execution instance of an integration.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIrerunInstanceRequest
      * @http.response.details
