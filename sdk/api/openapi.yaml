@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1605
+  version: 0.1.1607
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2352,12 +2352,18 @@ components:
       properties:
         id:
           description: A unique ID identifiying the source of the event
+          maxLength: 1024
+          minLength: 0
           type: string
         userId:
           description: A unique ID identifiying who owns the schedule
+          maxLength: 1024
+          minLength: 0
           type: string
         schedulerRunId:
           description: The GUID of the schedule run
+          maxLength: 1024
+          minLength: 0
           type: string
         startTime:
           description: When the run was started in UTC
@@ -2369,6 +2375,8 @@ components:
           type: string
         message:
           description: A descriptive message to accompany the status
+          maxLength: 1024
+          minLength: 0
           type: string
         status:
           $ref: '#/components/schemas/AuditCompleteStatus'
@@ -2395,6 +2403,8 @@ components:
           type: array
         processNameOverride:
           description: Optional Name for how the process appears in Data Feed Monitoring
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
       required:
@@ -2466,12 +2476,18 @@ components:
       properties:
         id:
           description: A unique ID identifiying the source of the event
+          maxLength: 1024
+          minLength: 0
           type: string
         userId:
           description: A unique ID identifiying who owns the schedule
+          maxLength: 1024
+          minLength: 0
           type: string
         schedulerRunId:
           description: The GUID of the schedule run
+          maxLength: 1024
+          minLength: 0
           type: string
         startTime:
           description: When the run was started in UTC
@@ -2479,9 +2495,13 @@ components:
           type: string
         message:
           description: A descriptive message to accompany the status
+          maxLength: 1024
+          minLength: 0
           type: string
         processNameOverride:
           description: Optional Name for how the process appears in Data Feed Monitoring
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
       required:
@@ -2536,10 +2556,17 @@ components:
           nullable: true
           type: object
         integrationType:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         name:
+          maxLength: 128
+          minLength: 0
           type: string
         description:
+          maxLength: 1024
+          minLength: 0
           type: string
         enabled:
           type: boolean
@@ -3747,10 +3774,14 @@ components:
       properties:
         displayNameOverride:
           description: ""
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         descriptionOverride:
           description: ""
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
       type: object
@@ -3768,12 +3799,18 @@ components:
         - vendorPackage
       properties:
         displayNameOverride:
+          maxLength: 4096
+          minLength: 0
           nullable: true
           type: string
         descriptionOverride:
+          maxLength: 4096
+          minLength: 0
           nullable: true
           type: string
         entityType:
+          maxLength: 4096
+          minLength: 0
           nullable: true
           type: string
         entitySubType:
@@ -3806,10 +3843,14 @@ components:
           type: string
         displayNameOverride:
           description: ""
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         descriptionOverride:
           description: ""
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
       required:
@@ -3965,6 +4006,8 @@ components:
         primaryVendorKey:
           description: Primary vendor used to master instrument from Unknown to an
             asset type
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         secondaryVendorKeys:
@@ -4907,10 +4950,16 @@ components:
         type: type
       properties:
         type:
+          maxLength: 4096
+          minLength: 0
           type: string
         cronExpression:
+          maxLength: 4096
+          minLength: 0
           type: string
         timeZone:
+          maxLength: 4096
+          minLength: 0
           type: string
       required:
       - cronExpression
@@ -4935,12 +4984,21 @@ components:
         enabled: true
       properties:
         id:
+          maxLength: 36
+          minLength: 36
           type: string
         integrationType:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         name:
+          maxLength: 128
+          minLength: 0
           type: string
         description:
+          maxLength: 1024
+          minLength: 0
           type: string
         enabled:
           type: boolean
