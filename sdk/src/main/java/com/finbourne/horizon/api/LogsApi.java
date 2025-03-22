@@ -25,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import com.finbourne.horizon.model.ExternalLogInsertionRequest;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.PagedResourceListOfIIntegrationLogResponse;
@@ -360,5 +361,244 @@ public class LogsApi {
      */
     public APIgetIntegrationLogResultsRequest getIntegrationLogResults() {
         return new APIgetIntegrationLogResultsRequest();
+    }
+    private okhttp3.Call insertExternalLogsCall(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback) throws ApiException {
+        return insertExternalLogsCall(runid, externalLogInsertionRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call insertExternalLogsCall(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = externalLogInsertionRequest;
+
+        // create path and map variables
+        String localVarPath = "/api/logs/runid"
+            .replace("{" + "runid" + "}", localVarApiClient.escapeString(runid.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call insertExternalLogsValidateBeforeCall(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'runid' is set
+        if (runid == null) {
+            throw new ApiException("Missing the required parameter 'runid' when calling insertExternalLogs(Async)");
+        }
+
+        // verify the required parameter 'externalLogInsertionRequest' is set
+        if (externalLogInsertionRequest == null) {
+            throw new ApiException("Missing the required parameter 'externalLogInsertionRequest' when calling insertExternalLogs(Async)");
+        }
+
+        return insertExternalLogsCall(runid, externalLogInsertionRequest, _callback, opts);
+
+    }
+
+
+    private ApiResponse<Object> insertExternalLogsWithHttpInfo(String runid, ExternalLogInsertionRequest externalLogInsertionRequest) throws ApiException {
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<Object> insertExternalLogsWithHttpInfo(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, null, opts);
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call insertExternalLogsAsync(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback<Object> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call insertExternalLogsAsync(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, _callback, opts);
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIinsertExternalLogsRequest {
+        private final String runid;
+        private final ExternalLogInsertionRequest externalLogInsertionRequest;
+
+        private APIinsertExternalLogsRequest(String runid, ExternalLogInsertionRequest externalLogInsertionRequest) {
+            this.runid = runid;
+            this.externalLogInsertionRequest = externalLogInsertionRequest;
+        }
+
+        /**
+         * Build call for insertExternalLogs
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return insertExternalLogsCall(runid, externalLogInsertionRequest, _callback);
+        }
+
+        /**
+         * Execute insertExternalLogs request
+         * @return Object
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Object execute() throws ApiException {
+            ApiResponse<Object> localVarResp = insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute insertExternalLogs request. Use any specified configuration options to override any other configuration for this request only.
+         * @return Object
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Object execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<Object> localVarResp = insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute insertExternalLogs request with HTTP info returned
+         * @return ApiResponse&lt;Object&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Object> executeWithHttpInfo() throws ApiException {
+            return insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest);
+        }
+
+        /**
+         * Execute insertExternalLogs request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Object&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Object> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest, opts);
+        }
+
+        /**
+         * Execute insertExternalLogs request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Object> _callback) throws ApiException {
+            return insertExternalLogsAsync(runid, externalLogInsertionRequest, _callback);
+        }
+
+        /**
+         * Execute insertExternalLogs request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
+            return insertExternalLogsAsync(runid, externalLogInsertionRequest, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] InsertExternalLogs: Inserts external logs into the specified ExternalApp Integration instance execution
+     * 
+     * @param runid  (required)
+     * @param externalLogInsertionRequest  (required)
+     * @return APIinsertExternalLogsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIinsertExternalLogsRequest insertExternalLogs(String runid, ExternalLogInsertionRequest externalLogInsertionRequest) {
+        return new APIinsertExternalLogsRequest(runid, externalLogInsertionRequest);
     }
 }
