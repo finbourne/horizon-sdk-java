@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1776
+  version: 0.1.1777
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1358,10 +1358,18 @@ paths:
       - Logs
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/logs/runid:
+  /api/logs/{instanceid}/{runid}:
     post:
       operationId: InsertExternalLogs
       parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: instanceid
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: ""
         explode: false
         in: path

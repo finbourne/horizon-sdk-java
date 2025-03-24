@@ -362,11 +362,11 @@ public class LogsApi {
     public APIgetIntegrationLogResultsRequest getIntegrationLogResults() {
         return new APIgetIntegrationLogResultsRequest();
     }
-    private okhttp3.Call insertExternalLogsCall(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback) throws ApiException {
-        return insertExternalLogsCall(runid, externalLogInsertionRequest,  _callback, new ConfigurationOptions());
+    private okhttp3.Call insertExternalLogsCall(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback) throws ApiException {
+        return insertExternalLogsCall(instanceid, runid, externalLogInsertionRequest,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call insertExternalLogsCall(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call insertExternalLogsCall(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -383,7 +383,8 @@ public class LogsApi {
         Object localVarPostBody = externalLogInsertionRequest;
 
         // create path and map variables
-        String localVarPath = "/api/logs/runid"
+        String localVarPath = "/api/logs/{instanceid}/{runid}"
+            .replace("{" + "instanceid" + "}", localVarApiClient.escapeString(instanceid.toString()))
             .replace("{" + "runid" + "}", localVarApiClient.escapeString(runid.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -413,7 +414,12 @@ public class LogsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call insertExternalLogsValidateBeforeCall(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call insertExternalLogsValidateBeforeCall(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceid' is set
+        if (instanceid == null) {
+            throw new ApiException("Missing the required parameter 'instanceid' when calling insertExternalLogs(Async)");
+        }
+
         // verify the required parameter 'runid' is set
         if (runid == null) {
             throw new ApiException("Missing the required parameter 'runid' when calling insertExternalLogs(Async)");
@@ -424,44 +430,46 @@ public class LogsApi {
             throw new ApiException("Missing the required parameter 'externalLogInsertionRequest' when calling insertExternalLogs(Async)");
         }
 
-        return insertExternalLogsCall(runid, externalLogInsertionRequest, _callback, opts);
+        return insertExternalLogsCall(instanceid, runid, externalLogInsertionRequest, _callback, opts);
 
     }
 
 
-    private ApiResponse<Object> insertExternalLogsWithHttpInfo(String runid, ExternalLogInsertionRequest externalLogInsertionRequest) throws ApiException {
-        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, null, new ConfigurationOptions());
+    private ApiResponse<Object> insertExternalLogsWithHttpInfo(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest) throws ApiException {
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(instanceid, runid, externalLogInsertionRequest, null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Object> insertExternalLogsWithHttpInfo(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, null, opts);
+    private ApiResponse<Object> insertExternalLogsWithHttpInfo(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(instanceid, runid, externalLogInsertionRequest, null, opts);
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call insertExternalLogsAsync(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback<Object> _callback) throws ApiException {
+    private okhttp3.Call insertExternalLogsAsync(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback<Object> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, _callback, new ConfigurationOptions());
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(instanceid, runid, externalLogInsertionRequest, _callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call insertExternalLogsAsync(String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call insertExternalLogsAsync(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest, final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(runid, externalLogInsertionRequest, _callback, opts);
+        okhttp3.Call localVarCall = insertExternalLogsValidateBeforeCall(instanceid, runid, externalLogInsertionRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIinsertExternalLogsRequest {
+        private final String instanceid;
         private final String runid;
         private final ExternalLogInsertionRequest externalLogInsertionRequest;
 
-        private APIinsertExternalLogsRequest(String runid, ExternalLogInsertionRequest externalLogInsertionRequest) {
+        private APIinsertExternalLogsRequest(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest) {
+            this.instanceid = instanceid;
             this.runid = runid;
             this.externalLogInsertionRequest = externalLogInsertionRequest;
         }
@@ -480,7 +488,7 @@ public class LogsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return insertExternalLogsCall(runid, externalLogInsertionRequest, _callback);
+            return insertExternalLogsCall(instanceid, runid, externalLogInsertionRequest, _callback);
         }
 
         /**
@@ -496,7 +504,7 @@ public class LogsApi {
          </table>
          */
         public Object execute() throws ApiException {
-            ApiResponse<Object> localVarResp = insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest);
+            ApiResponse<Object> localVarResp = insertExternalLogsWithHttpInfo(instanceid, runid, externalLogInsertionRequest);
             return localVarResp.getData();
         }
 
@@ -513,7 +521,7 @@ public class LogsApi {
          </table>
          */
         public Object execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Object> localVarResp = insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest, opts);
+            ApiResponse<Object> localVarResp = insertExternalLogsWithHttpInfo(instanceid, runid, externalLogInsertionRequest, opts);
             return localVarResp.getData();
         }
 
@@ -530,7 +538,7 @@ public class LogsApi {
          </table>
          */
         public ApiResponse<Object> executeWithHttpInfo() throws ApiException {
-            return insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest);
+            return insertExternalLogsWithHttpInfo(instanceid, runid, externalLogInsertionRequest);
         }
 
         /**
@@ -546,7 +554,7 @@ public class LogsApi {
          </table>
          */
         public ApiResponse<Object> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return insertExternalLogsWithHttpInfo(runid, externalLogInsertionRequest, opts);
+            return insertExternalLogsWithHttpInfo(instanceid, runid, externalLogInsertionRequest, opts);
         }
 
         /**
@@ -563,7 +571,7 @@ public class LogsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<Object> _callback) throws ApiException {
-            return insertExternalLogsAsync(runid, externalLogInsertionRequest, _callback);
+            return insertExternalLogsAsync(instanceid, runid, externalLogInsertionRequest, _callback);
         }
 
         /**
@@ -580,13 +588,14 @@ public class LogsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
-            return insertExternalLogsAsync(runid, externalLogInsertionRequest, _callback, opts);
+            return insertExternalLogsAsync(instanceid, runid, externalLogInsertionRequest, _callback, opts);
         }
     }
 
     /**
      * [EXPERIMENTAL] InsertExternalLogs: Inserts external logs into the specified ExternalApp Integration instance execution
      * 
+     * @param instanceid  (required)
      * @param runid  (required)
      * @param externalLogInsertionRequest  (required)
      * @return APIinsertExternalLogsRequest
@@ -598,7 +607,7 @@ public class LogsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIinsertExternalLogsRequest insertExternalLogs(String runid, ExternalLogInsertionRequest externalLogInsertionRequest) {
-        return new APIinsertExternalLogsRequest(runid, externalLogInsertionRequest);
+    public APIinsertExternalLogsRequest insertExternalLogs(String instanceid, String runid, ExternalLogInsertionRequest externalLogInsertionRequest) {
+        return new APIinsertExternalLogsRequest(instanceid, runid, externalLogInsertionRequest);
     }
 }

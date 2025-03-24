@@ -5,7 +5,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getIntegrationLogResults**](LogsApi.md#getIntegrationLogResults) | **GET** /api/logs | [EXPERIMENTAL] GetIntegrationLogResults: Get integration log results |
-| [**insertExternalLogs**](LogsApi.md#insertExternalLogs) | **POST** /api/logs/runid | [EXPERIMENTAL] InsertExternalLogs: Inserts external logs into the specified ExternalApp Integration instance execution |
+| [**insertExternalLogs**](LogsApi.md#insertExternalLogs) | **POST** /api/logs/{instanceid}/{runid} | [EXPERIMENTAL] InsertExternalLogs: Inserts external logs into the specified ExternalApp Integration instance execution |
 
 
 
@@ -109,7 +109,7 @@ public class LogsApiExample {
 
 ## insertExternalLogs
 
-> Object insertExternalLogs(runid, externalLogInsertionRequest)
+> Object insertExternalLogs(instanceid, runid, externalLogInsertionRequest)
 
 [EXPERIMENTAL] InsertExternalLogs: Inserts external logs into the specified ExternalApp Integration instance execution
 
@@ -152,13 +152,14 @@ public class LogsApiExample {
         // LogsApi apiInstance = apiFactory.build(LogsApi.class);
 
         LogsApi apiInstance = ApiFactoryBuilder.build(fileName).build(LogsApi.class);
+        String instanceid = "instanceid_example"; // String | 
         String runid = "runid_example"; // String | 
         ExternalLogInsertionRequest externalLogInsertionRequest = new ExternalLogInsertionRequest(); // ExternalLogInsertionRequest | 
         try {
             // uncomment the below to set overrides at the request level
-            // Object result = apiInstance.insertExternalLogs(runid, externalLogInsertionRequest).execute(opts);
+            // Object result = apiInstance.insertExternalLogs(instanceid, runid, externalLogInsertionRequest).execute(opts);
 
-            Object result = apiInstance.insertExternalLogs(runid, externalLogInsertionRequest).execute();
+            Object result = apiInstance.insertExternalLogs(instanceid, runid, externalLogInsertionRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling LogsApi#insertExternalLogs");
@@ -175,6 +176,7 @@ public class LogsApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **instanceid** | **String**|  | |
 | **runid** | **String**|  | |
 | **externalLogInsertionRequest** | [**ExternalLogInsertionRequest**](ExternalLogInsertionRequest.md)|  | |
 
