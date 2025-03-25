@@ -7,7 +7,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**cancelInstance**](RunsApi.md#cancelInstance) | **PUT** /api/runs/{runId}/cancel | [EXPERIMENTAL] CancelInstance: Cancels a single instance execution. |
 | [**getRunResults**](RunsApi.md#getRunResults) | **GET** /api/runs | [EXPERIMENTAL] GetRunResults: Get run results |
 | [**rerunInstance**](RunsApi.md#rerunInstance) | **PUT** /api/runs/{runId}/rerun | [EXPERIMENTAL] RerunInstance: Reruns a single instance execution. |
-| [**stopInstanceExecution**](RunsApi.md#stopInstanceExecution) | **PUT** /api/runs/{runId}/stop | [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution. |
+| [**stopInstanceExecution**](RunsApi.md#stopInstanceExecution) | **PUT** /api/runs/{instanceId}/{runId}/stop | [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution. |
 
 
 
@@ -295,7 +295,7 @@ public class RunsApiExample {
 
 ## stopInstanceExecution
 
-> Object stopInstanceExecution(runId)
+> Object stopInstanceExecution(instanceId, runId)
 
 [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution.
 
@@ -340,12 +340,13 @@ public class RunsApiExample {
         // RunsApi apiInstance = apiFactory.build(RunsApi.class);
 
         RunsApi apiInstance = ApiFactoryBuilder.build(fileName).build(RunsApi.class);
+        String instanceId = "instanceId_example"; // String | 
         String runId = "runId_example"; // String | Run identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
         try {
             // uncomment the below to set overrides at the request level
-            // Object result = apiInstance.stopInstanceExecution(runId).execute(opts);
+            // Object result = apiInstance.stopInstanceExecution(instanceId, runId).execute(opts);
 
-            Object result = apiInstance.stopInstanceExecution(runId).execute();
+            Object result = apiInstance.stopInstanceExecution(instanceId, runId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling RunsApi#stopInstanceExecution");
@@ -362,6 +363,7 @@ public class RunsApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**|  | |
 | **runId** | **String**| Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
 
 ### Return type

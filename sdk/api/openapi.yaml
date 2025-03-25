@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.1784
+  version: 0.1.1785
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1849,6 +1849,63 @@ paths:
       - Runs
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/runs/{instanceId}/{runId}/stop:
+    put:
+      description: "Stops an execution instance of an External Client Application\
+        \ integration type.\r\nThe execution instance must be started, the user must\
+        \ be authenticated, entitled to call this method, and the user's domain must\
+        \ be licensed for the integration."
+      operationId: StopInstanceExecution
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationEndResponse'
+          description: The instance was stopped.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The execution does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution."
+      tags:
+      - Runs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/runs/{runId}/cancel:
     put:
       description: "Cancels an execution instance of an integration.\r\nThe execution\
@@ -1935,53 +1992,6 @@ paths:
       security:
       - oauth2: []
       summary: "[EXPERIMENTAL] RerunInstance: Reruns a single instance execution."
-      tags:
-      - Runs
-      x-fbn-apistatus: Experimental
-      x-accepts: application/json
-  /api/runs/{runId}/stop:
-    put:
-      description: "Stops an execution instance of an External Client Application\
-        \ integration type.\r\nThe execution instance must be started, the user must\
-        \ be authenticated, entitled to call this method, and the user's domain must\
-        \ be licensed for the integration."
-      operationId: StopInstanceExecution
-      parameters:
-      - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
-        explode: false
-        in: path
-        name: runId
-        required: true
-        schema:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[a-zA-Z0-9\\-]+$"
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IntegrationEndResponse'
-          description: The instance was stopped.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: The execution does not exist.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution."
       tags:
       - Runs
       x-fbn-apistatus: Experimental

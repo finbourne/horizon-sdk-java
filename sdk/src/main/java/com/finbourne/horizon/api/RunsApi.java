@@ -838,11 +838,11 @@ public class RunsApi {
     public APIrerunInstanceRequest rerunInstance(String runId) {
         return new APIrerunInstanceRequest(runId);
     }
-    private okhttp3.Call stopInstanceExecutionCall(String runId, final ApiCallback _callback) throws ApiException {
-        return stopInstanceExecutionCall(runId,  _callback, new ConfigurationOptions());
+    private okhttp3.Call stopInstanceExecutionCall(String instanceId, String runId, final ApiCallback _callback) throws ApiException {
+        return stopInstanceExecutionCall(instanceId, runId,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call stopInstanceExecutionCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call stopInstanceExecutionCall(String instanceId, String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -859,7 +859,8 @@ public class RunsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/runs/{runId}/stop"
+        String localVarPath = "/api/runs/{instanceId}/{runId}/stop"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()))
             .replace("{" + "runId" + "}", localVarApiClient.escapeString(runId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -888,49 +889,56 @@ public class RunsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call stopInstanceExecutionValidateBeforeCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call stopInstanceExecutionValidateBeforeCall(String instanceId, String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling stopInstanceExecution(Async)");
+        }
+
         // verify the required parameter 'runId' is set
         if (runId == null) {
             throw new ApiException("Missing the required parameter 'runId' when calling stopInstanceExecution(Async)");
         }
 
-        return stopInstanceExecutionCall(runId, _callback, opts);
+        return stopInstanceExecutionCall(instanceId, runId, _callback, opts);
 
     }
 
 
-    private ApiResponse<Object> stopInstanceExecutionWithHttpInfo(String runId) throws ApiException {
-        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(runId, null, new ConfigurationOptions());
+    private ApiResponse<Object> stopInstanceExecutionWithHttpInfo(String instanceId, String runId) throws ApiException {
+        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(instanceId, runId, null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Object> stopInstanceExecutionWithHttpInfo(String runId, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(runId, null, opts);
+    private ApiResponse<Object> stopInstanceExecutionWithHttpInfo(String instanceId, String runId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(instanceId, runId, null, opts);
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call stopInstanceExecutionAsync(String runId, final ApiCallback<Object> _callback) throws ApiException {
+    private okhttp3.Call stopInstanceExecutionAsync(String instanceId, String runId, final ApiCallback<Object> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(runId, _callback, new ConfigurationOptions());
+        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(instanceId, runId, _callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call stopInstanceExecutionAsync(String runId, final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call stopInstanceExecutionAsync(String instanceId, String runId, final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(runId, _callback, opts);
+        okhttp3.Call localVarCall = stopInstanceExecutionValidateBeforeCall(instanceId, runId, _callback, opts);
         Type localVarReturnType = new TypeToken<Object>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIstopInstanceExecutionRequest {
+        private final String instanceId;
         private final String runId;
 
-        private APIstopInstanceExecutionRequest(String runId) {
+        private APIstopInstanceExecutionRequest(String instanceId, String runId) {
+            this.instanceId = instanceId;
             this.runId = runId;
         }
 
@@ -949,7 +957,7 @@ public class RunsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return stopInstanceExecutionCall(runId, _callback);
+            return stopInstanceExecutionCall(instanceId, runId, _callback);
         }
 
         /**
@@ -966,7 +974,7 @@ public class RunsApi {
          </table>
          */
         public Object execute() throws ApiException {
-            ApiResponse<Object> localVarResp = stopInstanceExecutionWithHttpInfo(runId);
+            ApiResponse<Object> localVarResp = stopInstanceExecutionWithHttpInfo(instanceId, runId);
             return localVarResp.getData();
         }
 
@@ -984,7 +992,7 @@ public class RunsApi {
          </table>
          */
         public Object execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Object> localVarResp = stopInstanceExecutionWithHttpInfo(runId, opts);
+            ApiResponse<Object> localVarResp = stopInstanceExecutionWithHttpInfo(instanceId, runId, opts);
             return localVarResp.getData();
         }
 
@@ -1002,7 +1010,7 @@ public class RunsApi {
          </table>
          */
         public ApiResponse<Object> executeWithHttpInfo() throws ApiException {
-            return stopInstanceExecutionWithHttpInfo(runId);
+            return stopInstanceExecutionWithHttpInfo(instanceId, runId);
         }
 
         /**
@@ -1019,7 +1027,7 @@ public class RunsApi {
          </table>
          */
         public ApiResponse<Object> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return stopInstanceExecutionWithHttpInfo(runId, opts);
+            return stopInstanceExecutionWithHttpInfo(instanceId, runId, opts);
         }
 
         /**
@@ -1037,7 +1045,7 @@ public class RunsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<Object> _callback) throws ApiException {
-            return stopInstanceExecutionAsync(runId, _callback);
+            return stopInstanceExecutionAsync(instanceId, runId, _callback);
         }
 
         /**
@@ -1055,13 +1063,14 @@ public class RunsApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
-            return stopInstanceExecutionAsync(runId, _callback, opts);
+            return stopInstanceExecutionAsync(instanceId, runId, _callback, opts);
         }
     }
 
     /**
      * [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution.
      * Stops an execution instance of an External Client Application integration type.  The execution instance must be started, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param instanceId  (required)
      * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIstopInstanceExecutionRequest
      * @http.response.details
@@ -1073,7 +1082,7 @@ public class RunsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIstopInstanceExecutionRequest stopInstanceExecution(String runId) {
-        return new APIstopInstanceExecutionRequest(runId);
+    public APIstopInstanceExecutionRequest stopInstanceExecution(String instanceId, String runId) {
+        return new APIstopInstanceExecutionRequest(instanceId, runId);
     }
 }
