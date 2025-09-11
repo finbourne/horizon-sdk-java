@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.2505
+  version: 0.1.2514
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3350,7 +3350,7 @@ components:
     IntegrationRunLog:
       additionalProperties: false
       example:
-        count: 0
+        count: 6
         link:
           description: description
           href: href
@@ -3383,18 +3383,20 @@ components:
       example:
         instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         instanceName: instanceName
+        refRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         integration:
           name: name
           type: type
         integrationLogs:
           key:
             key:
-              count: 0
+              count: 6
               link:
                 description: description
                 href: href
         runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         message: message
+        attempt: 0
         version:
           asAtModified: 2000-01-23T04:56:07.000+00:00
           asAtCreated: 2000-01-23T04:56:07.000+00:00
@@ -3403,6 +3405,13 @@ components:
         runId:
           format: uuid
           type: string
+        refRunId:
+          format: uuid
+          nullable: true
+          type: string
+        attempt:
+          format: int32
+          type: integer
         instanceId:
           format: uuid
           nullable: true
@@ -3428,6 +3437,7 @@ components:
           nullable: true
           type: object
       required:
+      - attempt
       - integration
       - runId
       - version
@@ -4582,36 +4592,40 @@ components:
         values:
         - instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           instanceName: instanceName
+          refRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           integration:
             name: name
             type: type
           integrationLogs:
             key:
               key:
-                count: 0
+                count: 6
                 link:
                   description: description
                   href: href
           runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           message: message
+          attempt: 0
           version:
             asAtModified: 2000-01-23T04:56:07.000+00:00
             asAtCreated: 2000-01-23T04:56:07.000+00:00
           status: status
         - instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           instanceName: instanceName
+          refRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           integration:
             name: name
             type: type
           integrationLogs:
             key:
               key:
-                count: 0
+                count: 6
                 link:
                   description: description
                   href: href
           runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           message: message
+          attempt: 0
           version:
             asAtModified: 2000-01-23T04:56:07.000+00:00
             asAtCreated: 2000-01-23T04:56:07.000+00:00

@@ -60,6 +60,14 @@ public class IntegrationRunResponse {
   @SerializedName(SERIALIZED_NAME_RUN_ID)
   private UUID runId;
 
+  public static final String SERIALIZED_NAME_REF_RUN_ID = "refRunId";
+  @SerializedName(SERIALIZED_NAME_REF_RUN_ID)
+  private UUID refRunId;
+
+  public static final String SERIALIZED_NAME_ATTEMPT = "attempt";
+  @SerializedName(SERIALIZED_NAME_ATTEMPT)
+  private Integer attempt;
+
   public static final String SERIALIZED_NAME_INSTANCE_ID = "instanceId";
   @SerializedName(SERIALIZED_NAME_INSTANCE_ID)
   private UUID instanceId;
@@ -109,6 +117,48 @@ public class IntegrationRunResponse {
 
   public void setRunId(UUID runId) {
     this.runId = runId;
+  }
+
+
+  public IntegrationRunResponse refRunId(UUID refRunId) {
+    
+    this.refRunId = refRunId;
+    return this;
+  }
+
+   /**
+   * Get refRunId
+   * @return refRunId
+  **/
+  @jakarta.annotation.Nullable
+  public UUID getRefRunId() {
+    return refRunId;
+  }
+
+
+  public void setRefRunId(UUID refRunId) {
+    this.refRunId = refRunId;
+  }
+
+
+  public IntegrationRunResponse attempt(Integer attempt) {
+    
+    this.attempt = attempt;
+    return this;
+  }
+
+   /**
+   * Get attempt
+   * @return attempt
+  **/
+  @jakarta.annotation.Nonnull
+  public Integer getAttempt() {
+    return attempt;
+  }
+
+
+  public void setAttempt(Integer attempt) {
+    this.attempt = attempt;
   }
 
 
@@ -278,6 +328,8 @@ public class IntegrationRunResponse {
     }
     IntegrationRunResponse integrationRunResponse = (IntegrationRunResponse) o;
     return Objects.equals(this.runId, integrationRunResponse.runId) &&
+        Objects.equals(this.refRunId, integrationRunResponse.refRunId) &&
+        Objects.equals(this.attempt, integrationRunResponse.attempt) &&
         Objects.equals(this.instanceId, integrationRunResponse.instanceId) &&
         Objects.equals(this.instanceName, integrationRunResponse.instanceName) &&
         Objects.equals(this.status, integrationRunResponse.status) &&
@@ -293,7 +345,7 @@ public class IntegrationRunResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, instanceId, instanceName, status, message, integration, version, integrationLogs);
+    return Objects.hash(runId, refRunId, attempt, instanceId, instanceName, status, message, integration, version, integrationLogs);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -308,6 +360,8 @@ public class IntegrationRunResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class IntegrationRunResponse {\n");
     sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
+    sb.append("    refRunId: ").append(toIndentedString(refRunId)).append("\n");
+    sb.append("    attempt: ").append(toIndentedString(attempt)).append("\n");
     sb.append("    instanceId: ").append(toIndentedString(instanceId)).append("\n");
     sb.append("    instanceName: ").append(toIndentedString(instanceName)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -338,6 +392,8 @@ public class IntegrationRunResponse {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("runId");
+    openapiFields.add("refRunId");
+    openapiFields.add("attempt");
     openapiFields.add("instanceId");
     openapiFields.add("instanceName");
     openapiFields.add("status");
@@ -349,6 +405,7 @@ public class IntegrationRunResponse {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("runId");
+    openapiRequiredFields.add("attempt");
     openapiRequiredFields.add("integration");
     openapiRequiredFields.add("version");
   }
@@ -375,6 +432,9 @@ public class IntegrationRunResponse {
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if (!jsonObj.get("runId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `runId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("runId").toString()));
+      }
+      if ((jsonObj.get("refRunId") != null && !jsonObj.get("refRunId").isJsonNull()) && !jsonObj.get("refRunId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `refRunId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("refRunId").toString()));
       }
       if ((jsonObj.get("instanceId") != null && !jsonObj.get("instanceId").isJsonNull()) && !jsonObj.get("instanceId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instanceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instanceId").toString()));

@@ -8,6 +8,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**runId** | **UUID** |  |  |
+|**refRunId** | **UUID** |  |  [optional] |
+|**attempt** | **Integer** |  |  |
 |**instanceId** | **UUID** |  |  [optional] |
 |**instanceName** | **String** |  |  [optional] |
 |**status** | **String** |  |  [optional] |
