@@ -73,7 +73,7 @@ public class Identifiers {
   }
 
    /**
-   * 
+   * The collection of LUSID instrument identifiers
    * @return lusidInstrumentIds
   **/
   @jakarta.annotation.Nonnull

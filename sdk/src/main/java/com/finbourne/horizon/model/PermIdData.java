@@ -84,7 +84,7 @@ public class PermIdData {
   }
 
    /**
-   * &gt;FIGI assigned to the instrument.
+   * FIGI assigned to the instrument.
    * @return figi
   **/
   @jakarta.annotation.Nonnull

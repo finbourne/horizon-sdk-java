@@ -9,7 +9,7 @@ Holds information about Horizon Audit Files
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**fileType** | **AuditFileType** |  |  |
-|**filePathAndName** | **String** |  |  |
+|**filePathAndName** | **String** | The file path and name |  |
 
 
 

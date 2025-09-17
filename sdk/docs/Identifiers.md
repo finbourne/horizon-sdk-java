@@ -8,7 +8,7 @@ A list of lusid instrument ids
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**lusidInstrumentIds** | **List&lt;String&gt;** |  |  |
+|**lusidInstrumentIds** | **List&lt;String&gt;** | The collection of LUSID instrument identifiers |  |
 
 
 

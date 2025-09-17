@@ -89,7 +89,7 @@ public class AuditFileDetails {
   }
 
    /**
-   * 
+   * The file path and name
    * @return filePathAndName
   **/
   @jakarta.annotation.Nonnull

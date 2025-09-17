@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.2524
+  version: 0.1.2543
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -207,6 +207,8 @@ paths:
         name: vendorProductKey
         required: true
         schema:
+          maxLength: 64
+          minLength: 1
           type: string
         style: form
       requestBody:
@@ -276,6 +278,8 @@ paths:
         name: query
         required: true
         schema:
+          maxLength: 128
+          minLength: 0
           type: string
         style: form
       - description: "Should also search PermId for additional information, defaults\
@@ -306,6 +310,8 @@ paths:
         required: false
         schema:
           default: All
+          maxLength: 32
+          minLength: 0
           type: string
         style: form
       responses:
@@ -387,6 +393,9 @@ paths:
         name: id
         required: true
         schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         style: simple
       responses:
@@ -428,6 +437,8 @@ paths:
         name: marketSector
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -436,6 +447,8 @@ paths:
         name: securityType
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -444,6 +457,8 @@ paths:
         name: generalSecurityType
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       responses:
@@ -801,6 +816,9 @@ paths:
         name: integration
         required: true
         schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         style: simple
       - description: Identifier of the instance
@@ -809,6 +827,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       responses:
@@ -861,6 +882,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       - description: The type of the integration e.g. "copp-clark".
@@ -869,6 +893,9 @@ paths:
         name: integration
         required: true
         schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         style: simple
       requestBody:
@@ -940,6 +967,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       responses:
@@ -978,6 +1008,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       requestBody:
@@ -1041,6 +1074,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       responses:
@@ -1086,6 +1122,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       requestBody:
@@ -1146,6 +1185,9 @@ paths:
         name: instanceId
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       - description: Maximum number of returned execution ids
@@ -1368,6 +1410,9 @@ paths:
         name: instanceid
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       - description: ""
@@ -1376,6 +1421,9 @@ paths:
         name: runid
         required: true
         schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
       requestBody:
@@ -1455,6 +1503,8 @@ paths:
         name: processName
         required: false
         schema:
+          maxLength: 64
+          minLength: 1
           type: string
         style: form
       requestBody:
@@ -1520,6 +1570,9 @@ paths:
         name: runId
         required: true
         schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         style: form
       requestBody:
@@ -2085,6 +2138,8 @@ paths:
         name: vendorName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2093,6 +2148,8 @@ paths:
         name: productName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2101,6 +2158,8 @@ paths:
         name: lusidEntityType
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2109,6 +2168,8 @@ paths:
         name: lusidEntitySubType
         required: false
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       responses:
@@ -2163,6 +2224,8 @@ paths:
         name: vendorName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2171,6 +2234,8 @@ paths:
         name: productName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2179,6 +2244,8 @@ paths:
         name: lusidEntityType
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2187,6 +2254,8 @@ paths:
         name: lusidEntitySubType
         required: false
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       responses:
@@ -2234,6 +2303,8 @@ paths:
         name: vendorName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2242,6 +2313,8 @@ paths:
         name: productName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2250,6 +2323,8 @@ paths:
         name: lusidEntityType
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2258,6 +2333,8 @@ paths:
         name: lusidEntitySubType
         required: false
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       requestBody:
@@ -2361,6 +2438,8 @@ paths:
         name: vendorName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2369,6 +2448,8 @@ paths:
         name: productName
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2377,6 +2458,8 @@ paths:
         name: lusidEntityType
         required: true
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       - description: ""
@@ -2385,6 +2468,8 @@ paths:
         name: lusidEntitySubType
         required: false
         schema:
+          maxLength: 64
+          minLength: 0
           type: string
         style: form
       responses:
@@ -2570,7 +2655,9 @@ components:
         fileType:
           $ref: '#/components/schemas/AuditFileType'
         filePathAndName:
-          description: ""
+          description: The file path and name
+          maxLength: 1024
+          minLength: 0
           type: string
       required:
       - filePathAndName
@@ -2816,37 +2903,61 @@ components:
           nullable: true
           type: integer
         loglevel:
+          maxLength: 64
+          minLength: 0
           type: string
         logstatus:
+          maxLength: 64
+          minLength: 0
           type: string
         sourcerecordtype:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         sourceprimaryidtype:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         sourceprimaryidvalue:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         targetrecordtype:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         targetrecordaction:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         targetprimaryidtype:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         targetprimaryidvalue:
+          maxLength: 128
+          minLength: 0
           nullable: true
           type: string
         message:
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         messagetype:
+          maxLength: 64
+          minLength: 0
           nullable: true
           type: string
         timestamp:
+          maxLength: 64
+          minLength: 0
           type: string
       required:
       - logid
@@ -2939,7 +3050,7 @@ components:
         - lusidInstrumentIds
       properties:
         lusidInstrumentIds:
-          description: ""
+          description: The collection of LUSID instrument identifiers
           items:
             type: string
           type: array
@@ -4313,67 +4424,99 @@ components:
       properties:
         figi:
           description: FIGI assigned to the instrument.
+          maxLength: 1024
+          minLength: 0
           type: string
         name:
           description: Various attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         ticker:
           description: Various attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         exchangeCode:
           description: Exchange code of the desired instrument(s)
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         mic:
           description: ISO market identification code(MIC) of the desired instrument(s)
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         exchangeName:
           description: Exchange name of the desired instrument(s)
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         marketSector:
           description: Market sector description of the desired instrument(s)
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         generalSecurityType:
           description: Enum-like attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         securityType:
           description: Enum-like attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         securityDescription:
           description: Various attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         compositeFigi:
           description: Various attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         shareClassFigi:
           description: Various attributes of the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         matchType:
           description: Type that the instrument matched against
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         searchInput:
           description: Search input used to generate this response
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         lusidInstrumentId:
           description: "If an instrument with this FIGI exists, the LUID of that instrument\
             \ in LUSID"
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
         lusidInstrumentScope:
           description: "If an instrument with this FIGI exists, the Scope of that\
             \ instrument in LUSID"
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
       required:
@@ -4872,22 +5015,32 @@ components:
         figi: figi
       properties:
         figi:
-          description: '>FIGI assigned to the instrument.'
+          description: FIGI assigned to the instrument.
+          maxLength: 1024
+          minLength: 0
           type: string
         ticker:
           description: Ticker assigned to the instrument
+          maxLength: 1024
+          minLength: 0
           type: string
         mic:
           description: ISO market identification code(MIC) of the desired instrument(s)
+          maxLength: 1024
+          minLength: 0
           type: string
         quotePermId:
           description: QuotePermId of the instrument
+          maxLength: 1024
+          minLength: 0
           type: string
         isPrimaryQuote:
           description: If the quote is primary
           type: boolean
         legalEntityIdentifier:
           description: LEI assigned to the instrument
+          maxLength: 1024
+          minLength: 0
           nullable: true
           type: string
       required:
