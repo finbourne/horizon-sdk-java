@@ -5,7 +5,7 @@ An item that has been updated as a result of setting LusidPropertyDefinitionOver
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**action** | **String** | The action performed on this property. \&quot;upsert\&quot; for setting values for new and existing   properties. \&quot;delete\&quot; for existing properties that were removed | [default to String]
+**action** | **String** | The action performed on this property. \&quot;upsert\&quot; for setting values for new and existing  properties. \&quot;delete\&quot; for existing properties that were removed | [default to String]
 **writeError** | **String** |  | [optional] [default to String]
 **writeErrorDetail** | **String** |  | [optional] [default to String]
 **displayNameOverride** | **String** |  | [optional] [default to String]

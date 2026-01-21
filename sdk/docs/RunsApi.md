@@ -4,7 +4,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**cancelInstance**](RunsApi.md#cancelInstance) | **PUT** /api/runs/{runId}/cancel | [EXPERIMENTAL] CancelInstance: Cancels a single instance execution. |
+| [**cancelInstance**](RunsApi.md#cancelInstance) | **PUT** /api/runs/cancel | [EXPERIMENTAL] CancelInstance: Cancels multiple instance executions. |
 | [**getRunResults**](RunsApi.md#getRunResults) | **GET** /api/runs | [EXPERIMENTAL] GetRunResults: Get run results |
 | [**rerunInstance**](RunsApi.md#rerunInstance) | **PUT** /api/runs/{runId}/rerun | [EXPERIMENTAL] RerunInstance: Reruns a single instance execution. |
 | [**stopInstanceExecution**](RunsApi.md#stopInstanceExecution) | **PUT** /api/runs/{instanceId}/{runId}/stop | [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution. |
@@ -13,11 +13,11 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 ## cancelInstance
 
-> Object cancelInstance(runId)
+> IntegrationCancellationResponse cancelInstance(cancelRunRequest)
 
-[EXPERIMENTAL] CancelInstance: Cancels a single instance execution.
+[EXPERIMENTAL] CancelInstance: Cancels multiple instance executions.
 
-Cancels an execution instance of an integration.  The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Cancels multiple execution instances of an integration. The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -58,12 +58,12 @@ public class RunsApiExample {
         // RunsApi apiInstance = apiFactory.build(RunsApi.class);
 
         RunsApi apiInstance = ApiFactoryBuilder.build(fileName).build(RunsApi.class);
-        String runId = "runId_example"; // String | Run identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
+        CancelRunRequest cancelRunRequest = new CancelRunRequest(); // CancelRunRequest | Contains the run identifiers and a message to be set e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
         try {
             // uncomment the below to set overrides at the request level
-            // Object result = apiInstance.cancelInstance(runId).execute(opts);
+            // IntegrationCancellationResponse result = apiInstance.cancelInstance(cancelRunRequest).execute(opts);
 
-            Object result = apiInstance.cancelInstance(runId).execute();
+            IntegrationCancellationResponse result = apiInstance.cancelInstance(cancelRunRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling RunsApi#cancelInstance");
@@ -80,24 +80,24 @@ public class RunsApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **runId** | **String**| Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
+| **cancelRunRequest** | [**CancelRunRequest**](CancelRunRequest.md)| Contains the run identifiers and a message to be set e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
 
 ### Return type
 
-**Object**
+[**IntegrationCancellationResponse**](IntegrationCancellationResponse.md)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | The instance was cancelled. |  -  |
+| **200** | Some or all of the instances requested were cancelled. |  -  |
 | **400** | The details of the input related failure |  -  |
-| **404** | The execution does not exist. |  -  |
+| **404** | None of the executions does not exist. |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -153,7 +153,7 @@ public class RunsApiExample {
         String filter = "filter_example"; // String | Expression to filter the result set.
         List<String> sortBy = Arrays.asList(); // List<String> | A list of field names or properties to sort by, each suffixed by \" ASC\" or \" DESC\".
         Integer limit = 100; // Integer | When paginating, limit the results to this number.
-        String pageToken = ""; // String | The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
+        String pageToken = ""; // String | The pagination token to use to continue listing integration runs; this value is returned from  the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
         try {
             // uncomment the below to set overrides at the request level
             // PagedResourceListOfIntegrationRunResponse result = apiInstance.getRunResults(filter, sortBy, limit, pageToken).execute(opts);
@@ -178,7 +178,7 @@ public class RunsApiExample {
 | **filter** | **String**| Expression to filter the result set. | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| A list of field names or properties to sort by, each suffixed by \&quot; ASC\&quot; or \&quot; DESC\&quot;. | [optional] |
 | **limit** | **Integer**| When paginating, limit the results to this number. | [optional] [default to 100] |
-| **pageToken** | **String**| The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. | [optional] [default to ] |
+| **pageToken** | **String**| The pagination token to use to continue listing integration runs; this value is returned from  the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. | [optional] [default to ] |
 
 ### Return type
 
@@ -207,7 +207,7 @@ public class RunsApiExample {
 
 [EXPERIMENTAL] RerunInstance: Reruns a single instance execution.
 
-Reruns an execution instance of an integration.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Reruns an execution instance of an integration. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -299,7 +299,7 @@ public class RunsApiExample {
 
 [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution.
 
-Stops an execution instance of an External Client Application integration type.  The execution instance must be started, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Stops an execution instance of an External Client Application integration type. The execution instance must be started, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 

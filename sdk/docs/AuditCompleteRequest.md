@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **startTime** | [**OffsetDateTime**](OffsetDateTime.md) | When the run was started in UTC | [default to OffsetDateTime]
 **endTime** | [**OffsetDateTime**](OffsetDateTime.md) | When the run finished in UTC | [default to OffsetDateTime]
 **message** | **String** | A descriptive message to accompany the status | [default to String]
-**status** | [**AuditCompleteStatus**](AuditCompleteStatus.md) |  | [default to AuditCompleteStatus]
+**status** | **String** | The final status of the run | [default to String]
 **rowsTotal** | **Integer** | The number of data rows operated on | [default to Integer]
 **rowsSucceeded** | **Integer** | The number of data rows successfully operated on | [default to Integer]
 **rowsFailed** | **Integer** | The number of data rows that failed to be operated on | [default to Integer]
@@ -31,7 +31,8 @@ String SchedulerRunId = "example SchedulerRunId";
 OffsetDateTime StartTime = OffsetDateTime.now();
 OffsetDateTime EndTime = OffsetDateTime.now();
 String Message = "example Message";
-AuditCompleteStatus Integer RowsTotal = new Integer("100.00");
+String Status = "example Status";
+Integer RowsTotal = new Integer("100.00");
 Integer RowsSucceeded = new Integer("100.00");
 Integer RowsFailed = new Integer("100.00");
 Integer RowsIgnored = new Integer("100.00");

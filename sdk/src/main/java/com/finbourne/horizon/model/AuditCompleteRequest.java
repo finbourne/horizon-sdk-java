@@ -11,7 +11,6 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
-import com.finbourne.horizon.model.AuditCompleteStatus;
 import com.finbourne.horizon.model.AuditFileDetails;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -81,7 +80,7 @@ public class AuditCompleteRequest {
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
-  private AuditCompleteStatus status;
+  private String status;
 
   public static final String SERIALIZED_NAME_ROWS_TOTAL = "rowsTotal";
   @SerializedName(SERIALIZED_NAME_ROWS_TOTAL)
@@ -236,23 +235,23 @@ public class AuditCompleteRequest {
   }
 
 
-  public AuditCompleteRequest status(AuditCompleteStatus status) {
+  public AuditCompleteRequest status(String status) {
     
     this.status = status;
     return this;
   }
 
    /**
-   * Get status
+   * The final status of the run
    * @return status
   **/
   @jakarta.annotation.Nonnull
-  public AuditCompleteStatus getStatus() {
+  public String getStatus() {
     return status;
   }
 
 
-  public void setStatus(AuditCompleteStatus status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 
@@ -532,6 +531,9 @@ public class AuditCompleteRequest {
       }
       if (!jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if (!jsonObj.get("status").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
       }
       // ensure the json data is an array
       if (!jsonObj.get("auditFiles").isJsonArray()) {

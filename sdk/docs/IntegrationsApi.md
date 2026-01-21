@@ -9,8 +9,11 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**executeInstance**](IntegrationsApi.md#executeInstance) | **POST** /api/integrations/instances/{instanceId}/execute | [EXPERIMENTAL] ExecuteInstance: Execute an integration instance. |
 | [**executeInstanceWithParams**](IntegrationsApi.md#executeInstanceWithParams) | **POST** /api/integrations/instances/{instanceId}/executewithparams | [EXPERIMENTAL] ExecuteInstanceWithParams: Execute an integration instance with runtime parameters |
 | [**getExecutionIdsForInstance**](IntegrationsApi.md#getExecutionIdsForInstance) | **GET** /api/integrations/instances/{instanceId}/executions | [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids. |
+| [**getInstance**](IntegrationsApi.md#getInstance) | **GET** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration. |
 | [**getInstanceOptionalPropertyMapping**](IntegrationsApi.md#getInstanceOptionalPropertyMapping) | **GET** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance |
 | [**getIntegrationConfiguration**](IntegrationsApi.md#getIntegrationConfiguration) | **GET** /api/integrations/configuration/{integration} | [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration |
+| [**getIntegrationConfigurationFields**](IntegrationsApi.md#getIntegrationConfigurationFields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration |
+| [**getIntegrationConfigurationProperties**](IntegrationsApi.md#getIntegrationConfigurationProperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration |
 | [**getSchema**](IntegrationsApi.md#getSchema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance. |
 | [**listInstances**](IntegrationsApi.md#listInstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations. |
 | [**listIntegrations**](IntegrationsApi.md#listIntegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations. |
@@ -25,7 +28,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 [EXPERIMENTAL] CreateInstance: Create a single integration instance.
 
-Creates a new instance of an integration, returning its identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Creates a new instance of an integration, returning its identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -117,7 +120,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] DeleteInstance: Delete a single integration instance.
 
-Deletes an existing instance of an integration, returning its identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Deletes an existing instance of an integration, returning its identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -208,7 +211,7 @@ null (empty response body)
 
 [EXPERIMENTAL] ExecuteInstance: Execute an integration instance.
 
-Starts execution of an instance, returning its execution identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Starts execution of an instance, returning its execution identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -300,7 +303,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] ExecuteInstanceWithParams: Execute an integration instance with runtime parameters
 
-Starts execution of an instance, returning its execution identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Starts execution of an instance, returning its execution identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -394,7 +397,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids.
 
-Get the most recent execution ids for an integration instance.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Get the most recent execution ids for an integration instance. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 
@@ -477,6 +480,98 @@ public class IntegrationsApiExample {
 | **200** | The execution ids sorted by start date (descending) |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The integration instance does not exist |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getInstance
+
+> IntegrationInstanceResponse getInstance(instanceId)
+
+[EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration.
+
+The user must be authenticated to call this method.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        String instanceId = "instanceId_example"; // String | 
+        try {
+            // uncomment the below to set overrides at the request level
+            // IntegrationInstanceResponse result = apiInstance.getInstance(instanceId).execute(opts);
+
+            IntegrationInstanceResponse result = apiInstance.getInstance(instanceId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#getInstance");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**|  | |
+
+### Return type
+
+[**IntegrationInstanceResponse**](IntegrationInstanceResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The requested instance does not exist. |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -668,6 +763,206 @@ public class IntegrationsApiExample {
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 
+## getIntegrationConfigurationFields
+
+> PagedResourceListOfIFieldMapping getIntegrationConfigurationFields(integration, filter, sortBy, limit, pageToken)
+
+[EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration
+
+The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        String integration = "integration_example"; // String | 
+        String filter = "filter_example"; // String | 
+        List<String> sortBy = Arrays.asList(); // List<String> | 
+        Integer limit = 100; // Integer | 
+        String pageToken = ""; // String | 
+        try {
+            // uncomment the below to set overrides at the request level
+            // PagedResourceListOfIFieldMapping result = apiInstance.getIntegrationConfigurationFields(integration, filter, sortBy, limit, pageToken).execute(opts);
+
+            PagedResourceListOfIFieldMapping result = apiInstance.getIntegrationConfigurationFields(integration, filter, sortBy, limit, pageToken).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#getIntegrationConfigurationFields");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **integration** | **String**|  | |
+| **filter** | **String**|  | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)|  | [optional] |
+| **limit** | **Integer**|  | [optional] [default to 100] |
+| **pageToken** | **String**|  | [optional] [default to ] |
+
+### Return type
+
+[**PagedResourceListOfIFieldMapping**](PagedResourceListOfIFieldMapping.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The requested integration does not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getIntegrationConfigurationProperties
+
+> PagedResourceListOfIPropertyMapping getIntegrationConfigurationProperties(integration, filter, sortBy, limit, pageToken)
+
+[EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration
+
+The user must be authenticated, entitled to call this method, but the user&#39;s domain does not need to be licensed for the integration.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        String integration = "integration_example"; // String | 
+        String filter = "filter_example"; // String | 
+        List<String> sortBy = Arrays.asList(); // List<String> | 
+        Integer limit = 100; // Integer | 
+        String pageToken = ""; // String | 
+        try {
+            // uncomment the below to set overrides at the request level
+            // PagedResourceListOfIPropertyMapping result = apiInstance.getIntegrationConfigurationProperties(integration, filter, sortBy, limit, pageToken).execute(opts);
+
+            PagedResourceListOfIPropertyMapping result = apiInstance.getIntegrationConfigurationProperties(integration, filter, sortBy, limit, pageToken).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#getIntegrationConfigurationProperties");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **integration** | **String**|  | |
+| **filter** | **String**|  | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)|  | [optional] |
+| **limit** | **Integer**|  | [optional] [default to 100] |
+| **pageToken** | **String**|  | [optional] [default to ] |
+
+### Return type
+
+[**PagedResourceListOfIPropertyMapping**](PagedResourceListOfIPropertyMapping.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The requested integration does not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
 ## getSchema
 
 > JSchema getSchema(integration)
@@ -766,7 +1061,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] ListInstances: List instances across all integrations.
 
-The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+The user must be authenticated to call this method.
 
 ### Example
 
@@ -853,7 +1148,7 @@ This endpoint does not need any parameter.
 
 [EXPERIMENTAL] ListIntegrations: List available integrations.
 
-List all available integrations.  &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence  contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).  Any authenticated user can call this method.
+List all available integrations. &#x60;&#x60;&#x60;\&quot;licensed\&quot;&#x60;&#x60;&#x60; indicates your domain is licensed to use this integration. To request a licence contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/). Any authenticated user can call this method.
 
 ### Example
 
@@ -1035,7 +1330,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] UpdateInstance: Update a single integration instance.
 
-Updates an existing instance of an integration, returning its identifier.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+Updates an existing instance of an integration, returning its identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
 
 ### Example
 

@@ -25,6 +25,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import com.finbourne.horizon.model.CancelRunRequest;
+import com.finbourne.horizon.model.IntegrationCancellationResponse;
 import com.finbourne.horizon.model.IntegrationRerunResponse;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
@@ -73,11 +75,11 @@ public class RunsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    private okhttp3.Call cancelInstanceCall(String runId, final ApiCallback _callback) throws ApiException {
-        return cancelInstanceCall(runId,  _callback, new ConfigurationOptions());
+    private okhttp3.Call cancelInstanceCall(CancelRunRequest cancelRunRequest, final ApiCallback _callback) throws ApiException {
+        return cancelInstanceCall(cancelRunRequest,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call cancelInstanceCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call cancelInstanceCall(CancelRunRequest cancelRunRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -91,11 +93,10 @@ public class RunsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = null;
+        Object localVarPostBody = cancelRunRequest;
 
         // create path and map variables
-        String localVarPath = "/api/runs/{runId}/cancel"
-            .replace("{" + "runId" + "}", localVarApiClient.escapeString(runId.toString()));
+        String localVarPath = "/api/runs/cancel";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -112,6 +113,7 @@ public class RunsApi {
         }
 
         final String[] localVarContentTypes = {
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -123,50 +125,50 @@ public class RunsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call cancelInstanceValidateBeforeCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
-        // verify the required parameter 'runId' is set
-        if (runId == null) {
-            throw new ApiException("Missing the required parameter 'runId' when calling cancelInstance(Async)");
+    private okhttp3.Call cancelInstanceValidateBeforeCall(CancelRunRequest cancelRunRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'cancelRunRequest' is set
+        if (cancelRunRequest == null) {
+            throw new ApiException("Missing the required parameter 'cancelRunRequest' when calling cancelInstance(Async)");
         }
 
-        return cancelInstanceCall(runId, _callback, opts);
+        return cancelInstanceCall(cancelRunRequest, _callback, opts);
 
     }
 
 
-    private ApiResponse<Object> cancelInstanceWithHttpInfo(String runId) throws ApiException {
-        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(runId, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+    private ApiResponse<IntegrationCancellationResponse> cancelInstanceWithHttpInfo(CancelRunRequest cancelRunRequest) throws ApiException {
+        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(cancelRunRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<IntegrationCancellationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Object> cancelInstanceWithHttpInfo(String runId, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(runId, null, opts);
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+    private ApiResponse<IntegrationCancellationResponse> cancelInstanceWithHttpInfo(CancelRunRequest cancelRunRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(cancelRunRequest, null, opts);
+        Type localVarReturnType = new TypeToken<IntegrationCancellationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call cancelInstanceAsync(String runId, final ApiCallback<Object> _callback) throws ApiException {
+    private okhttp3.Call cancelInstanceAsync(CancelRunRequest cancelRunRequest, final ApiCallback<IntegrationCancellationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(runId, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(cancelRunRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<IntegrationCancellationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call cancelInstanceAsync(String runId, final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call cancelInstanceAsync(CancelRunRequest cancelRunRequest, final ApiCallback<IntegrationCancellationResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(runId, _callback, opts);
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        okhttp3.Call localVarCall = cancelInstanceValidateBeforeCall(cancelRunRequest, _callback, opts);
+        Type localVarReturnType = new TypeToken<IntegrationCancellationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIcancelInstanceRequest {
-        private final String runId;
+        private final CancelRunRequest cancelRunRequest;
 
-        private APIcancelInstanceRequest(String runId) {
-            this.runId = runId;
+        private APIcancelInstanceRequest(CancelRunRequest cancelRunRequest) {
+            this.cancelRunRequest = cancelRunRequest;
         }
 
         /**
@@ -177,84 +179,84 @@ public class RunsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return cancelInstanceCall(runId, _callback);
+            return cancelInstanceCall(cancelRunRequest, _callback);
         }
 
         /**
          * Execute cancelInstance request
-         * @return Object
+         * @return IntegrationCancellationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Object execute() throws ApiException {
-            ApiResponse<Object> localVarResp = cancelInstanceWithHttpInfo(runId);
+        public IntegrationCancellationResponse execute() throws ApiException {
+            ApiResponse<IntegrationCancellationResponse> localVarResp = cancelInstanceWithHttpInfo(cancelRunRequest);
             return localVarResp.getData();
         }
 
         /**
          * Execute cancelInstance request. Use any specified configuration options to override any other configuration for this request only.
-         * @return Object
+         * @return IntegrationCancellationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Object execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Object> localVarResp = cancelInstanceWithHttpInfo(runId, opts);
+        public IntegrationCancellationResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<IntegrationCancellationResponse> localVarResp = cancelInstanceWithHttpInfo(cancelRunRequest, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute cancelInstance request with HTTP info returned
-         * @return ApiResponse&lt;Object&gt;
+         * @return ApiResponse&lt;IntegrationCancellationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Object> executeWithHttpInfo() throws ApiException {
-            return cancelInstanceWithHttpInfo(runId);
+        public ApiResponse<IntegrationCancellationResponse> executeWithHttpInfo() throws ApiException {
+            return cancelInstanceWithHttpInfo(cancelRunRequest);
         }
 
         /**
          * Execute cancelInstance request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;Object&gt;
+         * @return ApiResponse&lt;IntegrationCancellationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Object> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return cancelInstanceWithHttpInfo(runId, opts);
+        public ApiResponse<IntegrationCancellationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return cancelInstanceWithHttpInfo(cancelRunRequest, opts);
         }
 
         /**
@@ -265,14 +267,14 @@ public class RunsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Object> _callback) throws ApiException {
-            return cancelInstanceAsync(runId, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<IntegrationCancellationResponse> _callback) throws ApiException {
+            return cancelInstanceAsync(cancelRunRequest, _callback);
         }
 
         /**
@@ -283,33 +285,33 @@ public class RunsApi {
          * @http.response.details
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-            <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Object> _callback, ConfigurationOptions opts) throws ApiException {
-            return cancelInstanceAsync(runId, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<IntegrationCancellationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return cancelInstanceAsync(cancelRunRequest, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] CancelInstance: Cancels a single instance execution.
-     * Cancels an execution instance of an integration.  The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
-     * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
+     * [EXPERIMENTAL] CancelInstance: Cancels multiple instance executions.
+     * Cancels multiple execution instances of an integration. The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param cancelRunRequest Contains the run identifiers and a message to be set e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIcancelInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The instance was cancelled. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Some or all of the instances requested were cancelled. </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The execution does not exist. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> None of the executions does not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIcancelInstanceRequest cancelInstance(String runId) {
-        return new APIcancelInstanceRequest(runId);
+    public APIcancelInstanceRequest cancelInstance(CancelRunRequest cancelRunRequest) {
+        return new APIcancelInstanceRequest(cancelRunRequest);
     }
     private okhttp3.Call getRunResultsCall(String filter, List<String> sortBy, Integer limit, String pageToken, final ApiCallback _callback) throws ApiException {
         return getRunResultsCall(filter, sortBy, limit, pageToken,  _callback, new ConfigurationOptions());
@@ -451,7 +453,7 @@ public class RunsApi {
 
         /**
          * Set pageToken
-         * @param pageToken The pagination token to use to continue listing integration runs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. (optional, default to )
+         * @param pageToken The pagination token to use to continue listing integration runs; this value is returned from  the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request. (optional, default to )
          * @return APIgetRunResultsRequest
          */
         public APIgetRunResultsRequest pageToken(String pageToken) {
@@ -823,7 +825,7 @@ public class RunsApi {
 
     /**
      * [EXPERIMENTAL] RerunInstance: Reruns a single instance execution.
-     * Reruns an execution instance of an integration.  The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Reruns an execution instance of an integration. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIrerunInstanceRequest
      * @http.response.details
@@ -1069,7 +1071,7 @@ public class RunsApi {
 
     /**
      * [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution.
-     * Stops an execution instance of an External Client Application integration type.  The execution instance must be started, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * Stops an execution instance of an External Client Application integration type. The execution instance must be started, the user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId  (required)
      * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
      * @return APIstopInstanceExecutionRequest

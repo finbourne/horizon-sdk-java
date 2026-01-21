@@ -213,7 +213,7 @@ public class LogsApi {
 
         /**
          * Set pageToken
-         * @param pageToken The pagination token to use to continue listing integration logs; this value is returned from   the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request.   For more information, see https://support.lusid.com/knowledgebase/article/KA-01915. (optional, default to )
+         * @param pageToken The pagination token to use to continue listing integration logs; this value is returned from  the previous call. If a pagination token is provided, the &lt;i&gt;sortBy&lt;/i&gt; and &lt;i&gt;filter&lt;/i&gt; fields must not have changed since the original request.  For more information, see https://support.lusid.com/knowledgebase/article/KA-01915. (optional, default to )
          * @return APIgetIntegrationLogResultsRequest
          */
         public APIgetIntegrationLogResultsRequest pageToken(String pageToken) {

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **property** | [**LusidPropertyDefinition**](LusidPropertyDefinition.md) |  | [default to LusidPropertyDefinition]
 **vendorFields** | [**List&lt;VendorField&gt;**](VendorField.md) | Fields that will be used to map to this Property Definition | [default to List<VendorField>]
-**optionality** | [**Optionality**](Optionality.md) |  | [default to Optionality]
+**optionality** | **String** | Whether the Property is Mandatory, Suggested or Optional | [default to String]
 **entityType** | **String** | The LUSID Entity this is valid for | [default to String]
 **entitySubType** | **String** | The LUSID Entity sub type this is valid for | [optional] [default to String]
 **transformationDescription** | **String** | The transformation, if required, to map from VendorFields to the LUSID Property | [optional] [default to String]
@@ -21,7 +21,8 @@ import java.net.URI;
 
 LusidPropertyDefinition Property = new LusidPropertyDefinition();
 List<VendorField> VendorFields = new List<VendorField>();
-Optionality String EntityType = "example EntityType";
+String Optionality = "example Optionality";
+String EntityType = "example EntityType";
 @jakarta.annotation.Nullable String EntitySubType = "example EntitySubType";
 @jakarta.annotation.Nullable String TransformationDescription = "example TransformationDescription";
 List<String> Versions = new List<String>();

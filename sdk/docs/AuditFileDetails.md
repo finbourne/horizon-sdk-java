@@ -5,7 +5,7 @@ Holds information about Horizon Audit Files
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fileType** | [**AuditFileType**](AuditFileType.md) |  | [default to AuditFileType]
+**fileType** | **String** | The type of the audit file | [default to String]
 **filePathAndName** | **String** | The file path and name | [default to String]
 
 ```java
@@ -14,7 +14,8 @@ import java.util.*;
 import java.lang.System;
 import java.net.URI;
 
-AuditFileType String FilePathAndName = "example FilePathAndName";
+String FileType = "example FileType";
+String FilePathAndName = "example FilePathAndName";
 
 
 AuditFileDetails auditFileDetailsInstance = new AuditFileDetails()

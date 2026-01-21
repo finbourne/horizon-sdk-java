@@ -18,6 +18,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,60 +47,43 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Holds information about Horizon Audit Files
+ * IntegrationCancellationResponse
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class AuditFileDetails {
-  public static final String SERIALIZED_NAME_FILE_TYPE = "fileType";
-  @SerializedName(SERIALIZED_NAME_FILE_TYPE)
-  private String fileType;
+public class IntegrationCancellationResponse {
+  public static final String SERIALIZED_NAME_RESPONSE = "response";
+  @SerializedName(SERIALIZED_NAME_RESPONSE)
+  private Map<String, String> response = new HashMap<>();
 
-  public static final String SERIALIZED_NAME_FILE_PATH_AND_NAME = "filePathAndName";
-  @SerializedName(SERIALIZED_NAME_FILE_PATH_AND_NAME)
-  private String filePathAndName;
-
-  public AuditFileDetails() {
+  public IntegrationCancellationResponse() {
   }
 
-  public AuditFileDetails fileType(String fileType) {
+  public IntegrationCancellationResponse response(Map<String, String> response) {
     
-    this.fileType = fileType;
+    this.response = response;
+    return this;
+  }
+
+  public IntegrationCancellationResponse putResponseItem(String key, String responseItem) {
+    if (this.response == null) {
+      this.response = new HashMap<>();
+    }
+    this.response.put(key, responseItem);
     return this;
   }
 
    /**
-   * The type of the audit file
-   * @return fileType
+   * Get response
+   * @return response
   **/
   @jakarta.annotation.Nonnull
-  public String getFileType() {
-    return fileType;
+  public Map<String, String> getResponse() {
+    return response;
   }
 
 
-  public void setFileType(String fileType) {
-    this.fileType = fileType;
-  }
-
-
-  public AuditFileDetails filePathAndName(String filePathAndName) {
-    
-    this.filePathAndName = filePathAndName;
-    return this;
-  }
-
-   /**
-   * The file path and name
-   * @return filePathAndName
-  **/
-  @jakarta.annotation.Nonnull
-  public String getFilePathAndName() {
-    return filePathAndName;
-  }
-
-
-  public void setFilePathAndName(String filePathAndName) {
-    this.filePathAndName = filePathAndName;
+  public void setResponse(Map<String, String> response) {
+    this.response = response;
   }
 
 
@@ -111,22 +96,20 @@ public class AuditFileDetails {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AuditFileDetails auditFileDetails = (AuditFileDetails) o;
-    return Objects.equals(this.fileType, auditFileDetails.fileType) &&
-        Objects.equals(this.filePathAndName, auditFileDetails.filePathAndName);
+    IntegrationCancellationResponse integrationCancellationResponse = (IntegrationCancellationResponse) o;
+    return Objects.equals(this.response, integrationCancellationResponse.response);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileType, filePathAndName);
+    return Objects.hash(response);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AuditFileDetails {\n");
-    sb.append("    fileType: ").append(toIndentedString(fileType)).append("\n");
-    sb.append("    filePathAndName: ").append(toIndentedString(filePathAndName)).append("\n");
+    sb.append("class IntegrationCancellationResponse {\n");
+    sb.append("    response: ").append(toIndentedString(response)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -149,63 +132,55 @@ public class AuditFileDetails {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("fileType");
-    openapiFields.add("filePathAndName");
+    openapiFields.add("response");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("fileType");
-    openapiRequiredFields.add("filePathAndName");
+    openapiRequiredFields.add("response");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to AuditFileDetails
+  * @throws IOException if the JSON Element is invalid with respect to IntegrationCancellationResponse
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!AuditFileDetails.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in AuditFileDetails is not found in the empty JSON string", AuditFileDetails.openapiRequiredFields.toString()));
+        if (!IntegrationCancellationResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in IntegrationCancellationResponse is not found in the empty JSON string", IntegrationCancellationResponse.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : AuditFileDetails.openapiRequiredFields) {
+      for (String requiredField : IntegrationCancellationResponse.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("fileType").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `fileType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fileType").toString()));
-      }
-      if (!jsonObj.get("filePathAndName").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `filePathAndName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("filePathAndName").toString()));
-      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!AuditFileDetails.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'AuditFileDetails' and its subtypes
+       if (!IntegrationCancellationResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'IntegrationCancellationResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<AuditFileDetails> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(AuditFileDetails.class));
+       final TypeAdapter<IntegrationCancellationResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(IntegrationCancellationResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<AuditFileDetails>() {
+       return (TypeAdapter<T>) new TypeAdapter<IntegrationCancellationResponse>() {
            @Override
-           public void write(JsonWriter out, AuditFileDetails value) throws IOException {
+           public void write(JsonWriter out, IntegrationCancellationResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public AuditFileDetails read(JsonReader in) throws IOException {
+           public IntegrationCancellationResponse read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -216,18 +191,18 @@ public class AuditFileDetails {
   }
 
  /**
-  * Create an instance of AuditFileDetails given an JSON string
+  * Create an instance of IntegrationCancellationResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of AuditFileDetails
-  * @throws IOException if the JSON string is invalid with respect to AuditFileDetails
+  * @return An instance of IntegrationCancellationResponse
+  * @throws IOException if the JSON string is invalid with respect to IntegrationCancellationResponse
   */
-  public static AuditFileDetails fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, AuditFileDetails.class);
+  public static IntegrationCancellationResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, IntegrationCancellationResponse.class);
   }
 
  /**
-  * Convert an instance of AuditFileDetails to an JSON string
+  * Convert an instance of IntegrationCancellationResponse to an JSON string
   *
   * @return JSON string
   */

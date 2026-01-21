@@ -80,7 +80,7 @@ public class LusidPropertyDefinitionOverridesResponse {
   }
 
    /**
-   * The action performed on this property. \&quot;upsert\&quot; for setting values for new and existing   properties. \&quot;delete\&quot; for existing properties that were removed
+   * The action performed on this property. \&quot;upsert\&quot; for setting values for new and existing  properties. \&quot;delete\&quot; for existing properties that were removed
    * @return action
   **/
   @jakarta.annotation.Nonnull

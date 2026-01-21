@@ -50,42 +50,105 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Mapping from a set of VendorFields to a LUSID Property
+ * IPropertyMapping
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class PropertyMapping {
-  public static final String SERIALIZED_NAME_PROPERTY = "property";
-  @SerializedName(SERIALIZED_NAME_PROPERTY)
-  private LusidPropertyDefinition property;
-
-  public static final String SERIALIZED_NAME_VENDOR_FIELDS = "vendorFields";
-  @SerializedName(SERIALIZED_NAME_VENDOR_FIELDS)
-  private List<VendorField> vendorFields = new ArrayList<>();
-
-  public static final String SERIALIZED_NAME_OPTIONALITY = "optionality";
-  @SerializedName(SERIALIZED_NAME_OPTIONALITY)
-  private String optionality;
+public class IPropertyMapping {
+  public static final String SERIALIZED_NAME_ENTITY_SUB_TYPE = "entitySubType";
+  @SerializedName(SERIALIZED_NAME_ENTITY_SUB_TYPE)
+  private String entitySubType;
 
   public static final String SERIALIZED_NAME_ENTITY_TYPE = "entityType";
   @SerializedName(SERIALIZED_NAME_ENTITY_TYPE)
   private String entityType;
 
-  public static final String SERIALIZED_NAME_ENTITY_SUB_TYPE = "entitySubType";
-  @SerializedName(SERIALIZED_NAME_ENTITY_SUB_TYPE)
-  private String entitySubType;
+  public static final String SERIALIZED_NAME_OPTIONALITY = "optionality";
+  @SerializedName(SERIALIZED_NAME_OPTIONALITY)
+  private String optionality;
+
+  public static final String SERIALIZED_NAME_PROPERTY = "property";
+  @SerializedName(SERIALIZED_NAME_PROPERTY)
+  private LusidPropertyDefinition property;
 
   public static final String SERIALIZED_NAME_TRANSFORMATION_DESCRIPTION = "transformationDescription";
   @SerializedName(SERIALIZED_NAME_TRANSFORMATION_DESCRIPTION)
   private String transformationDescription;
 
+  public static final String SERIALIZED_NAME_VENDOR_FIELDS = "vendorFields";
+  @SerializedName(SERIALIZED_NAME_VENDOR_FIELDS)
+  private List<VendorField> vendorFields = new ArrayList<>();
+
   public static final String SERIALIZED_NAME_VERSIONS = "versions";
   @SerializedName(SERIALIZED_NAME_VERSIONS)
   private List<String> versions = new ArrayList<>();
 
-  public PropertyMapping() {
+  public IPropertyMapping() {
   }
 
-  public PropertyMapping property(LusidPropertyDefinition property) {
+  public IPropertyMapping entitySubType(String entitySubType) {
+    
+    this.entitySubType = entitySubType;
+    return this;
+  }
+
+   /**
+   * Get entitySubType
+   * @return entitySubType
+  **/
+  @jakarta.annotation.Nullable
+  public String getEntitySubType() {
+    return entitySubType;
+  }
+
+
+  public void setEntitySubType(String entitySubType) {
+    this.entitySubType = entitySubType;
+  }
+
+
+  public IPropertyMapping entityType(String entityType) {
+    
+    this.entityType = entityType;
+    return this;
+  }
+
+   /**
+   * Get entityType
+   * @return entityType
+  **/
+  @jakarta.annotation.Nonnull
+  public String getEntityType() {
+    return entityType;
+  }
+
+
+  public void setEntityType(String entityType) {
+    this.entityType = entityType;
+  }
+
+
+  public IPropertyMapping optionality(String optionality) {
+    
+    this.optionality = optionality;
+    return this;
+  }
+
+   /**
+   * Get optionality
+   * @return optionality
+  **/
+  @jakarta.annotation.Nonnull
+  public String getOptionality() {
+    return optionality;
+  }
+
+
+  public void setOptionality(String optionality) {
+    this.optionality = optionality;
+  }
+
+
+  public IPropertyMapping property(LusidPropertyDefinition property) {
     
     this.property = property;
     return this;
@@ -106,106 +169,14 @@ public class PropertyMapping {
   }
 
 
-  public PropertyMapping vendorFields(List<VendorField> vendorFields) {
-    
-    this.vendorFields = vendorFields;
-    return this;
-  }
-
-  public PropertyMapping addVendorFieldsItem(VendorField vendorFieldsItem) {
-    if (this.vendorFields == null) {
-      this.vendorFields = new ArrayList<>();
-    }
-    this.vendorFields.add(vendorFieldsItem);
-    return this;
-  }
-
-   /**
-   * Fields that will be used to map to this Property Definition
-   * @return vendorFields
-  **/
-  @jakarta.annotation.Nonnull
-  public List<VendorField> getVendorFields() {
-    return vendorFields;
-  }
-
-
-  public void setVendorFields(List<VendorField> vendorFields) {
-    this.vendorFields = vendorFields;
-  }
-
-
-  public PropertyMapping optionality(String optionality) {
-    
-    this.optionality = optionality;
-    return this;
-  }
-
-   /**
-   * Whether the Property is Mandatory, Suggested or Optional
-   * @return optionality
-  **/
-  @jakarta.annotation.Nonnull
-  public String getOptionality() {
-    return optionality;
-  }
-
-
-  public void setOptionality(String optionality) {
-    this.optionality = optionality;
-  }
-
-
-  public PropertyMapping entityType(String entityType) {
-    
-    this.entityType = entityType;
-    return this;
-  }
-
-   /**
-   * The LUSID Entity this is valid for
-   * @return entityType
-  **/
-  @jakarta.annotation.Nonnull
-  public String getEntityType() {
-    return entityType;
-  }
-
-
-  public void setEntityType(String entityType) {
-    this.entityType = entityType;
-  }
-
-
-  public PropertyMapping entitySubType(String entitySubType) {
-    
-    this.entitySubType = entitySubType;
-    return this;
-  }
-
-   /**
-   * The LUSID Entity sub type this is valid for
-   * @return entitySubType
-  **/
-  @jakarta.annotation.Nullable
-  public String getEntitySubType() {
-    return entitySubType;
-  }
-
-
-  public void setEntitySubType(String entitySubType) {
-    this.entitySubType = entitySubType;
-  }
-
-
-  public PropertyMapping transformationDescription(String transformationDescription) {
+  public IPropertyMapping transformationDescription(String transformationDescription) {
     
     this.transformationDescription = transformationDescription;
     return this;
   }
 
    /**
-   * The transformation, if required, to map from VendorFields to the LUSID Property
+   * Get transformationDescription
    * @return transformationDescription
   **/
   @jakarta.annotation.Nullable
@@ -219,13 +190,42 @@ public class PropertyMapping {
   }
 
 
-  public PropertyMapping versions(List<String> versions) {
+  public IPropertyMapping vendorFields(List<VendorField> vendorFields) {
+    
+    this.vendorFields = vendorFields;
+    return this;
+  }
+
+  public IPropertyMapping addVendorFieldsItem(VendorField vendorFieldsItem) {
+    if (this.vendorFields == null) {
+      this.vendorFields = new ArrayList<>();
+    }
+    this.vendorFields.add(vendorFieldsItem);
+    return this;
+  }
+
+   /**
+   * Get vendorFields
+   * @return vendorFields
+  **/
+  @jakarta.annotation.Nonnull
+  public List<VendorField> getVendorFields() {
+    return vendorFields;
+  }
+
+
+  public void setVendorFields(List<VendorField> vendorFields) {
+    this.vendorFields = vendorFields;
+  }
+
+
+  public IPropertyMapping versions(List<String> versions) {
     
     this.versions = versions;
     return this;
   }
 
-  public PropertyMapping addVersionsItem(String versionsItem) {
+  public IPropertyMapping addVersionsItem(String versionsItem) {
     if (this.versions == null) {
       this.versions = new ArrayList<>();
     }
@@ -234,7 +234,7 @@ public class PropertyMapping {
   }
 
    /**
-   * The versions of the Vendor integration this mapping is valid for
+   * Get versions
    * @return versions
   **/
   @jakarta.annotation.Nonnull
@@ -257,14 +257,14 @@ public class PropertyMapping {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PropertyMapping propertyMapping = (PropertyMapping) o;
-    return Objects.equals(this.property, propertyMapping.property) &&
-        Objects.equals(this.vendorFields, propertyMapping.vendorFields) &&
-        Objects.equals(this.optionality, propertyMapping.optionality) &&
-        Objects.equals(this.entityType, propertyMapping.entityType) &&
-        Objects.equals(this.entitySubType, propertyMapping.entitySubType) &&
-        Objects.equals(this.transformationDescription, propertyMapping.transformationDescription) &&
-        Objects.equals(this.versions, propertyMapping.versions);
+    IPropertyMapping ipropertyMapping = (IPropertyMapping) o;
+    return Objects.equals(this.entitySubType, ipropertyMapping.entitySubType) &&
+        Objects.equals(this.entityType, ipropertyMapping.entityType) &&
+        Objects.equals(this.optionality, ipropertyMapping.optionality) &&
+        Objects.equals(this.property, ipropertyMapping.property) &&
+        Objects.equals(this.transformationDescription, ipropertyMapping.transformationDescription) &&
+        Objects.equals(this.vendorFields, ipropertyMapping.vendorFields) &&
+        Objects.equals(this.versions, ipropertyMapping.versions);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -273,7 +273,7 @@ public class PropertyMapping {
 
   @Override
   public int hashCode() {
-    return Objects.hash(property, vendorFields, optionality, entityType, entitySubType, transformationDescription, versions);
+    return Objects.hash(entitySubType, entityType, optionality, property, transformationDescription, vendorFields, versions);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -286,13 +286,13 @@ public class PropertyMapping {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PropertyMapping {\n");
-    sb.append("    property: ").append(toIndentedString(property)).append("\n");
-    sb.append("    vendorFields: ").append(toIndentedString(vendorFields)).append("\n");
-    sb.append("    optionality: ").append(toIndentedString(optionality)).append("\n");
-    sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
+    sb.append("class IPropertyMapping {\n");
     sb.append("    entitySubType: ").append(toIndentedString(entitySubType)).append("\n");
+    sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
+    sb.append("    optionality: ").append(toIndentedString(optionality)).append("\n");
+    sb.append("    property: ").append(toIndentedString(property)).append("\n");
     sb.append("    transformationDescription: ").append(toIndentedString(transformationDescription)).append("\n");
+    sb.append("    vendorFields: ").append(toIndentedString(vendorFields)).append("\n");
     sb.append("    versions: ").append(toIndentedString(versions)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -316,20 +316,20 @@ public class PropertyMapping {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("property");
-    openapiFields.add("vendorFields");
-    openapiFields.add("optionality");
-    openapiFields.add("entityType");
     openapiFields.add("entitySubType");
+    openapiFields.add("entityType");
+    openapiFields.add("optionality");
+    openapiFields.add("property");
     openapiFields.add("transformationDescription");
+    openapiFields.add("vendorFields");
     openapiFields.add("versions");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("entityType");
+    openapiRequiredFields.add("optionality");
     openapiRequiredFields.add("property");
     openapiRequiredFields.add("vendorFields");
-    openapiRequiredFields.add("optionality");
-    openapiRequiredFields.add("entityType");
     openapiRequiredFields.add("versions");
   }
 
@@ -337,24 +337,36 @@ public class PropertyMapping {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to PropertyMapping
+  * @throws IOException if the JSON Element is invalid with respect to IPropertyMapping
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!PropertyMapping.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PropertyMapping is not found in the empty JSON string", PropertyMapping.openapiRequiredFields.toString()));
+        if (!IPropertyMapping.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in IPropertyMapping is not found in the empty JSON string", IPropertyMapping.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : PropertyMapping.openapiRequiredFields) {
+      for (String requiredField : IPropertyMapping.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("entitySubType") != null && !jsonObj.get("entitySubType").isJsonNull()) && !jsonObj.get("entitySubType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `entitySubType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("entitySubType").toString()));
+      }
+      if (!jsonObj.get("entityType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `entityType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("entityType").toString()));
+      }
+      if (!jsonObj.get("optionality").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `optionality` to be a primitive type in the JSON string but got `%s`", jsonObj.get("optionality").toString()));
+      }
       // validate the required field `property`
       LusidPropertyDefinition.validateJsonElement(jsonObj.get("property"));
+      if ((jsonObj.get("transformationDescription") != null && !jsonObj.get("transformationDescription").isJsonNull()) && !jsonObj.get("transformationDescription").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `transformationDescription` to be a primitive type in the JSON string but got `%s`", jsonObj.get("transformationDescription").toString()));
+      }
       // ensure the json data is an array
       if (!jsonObj.get("vendorFields").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `vendorFields` to be an array in the JSON string but got `%s`", jsonObj.get("vendorFields").toString()));
@@ -365,18 +377,6 @@ public class PropertyMapping {
       for (int i = 0; i < jsonArrayvendorFields.size(); i++) {
         VendorField.validateJsonElement(jsonArrayvendorFields.get(i));
       };
-      if (!jsonObj.get("optionality").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `optionality` to be a primitive type in the JSON string but got `%s`", jsonObj.get("optionality").toString()));
-      }
-      if (!jsonObj.get("entityType").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `entityType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("entityType").toString()));
-      }
-      if ((jsonObj.get("entitySubType") != null && !jsonObj.get("entitySubType").isJsonNull()) && !jsonObj.get("entitySubType").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `entitySubType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("entitySubType").toString()));
-      }
-      if ((jsonObj.get("transformationDescription") != null && !jsonObj.get("transformationDescription").isJsonNull()) && !jsonObj.get("transformationDescription").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `transformationDescription` to be a primitive type in the JSON string but got `%s`", jsonObj.get("transformationDescription").toString()));
-      }
       // ensure the required json array is present
       if (jsonObj.get("versions") == null) {
         throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
@@ -389,22 +389,22 @@ public class PropertyMapping {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PropertyMapping.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PropertyMapping' and its subtypes
+       if (!IPropertyMapping.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'IPropertyMapping' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PropertyMapping> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PropertyMapping.class));
+       final TypeAdapter<IPropertyMapping> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(IPropertyMapping.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<PropertyMapping>() {
+       return (TypeAdapter<T>) new TypeAdapter<IPropertyMapping>() {
            @Override
-           public void write(JsonWriter out, PropertyMapping value) throws IOException {
+           public void write(JsonWriter out, IPropertyMapping value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public PropertyMapping read(JsonReader in) throws IOException {
+           public IPropertyMapping read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -415,18 +415,18 @@ public class PropertyMapping {
   }
 
  /**
-  * Create an instance of PropertyMapping given an JSON string
+  * Create an instance of IPropertyMapping given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of PropertyMapping
-  * @throws IOException if the JSON string is invalid with respect to PropertyMapping
+  * @return An instance of IPropertyMapping
+  * @throws IOException if the JSON string is invalid with respect to IPropertyMapping
   */
-  public static PropertyMapping fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PropertyMapping.class);
+  public static IPropertyMapping fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, IPropertyMapping.class);
   }
 
  /**
-  * Convert an instance of PropertyMapping to an JSON string
+  * Convert an instance of IPropertyMapping to an JSON string
   *
   * @return JSON string
   */

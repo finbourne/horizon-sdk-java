@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **vendorField** | **String** |  | [default to String]
 **vendorPackage** | **String** |  | [default to String]
 **vendorNamespace** | **String** |  | [default to String]
-**optionality** | [**Optionality**](Optionality.md) |  | [default to Optionality]
+**optionality** | **String** |  | [default to String]
 
 ```java
 import com.finbourne.horizon.model.LusidPropertyToVendorFieldMapping;
@@ -21,7 +21,8 @@ LusidPropertyDefinition Property = new LusidPropertyDefinition();
 String VendorField = "example VendorField";
 String VendorPackage = "example VendorPackage";
 String VendorNamespace = "example VendorNamespace";
-Optionality 
+String Optionality = "example Optionality";
+
 
 LusidPropertyToVendorFieldMapping lusidPropertyToVendorFieldMappingInstance = new LusidPropertyToVendorFieldMapping()
     .Property(Property)

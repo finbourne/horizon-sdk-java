@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   contact:
     email: info@finbourne.com
@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.2598
+  version: 0.1.2972
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -501,10 +501,11 @@ paths:
       x-accepts: application/json
   /api/integrations:
     get:
-      description: "List all available integrations.\r\n```\"licensed\"``` indicates\
-        \ your domain is licensed to use this integration. To request a licence\r\n\
-        contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).\r\
-        \nAny authenticated user can call this method."
+      description: |-
+        List all available integrations.
+        ```"licensed"``` indicates your domain is licensed to use this integration. To request a licence
+        contact your [FINBOURNE sales representative](https://www.finbourne.com/contact/).
+        Any authenticated user can call this method.
       operationId: ListIntegrations
       responses:
         "200":
@@ -692,10 +693,316 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/integrations/instances:
+  /api/integrations/configuration/{integration}/fields:
     get:
       description: "The user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+        \ but the user's domain does not need to be licensed for the integration."
+      operationId: GetIntegrationConfigurationFields
+      parameters:
+      - explode: false
+        in: path
+        name: integration
+        required: true
+        schema:
+          maxLength: 128
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: pageToken
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - fieldName: Instrument.Identifiers:Instrument/default/Ticker
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: TICKER
+                  transformationDescription: ""
+                  entityType: Instrument
+                  entitySubType: Equity
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - fieldName: Instrument.Identifiers:Instrument/default/VendorID
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: VendorID
+                  transformationDescription: ""
+                  entityType: Instrument
+                  entitySubType: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - fieldName: Instrument.Identifiers:Instrument/default/Cusip
+                  defaultValue: ""
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: Cusip
+                  - package: SecurityMaster
+                    field: Cusip_Type
+                  - package: SecurityMaster
+                    field: "CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
+                  transformationDescription: "If CUSIP_TYPE is 'CUSIP' or 'PPN' then\
+                    \ set from CUSIP field. Otherwise use CUSIP2_set/CUSIP2_record[CODE='A']/IDENTIFIER"
+                  entityType: Instrument
+                  entitySubType: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                href: http://www.lusid.com/horizon/integrations
+                nextPage: nextPage
+                previousPage: prevPage
+                links:
+                - relation: NextPage
+                  href: http://www.lusid.com/horizon/integrations
+                  method: GET
+                - relation: PreviousPage
+                  href: http://www.lusid.com/horizon/integrations
+                  method: GET
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfIFieldMapping'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested integration does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping\
+        \ configuration for a given integration"
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/configuration/{integration}/properties:
+    get:
+      description: "The user must be authenticated, entitled to call this method,\
+        \ but the user's domain does not need to be licensed for the integration."
+      operationId: GetIntegrationConfigurationProperties
+      parameters:
+      - explode: false
+        in: path
+        name: integration
+        required: true
+        schema:
+          maxLength: 128
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: pageToken
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - property:
+                    key: Instrument/TestVendor/CreditRating
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: CreditRating
+                    displayName: Credit Rating
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Instrument Credit Rating
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: INSTRUMENT_CREDIT_RATING
+                  optionality: Optional
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - property:
+                    key: Instrument/TestVendor/SourceFile
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: SourceFile
+                    displayName: Source File
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Source File
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: SOURCE_FILE
+                  optionality: Mandatory
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                - property:
+                    key: Instrument/TestVendor/ExchangeCode
+                    productEntityItemKey: o
+                    domain: Instrument
+                    scope: TestVendor
+                    code: ExchangeCode
+                    displayName: Exchange Code
+                    dataTypeId:
+                      scope: system
+                      code: string
+                    description: Code for the exchange
+                    lifetime: TimeVariant
+                    constraintStyle: Property
+                  vendorFields:
+                  - package: SecurityMaster
+                    field: TNC_ExchangeCode
+                  optionality: Mandatory
+                  entityType: Instrument
+                  entitySubType: ""
+                  transformationDescription: ""
+                  versions:
+                  - "1.1"
+                  - "1.2"
+                href: http://www.lusid.com/horizon/integrations
+                nextPage: nextPage
+                previousPage: prevPage
+                links:
+                - relation: NextPage
+                  href: http://www.lusid.com/horizon/integrations
+                  method: GET
+                - relation: PreviousPage
+                  href: http://www.lusid.com/horizon/integrations
+                  method: GET
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfIPropertyMapping'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested integration does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property\
+        \ Mapping configuration for a given integration"
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/instances:
+    get:
+      description: The user must be authenticated to call this method.
       operationId: ListInstances
       responses:
         "200":
@@ -739,9 +1046,9 @@ paths:
       x-fbn-apistatus: Experimental
       x-accepts: application/json
     post:
-      description: "Creates a new instance of an integration, returning its identifier.\r\
-        \nThe user must be authenticated, entitled to call this method, and the user's\
-        \ domain must be licensed for the integration."
+      description: |-
+        Creates a new instance of an integration, returning its identifier.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: CreateInstance
       requestBody:
         content:
@@ -956,9 +1263,9 @@ paths:
       x-accepts: application/json
   /api/integrations/instances/{instanceId}:
     delete:
-      description: "Deletes an existing instance of an integration, returning its\
-        \ identifier.\r\nThe user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+      description: |-
+        Deletes an existing instance of an integration, returning its identifier.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: DeleteInstance
       parameters:
       - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -996,10 +1303,69 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+    get:
+      description: The user must be authenticated to call this method.
+      operationId: GetInstance
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 128
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: b64135e7-98a0-41af-a845-d86167d54cc7
+                integrationType: copp-clark
+                name: Payment systems
+                description: Payment systems calendar for GBP only
+                enabled: true
+                triggers:
+                - type: time
+                  cronExpression: 0 0 2 ? docker-compose.yml Dockerfile Dockerfile.cicd
+                    docs generate justfile LICENSE.md publish README.md resources
+                    test_sdk *
+                  timeZone: UTC
+                details:
+                  paymentSystemsCalendar:
+                    currencyFilter:
+                    - GBP
+                    importUnqualified: false
+              schema:
+                $ref: '#/components/schemas/IntegrationInstanceResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested instance does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
     put:
-      description: "Updates an existing instance of an integration, returning its\
-        \ identifier.\r\nThe user must be authenticated, entitled to call this method,\
-        \ and the user's domain must be licensed for the integration."
+      description: |-
+        Updates an existing instance of an integration, returning its identifier.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: UpdateInstance
       parameters:
       - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -1063,9 +1429,9 @@ paths:
       x-accepts: application/json
   /api/integrations/instances/{instanceId}/execute:
     post:
-      description: "Starts execution of an instance, returning its execution identifier.\r\
-        \nThe user must be authenticated, entitled to call this method, and the user's\
-        \ domain must be licensed for the integration."
+      description: |-
+        Starts execution of an instance, returning its execution identifier.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: ExecuteInstance
       parameters:
       - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -1111,9 +1477,9 @@ paths:
       x-accepts: application/json
   /api/integrations/instances/{instanceId}/executewithparams:
     post:
-      description: "Starts execution of an instance, returning its execution identifier.\r\
-        \nThe user must be authenticated, entitled to call this method, and the user's\
-        \ domain must be licensed for the integration."
+      description: |-
+        Starts execution of an instance, returning its execution identifier.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: ExecuteInstanceWithParams
       parameters:
       - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -1174,9 +1540,9 @@ paths:
       x-accepts: application/json
   /api/integrations/instances/{instanceId}/executions:
     get:
-      description: "Get the most recent execution ids for an integration instance.\r\
-        \nThe user must be authenticated, entitled to call this method, and the user's\
-        \ domain must be licensed for the integration."
+      description: |-
+        Get the most recent execution ids for an integration instance.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: GetExecutionIdsForInstance
       parameters:
       - description: Instance identifier e.g. "30dc93c6-a127-46bf-aea8-e466d720b72d".
@@ -1319,11 +1685,10 @@ paths:
           type: integer
         style: form
         x-nullable: true
-      - description: "The pagination token to use to continue listing integration\
-          \ logs; this value is returned from\r\n the previous call. If a pagination\
-          \ token is provided, the <i>sortBy</i> and <i>filter</i> fields must not\
-          \ have changed since the original request.\r\n For more information, see\
-          \ https://support.lusid.com/knowledgebase/article/KA-01915."
+      - description: |-
+          The pagination token to use to continue listing integration logs; this value is returned from
+           the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
+           For more information, see https://support.lusid.com/knowledgebase/article/KA-01915.
         explode: true
         in: query
         name: pageToken
@@ -1859,10 +2224,9 @@ paths:
           type: integer
         style: form
         x-nullable: true
-      - description: "The pagination token to use to continue listing integration\
-          \ runs; this value is returned from\r\n the previous call. If a pagination\
-          \ token is provided, the <i>sortBy</i> and <i>filter</i> fields must not\
-          \ have changed since the original request."
+      - description: |-
+          The pagination token to use to continue listing integration runs; this value is returned from
+           the previous call. If a pagination token is provided, the <i>sortBy</i> and <i>filter</i> fields must not have changed since the original request.
         explode: true
         in: query
         name: pageToken
@@ -1902,12 +2266,62 @@ paths:
       - Runs
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/runs/cancel:
+    put:
+      description: |-
+        Cancels multiple execution instances of an integration.
+        The execution instance must be queued, the user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
+      operationId: CancelInstance
+      requestBody:
+        content:
+          application/json:
+            example:
+              runIds:
+              - bf27beab-f542-45ed-98b2-3f80567b3a07
+              - c6fb2b2c-e19e-4826-96f6-7ffe9b11709e
+              - 44a78681-b886-4569-8b9a-924e5a064e38
+              message: Reason for manual cancellation.
+            schema:
+              $ref: '#/components/schemas/CancelRunRequest'
+        description: Contains the run identifiers and a message to be set e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                response:
+                  "44a78681-b886-4569-8b9a-924e5a064e38": Succeeded
+              schema:
+                $ref: '#/components/schemas/IntegrationCancellationResponse'
+          description: Some or all of the instances requested were cancelled.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: None of the executions does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CancelInstance: Cancels multiple instance executions."
+      tags:
+      - Runs
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
   /api/runs/{instanceId}/{runId}/stop:
     put:
-      description: "Stops an execution instance of an External Client Application\
-        \ integration type.\r\nThe execution instance must be started, the user must\
-        \ be authenticated, entitled to call this method, and the user's domain must\
-        \ be licensed for the integration."
+      description: |-
+        Stops an execution instance of an External Client Application integration type.
+        The execution instance must be started, the user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: StopInstanceExecution
       parameters:
       - explode: false
@@ -1959,56 +2373,11 @@ paths:
       - Runs
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/runs/{runId}/cancel:
-    put:
-      description: "Cancels an execution instance of an integration.\r\nThe execution\
-        \ instance must be queued, the user must be authenticated, entitled to call\
-        \ this method, and the user's domain must be licensed for the integration."
-      operationId: CancelInstance
-      parameters:
-      - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
-        explode: false
-        in: path
-        name: runId
-        required: true
-        schema:
-          maxLength: 36
-          minLength: 36
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IntegrationCancellationResponse'
-          description: The instance was cancelled.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: The execution does not exist.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] CancelInstance: Cancels a single instance execution."
-      tags:
-      - Runs
-      x-fbn-apistatus: Experimental
-      x-accepts: application/json
   /api/runs/{runId}/rerun:
     put:
-      description: "Reruns an execution instance of an integration.\r\nThe user must\
-        \ be authenticated, entitled to call this method, and the user's domain must\
-        \ be licensed for the integration."
+      description: |-
+        Reruns an execution instance of an integration.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
       operationId: RerunInstance
       parameters:
       - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
@@ -2539,9 +2908,9 @@ components:
       example:
         auditFiles:
         - filePathAndName: filePathAndName
-          fileType: null
+          fileType: fileType
         - filePathAndName: filePathAndName
-          fileType: null
+          fileType: fileType
         rowsFailed: 1
         schedulerRunId: schedulerRunId
         rowsIgnored: 5
@@ -2553,7 +2922,7 @@ components:
         startTime: 2000-01-23T04:56:07.000+00:00
         id: id
         endTime: 2000-01-23T04:56:07.000+00:00
-        status: null
+        status: status
       properties:
         id:
           description: A unique ID identifiying the source of the event
@@ -2584,7 +2953,10 @@ components:
           minLength: 0
           type: string
         status:
-          $ref: '#/components/schemas/AuditCompleteStatus'
+          description: The final status of the run
+          maxLength: 1024
+          minLength: 0
+          type: string
         rowsTotal:
           description: The number of data rows operated on
           format: int32
@@ -2638,22 +3010,18 @@ components:
       required:
       - processName
       type: object
-    AuditCompleteStatus:
-      description: The set of available completion statuses
-      enum:
-      - Succeeded
-      - Completed
-      - Error
-      type: string
     AuditFileDetails:
       additionalProperties: false
       description: Holds information about Horizon Audit Files
       example:
         filePathAndName: filePathAndName
-        fileType: null
+        fileType: fileType
       properties:
         fileType:
-          $ref: '#/components/schemas/AuditFileType'
+          description: The type of the audit file
+          maxLength: 1024
+          minLength: 0
+          type: string
         filePathAndName:
           description: The file path and name
           maxLength: 1024
@@ -2663,13 +3031,6 @@ components:
       - filePathAndName
       - fileType
       type: object
-    AuditFileType:
-      description: Available Horizon Audit File Types
-      enum:
-      - SourceData
-      - Info
-      - Error
-      type: string
     AuditUpdateRequest:
       additionalProperties: false
       description: An incoming request for a Horizon Update Event
@@ -2729,6 +3090,26 @@ components:
           type: string
       required:
       - processName
+      type: object
+    CancelRunRequest:
+      additionalProperties: false
+      example:
+        runIds:
+        - runIds
+        - runIds
+        message: message
+      properties:
+        runIds:
+          items:
+            type: string
+          type: array
+        message:
+          maxLength: 1024
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - runIds
       type: object
     CreateInstanceRequest:
       additionalProperties: false
@@ -3057,6 +3438,50 @@ components:
       required:
       - lusidInstrumentIds
       type: object
+    IFieldMapping:
+      additionalProperties: false
+      example:
+        fieldName: fieldName
+        versions:
+        - versions
+        - versions
+        defaultValue: defaultValue
+        entityType: entityType
+        entitySubType: entitySubType
+        vendorFields:
+        - package: package
+          field: field
+        - package: package
+          field: field
+        transformationDescription: transformationDescription
+      properties:
+        defaultValue:
+          nullable: true
+          type: string
+        entitySubType:
+          nullable: true
+          type: string
+        entityType:
+          type: string
+        fieldName:
+          type: string
+        transformationDescription:
+          nullable: true
+          type: string
+        vendorFields:
+          items:
+            $ref: '#/components/schemas/VendorField'
+          type: array
+        versions:
+          items:
+            type: string
+          type: array
+      required:
+      - entityType
+      - fieldName
+      - vendorFields
+      - versions
+      type: object
     IIntegrationLogResponse:
       additionalProperties: false
       example:
@@ -3163,6 +3588,16 @@ components:
       type: object
     IntegrationCancellationResponse:
       additionalProperties: false
+      example:
+        response:
+          key: response
+      properties:
+        response:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - response
       type: object
     IntegrationDescription:
       additionalProperties: false
@@ -3239,6 +3674,55 @@ components:
           type: boolean
         triggers:
           description: Defines what triggers execution of the instance.
+          items:
+            $ref: '#/components/schemas/Trigger'
+          type: array
+        details:
+          additionalProperties: false
+          type: object
+      required:
+      - description
+      - details
+      - enabled
+      - id
+      - integrationType
+      - name
+      - triggers
+      type: object
+    IntegrationInstanceResponse:
+      additionalProperties: false
+      example:
+        integrationType: integrationType
+        name: name
+        description: description
+        details: "{}"
+        id: id
+        triggers:
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        - cronExpression: cronExpression
+          timeZone: timeZone
+          type: type
+        enabled: true
+      properties:
+        id:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        integrationType:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        triggers:
           items:
             $ref: '#/components/schemas/Trigger'
           type: array
@@ -3364,7 +3848,7 @@ components:
             field: field
           transformationDescription: transformationDescription
         properties:
-        - optionality: null
+        - optionality: optionality
           versions:
           - versions
           - versions
@@ -3389,7 +3873,7 @@ components:
           - package: package
             field: field
           transformationDescription: transformationDescription
-        - optionality: null
+        - optionality: optionality
           versions:
           - versions
           - versions
@@ -3567,6 +4051,62 @@ components:
           format: date-time
           nullable: true
           type: string
+      type: object
+    IPropertyMapping:
+      additionalProperties: false
+      example:
+        optionality: optionality
+        versions:
+        - versions
+        - versions
+        entityType: entityType
+        entitySubType: entitySubType
+        property:
+          constraintStyle: constraintStyle
+          code: code
+          productEntityItemKey: productEntityItemKey
+          displayName: displayName
+          domain: domain
+          scope: scope
+          dataTypeId:
+            code: code
+            scope: scope
+          lifetime: lifetime
+          description: description
+          key: key
+        vendorFields:
+        - package: package
+          field: field
+        - package: package
+          field: field
+        transformationDescription: transformationDescription
+      properties:
+        entitySubType:
+          nullable: true
+          type: string
+        entityType:
+          type: string
+        optionality:
+          type: string
+        property:
+          $ref: '#/components/schemas/LusidPropertyDefinition'
+        transformationDescription:
+          nullable: true
+          type: string
+        vendorFields:
+          items:
+            $ref: '#/components/schemas/VendorField'
+          type: array
+        versions:
+          items:
+            type: string
+          type: array
+      required:
+      - entityType
+      - optionality
+      - property
+      - vendorFields
+      - versions
       type: object
     JSchema:
       additionalProperties: false
@@ -4180,9 +4720,9 @@ components:
       description: An item that has been updated as a result of setting LusidPropertyDefinitionOverrides.
       properties:
         action:
-          description: "The action performed on this property. \"upsert\" for setting\
-            \ values for new and existing\r\n properties. \"delete\" for existing\
-            \ properties that were removed"
+          description: |-
+            The action performed on this property. "upsert" for setting values for new and existing
+             properties. "delete" for existing properties that were removed
           type: string
         writeError:
           description: ""
@@ -4212,7 +4752,7 @@ components:
       description: The mapping of a LUSID Property from the Vendor Field that would
         populate it
       example:
-        optionality: null
+        optionality: optionality
         property:
           constraintStyle: constraintStyle
           code: code
@@ -4239,7 +4779,7 @@ components:
         vendorNamespace:
           type: string
         optionality:
-          $ref: '#/components/schemas/Optionality'
+          type: string
       required:
       - optionality
       - property
@@ -4622,14 +5162,71 @@ components:
       required:
       - results
       type: object
-    Optionality:
-      description: The optionality status of a property mapping for a particular vendor
-        product entity field
-      enum:
-      - Mandatory
-      - Suggested
-      - Optional
-      type: string
+    PagedResourceListOfIFieldMapping:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - fieldName: fieldName
+          versions:
+          - versions
+          - versions
+          defaultValue: defaultValue
+          entityType: entityType
+          entitySubType: entitySubType
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        - fieldName: fieldName
+          versions:
+          - versions
+          - versions
+          defaultValue: defaultValue
+          entityType: entityType
+          entitySubType: entitySubType
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/IFieldMapping'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfIIntegrationLogResponse:
       additionalProperties: false
       example:
@@ -4793,6 +5390,95 @@ components:
         values:
           items:
             $ref: '#/components/schemas/IntegrationRunResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
+    PagedResourceListOfIPropertyMapping:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - optionality: optionality
+          versions:
+          - versions
+          - versions
+          entityType: entityType
+          entitySubType: entitySubType
+          property:
+            constraintStyle: constraintStyle
+            code: code
+            productEntityItemKey: productEntityItemKey
+            displayName: displayName
+            domain: domain
+            scope: scope
+            dataTypeId:
+              code: code
+              scope: scope
+            lifetime: lifetime
+            description: description
+            key: key
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        - optionality: optionality
+          versions:
+          - versions
+          - versions
+          entityType: entityType
+          entitySubType: entitySubType
+          property:
+            constraintStyle: constraintStyle
+            code: code
+            productEntityItemKey: productEntityItemKey
+            displayName: displayName
+            domain: domain
+            scope: scope
+            dataTypeId:
+              code: code
+              scope: scope
+            lifetime: lifetime
+            description: description
+            key: key
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/IPropertyMapping'
           type: array
         href:
           format: uri
@@ -5213,7 +5899,7 @@ components:
       additionalProperties: false
       description: Mapping from a set of VendorFields to a LUSID Property
       example:
-        optionality: null
+        optionality: optionality
         versions:
         - versions
         - versions
@@ -5247,7 +5933,8 @@ components:
             $ref: '#/components/schemas/VendorField'
           type: array
         optionality:
-          $ref: '#/components/schemas/Optionality'
+          description: "Whether the Property is Mandatory, Suggested or Optional"
+          type: string
         entityType:
           description: The LUSID Entity this is valid for
           type: string

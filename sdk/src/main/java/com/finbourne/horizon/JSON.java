@@ -96,6 +96,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.AuditFileDetails.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.AuditUpdateRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.AuditUpdateResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.CancelRunRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.CreateInstanceRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.EnrichmentResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ExecuteInstanceResponse.CustomTypeAdapterFactory());
@@ -103,12 +104,16 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ExternalLogRecord.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.FieldMapping.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.FileDetails.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IFieldMapping.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IIntegrationLogResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IPropertyMapping.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.Identifiers.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.InstanceExecutionReferenceId.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.InstanceIdentifier.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationCancellationResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationDescription.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationInstance.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationInstanceResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationLogActivity.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationLogRecord.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.IntegrationLogTargetRecord.CustomTypeAdapterFactory());
@@ -135,7 +140,9 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.OpenFigiData.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.OpenFigiPermIdResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.OpenFigiSearchResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PagedResourceListOfIFieldMapping.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PagedResourceListOfIIntegrationLogResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PagedResourceListOfIPropertyMapping.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PagedResourceListOfIntegrationRunResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PagedResourceListOfProcessInformation.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PagedResourceListOfProcessUpdateResult.CustomTypeAdapterFactory());

@@ -12,7 +12,6 @@ package com.finbourne.horizon.model;
 
 import java.util.Objects;
 import com.finbourne.horizon.model.LusidPropertyDefinition;
-import com.finbourne.horizon.model.Optionality;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -69,7 +68,7 @@ public class LusidPropertyToVendorFieldMapping {
 
   public static final String SERIALIZED_NAME_OPTIONALITY = "optionality";
   @SerializedName(SERIALIZED_NAME_OPTIONALITY)
-  private Optionality optionality;
+  private String optionality;
 
   public LusidPropertyToVendorFieldMapping() {
   }
@@ -158,7 +157,7 @@ public class LusidPropertyToVendorFieldMapping {
   }
 
 
-  public LusidPropertyToVendorFieldMapping optionality(Optionality optionality) {
+  public LusidPropertyToVendorFieldMapping optionality(String optionality) {
     
     this.optionality = optionality;
     return this;
@@ -169,12 +168,12 @@ public class LusidPropertyToVendorFieldMapping {
    * @return optionality
   **/
   @jakarta.annotation.Nonnull
-  public Optionality getOptionality() {
+  public String getOptionality() {
     return optionality;
   }
 
 
-  public void setOptionality(Optionality optionality) {
+  public void setOptionality(String optionality) {
     this.optionality = optionality;
   }
 
@@ -277,6 +276,9 @@ public class LusidPropertyToVendorFieldMapping {
       }
       if (!jsonObj.get("vendorNamespace").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `vendorNamespace` to be a primitive type in the JSON string but got `%s`", jsonObj.get("vendorNamespace").toString()));
+      }
+      if (!jsonObj.get("optionality").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `optionality` to be a primitive type in the JSON string but got `%s`", jsonObj.get("optionality").toString()));
       }
   }
 
