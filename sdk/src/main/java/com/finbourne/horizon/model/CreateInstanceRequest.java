@@ -12,6 +12,7 @@ package com.finbourne.horizon.model;
 
 import java.util.Objects;
 import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
+import com.finbourne.horizon.model.PostProcessTask;
 import com.finbourne.horizon.model.Trigger;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -83,6 +84,10 @@ public class CreateInstanceRequest {
   public static final String SERIALIZED_NAME_DETAILS = "details";
   @SerializedName(SERIALIZED_NAME_DETAILS)
   private Object details;
+
+  public static final String SERIALIZED_NAME_POST_PROCESS_TASKS = "postProcessTasks";
+  @SerializedName(SERIALIZED_NAME_POST_PROCESS_TASKS)
+  private List<PostProcessTask> postProcessTasks = new ArrayList<>();
 
   public CreateInstanceRequest() {
   }
@@ -250,6 +255,35 @@ public class CreateInstanceRequest {
   }
 
 
+  public CreateInstanceRequest postProcessTasks(List<PostProcessTask> postProcessTasks) {
+    
+    this.postProcessTasks = postProcessTasks;
+    return this;
+  }
+
+  public CreateInstanceRequest addPostProcessTasksItem(PostProcessTask postProcessTasksItem) {
+    if (this.postProcessTasks == null) {
+      this.postProcessTasks = new ArrayList<>();
+    }
+    this.postProcessTasks.add(postProcessTasksItem);
+    return this;
+  }
+
+   /**
+   * Get postProcessTasks
+   * @return postProcessTasks
+  **/
+  @jakarta.annotation.Nonnull
+  public List<PostProcessTask> getPostProcessTasks() {
+    return postProcessTasks;
+  }
+
+
+  public void setPostProcessTasks(List<PostProcessTask> postProcessTasks) {
+    this.postProcessTasks = postProcessTasks;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -266,7 +300,8 @@ public class CreateInstanceRequest {
         Objects.equals(this.description, createInstanceRequest.description) &&
         Objects.equals(this.enabled, createInstanceRequest.enabled) &&
         Objects.equals(this.triggers, createInstanceRequest.triggers) &&
-        Objects.equals(this.details, createInstanceRequest.details);
+        Objects.equals(this.details, createInstanceRequest.details) &&
+        Objects.equals(this.postProcessTasks, createInstanceRequest.postProcessTasks);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -275,7 +310,7 @@ public class CreateInstanceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(instanceOptionalProps, integrationType, name, description, enabled, triggers, details);
+    return Objects.hash(instanceOptionalProps, integrationType, name, description, enabled, triggers, details, postProcessTasks);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -296,6 +331,7 @@ public class CreateInstanceRequest {
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("    postProcessTasks: ").append(toIndentedString(postProcessTasks)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -325,6 +361,7 @@ public class CreateInstanceRequest {
     openapiFields.add("enabled");
     openapiFields.add("triggers");
     openapiFields.add("details");
+    openapiFields.add("postProcessTasks");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -334,6 +371,7 @@ public class CreateInstanceRequest {
     openapiRequiredFields.add("enabled");
     openapiRequiredFields.add("triggers");
     openapiRequiredFields.add("details");
+    openapiRequiredFields.add("postProcessTasks");
   }
 
  /**
@@ -374,6 +412,16 @@ public class CreateInstanceRequest {
       // validate the required field `triggers` (array)
       for (int i = 0; i < jsonArraytriggers.size(); i++) {
         Trigger.validateJsonElement(jsonArraytriggers.get(i));
+      };
+      // ensure the json data is an array
+      if (!jsonObj.get("postProcessTasks").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `postProcessTasks` to be an array in the JSON string but got `%s`", jsonObj.get("postProcessTasks").toString()));
+      }
+
+      JsonArray jsonArraypostProcessTasks = jsonObj.getAsJsonArray("postProcessTasks");
+      // validate the required field `postProcessTasks` (array)
+      for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
+        PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
       };
   }
 

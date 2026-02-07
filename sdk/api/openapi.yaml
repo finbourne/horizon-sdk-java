@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.2972
+  version: 0.1.3032
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1077,6 +1077,7 @@ paths:
                   currencyFilter:
                   - EUR
                   importUnqualified: false
+              postProcessTasks: []
             schema:
               $ref: '#/components/schemas/CreateInstanceRequest'
         description: The new integration instance.
@@ -1338,6 +1339,7 @@ paths:
                     currencyFilter:
                     - GBP
                     importUnqualified: false
+                postProcessTasks: []
               schema:
                 $ref: '#/components/schemas/IntegrationInstanceResponse'
           description: OK
@@ -1399,6 +1401,7 @@ paths:
                   currencyFilter:
                   - EUR
                   importUnqualified: false
+              postProcessTasks: []
             schema:
               $ref: '#/components/schemas/UpdateInstanceRequest'
         description: The new integration instance.
@@ -3125,6 +3128,15 @@ components:
             vendorPackage:
             - vendorPackage
             - vendorPackage
+        postProcessTasks:
+        - triggerOn: triggerOn
+          targetInstance: targetInstance
+          action: action
+          parameters: ""
+        - triggerOn: triggerOn
+          targetInstance: targetInstance
+          action: action
+          parameters: ""
         integrationType: integrationType
         name: name
         description: description
@@ -3165,12 +3177,17 @@ components:
         details:
           additionalProperties: false
           type: object
+        postProcessTasks:
+          items:
+            $ref: '#/components/schemas/PostProcessTask'
+          type: array
       required:
       - description
       - details
       - enabled
       - integrationType
       - name
+      - postProcessTasks
       - triggers
       type: object
     EnrichmentResponse:
@@ -3692,6 +3709,15 @@ components:
     IntegrationInstanceResponse:
       additionalProperties: false
       example:
+        postProcessTasks:
+        - triggerOn: triggerOn
+          targetInstance: targetInstance
+          action: action
+          parameters: ""
+        - triggerOn: triggerOn
+          targetInstance: targetInstance
+          action: action
+          parameters: ""
         integrationType: integrationType
         name: name
         description: description
@@ -3729,6 +3755,10 @@ components:
         details:
           additionalProperties: false
           type: object
+        postProcessTasks:
+          items:
+            $ref: '#/components/schemas/PostProcessTask'
+          type: array
       required:
       - description
       - details
@@ -3736,6 +3766,7 @@ components:
       - id
       - integrationType
       - name
+      - postProcessTasks
       - triggers
       type: object
     IntegrationLogActivity:
@@ -5736,6 +5767,33 @@ components:
       - quotePermId
       - ticker
       type: object
+    PostProcessTask:
+      additionalProperties: false
+      example:
+        triggerOn: triggerOn
+        targetInstance: targetInstance
+        action: action
+        parameters: ""
+      properties:
+        action:
+          maxLength: 100
+          minLength: 0
+          type: string
+        targetInstance:
+          maxLength: 256
+          minLength: 0
+          nullable: true
+          type: string
+        triggerOn:
+          maxLength: 50
+          minLength: 0
+          type: string
+        parameters:
+          nullable: true
+      required:
+      - action
+      - triggerOn
+      type: object
     ProcessInformation:
       additionalProperties: false
       description: Required information for each process
@@ -6053,6 +6111,15 @@ components:
     UpdateInstanceRequest:
       additionalProperties: false
       example:
+        postProcessTasks:
+        - triggerOn: triggerOn
+          targetInstance: targetInstance
+          action: action
+          parameters: ""
+        - triggerOn: triggerOn
+          targetInstance: targetInstance
+          action: action
+          parameters: ""
         integrationType: integrationType
         name: name
         description: description
@@ -6093,6 +6160,10 @@ components:
         details:
           additionalProperties: false
           type: object
+        postProcessTasks:
+          items:
+            $ref: '#/components/schemas/PostProcessTask'
+          type: array
       required:
       - description
       - details
@@ -6100,6 +6171,7 @@ components:
       - id
       - integrationType
       - name
+      - postProcessTasks
       - triggers
       type: object
     VendorField:

@@ -11,6 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.PostProcessTask;
 import com.finbourne.horizon.model.Trigger;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -79,6 +80,10 @@ public class UpdateInstanceRequest {
   public static final String SERIALIZED_NAME_DETAILS = "details";
   @SerializedName(SERIALIZED_NAME_DETAILS)
   private Object details;
+
+  public static final String SERIALIZED_NAME_POST_PROCESS_TASKS = "postProcessTasks";
+  @SerializedName(SERIALIZED_NAME_POST_PROCESS_TASKS)
+  private List<PostProcessTask> postProcessTasks = new ArrayList<>();
 
   public UpdateInstanceRequest() {
   }
@@ -238,6 +243,35 @@ public class UpdateInstanceRequest {
   }
 
 
+  public UpdateInstanceRequest postProcessTasks(List<PostProcessTask> postProcessTasks) {
+    
+    this.postProcessTasks = postProcessTasks;
+    return this;
+  }
+
+  public UpdateInstanceRequest addPostProcessTasksItem(PostProcessTask postProcessTasksItem) {
+    if (this.postProcessTasks == null) {
+      this.postProcessTasks = new ArrayList<>();
+    }
+    this.postProcessTasks.add(postProcessTasksItem);
+    return this;
+  }
+
+   /**
+   * Get postProcessTasks
+   * @return postProcessTasks
+  **/
+  @jakarta.annotation.Nonnull
+  public List<PostProcessTask> getPostProcessTasks() {
+    return postProcessTasks;
+  }
+
+
+  public void setPostProcessTasks(List<PostProcessTask> postProcessTasks) {
+    this.postProcessTasks = postProcessTasks;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -254,12 +288,13 @@ public class UpdateInstanceRequest {
         Objects.equals(this.description, updateInstanceRequest.description) &&
         Objects.equals(this.enabled, updateInstanceRequest.enabled) &&
         Objects.equals(this.triggers, updateInstanceRequest.triggers) &&
-        Objects.equals(this.details, updateInstanceRequest.details);
+        Objects.equals(this.details, updateInstanceRequest.details) &&
+        Objects.equals(this.postProcessTasks, updateInstanceRequest.postProcessTasks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, integrationType, name, description, enabled, triggers, details);
+    return Objects.hash(id, integrationType, name, description, enabled, triggers, details, postProcessTasks);
   }
 
   @Override
@@ -273,6 +308,7 @@ public class UpdateInstanceRequest {
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("    postProcessTasks: ").append(toIndentedString(postProcessTasks)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -302,6 +338,7 @@ public class UpdateInstanceRequest {
     openapiFields.add("enabled");
     openapiFields.add("triggers");
     openapiFields.add("details");
+    openapiFields.add("postProcessTasks");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -312,6 +349,7 @@ public class UpdateInstanceRequest {
     openapiRequiredFields.add("enabled");
     openapiRequiredFields.add("triggers");
     openapiRequiredFields.add("details");
+    openapiRequiredFields.add("postProcessTasks");
   }
 
  /**
@@ -355,6 +393,16 @@ public class UpdateInstanceRequest {
       // validate the required field `triggers` (array)
       for (int i = 0; i < jsonArraytriggers.size(); i++) {
         Trigger.validateJsonElement(jsonArraytriggers.get(i));
+      };
+      // ensure the json data is an array
+      if (!jsonObj.get("postProcessTasks").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `postProcessTasks` to be an array in the JSON string but got `%s`", jsonObj.get("postProcessTasks").toString()));
+      }
+
+      JsonArray jsonArraypostProcessTasks = jsonObj.getAsJsonArray("postProcessTasks");
+      // validate the required field `postProcessTasks` (array)
+      for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
+        PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
       };
   }
 

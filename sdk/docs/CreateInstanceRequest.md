@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **enabled** | **Boolean** |  | [default to Boolean]
 **triggers** | [**List&lt;Trigger&gt;**](Trigger.md) |  | [default to List<Trigger>]
 **details** | **Object** |  | [default to Object]
+**postProcessTasks** | [**List&lt;PostProcessTask&gt;**](PostProcessTask.md) |  | [default to List<PostProcessTask>]
 
 ```java
 import com.finbourne.horizon.model.CreateInstanceRequest;
@@ -24,7 +25,8 @@ String Name = "example Name";
 String Description = "example Description";
 Boolean Enabled = true;
 List<Trigger> Triggers = new List<Trigger>();
-Object 
+Object List<PostProcessTask> PostProcessTasks = new List<PostProcessTask>();
+
 
 CreateInstanceRequest createInstanceRequestInstance = new CreateInstanceRequest()
     .InstanceOptionalProps(InstanceOptionalProps)
@@ -33,7 +35,8 @@ CreateInstanceRequest createInstanceRequestInstance = new CreateInstanceRequest(
     .Description(Description)
     .Enabled(Enabled)
     .Triggers(Triggers)
-    .Details(Details);
+    .Details(Details)
+    .PostProcessTasks(PostProcessTasks);
 ```
 
 
