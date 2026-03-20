@@ -48,7 +48,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * ExternalLogInsertionRequest
+ * A request to insert external log records.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExternalLogInsertionRequest {
@@ -74,7 +74,7 @@ public class ExternalLogInsertionRequest {
   }
 
    /**
-   * Get logs
+   * The collection of external log records to insert.
    * @return logs
   **/
   @jakarta.annotation.Nonnull

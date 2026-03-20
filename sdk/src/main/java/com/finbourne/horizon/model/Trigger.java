@@ -45,7 +45,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Trigger
+ * Response defining a trigger for an instance.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Trigger {

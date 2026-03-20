@@ -46,7 +46,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * ExternalLogRecord
+ * Represents an external log record.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExternalLogRecord {
@@ -116,7 +116,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get logid
+   * The unique log identifier.
    * @return logid
   **/
   @jakarta.annotation.Nonnull
@@ -137,7 +137,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get parentlogid
+   * The parent log identifier (null is allowed).
    * @return parentlogid
   **/
   @jakarta.annotation.Nullable
@@ -158,7 +158,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get loglevel
+   * The log level.
    * @return loglevel
   **/
   @jakarta.annotation.Nonnull
@@ -179,7 +179,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get logstatus
+   * The log status.
    * @return logstatus
   **/
   @jakarta.annotation.Nonnull
@@ -200,7 +200,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get sourcerecordtype
+   * The source record type.
    * @return sourcerecordtype
   **/
   @jakarta.annotation.Nullable
@@ -221,7 +221,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get sourceprimaryidtype
+   * The source primary ID type.
    * @return sourceprimaryidtype
   **/
   @jakarta.annotation.Nullable
@@ -242,7 +242,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get sourceprimaryidvalue
+   * The source primary ID value.
    * @return sourceprimaryidvalue
   **/
   @jakarta.annotation.Nullable
@@ -263,7 +263,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get targetrecordtype
+   * The target record type.
    * @return targetrecordtype
   **/
   @jakarta.annotation.Nullable
@@ -284,7 +284,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get targetrecordaction
+   * The target record action.
    * @return targetrecordaction
   **/
   @jakarta.annotation.Nullable
@@ -305,7 +305,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get targetprimaryidtype
+   * The target primary ID type.
    * @return targetprimaryidtype
   **/
   @jakarta.annotation.Nullable
@@ -326,7 +326,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get targetprimaryidvalue
+   * The target primary ID value.
    * @return targetprimaryidvalue
   **/
   @jakarta.annotation.Nullable
@@ -347,7 +347,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get message
+   * The log message.
    * @return message
   **/
   @jakarta.annotation.Nullable
@@ -368,7 +368,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get messagetype
+   * The message type.
    * @return messagetype
   **/
   @jakarta.annotation.Nullable
@@ -389,7 +389,7 @@ public class ExternalLogRecord {
   }
 
    /**
-   * Get timestamp
+   * The timestamp of the log record.
    * @return timestamp
   **/
   @jakarta.annotation.Nonnull

@@ -48,7 +48,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * CancelRunRequest
+ * A request to cancel the specified instance execution.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CancelRunRequest {
@@ -78,7 +78,7 @@ public class CancelRunRequest {
   }
 
    /**
-   * Get runIds
+   * The instance run ids to be cancelled.
    * @return runIds
   **/
   @jakarta.annotation.Nonnull
@@ -99,7 +99,7 @@ public class CancelRunRequest {
   }
 
    /**
-   * Get message
+   * The user provided message as to why the instance executions were cancelled.
    * @return message
   **/
   @jakarta.annotation.Nullable

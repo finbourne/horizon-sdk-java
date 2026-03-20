@@ -1,4 +1,5 @@
 # com.finbourne.horizon.model.IntegrationRerunResponse
+No content is returned when an instance is rerun.
 
 ## Properties
 

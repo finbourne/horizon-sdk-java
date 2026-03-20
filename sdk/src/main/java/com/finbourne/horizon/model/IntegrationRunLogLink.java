@@ -45,7 +45,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * IntegrationRunLogLink
+ * Integration run log link
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IntegrationRunLogLink {
@@ -67,7 +67,7 @@ public class IntegrationRunLogLink {
   }
 
    /**
-   * Get href
+   * 
    * @return href
   **/
   @jakarta.annotation.Nonnull
@@ -88,7 +88,7 @@ public class IntegrationRunLogLink {
   }
 
    /**
-   * Get description
+   * 
    * @return description
   **/
   @jakarta.annotation.Nonnull

@@ -46,7 +46,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * PostProcessTask
+ * Request defining a post-processing task for an instance.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PostProcessTask {
@@ -76,7 +76,7 @@ public class PostProcessTask {
   }
 
    /**
-   * Get action
+   * The type of action to perform (Allowed: RunIntegration, RunWorkflow, TriggerEmail)
    * @return action
   **/
   @jakarta.annotation.Nonnull
@@ -97,7 +97,7 @@ public class PostProcessTask {
   }
 
    /**
-   * Get targetInstance
+   * The instance identifier to trigger (for TriggerIntegration action).
    * @return targetInstance
   **/
   @jakarta.annotation.Nullable
@@ -118,7 +118,7 @@ public class PostProcessTask {
   }
 
    /**
-   * Get triggerOn
+   * When the task should be triggered (Allowed: OnSuccess, OnFailure, Always)
    * @return triggerOn
   **/
   @jakarta.annotation.Nonnull
@@ -139,7 +139,7 @@ public class PostProcessTask {
   }
 
    /**
-   * Get parameters
+   * JSON parameters specific to the action type.
    * @return parameters
   **/
   @jakarta.annotation.Nullable

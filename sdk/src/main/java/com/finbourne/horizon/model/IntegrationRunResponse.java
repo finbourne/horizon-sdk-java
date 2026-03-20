@@ -52,7 +52,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * IntegrationRunResponse
+ * Integration run response
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IntegrationRunResponse {
@@ -106,7 +106,7 @@ public class IntegrationRunResponse {
   }
 
    /**
-   * Get runId
+   * 
    * @return runId
   **/
   @jakarta.annotation.Nonnull
@@ -127,7 +127,7 @@ public class IntegrationRunResponse {
   }
 
    /**
-   * Get refRunId
+   * 
    * @return refRunId
   **/
   @jakarta.annotation.Nullable
@@ -148,7 +148,7 @@ public class IntegrationRunResponse {
   }
 
    /**
-   * Get attempt
+   * 
    * @return attempt
   **/
   @jakarta.annotation.Nonnull
@@ -211,7 +211,7 @@ public class IntegrationRunResponse {
   }
 
    /**
-   * Get status
+   * 
    * @return status
   **/
   @jakarta.annotation.Nullable
@@ -232,7 +232,7 @@ public class IntegrationRunResponse {
   }
 
    /**
-   * Get message
+   * 
    * @return message
   **/
   @jakarta.annotation.Nullable
@@ -303,7 +303,7 @@ public class IntegrationRunResponse {
   }
 
    /**
-   * Get integrationLogs
+   * 
    * @return integrationLogs
   **/
   @jakarta.annotation.Nullable

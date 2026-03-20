@@ -1,4 +1,5 @@
 # com.finbourne.horizon.model.IntegrationRunLog
+Integration run log
 
 ## Properties
 

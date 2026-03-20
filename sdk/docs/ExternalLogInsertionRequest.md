@@ -1,10 +1,11 @@
 # com.finbourne.horizon.model.ExternalLogInsertionRequest
+A request to insert external log records.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**logs** | [**List&lt;ExternalLogRecord&gt;**](ExternalLogRecord.md) |  | [default to List<ExternalLogRecord>]
+**logs** | [**List&lt;ExternalLogRecord&gt;**](ExternalLogRecord.md) | The collection of external log records to insert. | [default to List<ExternalLogRecord>]
 
 ```java
 import com.finbourne.horizon.model.ExternalLogInsertionRequest;

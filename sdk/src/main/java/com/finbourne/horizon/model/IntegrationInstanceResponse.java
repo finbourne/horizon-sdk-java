@@ -49,7 +49,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * IntegrationInstanceResponse
+ * Response representing an integration instance.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IntegrationInstanceResponse {
@@ -95,7 +95,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get id
+   * The unique identifier of the integration instance.
    * @return id
   **/
   @jakarta.annotation.Nonnull
@@ -116,7 +116,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get integrationType
+   * The type of the integration.
    * @return integrationType
   **/
   @jakarta.annotation.Nonnull
@@ -137,7 +137,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get name
+   * The name of the integration instance.
    * @return name
   **/
   @jakarta.annotation.Nonnull
@@ -158,7 +158,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get description
+   * The description of the integration instance.
    * @return description
   **/
   @jakarta.annotation.Nonnull
@@ -179,7 +179,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get enabled
+   * Whether the integration instance is enabled.
    * @return enabled
   **/
   @jakarta.annotation.Nonnull
@@ -208,7 +208,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get triggers
+   * The triggers associated with the integration instance.
    * @return triggers
   **/
   @jakarta.annotation.Nonnull
@@ -229,7 +229,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get details
+   * Base DTO type of an integration configuration specific to the integration type.   N.B. ASP.NET Core model validation is normally applied automatically when [ApiController] is added to a controller, however it doesn&#39;t work here with the polymorphic integration subtypes of this class (see https://github.com/dotnet/aspnetcore/issues/27882). The workaround here is to implement the IValidatableObject interface and each subtype must call Validate() or ValidateContents() on its properties (the validation is not recursive).  Located in Horizon.Integrations.Web so both specific integration projects and Horizon.WebApi can reference it.
    * @return details
   **/
   @jakarta.annotation.Nonnull
@@ -258,7 +258,7 @@ public class IntegrationInstanceResponse {
   }
 
    /**
-   * Get postProcessTasks
+   * The post process tasks associated with the integration instance.
    * @return postProcessTasks
   **/
   @jakarta.annotation.Nonnull

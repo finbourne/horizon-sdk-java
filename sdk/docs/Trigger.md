@@ -1,4 +1,5 @@
 # com.finbourne.horizon.model.Trigger
+Response defining a trigger for an instance.
 
 ## Properties
 

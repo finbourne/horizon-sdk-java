@@ -46,7 +46,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * IntegrationRunLog
+ * Integration run log
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IntegrationRunLog {
@@ -68,7 +68,7 @@ public class IntegrationRunLog {
   }
 
    /**
-   * Get count
+   * 
    * @return count
   **/
   @jakarta.annotation.Nonnull

@@ -47,7 +47,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * IntegrationCancellationResponse
+ * No content is returned when an instance is cancelled.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IntegrationCancellationResponse {

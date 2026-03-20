@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3032
+  version: 0.1.3148
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3096,6 +3096,7 @@ components:
       type: object
     CancelRunRequest:
       additionalProperties: false
+      description: A request to cancel the specified instance execution.
       example:
         runIds:
         - runIds
@@ -3103,10 +3104,13 @@ components:
         message: message
       properties:
         runIds:
+          description: The instance run ids to be cancelled.
           items:
             type: string
           type: array
         message:
+          description: The user provided message as to why the instance executions
+            were cancelled.
           maxLength: 1024
           minLength: 0
           nullable: true
@@ -3116,6 +3120,7 @@ components:
       type: object
     CreateInstanceRequest:
       additionalProperties: false
+      description: A request to add a new instance to an integration.
       example:
         instanceOptionalProps:
           key:
@@ -3176,6 +3181,16 @@ components:
           type: array
         details:
           additionalProperties: false
+          description: "Base DTO type of an integration configuration specific to\
+            \ the integration type.\n \nN.B. ASP.NET Core model validation is normally\
+            \ applied automatically when [ApiController] is\nadded to a controller,\
+            \ however it doesn't work here with the polymorphic integration subtypes\n\
+            of this class (see https://github.com/dotnet/aspnetcore/issues/27882).\
+            \ The workaround here is\nto implement the IValidatableObject interface\
+            \ and each subtype must call Validate() or\nValidateContents() on its\
+            \ properties (the validation is not recursive).\n\nLocated in Horizon.Integrations.Web\
+            \ so both specific integration projects and\nHorizon.WebApi can reference\
+            \ it."
           type: object
         postProcessTasks:
           items:
@@ -3234,6 +3249,7 @@ components:
       type: object
     ExternalLogInsertionRequest:
       additionalProperties: false
+      description: A request to insert external log records.
       example:
         logs:
         - targetprimaryidvalue: targetprimaryidvalue
@@ -3266,6 +3282,7 @@ components:
           timestamp: timestamp
       properties:
         logs:
+          description: The collection of external log records to insert.
           items:
             $ref: '#/components/schemas/ExternalLogRecord'
           type: array
@@ -3277,6 +3294,7 @@ components:
       type: object
     ExternalLogRecord:
       additionalProperties: false
+      description: Represents an external log record.
       example:
         targetprimaryidvalue: targetprimaryidvalue
         parentlogid: 6
@@ -3294,66 +3312,80 @@ components:
         timestamp: timestamp
       properties:
         logid:
+          description: The unique log identifier.
           format: int64
           type: integer
         parentlogid:
+          description: The parent log identifier (null is allowed).
           format: int64
           nullable: true
           type: integer
         loglevel:
+          description: The log level.
           maxLength: 64
           minLength: 0
           type: string
         logstatus:
+          description: The log status.
           maxLength: 64
           minLength: 0
           type: string
         sourcerecordtype:
+          description: The source record type.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         sourceprimaryidtype:
+          description: The source primary ID type.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         sourceprimaryidvalue:
+          description: The source primary ID value.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         targetrecordtype:
+          description: The target record type.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         targetrecordaction:
+          description: The target record action.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         targetprimaryidtype:
+          description: The target primary ID type.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         targetprimaryidvalue:
+          description: The target primary ID value.
           maxLength: 128
           minLength: 0
           nullable: true
           type: string
         message:
+          description: The log message.
           maxLength: 1024
           minLength: 0
           nullable: true
           type: string
         messagetype:
+          description: The message type.
           maxLength: 64
           minLength: 0
           nullable: true
           type: string
         timestamp:
+          description: The timestamp of the log record.
           maxLength: 64
           minLength: 0
           type: string
@@ -3579,6 +3611,15 @@ components:
       type: object
     InstanceDetails:
       additionalProperties: false
+      description: "Base DTO type of an integration configuration specific to the\
+        \ integration type.\n \nN.B. ASP.NET Core model validation is normally applied\
+        \ automatically when [ApiController] is\nadded to a controller, however it\
+        \ doesn't work here with the polymorphic integration subtypes\nof this class\
+        \ (see https://github.com/dotnet/aspnetcore/issues/27882). The workaround\
+        \ here is\nto implement the IValidatableObject interface and each subtype\
+        \ must call Validate() or\nValidateContents() on its properties (the validation\
+        \ is not recursive).\n\nLocated in Horizon.Integrations.Web so both specific\
+        \ integration projects and\nHorizon.WebApi can reference it."
       type: object
     InstanceExecutionReferenceId:
       additionalProperties: false
@@ -3605,6 +3646,7 @@ components:
       type: object
     IntegrationCancellationResponse:
       additionalProperties: false
+      description: No content is returned when an instance is cancelled.
       example:
         response:
           key: response
@@ -3655,6 +3697,8 @@ components:
       type: object
     IntegrationEndResponse:
       additionalProperties: false
+      description: "No content when a response is ended, only applicable to the ExternalApplication\
+        \ integration"
       type: object
     IntegrationInstance:
       additionalProperties: false
@@ -3696,6 +3740,16 @@ components:
           type: array
         details:
           additionalProperties: false
+          description: "Base DTO type of an integration configuration specific to\
+            \ the integration type.\n \nN.B. ASP.NET Core model validation is normally\
+            \ applied automatically when [ApiController] is\nadded to a controller,\
+            \ however it doesn't work here with the polymorphic integration subtypes\n\
+            of this class (see https://github.com/dotnet/aspnetcore/issues/27882).\
+            \ The workaround here is\nto implement the IValidatableObject interface\
+            \ and each subtype must call Validate() or\nValidateContents() on its\
+            \ properties (the validation is not recursive).\n\nLocated in Horizon.Integrations.Web\
+            \ so both specific integration projects and\nHorizon.WebApi can reference\
+            \ it."
           type: object
       required:
       - description
@@ -3708,6 +3762,7 @@ components:
       type: object
     IntegrationInstanceResponse:
       additionalProperties: false
+      description: Response representing an integration instance.
       example:
         postProcessTasks:
         - triggerOn: triggerOn
@@ -3733,29 +3788,46 @@ components:
         enabled: true
       properties:
         id:
+          description: The unique identifier of the integration instance.
           maxLength: 36
           minLength: 36
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         integrationType:
+          description: The type of the integration.
           maxLength: 64
           minLength: 1
           pattern: "^[a-zA-Z0-9\\-_]+$"
           type: string
         name:
+          description: The name of the integration instance.
           type: string
         description:
+          description: The description of the integration instance.
           type: string
         enabled:
+          description: Whether the integration instance is enabled.
           type: boolean
         triggers:
+          description: The triggers associated with the integration instance.
           items:
             $ref: '#/components/schemas/Trigger'
           type: array
         details:
           additionalProperties: false
+          description: "Base DTO type of an integration configuration specific to\
+            \ the integration type.\n \nN.B. ASP.NET Core model validation is normally\
+            \ applied automatically when [ApiController] is\nadded to a controller,\
+            \ however it doesn't work here with the polymorphic integration subtypes\n\
+            of this class (see https://github.com/dotnet/aspnetcore/issues/27882).\
+            \ The workaround here is\nto implement the IValidatableObject interface\
+            \ and each subtype must call Validate() or\nValidateContents() on its\
+            \ properties (the validation is not recursive).\n\nLocated in Horizon.Integrations.Web\
+            \ so both specific integration projects and\nHorizon.WebApi can reference\
+            \ it."
           type: object
         postProcessTasks:
+          description: The post process tasks associated with the integration instance.
           items:
             $ref: '#/components/schemas/PostProcessTask'
           type: array
@@ -3950,6 +4022,7 @@ components:
       type: object
     IntegrationRerunResponse:
       additionalProperties: false
+      description: No content is returned when an instance is rerun.
       example:
         runId:
           value: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -3975,6 +4048,7 @@ components:
       type: object
     IntegrationRunLog:
       additionalProperties: false
+      description: Integration run log
       example:
         count: 6
         link:
@@ -3982,6 +4056,7 @@ components:
           href: href
       properties:
         count:
+          description: ""
           format: int64
           type: integer
         link:
@@ -3992,13 +4067,16 @@ components:
       type: object
     IntegrationRunLogLink:
       additionalProperties: false
+      description: Integration run log link
       example:
         description: description
         href: href
       properties:
         href:
+          description: ""
           type: string
         description:
+          description: ""
           type: string
       required:
       - description
@@ -4006,6 +4084,7 @@ components:
       type: object
     IntegrationRunResponse:
       additionalProperties: false
+      description: Integration run response
       example:
         instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         instanceName: instanceName
@@ -4029,13 +4108,16 @@ components:
         status: status
       properties:
         runId:
+          description: ""
           format: uuid
           type: string
         refRunId:
+          description: ""
           format: uuid
           nullable: true
           type: string
         attempt:
+          description: ""
           format: int32
           type: integer
         instanceId:
@@ -4046,9 +4128,11 @@ components:
           nullable: true
           type: string
         status:
+          description: ""
           nullable: true
           type: string
         message:
+          description: ""
           nullable: true
           type: string
         integration:
@@ -4060,6 +4144,7 @@ components:
             additionalProperties:
               $ref: '#/components/schemas/IntegrationRunLog'
             type: object
+          description: ""
           nullable: true
           type: object
       required:
@@ -4070,15 +4155,18 @@ components:
       type: object
     IntegrationRunVersion:
       additionalProperties: false
+      description: Integration Run Version
       example:
         asAtModified: 2000-01-23T04:56:07.000+00:00
         asAtCreated: 2000-01-23T04:56:07.000+00:00
       properties:
         asAtCreated:
+          description: ""
           format: date-time
           nullable: true
           type: string
         asAtModified:
+          description: ""
           format: date-time
           nullable: true
           type: string
@@ -5769,6 +5857,7 @@ components:
       type: object
     PostProcessTask:
       additionalProperties: false
+      description: Request defining a post-processing task for an instance.
       example:
         triggerOn: triggerOn
         targetInstance: targetInstance
@@ -5776,19 +5865,26 @@ components:
         parameters: ""
       properties:
         action:
+          description: "The type of action to perform (Allowed: RunIntegration, RunWorkflow,\
+            \ TriggerEmail)"
           maxLength: 100
           minLength: 0
           type: string
         targetInstance:
+          description: The instance identifier to trigger (for TriggerIntegration
+            action).
           maxLength: 256
           minLength: 0
           nullable: true
           type: string
         triggerOn:
+          description: "When the task should be triggered (Allowed: OnSuccess, OnFailure,\
+            \ Always)"
           maxLength: 50
           minLength: 0
           type: string
         parameters:
+          description: JSON parameters specific to the action type.
           nullable: true
       required:
       - action
@@ -6086,6 +6182,7 @@ components:
       type: object
     Trigger:
       additionalProperties: false
+      description: Response defining a trigger for an instance.
       example:
         cronExpression: cronExpression
         timeZone: timeZone
@@ -6110,6 +6207,7 @@ components:
       type: object
     UpdateInstanceRequest:
       additionalProperties: false
+      description: A request to update an existing integration instance.
       example:
         postProcessTasks:
         - triggerOn: triggerOn
@@ -6135,6 +6233,7 @@ components:
         enabled: true
       properties:
         id:
+          description: Instance identifier
           maxLength: 36
           minLength: 36
           type: string
@@ -6159,6 +6258,16 @@ components:
           type: array
         details:
           additionalProperties: false
+          description: "Base DTO type of an integration configuration specific to\
+            \ the integration type.\n \nN.B. ASP.NET Core model validation is normally\
+            \ applied automatically when [ApiController] is\nadded to a controller,\
+            \ however it doesn't work here with the polymorphic integration subtypes\n\
+            of this class (see https://github.com/dotnet/aspnetcore/issues/27882).\
+            \ The workaround here is\nto implement the IValidatableObject interface\
+            \ and each subtype must call Validate() or\nValidateContents() on its\
+            \ properties (the validation is not recursive).\n\nLocated in Horizon.Integrations.Web\
+            \ so both specific integration projects and\nHorizon.WebApi can reference\
+            \ it."
           type: object
         postProcessTasks:
           items:

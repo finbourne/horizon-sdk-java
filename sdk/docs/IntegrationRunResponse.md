@@ -1,4 +1,5 @@
 # com.finbourne.horizon.model.IntegrationRunResponse
+Integration run response
 
 ## Properties
 

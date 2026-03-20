@@ -47,7 +47,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * IntegrationRunVersion
+ * Integration Run Version
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IntegrationRunVersion {
@@ -69,7 +69,7 @@ public class IntegrationRunVersion {
   }
 
    /**
-   * Get asAtCreated
+   * 
    * @return asAtCreated
   **/
   @jakarta.annotation.Nullable
@@ -90,7 +90,7 @@ public class IntegrationRunVersion {
   }
 
    /**
-   * Get asAtModified
+   * 
    * @return asAtModified
   **/
   @jakarta.annotation.Nullable

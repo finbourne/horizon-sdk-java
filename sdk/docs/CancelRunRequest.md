@@ -1,11 +1,12 @@
 # com.finbourne.horizon.model.CancelRunRequest
+A request to cancel the specified instance execution.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**runIds** | **List&lt;String&gt;** |  | [default to List<String>]
-**message** | **String** |  | [optional] [default to String]
+**runIds** | **List&lt;String&gt;** | The instance run ids to be cancelled. | [default to List<String>]
+**message** | **String** | The user provided message as to why the instance executions were cancelled. | [optional] [default to String]
 
 ```java
 import com.finbourne.horizon.model.CancelRunRequest;
