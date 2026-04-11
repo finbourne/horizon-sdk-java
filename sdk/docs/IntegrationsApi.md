@@ -15,6 +15,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**getIntegrationConfigurationFields**](IntegrationsApi.md#getIntegrationConfigurationFields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration |
 | [**getIntegrationConfigurationProperties**](IntegrationsApi.md#getIntegrationConfigurationProperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration |
 | [**getSchema**](IntegrationsApi.md#getSchema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance. |
+| [**listDataflowProcessors**](IntegrationsApi.md#listDataflowProcessors) | **GET** /api/integrations/dataflow/processors | [EXPERIMENTAL] ListDataflowProcessors: List processor types. |
 | [**listInstances**](IntegrationsApi.md#listInstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations. |
 | [**listIntegrations**](IntegrationsApi.md#listIntegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations. |
 | [**setInstanceOptionalPropertyMapping**](IntegrationsApi.md#setInstanceOptionalPropertyMapping) | **PUT** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an Integration Instance |
@@ -91,7 +92,7 @@ public class IntegrationsApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **createInstanceRequest** | [**CreateInstanceRequest**](CreateInstanceRequest.md)| The new integration instance. | [optional] |
+| **createInstanceRequest** | [**CreateInstanceRequest**](CreateInstanceRequest.md)| The new integration instance. | |
 
 ### Return type
 
@@ -1055,6 +1056,93 @@ public class IntegrationsApiExample {
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 
+## listDataflowProcessors
+
+> List&lt;ProcessorDescription&gt; listDataflowProcessors()
+
+[EXPERIMENTAL] ListDataflowProcessors: List processor types.
+
+The user must be authenticated to call this method.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        try {
+            // uncomment the below to set overrides at the request level
+            // List<ProcessorDescription> result = apiInstance.listDataflowProcessors().execute(opts);
+
+            List<ProcessorDescription> result = apiInstance.listDataflowProcessors().execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#listDataflowProcessors");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List&lt;ProcessorDescription&gt;**](ProcessorDescription.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **404** | The requested processors do not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
 ## listInstances
 
 > List&lt;IntegrationInstance&gt; listInstances()
@@ -1394,7 +1482,7 @@ public class IntegrationsApiExample {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **instanceId** | **String**| Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
-| **updateInstanceRequest** | [**UpdateInstanceRequest**](UpdateInstanceRequest.md)| The new integration instance. | [optional] |
+| **updateInstanceRequest** | [**UpdateInstanceRequest**](UpdateInstanceRequest.md)| The new integration instance. | |
 
 ### Return type
 

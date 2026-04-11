@@ -38,6 +38,7 @@ import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.PagedResourceListOfIFieldMapping;
 import com.finbourne.horizon.model.PagedResourceListOfIPropertyMapping;
+import com.finbourne.horizon.model.ProcessorDescription;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
 
 import java.lang.reflect.Type;
@@ -134,6 +135,11 @@ public class IntegrationsApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call createInstanceValidateBeforeCall(CreateInstanceRequest createInstanceRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'createInstanceRequest' is set
+        if (createInstanceRequest == null) {
+            throw new ApiException("Missing the required parameter 'createInstanceRequest' when calling createInstance(Async)");
+        }
+
         return createInstanceCall(createInstanceRequest, _callback, opts);
 
     }
@@ -168,19 +174,10 @@ public class IntegrationsApi {
     }
 
     public class APIcreateInstanceRequest {
-        private CreateInstanceRequest createInstanceRequest;
+        private final CreateInstanceRequest createInstanceRequest;
 
-        private APIcreateInstanceRequest() {
-        }
-
-        /**
-         * Set createInstanceRequest
-         * @param createInstanceRequest The new integration instance. (optional)
-         * @return APIcreateInstanceRequest
-         */
-        public APIcreateInstanceRequest createInstanceRequest(CreateInstanceRequest createInstanceRequest) {
+        private APIcreateInstanceRequest(CreateInstanceRequest createInstanceRequest) {
             this.createInstanceRequest = createInstanceRequest;
-            return this;
         }
 
         /**
@@ -311,6 +308,7 @@ public class IntegrationsApi {
     /**
      * [EXPERIMENTAL] CreateInstance: Create a single integration instance.
      * Creates a new instance of an integration, returning its identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param createInstanceRequest The new integration instance. (required)
      * @return APIcreateInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -321,8 +319,8 @@ public class IntegrationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIcreateInstanceRequest createInstance() {
-        return new APIcreateInstanceRequest();
+    public APIcreateInstanceRequest createInstance(CreateInstanceRequest createInstanceRequest) {
+        return new APIcreateInstanceRequest(createInstanceRequest);
     }
     private okhttp3.Call deleteInstanceCall(String instanceId, final ApiCallback _callback) throws ApiException {
         return deleteInstanceCall(instanceId,  _callback, new ConfigurationOptions());
@@ -2849,6 +2847,227 @@ public class IntegrationsApi {
     public APIgetSchemaRequest getSchema(String integration) {
         return new APIgetSchemaRequest(integration);
     }
+    private okhttp3.Call listDataflowProcessorsCall(final ApiCallback _callback) throws ApiException {
+        return listDataflowProcessorsCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listDataflowProcessorsCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/dataflow/processors";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call listDataflowProcessorsValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listDataflowProcessorsCall(_callback, opts);
+
+    }
+
+
+    private ApiResponse<List<ProcessorDescription>> listDataflowProcessorsWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = listDataflowProcessorsValidateBeforeCall(null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<ProcessorDescription>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<ProcessorDescription>> listDataflowProcessorsWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listDataflowProcessorsValidateBeforeCall(null, opts);
+        Type localVarReturnType = new TypeToken<List<ProcessorDescription>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call listDataflowProcessorsAsync(final ApiCallback<List<ProcessorDescription>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = listDataflowProcessorsValidateBeforeCall(_callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<ProcessorDescription>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listDataflowProcessorsAsync(final ApiCallback<List<ProcessorDescription>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listDataflowProcessorsValidateBeforeCall(_callback, opts);
+        Type localVarReturnType = new TypeToken<List<ProcessorDescription>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIlistDataflowProcessorsRequest {
+
+        private APIlistDataflowProcessorsRequest() {
+        }
+
+        /**
+         * Build call for listDataflowProcessors
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listDataflowProcessorsCall(_callback);
+        }
+
+        /**
+         * Execute listDataflowProcessors request
+         * @return List&lt;ProcessorDescription&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<ProcessorDescription> execute() throws ApiException {
+            ApiResponse<List<ProcessorDescription>> localVarResp = listDataflowProcessorsWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listDataflowProcessors request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;ProcessorDescription&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<ProcessorDescription> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<ProcessorDescription>> localVarResp = listDataflowProcessorsWithHttpInfo(opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listDataflowProcessors request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;ProcessorDescription&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<ProcessorDescription>> executeWithHttpInfo() throws ApiException {
+            return listDataflowProcessorsWithHttpInfo();
+        }
+
+        /**
+         * Execute listDataflowProcessors request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;ProcessorDescription&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<ProcessorDescription>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listDataflowProcessorsWithHttpInfo(opts);
+        }
+
+        /**
+         * Execute listDataflowProcessors request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<ProcessorDescription>> _callback) throws ApiException {
+            return listDataflowProcessorsAsync(_callback);
+        }
+
+        /**
+         * Execute listDataflowProcessors request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<ProcessorDescription>> _callback, ConfigurationOptions opts) throws ApiException {
+            return listDataflowProcessorsAsync(_callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] ListDataflowProcessors: List processor types.
+     * The user must be authenticated to call this method.
+     * @return APIlistDataflowProcessorsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIlistDataflowProcessorsRequest listDataflowProcessors() {
+        return new APIlistDataflowProcessorsRequest();
+    }
     private okhttp3.Call listInstancesCall(final ApiCallback _callback) throws ApiException {
         return listInstancesCall( _callback, new ConfigurationOptions());
     }
@@ -3599,6 +3818,11 @@ public class IntegrationsApi {
             throw new ApiException("Missing the required parameter 'instanceId' when calling updateInstance(Async)");
         }
 
+        // verify the required parameter 'updateInstanceRequest' is set
+        if (updateInstanceRequest == null) {
+            throw new ApiException("Missing the required parameter 'updateInstanceRequest' when calling updateInstance(Async)");
+        }
+
         return updateInstanceCall(instanceId, updateInstanceRequest, _callback, opts);
 
     }
@@ -3630,20 +3854,11 @@ public class IntegrationsApi {
 
     public class APIupdateInstanceRequest {
         private final String instanceId;
-        private UpdateInstanceRequest updateInstanceRequest;
+        private final UpdateInstanceRequest updateInstanceRequest;
 
-        private APIupdateInstanceRequest(String instanceId) {
+        private APIupdateInstanceRequest(String instanceId, UpdateInstanceRequest updateInstanceRequest) {
             this.instanceId = instanceId;
-        }
-
-        /**
-         * Set updateInstanceRequest
-         * @param updateInstanceRequest The new integration instance. (optional)
-         * @return APIupdateInstanceRequest
-         */
-        public APIupdateInstanceRequest updateInstanceRequest(UpdateInstanceRequest updateInstanceRequest) {
             this.updateInstanceRequest = updateInstanceRequest;
-            return this;
         }
 
         /**
@@ -3771,6 +3986,7 @@ public class IntegrationsApi {
      * [EXPERIMENTAL] UpdateInstance: Update a single integration instance.
      * Updates an existing instance of an integration, returning its identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
+     * @param updateInstanceRequest The new integration instance. (required)
      * @return APIupdateInstanceRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -3781,7 +3997,7 @@ public class IntegrationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIupdateInstanceRequest updateInstance(String instanceId) {
-        return new APIupdateInstanceRequest(instanceId);
+    public APIupdateInstanceRequest updateInstance(String instanceId, UpdateInstanceRequest updateInstanceRequest) {
+        return new APIupdateInstanceRequest(instanceId, updateInstanceRequest);
     }
 }

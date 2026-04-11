@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3148
+  version: 0.1.3232
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -15,6 +15,8 @@ servers:
 security:
 - {}
 tags:
+- description: Manage versioned client configuration records
+  name: ClientConfigurations
 - description: Provides instrument search and upsert functions.
   name: Instrument
 - description: "Install, configure, and execute Horizon integrations"
@@ -28,6 +30,376 @@ tags:
 - description: Provides information about Vendor configurations
   name: Vendor
 paths:
+  /api/clientconfiguration/{configType}:
+    get:
+      description: |-
+        Returns all configuration records for the given config type, across all versions and states
+        (both draft and locked), ordered by version descending.
+        The user must be authenticated and entitled to call this method.
+      operationId: ListClientConfigurations
+      parameters:
+      - description: The category of configuration to list.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClientConfigurationResponse'
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListClientConfigurations: List client configurations."
+      tags:
+      - ClientConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/clientconfiguration/{configType}/{name}:
+    get:
+      description: |-
+        Returns a specific configuration record. When both majorVersion and minorVersion are omitted,
+        the highest available version is returned. Both must be supplied together or both omitted.
+        The user must be authenticated and entitled to call this method.
+      operationId: GetClientConfiguration
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: "The major version to retrieve. Must be supplied together with\
+          \ minorVersion, or both omitted."
+        explode: true
+        in: query
+        name: majorVersion
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "The minor version to retrieve. Must be supplied together with\
+          \ majorVersion, or both omitted."
+        explode: true
+        in: query
+        name: minorVersion
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client or configuration does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetClientConfiguration: Get a client configuration."
+      tags:
+      - ClientConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/clientconfiguration/{configType}/{name}/draft:
+    post:
+      description: |-
+        Creates a new draft configuration record. Configurations follow a draft/locked lifecycle:
+        create a draft here, refine it with the update endpoint, then commit it with the lock endpoint.
+        If both majorVersion and minorVersion are omitted in the request body, the next version is
+        assigned automatically by incrementing the minor version of the current highest version (starting
+        at 1.0 if none exists). The user must be authenticated and entitled to call this method.
+      operationId: CreateClientConfigurationDraft
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              majorVersion: 1
+              minorVersion: 1
+              sourceMajorVersion: 1
+              sourceMinorVersion: 0
+            schema:
+              $ref: '#/components/schemas/CreateClientConfigurationDraftRequest'
+        description: "Options for the new draft, including optional explicit version\
+          \ and source version."
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientConfigurationResponse'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client does not exist.
+        "409":
+          description: A configuration with the specified version already exists.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateClientConfigurationDraft: Create a draft client\
+        \ configuration."
+      tags:
+      - ClientConfigurations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/clientconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft:
+    put:
+      description: |-
+        Updates the value of an existing draft configuration. Only draft versions can be updated;
+        locked versions are immutable. This endpoint can be called multiple times before locking.
+        The user must be authenticated and entitled to call this method.
+      operationId: UpdateClientConfigurationDraft
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The major version of the draft to update.
+        explode: false
+        in: path
+        name: majorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The minor version of the draft to update.
+        explode: false
+        in: path
+        name: minorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              value: "{\"key\": \"value\"}"
+            schema:
+              $ref: '#/components/schemas/UpdateClientConfigurationDraftRequest'
+        description: The updated value.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: "The client or configuration version does not exist, or the\
+            \ version is already locked."
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateClientConfigurationDraft: Update a draft client\
+        \ configuration."
+      tags:
+      - ClientConfigurations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/clientconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/lock:
+    post:
+      description: |-
+        Locks a draft configuration version, making it immutable and ready for use. Once locked,
+        a version cannot be edited or unlocked. All versions are retained permanently.
+        The user must be authenticated and entitled to call this method.
+      operationId: LockClientConfigurationVersion
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The major version to lock.
+        explode: false
+        in: path
+        name: majorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The minor version to lock.
+        explode: false
+        in: path
+        name: minorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: "The client or configuration version does not exist, or the\
+            \ version is already locked."
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] LockClientConfigurationVersion: Lock a client configuration\
+        \ version."
+      tags:
+      - ClientConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/instrument/onboarding/create:
     post:
       operationId: CreateInstrument
@@ -1000,6 +1372,40 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/integrations/dataflow/processors:
+    get:
+      description: The user must be authenticated to call this method.
+      operationId: ListDataflowProcessors
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - name: Ingest
+                displayName: Ingest
+                description: Reads data from external sources and parses it into records
+                category: Source
+                isActive: true
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProcessorDescription'
+                type: array
+          description: OK
+        "404":
+          description: The requested processors do not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListDataflowProcessors: List processor types."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/integrations/instances:
     get:
       description: The user must be authenticated to call this method.
@@ -1081,6 +1487,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateInstanceRequest'
         description: The new integration instance.
+        required: true
       responses:
         "201":
           content:
@@ -1405,6 +1812,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UpdateInstanceRequest'
         description: The new integration instance.
+        required: true
       responses:
         "204":
           description: No Content
@@ -3117,6 +3525,86 @@ components:
           type: string
       required:
       - runIds
+      type: object
+    ClientConfigurationResponse:
+      additionalProperties: false
+      description: Represents a versioned client configuration record.
+      example:
+        name: name
+        isDraft: true
+        configType: configType
+        majorVersion: 0
+        minorVersion: 6
+        value: value
+      properties:
+        name:
+          description: The logical name of the configuration.
+          type: string
+        configType:
+          description: The category of configuration.
+          type: string
+        majorVersion:
+          description: The major version number.
+          format: int32
+          type: integer
+        minorVersion:
+          description: The minor version number.
+          format: int32
+          type: integer
+        value:
+          description: The JSON configuration value.
+          type: string
+        isDraft:
+          description: Whether this version is still in draft state. Draft versions
+            can be edited; locked versions cannot.
+          type: boolean
+      required:
+      - configType
+      - isDraft
+      - majorVersion
+      - minorVersion
+      - name
+      - value
+      type: object
+    CreateClientConfigurationDraftRequest:
+      additionalProperties: false
+      description: Request to create a new draft client configuration.
+      example:
+        majorVersion: 0
+        minorVersion: 6
+        sourceMinorVersion: 5
+        sourceMajorVersion: 1
+      properties:
+        majorVersion:
+          description: |-
+            The major version for the new draft. Must be supplied together with minorVersion,
+            or both omitted to auto-assign the next version.
+          format: int32
+          nullable: true
+          type: integer
+        minorVersion:
+          description: |-
+            The minor version for the new draft. Must be supplied together with MajorVersion,
+            or both omitted to auto-assign the next version.
+          format: int32
+          nullable: true
+          type: integer
+        sourceMajorVersion:
+          description: |-
+            The major version of an existing record to copy the value from.
+            Must be supplied together with SourceMinorVersion.
+            If omitted, the new draft is initialised with an empty JSON object.
+          format: int32
+          nullable: true
+          type: integer
+        sourceMinorVersion:
+          description: |-
+            The minor version of an existing record to copy the value from.
+            Must be supplied together with SourceMajorVersion.
+            If omitted, the new draft is initialised with an empty JSON object.
+          format: int32
+          nullable: true
+          type: integer
       type: object
     CreateInstanceRequest:
       additionalProperties: false
@@ -5952,6 +6440,33 @@ components:
       - startTime
       - userId
       type: object
+    ProcessorDescription:
+      additionalProperties: false
+      description: Represents a processor in the Horizon integration system.
+      example:
+        displayName: displayName
+        name: name
+        description: description
+        category: category
+        isActive: true
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - category
+      - description
+      - displayName
+      - isActive
+      - name
+      type: object
     ProcessSummary:
       additionalProperties: false
       description: Completed event details
@@ -6205,6 +6720,20 @@ components:
       - timeZone
       - type
       type: object
+    UpdateClientConfigurationDraftRequest:
+      additionalProperties: false
+      description: Request to update the value of an existing draft client configuration.
+      example:
+        value: value
+      properties:
+        value:
+          description: The new JSON value to store. Must be valid JSON.
+          maxLength: 100000
+          minLength: 0
+          type: string
+      required:
+      - value
+      type: object
     UpdateInstanceRequest:
       additionalProperties: false
       description: A request to update an existing integration instance.
@@ -6339,6 +6868,7 @@ components:
 x-tagGroups:
   name: API
   tags:
+  - ClientConfigurations
   - Instrument
   - Integrations
   - Logs
