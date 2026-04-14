@@ -8,6 +8,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**deleteInstance**](IntegrationsApi.md#deleteInstance) | **DELETE** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] DeleteInstance: Delete a single integration instance. |
 | [**executeInstance**](IntegrationsApi.md#executeInstance) | **POST** /api/integrations/instances/{instanceId}/execute | [EXPERIMENTAL] ExecuteInstance: Execute an integration instance. |
 | [**executeInstanceWithParams**](IntegrationsApi.md#executeInstanceWithParams) | **POST** /api/integrations/instances/{instanceId}/executewithparams | [EXPERIMENTAL] ExecuteInstanceWithParams: Execute an integration instance with runtime parameters |
+| [**getDataflowProcessorSchema**](IntegrationsApi.md#getDataflowProcessorSchema) | **GET** /api/integrations/dataflow/processors/{processorType}/schema | [EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype. |
 | [**getExecutionIdsForInstance**](IntegrationsApi.md#getExecutionIdsForInstance) | **GET** /api/integrations/instances/{instanceId}/executions | [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids. |
 | [**getInstance**](IntegrationsApi.md#getInstance) | **GET** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration. |
 | [**getInstanceOptionalPropertyMapping**](IntegrationsApi.md#getInstanceOptionalPropertyMapping) | **GET** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance |
@@ -387,6 +388,96 @@ public class IntegrationsApiExample {
 | **200** | The execution id |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The integration instance does not exist |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getDataflowProcessorSchema
+
+> ProcessorSchemaResponse getDataflowProcessorSchema(processorType)
+
+[EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        String processorType = "processorType_example"; // String | 
+        try {
+            // uncomment the below to set overrides at the request level
+            // ProcessorSchemaResponse result = apiInstance.getDataflowProcessorSchema(processorType).execute(opts);
+
+            ProcessorSchemaResponse result = apiInstance.getDataflowProcessorSchema(processorType).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#getDataflowProcessorSchema");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **processorType** | **String**|  | |
+
+### Return type
+
+[**ProcessorSchemaResponse**](ProcessorSchemaResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **400** | The details of the input related failure |  -  |
+| **200** | OK |  -  |
+| **404** | The requested processors do not exist. |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)

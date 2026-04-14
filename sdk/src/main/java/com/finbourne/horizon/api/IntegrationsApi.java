@@ -39,6 +39,7 @@ import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.PagedResourceListOfIFieldMapping;
 import com.finbourne.horizon.model.PagedResourceListOfIPropertyMapping;
 import com.finbourne.horizon.model.ProcessorDescription;
+import com.finbourne.horizon.model.ProcessorSchemaResponse;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
 
 import java.lang.reflect.Type;
@@ -1036,6 +1037,244 @@ public class IntegrationsApi {
      */
     public APIexecuteInstanceWithParamsRequest executeInstanceWithParams(String instanceId, Map<String, String> requestBody) {
         return new APIexecuteInstanceWithParamsRequest(instanceId, requestBody);
+    }
+    private okhttp3.Call getDataflowProcessorSchemaCall(String processorType, final ApiCallback _callback) throws ApiException {
+        return getDataflowProcessorSchemaCall(processorType,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getDataflowProcessorSchemaCall(String processorType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/dataflow/processors/{processorType}/schema"
+            .replace("{" + "processorType" + "}", localVarApiClient.escapeString(processorType.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getDataflowProcessorSchemaValidateBeforeCall(String processorType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'processorType' is set
+        if (processorType == null) {
+            throw new ApiException("Missing the required parameter 'processorType' when calling getDataflowProcessorSchema(Async)");
+        }
+
+        return getDataflowProcessorSchemaCall(processorType, _callback, opts);
+
+    }
+
+
+    private ApiResponse<ProcessorSchemaResponse> getDataflowProcessorSchemaWithHttpInfo(String processorType) throws ApiException {
+        okhttp3.Call localVarCall = getDataflowProcessorSchemaValidateBeforeCall(processorType, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ProcessorSchemaResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ProcessorSchemaResponse> getDataflowProcessorSchemaWithHttpInfo(String processorType, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getDataflowProcessorSchemaValidateBeforeCall(processorType, null, opts);
+        Type localVarReturnType = new TypeToken<ProcessorSchemaResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getDataflowProcessorSchemaAsync(String processorType, final ApiCallback<ProcessorSchemaResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getDataflowProcessorSchemaValidateBeforeCall(processorType, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ProcessorSchemaResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getDataflowProcessorSchemaAsync(String processorType, final ApiCallback<ProcessorSchemaResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getDataflowProcessorSchemaValidateBeforeCall(processorType, _callback, opts);
+        Type localVarReturnType = new TypeToken<ProcessorSchemaResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetDataflowProcessorSchemaRequest {
+        private final String processorType;
+
+        private APIgetDataflowProcessorSchemaRequest(String processorType) {
+            this.processorType = processorType;
+        }
+
+        /**
+         * Build call for getDataflowProcessorSchema
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getDataflowProcessorSchemaCall(processorType, _callback);
+        }
+
+        /**
+         * Execute getDataflowProcessorSchema request
+         * @return ProcessorSchemaResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ProcessorSchemaResponse execute() throws ApiException {
+            ApiResponse<ProcessorSchemaResponse> localVarResp = getDataflowProcessorSchemaWithHttpInfo(processorType);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getDataflowProcessorSchema request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ProcessorSchemaResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ProcessorSchemaResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ProcessorSchemaResponse> localVarResp = getDataflowProcessorSchemaWithHttpInfo(processorType, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getDataflowProcessorSchema request with HTTP info returned
+         * @return ApiResponse&lt;ProcessorSchemaResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ProcessorSchemaResponse> executeWithHttpInfo() throws ApiException {
+            return getDataflowProcessorSchemaWithHttpInfo(processorType);
+        }
+
+        /**
+         * Execute getDataflowProcessorSchema request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ProcessorSchemaResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ProcessorSchemaResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getDataflowProcessorSchemaWithHttpInfo(processorType, opts);
+        }
+
+        /**
+         * Execute getDataflowProcessorSchema request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ProcessorSchemaResponse> _callback) throws ApiException {
+            return getDataflowProcessorSchemaAsync(processorType, _callback);
+        }
+
+        /**
+         * Execute getDataflowProcessorSchema request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ProcessorSchemaResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return getDataflowProcessorSchemaAsync(processorType, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype.
+     * 
+     * @param processorType  (required)
+     * @return APIgetDataflowProcessorSchemaRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetDataflowProcessorSchemaRequest getDataflowProcessorSchema(String processorType) {
+        return new APIgetDataflowProcessorSchemaRequest(processorType);
     }
     private okhttp3.Call getExecutionIdsForInstanceCall(String instanceId, Integer limit, final ApiCallback _callback) throws ApiException {
         return getExecutionIdsForInstanceCall(instanceId, limit,  _callback, new ConfigurationOptions());

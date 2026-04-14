@@ -155,6 +155,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ProcessSummary.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ProcessUpdateResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ProcessorDescription.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ProcessorSchemaResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.PropertyMapping.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.QueryRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.QuerySpecification.CustomTypeAdapterFactory());

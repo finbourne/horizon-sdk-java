@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3232
+  version: 0.1.3240
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1402,6 +1402,85 @@ paths:
       security:
       - oauth2: []
       summary: "[EXPERIMENTAL] ListDataflowProcessors: List processor types."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/dataflow/processors/{processorType}/schema:
+    get:
+      operationId: GetDataflowProcessorSchema
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: processorType
+        required: true
+        schema:
+          maxLength: 16384
+          minLength: 0
+          type: string
+        style: simple
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "200":
+          content:
+            application/json:
+              example:
+                processorName: SinkFile
+                version: "1"
+                configurationSchema:
+                  type: object
+                  description: Serialises records and writes them to file destinations.
+                  properties:
+                    format:
+                      type: string
+                      description: Output serialisation format.
+                      enum:
+                      - Csv
+                      - Json
+                      - Xml
+                      - FixedWidth
+                    delimiter:
+                      type: string
+                      description: CSV field delimiter.
+                      default: ","
+                    destination:
+                      type: object
+                      description: File delivery destination.
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - Drive
+                          - Sftp
+                          - S3
+                          - Local
+                      required:
+                      - type
+                  required:
+                  - format
+                  - destination
+              schema:
+                $ref: '#/components/schemas/ProcessorSchemaResponse'
+          description: OK
+        "404":
+          description: The requested processors do not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration\
+        \ schema for a given processor type. This is used by the UI to render the\
+        \ configuration form for a processortype."
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
@@ -6466,6 +6545,24 @@ components:
       - displayName
       - isActive
       - name
+      type: object
+    ProcessorSchemaResponse:
+      additionalProperties: false
+      description: DTO ProcessorSchemaResponse fields with JObject
+      example:
+        configurationSchema: ""
+        processorName: processorName
+        version: version
+      properties:
+        processorName:
+          type: string
+        version:
+          type: string
+        configurationSchema: {}
+      required:
+      - configurationSchema
+      - processorName
+      - version
       type: object
     ProcessSummary:
       additionalProperties: false
