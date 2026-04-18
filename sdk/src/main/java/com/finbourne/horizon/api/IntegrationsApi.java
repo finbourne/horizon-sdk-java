@@ -1144,7 +1144,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1161,7 +1161,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1179,7 +1179,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1197,7 +1197,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1214,7 +1214,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1232,7 +1232,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1250,7 +1250,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1269,7 +1269,7 @@ public class IntegrationsApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The requested processors do not exist. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */

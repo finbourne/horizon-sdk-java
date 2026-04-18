@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3240
+  version: 0.1.3257
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1469,7 +1469,7 @@ paths:
                 $ref: '#/components/schemas/ProcessorSchemaResponse'
           description: OK
         "404":
-          description: The requested processors do not exist.
+          description: The processor type does not exist.
         default:
           content:
             application/json:
