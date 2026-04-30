@@ -25,11 +25,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.finbourne.horizon.model.ClientConfigurationResponse;
-import com.finbourne.horizon.model.CreateClientConfigurationDraftRequest;
+import com.finbourne.horizon.model.CreateVersionedConfigurationDraftRequest;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
-import com.finbourne.horizon.model.UpdateClientConfigurationDraftRequest;
+import com.finbourne.horizon.model.UpdateVersionedConfigurationDraftRequest;
+import com.finbourne.horizon.model.VersionedConfigurationResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -37,16 +37,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ClientConfigurationsApi {
+public class VersionedConfigurationsApi {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public ClientConfigurationsApi() {
+    public VersionedConfigurationsApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public ClientConfigurationsApi(ApiClient apiClient) {
+    public VersionedConfigurationsApi(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 
@@ -74,11 +74,11 @@ public class ClientConfigurationsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    private okhttp3.Call createClientConfigurationDraftCall(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest, final ApiCallback _callback) throws ApiException {
-        return createClientConfigurationDraftCall(configType, name, createClientConfigurationDraftRequest,  _callback, new ConfigurationOptions());
+    private okhttp3.Call createVersionedConfigurationDraftCall(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest, final ApiCallback _callback) throws ApiException {
+        return createVersionedConfigurationDraftCall(configType, name, createVersionedConfigurationDraftRequest,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call createClientConfigurationDraftCall(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call createVersionedConfigurationDraftCall(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -92,10 +92,10 @@ public class ClientConfigurationsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = createClientConfigurationDraftRequest;
+        Object localVarPostBody = createVersionedConfigurationDraftRequest;
 
         // create path and map variables
-        String localVarPath = "/api/clientconfiguration/{configType}/{name}/draft"
+        String localVarPath = "/api/versionedconfiguration/{configType}/{name}/draft"
             .replace("{" + "configType" + "}", localVarApiClient.escapeString(configType.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
@@ -126,72 +126,72 @@ public class ClientConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createClientConfigurationDraftValidateBeforeCall(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call createVersionedConfigurationDraftValidateBeforeCall(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'configType' is set
         if (configType == null) {
-            throw new ApiException("Missing the required parameter 'configType' when calling createClientConfigurationDraft(Async)");
+            throw new ApiException("Missing the required parameter 'configType' when calling createVersionedConfigurationDraft(Async)");
         }
 
         // verify the required parameter 'name' is set
         if (name == null) {
-            throw new ApiException("Missing the required parameter 'name' when calling createClientConfigurationDraft(Async)");
+            throw new ApiException("Missing the required parameter 'name' when calling createVersionedConfigurationDraft(Async)");
         }
 
-        return createClientConfigurationDraftCall(configType, name, createClientConfigurationDraftRequest, _callback, opts);
+        return createVersionedConfigurationDraftCall(configType, name, createVersionedConfigurationDraftRequest, _callback, opts);
 
     }
 
 
-    private ApiResponse<ClientConfigurationResponse> createClientConfigurationDraftWithHttpInfo(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest) throws ApiException {
-        okhttp3.Call localVarCall = createClientConfigurationDraftValidateBeforeCall(configType, name, createClientConfigurationDraftRequest, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> createVersionedConfigurationDraftWithHttpInfo(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest) throws ApiException {
+        okhttp3.Call localVarCall = createVersionedConfigurationDraftValidateBeforeCall(configType, name, createVersionedConfigurationDraftRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<ClientConfigurationResponse> createClientConfigurationDraftWithHttpInfo(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = createClientConfigurationDraftValidateBeforeCall(configType, name, createClientConfigurationDraftRequest, null, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> createVersionedConfigurationDraftWithHttpInfo(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createVersionedConfigurationDraftValidateBeforeCall(configType, name, createVersionedConfigurationDraftRequest, null, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call createClientConfigurationDraftAsync(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest, final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
+    private okhttp3.Call createVersionedConfigurationDraftAsync(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest, final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createClientConfigurationDraftValidateBeforeCall(configType, name, createClientConfigurationDraftRequest, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = createVersionedConfigurationDraftValidateBeforeCall(configType, name, createVersionedConfigurationDraftRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call createClientConfigurationDraftAsync(String configType, String name, CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest, final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call createVersionedConfigurationDraftAsync(String configType, String name, CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest, final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = createClientConfigurationDraftValidateBeforeCall(configType, name, createClientConfigurationDraftRequest, _callback, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = createVersionedConfigurationDraftValidateBeforeCall(configType, name, createVersionedConfigurationDraftRequest, _callback, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public class APIcreateClientConfigurationDraftRequest {
+    public class APIcreateVersionedConfigurationDraftRequest {
         private final String configType;
         private final String name;
-        private CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest;
+        private CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest;
 
-        private APIcreateClientConfigurationDraftRequest(String configType, String name) {
+        private APIcreateVersionedConfigurationDraftRequest(String configType, String name) {
             this.configType = configType;
             this.name = name;
         }
 
         /**
-         * Set createClientConfigurationDraftRequest
-         * @param createClientConfigurationDraftRequest Options for the new draft, including optional explicit version and source version. (optional)
-         * @return APIcreateClientConfigurationDraftRequest
+         * Set createVersionedConfigurationDraftRequest
+         * @param createVersionedConfigurationDraftRequest Options for the new draft, including optional explicit version and source version. (optional)
+         * @return APIcreateVersionedConfigurationDraftRequest
          */
-        public APIcreateClientConfigurationDraftRequest createClientConfigurationDraftRequest(CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest) {
-            this.createClientConfigurationDraftRequest = createClientConfigurationDraftRequest;
+        public APIcreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest(CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest) {
+            this.createVersionedConfigurationDraftRequest = createVersionedConfigurationDraftRequest;
             return this;
         }
 
         /**
-         * Build call for createClientConfigurationDraft
+         * Build call for createVersionedConfigurationDraft
          * @param _callback ApiCallback API callback
          * @return Call to execute
          * @throws ApiException If fail to serialize the request body object
@@ -206,12 +206,12 @@ public class ClientConfigurationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return createClientConfigurationDraftCall(configType, name, createClientConfigurationDraftRequest, _callback);
+            return createVersionedConfigurationDraftCall(configType, name, createVersionedConfigurationDraftRequest, _callback);
         }
 
         /**
-         * Execute createClientConfigurationDraft request
-         * @return ClientConfigurationResponse
+         * Execute createVersionedConfigurationDraft request
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -223,14 +223,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute() throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = createClientConfigurationDraftWithHttpInfo(configType, name, createClientConfigurationDraftRequest);
+        public VersionedConfigurationResponse execute() throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = createVersionedConfigurationDraftWithHttpInfo(configType, name, createVersionedConfigurationDraftRequest);
             return localVarResp.getData();
         }
 
         /**
-         * Execute createClientConfigurationDraft request. Use any specified configuration options to override any other configuration for this request only.
-         * @return ClientConfigurationResponse
+         * Execute createVersionedConfigurationDraft request. Use any specified configuration options to override any other configuration for this request only.
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -242,14 +242,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = createClientConfigurationDraftWithHttpInfo(configType, name, createClientConfigurationDraftRequest, opts);
+        public VersionedConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = createVersionedConfigurationDraftWithHttpInfo(configType, name, createVersionedConfigurationDraftRequest, opts);
             return localVarResp.getData();
         }
 
         /**
-         * Execute createClientConfigurationDraft request with HTTP info returned
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute createVersionedConfigurationDraft request with HTTP info returned
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -261,13 +261,13 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo() throws ApiException {
-            return createClientConfigurationDraftWithHttpInfo(configType, name, createClientConfigurationDraftRequest);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo() throws ApiException {
+            return createVersionedConfigurationDraftWithHttpInfo(configType, name, createVersionedConfigurationDraftRequest);
         }
 
         /**
-         * Execute createClientConfigurationDraft request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute createVersionedConfigurationDraft request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -279,12 +279,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return createClientConfigurationDraftWithHttpInfo(configType, name, createClientConfigurationDraftRequest, opts);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createVersionedConfigurationDraftWithHttpInfo(configType, name, createVersionedConfigurationDraftRequest, opts);
         }
 
         /**
-         * Execute createClientConfigurationDraft request (asynchronously)
+         * Execute createVersionedConfigurationDraft request (asynchronously)
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -298,12 +298,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
-            return createClientConfigurationDraftAsync(configType, name, createClientConfigurationDraftRequest, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
+            return createVersionedConfigurationDraftAsync(configType, name, createVersionedConfigurationDraftRequest, _callback);
         }
 
         /**
-         * Execute createClientConfigurationDraft request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * Execute createVersionedConfigurationDraft request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -317,17 +317,17 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return createClientConfigurationDraftAsync(configType, name, createClientConfigurationDraftRequest, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return createVersionedConfigurationDraftAsync(configType, name, createVersionedConfigurationDraftRequest, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] CreateClientConfigurationDraft: Create a draft client configuration.
+     * [EXPERIMENTAL] CreateVersionedConfigurationDraft: Create a draft versioned configuration.
      * Creates a new draft configuration record. Configurations follow a draft/locked lifecycle: create a draft here, refine it with the update endpoint, then commit it with the lock endpoint. If both majorVersion and minorVersion are omitted in the request body, the next version is assigned automatically by incrementing the minor version of the current highest version (starting at 1.0 if none exists). The user must be authenticated and entitled to call this method.
      * @param configType The category of configuration. (required)
      * @param name The logical name of the configuration. (required)
-     * @return APIcreateClientConfigurationDraftRequest
+     * @return APIcreateVersionedConfigurationDraftRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -338,14 +338,14 @@ public class ClientConfigurationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIcreateClientConfigurationDraftRequest createClientConfigurationDraft(String configType, String name) {
-        return new APIcreateClientConfigurationDraftRequest(configType, name);
+    public APIcreateVersionedConfigurationDraftRequest createVersionedConfigurationDraft(String configType, String name) {
+        return new APIcreateVersionedConfigurationDraftRequest(configType, name);
     }
-    private okhttp3.Call getClientConfigurationCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback) throws ApiException {
-        return getClientConfigurationCall(configType, name, majorVersion, minorVersion,  _callback, new ConfigurationOptions());
+    private okhttp3.Call getVersionedConfigurationCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback) throws ApiException {
+        return getVersionedConfigurationCall(configType, name, majorVersion, minorVersion,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call getClientConfigurationCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getVersionedConfigurationCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -362,7 +362,7 @@ public class ClientConfigurationsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/clientconfiguration/{configType}/{name}"
+        String localVarPath = "/api/versionedconfiguration/{configType}/{name}"
             .replace("{" + "configType" + "}", localVarApiClient.escapeString(configType.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
@@ -400,57 +400,57 @@ public class ClientConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getClientConfigurationValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getVersionedConfigurationValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'configType' is set
         if (configType == null) {
-            throw new ApiException("Missing the required parameter 'configType' when calling getClientConfiguration(Async)");
+            throw new ApiException("Missing the required parameter 'configType' when calling getVersionedConfiguration(Async)");
         }
 
         // verify the required parameter 'name' is set
         if (name == null) {
-            throw new ApiException("Missing the required parameter 'name' when calling getClientConfiguration(Async)");
+            throw new ApiException("Missing the required parameter 'name' when calling getVersionedConfiguration(Async)");
         }
 
-        return getClientConfigurationCall(configType, name, majorVersion, minorVersion, _callback, opts);
+        return getVersionedConfigurationCall(configType, name, majorVersion, minorVersion, _callback, opts);
 
     }
 
 
-    private ApiResponse<ClientConfigurationResponse> getClientConfigurationWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion) throws ApiException {
-        okhttp3.Call localVarCall = getClientConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> getVersionedConfigurationWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion) throws ApiException {
+        okhttp3.Call localVarCall = getVersionedConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<ClientConfigurationResponse> getClientConfigurationWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = getClientConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, null, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> getVersionedConfigurationWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getVersionedConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, null, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getClientConfigurationAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
+    private okhttp3.Call getVersionedConfigurationAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getClientConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = getVersionedConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getClientConfigurationAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getVersionedConfigurationAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = getClientConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = getVersionedConfigurationValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public class APIgetClientConfigurationRequest {
+    public class APIgetVersionedConfigurationRequest {
         private final String configType;
         private final String name;
         private Integer majorVersion;
         private Integer minorVersion;
 
-        private APIgetClientConfigurationRequest(String configType, String name) {
+        private APIgetVersionedConfigurationRequest(String configType, String name) {
             this.configType = configType;
             this.name = name;
         }
@@ -458,9 +458,9 @@ public class ClientConfigurationsApi {
         /**
          * Set majorVersion
          * @param majorVersion The major version to retrieve. Must be supplied together with minorVersion, or both omitted. (optional)
-         * @return APIgetClientConfigurationRequest
+         * @return APIgetVersionedConfigurationRequest
          */
-        public APIgetClientConfigurationRequest majorVersion(Integer majorVersion) {
+        public APIgetVersionedConfigurationRequest majorVersion(Integer majorVersion) {
             this.majorVersion = majorVersion;
             return this;
         }
@@ -468,15 +468,15 @@ public class ClientConfigurationsApi {
         /**
          * Set minorVersion
          * @param minorVersion The minor version to retrieve. Must be supplied together with majorVersion, or both omitted. (optional)
-         * @return APIgetClientConfigurationRequest
+         * @return APIgetVersionedConfigurationRequest
          */
-        public APIgetClientConfigurationRequest minorVersion(Integer minorVersion) {
+        public APIgetVersionedConfigurationRequest minorVersion(Integer minorVersion) {
             this.minorVersion = minorVersion;
             return this;
         }
 
         /**
-         * Build call for getClientConfiguration
+         * Build call for getVersionedConfiguration
          * @param _callback ApiCallback API callback
          * @return Call to execute
          * @throws ApiException If fail to serialize the request body object
@@ -490,12 +490,12 @@ public class ClientConfigurationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return getClientConfigurationCall(configType, name, majorVersion, minorVersion, _callback);
+            return getVersionedConfigurationCall(configType, name, majorVersion, minorVersion, _callback);
         }
 
         /**
-         * Execute getClientConfiguration request
-         * @return ClientConfigurationResponse
+         * Execute getVersionedConfiguration request
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -506,14 +506,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute() throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = getClientConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion);
+        public VersionedConfigurationResponse execute() throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = getVersionedConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion);
             return localVarResp.getData();
         }
 
         /**
-         * Execute getClientConfiguration request. Use any specified configuration options to override any other configuration for this request only.
-         * @return ClientConfigurationResponse
+         * Execute getVersionedConfiguration request. Use any specified configuration options to override any other configuration for this request only.
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -524,14 +524,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = getClientConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
+        public VersionedConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = getVersionedConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
             return localVarResp.getData();
         }
 
         /**
-         * Execute getClientConfiguration request with HTTP info returned
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute getVersionedConfiguration request with HTTP info returned
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -542,13 +542,13 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo() throws ApiException {
-            return getClientConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo() throws ApiException {
+            return getVersionedConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion);
         }
 
         /**
-         * Execute getClientConfiguration request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute getVersionedConfiguration request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -559,12 +559,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return getClientConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getVersionedConfigurationWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
         }
 
         /**
-         * Execute getClientConfiguration request (asynchronously)
+         * Execute getVersionedConfiguration request (asynchronously)
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -577,12 +577,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
-            return getClientConfigurationAsync(configType, name, majorVersion, minorVersion, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
+            return getVersionedConfigurationAsync(configType, name, majorVersion, minorVersion, _callback);
         }
 
         /**
-         * Execute getClientConfiguration request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * Execute getVersionedConfiguration request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -595,17 +595,17 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return getClientConfigurationAsync(configType, name, majorVersion, minorVersion, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return getVersionedConfigurationAsync(configType, name, majorVersion, minorVersion, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] GetClientConfiguration: Get a client configuration.
+     * [EXPERIMENTAL] GetVersionedConfiguration: Get a versioned configuration.
      * Returns a specific configuration record. When both majorVersion and minorVersion are omitted, the highest available version is returned. Both must be supplied together or both omitted. The user must be authenticated and entitled to call this method.
      * @param configType The category of configuration. (required)
      * @param name The logical name of the configuration. (required)
-     * @return APIgetClientConfigurationRequest
+     * @return APIgetVersionedConfigurationRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -615,14 +615,14 @@ public class ClientConfigurationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIgetClientConfigurationRequest getClientConfiguration(String configType, String name) {
-        return new APIgetClientConfigurationRequest(configType, name);
+    public APIgetVersionedConfigurationRequest getVersionedConfiguration(String configType, String name) {
+        return new APIgetVersionedConfigurationRequest(configType, name);
     }
-    private okhttp3.Call listClientConfigurationsCall(String configType, final ApiCallback _callback) throws ApiException {
-        return listClientConfigurationsCall(configType,  _callback, new ConfigurationOptions());
+    private okhttp3.Call listVersionedConfigurationsCall(String configType, final ApiCallback _callback) throws ApiException {
+        return listVersionedConfigurationsCall(configType,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call listClientConfigurationsCall(String configType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listVersionedConfigurationsCall(String configType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -639,7 +639,7 @@ public class ClientConfigurationsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/clientconfiguration/{configType}"
+        String localVarPath = "/api/versionedconfiguration/{configType}"
             .replace("{" + "configType" + "}", localVarApiClient.escapeString(configType.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -668,54 +668,54 @@ public class ClientConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listClientConfigurationsValidateBeforeCall(String configType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listVersionedConfigurationsValidateBeforeCall(String configType, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'configType' is set
         if (configType == null) {
-            throw new ApiException("Missing the required parameter 'configType' when calling listClientConfigurations(Async)");
+            throw new ApiException("Missing the required parameter 'configType' when calling listVersionedConfigurations(Async)");
         }
 
-        return listClientConfigurationsCall(configType, _callback, opts);
+        return listVersionedConfigurationsCall(configType, _callback, opts);
 
     }
 
 
-    private ApiResponse<List<ClientConfigurationResponse>> listClientConfigurationsWithHttpInfo(String configType) throws ApiException {
-        okhttp3.Call localVarCall = listClientConfigurationsValidateBeforeCall(configType, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<List<ClientConfigurationResponse>>(){}.getType();
+    private ApiResponse<List<VersionedConfigurationResponse>> listVersionedConfigurationsWithHttpInfo(String configType) throws ApiException {
+        okhttp3.Call localVarCall = listVersionedConfigurationsValidateBeforeCall(configType, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<List<ClientConfigurationResponse>> listClientConfigurationsWithHttpInfo(String configType, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = listClientConfigurationsValidateBeforeCall(configType, null, opts);
-        Type localVarReturnType = new TypeToken<List<ClientConfigurationResponse>>(){}.getType();
+    private ApiResponse<List<VersionedConfigurationResponse>> listVersionedConfigurationsWithHttpInfo(String configType, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listVersionedConfigurationsValidateBeforeCall(configType, null, opts);
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listClientConfigurationsAsync(String configType, final ApiCallback<List<ClientConfigurationResponse>> _callback) throws ApiException {
+    private okhttp3.Call listVersionedConfigurationsAsync(String configType, final ApiCallback<List<VersionedConfigurationResponse>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listClientConfigurationsValidateBeforeCall(configType, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<List<ClientConfigurationResponse>>(){}.getType();
+        okhttp3.Call localVarCall = listVersionedConfigurationsValidateBeforeCall(configType, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call listClientConfigurationsAsync(String configType, final ApiCallback<List<ClientConfigurationResponse>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listVersionedConfigurationsAsync(String configType, final ApiCallback<List<VersionedConfigurationResponse>> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = listClientConfigurationsValidateBeforeCall(configType, _callback, opts);
-        Type localVarReturnType = new TypeToken<List<ClientConfigurationResponse>>(){}.getType();
+        okhttp3.Call localVarCall = listVersionedConfigurationsValidateBeforeCall(configType, _callback, opts);
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public class APIlistClientConfigurationsRequest {
+    public class APIlistVersionedConfigurationsRequest {
         private final String configType;
 
-        private APIlistClientConfigurationsRequest(String configType) {
+        private APIlistVersionedConfigurationsRequest(String configType) {
             this.configType = configType;
         }
 
         /**
-         * Build call for listClientConfigurations
+         * Build call for listVersionedConfigurations
          * @param _callback ApiCallback API callback
          * @return Call to execute
          * @throws ApiException If fail to serialize the request body object
@@ -729,12 +729,12 @@ public class ClientConfigurationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listClientConfigurationsCall(configType, _callback);
+            return listVersionedConfigurationsCall(configType, _callback);
         }
 
         /**
-         * Execute listClientConfigurations request
-         * @return List&lt;ClientConfigurationResponse&gt;
+         * Execute listVersionedConfigurations request
+         * @return List&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -745,14 +745,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public List<ClientConfigurationResponse> execute() throws ApiException {
-            ApiResponse<List<ClientConfigurationResponse>> localVarResp = listClientConfigurationsWithHttpInfo(configType);
+        public List<VersionedConfigurationResponse> execute() throws ApiException {
+            ApiResponse<List<VersionedConfigurationResponse>> localVarResp = listVersionedConfigurationsWithHttpInfo(configType);
             return localVarResp.getData();
         }
 
         /**
-         * Execute listClientConfigurations request. Use any specified configuration options to override any other configuration for this request only.
-         * @return List&lt;ClientConfigurationResponse&gt;
+         * Execute listVersionedConfigurations request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -763,14 +763,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public List<ClientConfigurationResponse> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<List<ClientConfigurationResponse>> localVarResp = listClientConfigurationsWithHttpInfo(configType, opts);
+        public List<VersionedConfigurationResponse> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<VersionedConfigurationResponse>> localVarResp = listVersionedConfigurationsWithHttpInfo(configType, opts);
             return localVarResp.getData();
         }
 
         /**
-         * Execute listClientConfigurations request with HTTP info returned
-         * @return ApiResponse&lt;List&lt;ClientConfigurationResponse&gt;&gt;
+         * Execute listVersionedConfigurations request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;VersionedConfigurationResponse&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -781,13 +781,13 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<List<ClientConfigurationResponse>> executeWithHttpInfo() throws ApiException {
-            return listClientConfigurationsWithHttpInfo(configType);
+        public ApiResponse<List<VersionedConfigurationResponse>> executeWithHttpInfo() throws ApiException {
+            return listVersionedConfigurationsWithHttpInfo(configType);
         }
 
         /**
-         * Execute listClientConfigurations request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;List&lt;ClientConfigurationResponse&gt;&gt;
+         * Execute listVersionedConfigurations request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;VersionedConfigurationResponse&gt;&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -798,12 +798,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<List<ClientConfigurationResponse>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return listClientConfigurationsWithHttpInfo(configType, opts);
+        public ApiResponse<List<VersionedConfigurationResponse>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listVersionedConfigurationsWithHttpInfo(configType, opts);
         }
 
         /**
-         * Execute listClientConfigurations request (asynchronously)
+         * Execute listVersionedConfigurations request (asynchronously)
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -816,12 +816,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<List<ClientConfigurationResponse>> _callback) throws ApiException {
-            return listClientConfigurationsAsync(configType, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<List<VersionedConfigurationResponse>> _callback) throws ApiException {
+            return listVersionedConfigurationsAsync(configType, _callback);
         }
 
         /**
-         * Execute listClientConfigurations request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * Execute listVersionedConfigurations request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -834,16 +834,16 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<List<ClientConfigurationResponse>> _callback, ConfigurationOptions opts) throws ApiException {
-            return listClientConfigurationsAsync(configType, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<List<VersionedConfigurationResponse>> _callback, ConfigurationOptions opts) throws ApiException {
+            return listVersionedConfigurationsAsync(configType, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] ListClientConfigurations: List client configurations.
+     * [EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations.
      * Returns all configuration records for the given config type, across all versions and states (both draft and locked), ordered by version descending. The user must be authenticated and entitled to call this method.
      * @param configType The category of configuration to list. (required)
-     * @return APIlistClientConfigurationsRequest
+     * @return APIlistVersionedConfigurationsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -853,14 +853,14 @@ public class ClientConfigurationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIlistClientConfigurationsRequest listClientConfigurations(String configType) {
-        return new APIlistClientConfigurationsRequest(configType);
+    public APIlistVersionedConfigurationsRequest listVersionedConfigurations(String configType) {
+        return new APIlistVersionedConfigurationsRequest(configType);
     }
-    private okhttp3.Call lockClientConfigurationVersionCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback) throws ApiException {
-        return lockClientConfigurationVersionCall(configType, name, majorVersion, minorVersion,  _callback, new ConfigurationOptions());
+    private okhttp3.Call lockVersionedConfigurationVersionCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback) throws ApiException {
+        return lockVersionedConfigurationVersionCall(configType, name, majorVersion, minorVersion,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call lockClientConfigurationVersionCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call lockVersionedConfigurationVersionCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -877,7 +877,7 @@ public class ClientConfigurationsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/clientconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/lock"
+        String localVarPath = "/api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/lock"
             .replace("{" + "configType" + "}", localVarApiClient.escapeString(configType.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()))
             .replace("{" + "majorVersion" + "}", localVarApiClient.escapeString(majorVersion.toString()))
@@ -909,67 +909,67 @@ public class ClientConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call lockClientConfigurationVersionValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call lockVersionedConfigurationVersionValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'configType' is set
         if (configType == null) {
-            throw new ApiException("Missing the required parameter 'configType' when calling lockClientConfigurationVersion(Async)");
+            throw new ApiException("Missing the required parameter 'configType' when calling lockVersionedConfigurationVersion(Async)");
         }
 
         // verify the required parameter 'name' is set
         if (name == null) {
-            throw new ApiException("Missing the required parameter 'name' when calling lockClientConfigurationVersion(Async)");
+            throw new ApiException("Missing the required parameter 'name' when calling lockVersionedConfigurationVersion(Async)");
         }
 
         // verify the required parameter 'majorVersion' is set
         if (majorVersion == null) {
-            throw new ApiException("Missing the required parameter 'majorVersion' when calling lockClientConfigurationVersion(Async)");
+            throw new ApiException("Missing the required parameter 'majorVersion' when calling lockVersionedConfigurationVersion(Async)");
         }
 
         // verify the required parameter 'minorVersion' is set
         if (minorVersion == null) {
-            throw new ApiException("Missing the required parameter 'minorVersion' when calling lockClientConfigurationVersion(Async)");
+            throw new ApiException("Missing the required parameter 'minorVersion' when calling lockVersionedConfigurationVersion(Async)");
         }
 
-        return lockClientConfigurationVersionCall(configType, name, majorVersion, minorVersion, _callback, opts);
+        return lockVersionedConfigurationVersionCall(configType, name, majorVersion, minorVersion, _callback, opts);
 
     }
 
 
-    private ApiResponse<ClientConfigurationResponse> lockClientConfigurationVersionWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion) throws ApiException {
-        okhttp3.Call localVarCall = lockClientConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> lockVersionedConfigurationVersionWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion) throws ApiException {
+        okhttp3.Call localVarCall = lockVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<ClientConfigurationResponse> lockClientConfigurationVersionWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = lockClientConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, null, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> lockVersionedConfigurationVersionWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = lockVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, null, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call lockClientConfigurationVersionAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
+    private okhttp3.Call lockVersionedConfigurationVersionAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = lockClientConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = lockVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call lockClientConfigurationVersionAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call lockVersionedConfigurationVersionAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = lockClientConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = lockVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public class APIlockClientConfigurationVersionRequest {
+    public class APIlockVersionedConfigurationVersionRequest {
         private final String configType;
         private final String name;
         private final Integer majorVersion;
         private final Integer minorVersion;
 
-        private APIlockClientConfigurationVersionRequest(String configType, String name, Integer majorVersion, Integer minorVersion) {
+        private APIlockVersionedConfigurationVersionRequest(String configType, String name, Integer majorVersion, Integer minorVersion) {
             this.configType = configType;
             this.name = name;
             this.majorVersion = majorVersion;
@@ -977,7 +977,7 @@ public class ClientConfigurationsApi {
         }
 
         /**
-         * Build call for lockClientConfigurationVersion
+         * Build call for lockVersionedConfigurationVersion
          * @param _callback ApiCallback API callback
          * @return Call to execute
          * @throws ApiException If fail to serialize the request body object
@@ -991,12 +991,12 @@ public class ClientConfigurationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return lockClientConfigurationVersionCall(configType, name, majorVersion, minorVersion, _callback);
+            return lockVersionedConfigurationVersionCall(configType, name, majorVersion, minorVersion, _callback);
         }
 
         /**
-         * Execute lockClientConfigurationVersion request
-         * @return ClientConfigurationResponse
+         * Execute lockVersionedConfigurationVersion request
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1007,14 +1007,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute() throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = lockClientConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion);
+        public VersionedConfigurationResponse execute() throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = lockVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion);
             return localVarResp.getData();
         }
 
         /**
-         * Execute lockClientConfigurationVersion request. Use any specified configuration options to override any other configuration for this request only.
-         * @return ClientConfigurationResponse
+         * Execute lockVersionedConfigurationVersion request. Use any specified configuration options to override any other configuration for this request only.
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1025,14 +1025,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = lockClientConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
+        public VersionedConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = lockVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
             return localVarResp.getData();
         }
 
         /**
-         * Execute lockClientConfigurationVersion request with HTTP info returned
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute lockVersionedConfigurationVersion request with HTTP info returned
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1043,13 +1043,13 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo() throws ApiException {
-            return lockClientConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo() throws ApiException {
+            return lockVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion);
         }
 
         /**
-         * Execute lockClientConfigurationVersion request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute lockVersionedConfigurationVersion request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1060,12 +1060,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return lockClientConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return lockVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
         }
 
         /**
-         * Execute lockClientConfigurationVersion request (asynchronously)
+         * Execute lockVersionedConfigurationVersion request (asynchronously)
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1078,12 +1078,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
-            return lockClientConfigurationVersionAsync(configType, name, majorVersion, minorVersion, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
+            return lockVersionedConfigurationVersionAsync(configType, name, majorVersion, minorVersion, _callback);
         }
 
         /**
-         * Execute lockClientConfigurationVersion request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * Execute lockVersionedConfigurationVersion request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1096,19 +1096,19 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return lockClientConfigurationVersionAsync(configType, name, majorVersion, minorVersion, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return lockVersionedConfigurationVersionAsync(configType, name, majorVersion, minorVersion, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] LockClientConfigurationVersion: Lock a client configuration version.
+     * [EXPERIMENTAL] LockVersionedConfigurationVersion: Lock a versioned configuration version.
      * Locks a draft configuration version, making it immutable and ready for use. Once locked, a version cannot be edited or unlocked. All versions are retained permanently. The user must be authenticated and entitled to call this method.
      * @param configType The category of configuration. (required)
      * @param name The logical name of the configuration. (required)
      * @param majorVersion The major version to lock. (required)
      * @param minorVersion The minor version to lock. (required)
-     * @return APIlockClientConfigurationVersionRequest
+     * @return APIlockVersionedConfigurationVersionRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1118,14 +1118,14 @@ public class ClientConfigurationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIlockClientConfigurationVersionRequest lockClientConfigurationVersion(String configType, String name, Integer majorVersion, Integer minorVersion) {
-        return new APIlockClientConfigurationVersionRequest(configType, name, majorVersion, minorVersion);
+    public APIlockVersionedConfigurationVersionRequest lockVersionedConfigurationVersion(String configType, String name, Integer majorVersion, Integer minorVersion) {
+        return new APIlockVersionedConfigurationVersionRequest(configType, name, majorVersion, minorVersion);
     }
-    private okhttp3.Call updateClientConfigurationDraftCall(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest, final ApiCallback _callback) throws ApiException {
-        return updateClientConfigurationDraftCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest,  _callback, new ConfigurationOptions());
+    private okhttp3.Call updateVersionedConfigurationDraftCall(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest, final ApiCallback _callback) throws ApiException {
+        return updateVersionedConfigurationDraftCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call updateClientConfigurationDraftCall(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call updateVersionedConfigurationDraftCall(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1139,10 +1139,10 @@ public class ClientConfigurationsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = updateClientConfigurationDraftRequest;
+        Object localVarPostBody = updateVersionedConfigurationDraftRequest;
 
         // create path and map variables
-        String localVarPath = "/api/clientconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft"
+        String localVarPath = "/api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft"
             .replace("{" + "configType" + "}", localVarApiClient.escapeString(configType.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()))
             .replace("{" + "majorVersion" + "}", localVarApiClient.escapeString(majorVersion.toString()))
@@ -1175,68 +1175,68 @@ public class ClientConfigurationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateClientConfigurationDraftValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call updateVersionedConfigurationDraftValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'configType' is set
         if (configType == null) {
-            throw new ApiException("Missing the required parameter 'configType' when calling updateClientConfigurationDraft(Async)");
+            throw new ApiException("Missing the required parameter 'configType' when calling updateVersionedConfigurationDraft(Async)");
         }
 
         // verify the required parameter 'name' is set
         if (name == null) {
-            throw new ApiException("Missing the required parameter 'name' when calling updateClientConfigurationDraft(Async)");
+            throw new ApiException("Missing the required parameter 'name' when calling updateVersionedConfigurationDraft(Async)");
         }
 
         // verify the required parameter 'majorVersion' is set
         if (majorVersion == null) {
-            throw new ApiException("Missing the required parameter 'majorVersion' when calling updateClientConfigurationDraft(Async)");
+            throw new ApiException("Missing the required parameter 'majorVersion' when calling updateVersionedConfigurationDraft(Async)");
         }
 
         // verify the required parameter 'minorVersion' is set
         if (minorVersion == null) {
-            throw new ApiException("Missing the required parameter 'minorVersion' when calling updateClientConfigurationDraft(Async)");
+            throw new ApiException("Missing the required parameter 'minorVersion' when calling updateVersionedConfigurationDraft(Async)");
         }
 
-        return updateClientConfigurationDraftCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, _callback, opts);
+        return updateVersionedConfigurationDraftCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, _callback, opts);
 
     }
 
 
-    private ApiResponse<ClientConfigurationResponse> updateClientConfigurationDraftWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateClientConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> updateVersionedConfigurationDraftWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest) throws ApiException {
+        okhttp3.Call localVarCall = updateVersionedConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<ClientConfigurationResponse> updateClientConfigurationDraftWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = updateClientConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, null, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+    private ApiResponse<VersionedConfigurationResponse> updateVersionedConfigurationDraftWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = updateVersionedConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, null, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call updateClientConfigurationDraftAsync(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest, final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
+    private okhttp3.Call updateVersionedConfigurationDraftAsync(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest, final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateClientConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = updateVersionedConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call updateClientConfigurationDraftAsync(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest, final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call updateVersionedConfigurationDraftAsync(String configType, String name, Integer majorVersion, Integer minorVersion, UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest, final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = updateClientConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, _callback, opts);
-        Type localVarReturnType = new TypeToken<ClientConfigurationResponse>(){}.getType();
+        okhttp3.Call localVarCall = updateVersionedConfigurationDraftValidateBeforeCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, _callback, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    public class APIupdateClientConfigurationDraftRequest {
+    public class APIupdateVersionedConfigurationDraftRequest {
         private final String configType;
         private final String name;
         private final Integer majorVersion;
         private final Integer minorVersion;
-        private UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest;
+        private UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest;
 
-        private APIupdateClientConfigurationDraftRequest(String configType, String name, Integer majorVersion, Integer minorVersion) {
+        private APIupdateVersionedConfigurationDraftRequest(String configType, String name, Integer majorVersion, Integer minorVersion) {
             this.configType = configType;
             this.name = name;
             this.majorVersion = majorVersion;
@@ -1244,17 +1244,17 @@ public class ClientConfigurationsApi {
         }
 
         /**
-         * Set updateClientConfigurationDraftRequest
-         * @param updateClientConfigurationDraftRequest The updated value. (optional)
-         * @return APIupdateClientConfigurationDraftRequest
+         * Set updateVersionedConfigurationDraftRequest
+         * @param updateVersionedConfigurationDraftRequest The updated value. (optional)
+         * @return APIupdateVersionedConfigurationDraftRequest
          */
-        public APIupdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest(UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequest) {
-            this.updateClientConfigurationDraftRequest = updateClientConfigurationDraftRequest;
+        public APIupdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest(UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequest) {
+            this.updateVersionedConfigurationDraftRequest = updateVersionedConfigurationDraftRequest;
             return this;
         }
 
         /**
-         * Build call for updateClientConfigurationDraft
+         * Build call for updateVersionedConfigurationDraft
          * @param _callback ApiCallback API callback
          * @return Call to execute
          * @throws ApiException If fail to serialize the request body object
@@ -1268,12 +1268,12 @@ public class ClientConfigurationsApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return updateClientConfigurationDraftCall(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, _callback);
+            return updateVersionedConfigurationDraftCall(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, _callback);
         }
 
         /**
-         * Execute updateClientConfigurationDraft request
-         * @return ClientConfigurationResponse
+         * Execute updateVersionedConfigurationDraft request
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1284,14 +1284,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute() throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = updateClientConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest);
+        public VersionedConfigurationResponse execute() throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = updateVersionedConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest);
             return localVarResp.getData();
         }
 
         /**
-         * Execute updateClientConfigurationDraft request. Use any specified configuration options to override any other configuration for this request only.
-         * @return ClientConfigurationResponse
+         * Execute updateVersionedConfigurationDraft request. Use any specified configuration options to override any other configuration for this request only.
+         * @return VersionedConfigurationResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1302,14 +1302,14 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ClientConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<ClientConfigurationResponse> localVarResp = updateClientConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, opts);
+        public VersionedConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = updateVersionedConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, opts);
             return localVarResp.getData();
         }
 
         /**
-         * Execute updateClientConfigurationDraft request with HTTP info returned
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute updateVersionedConfigurationDraft request with HTTP info returned
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1320,13 +1320,13 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo() throws ApiException {
-            return updateClientConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo() throws ApiException {
+            return updateVersionedConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest);
         }
 
         /**
-         * Execute updateClientConfigurationDraft request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;ClientConfigurationResponse&gt;
+         * Execute updateVersionedConfigurationDraft request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1337,12 +1337,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<ClientConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return updateClientConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, opts);
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return updateVersionedConfigurationDraftWithHttpInfo(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, opts);
         }
 
         /**
-         * Execute updateClientConfigurationDraft request (asynchronously)
+         * Execute updateVersionedConfigurationDraft request (asynchronously)
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1355,12 +1355,12 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback) throws ApiException {
-            return updateClientConfigurationDraftAsync(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, _callback);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
+            return updateVersionedConfigurationDraftAsync(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, _callback);
         }
 
         /**
-         * Execute updateClientConfigurationDraft request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * Execute updateVersionedConfigurationDraft request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
          * @param _callback The callback to be executed when the API call finishes
          * @return The request call
          * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1373,19 +1373,19 @@ public class ClientConfigurationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<ClientConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return updateClientConfigurationDraftAsync(configType, name, majorVersion, minorVersion, updateClientConfigurationDraftRequest, _callback, opts);
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return updateVersionedConfigurationDraftAsync(configType, name, majorVersion, minorVersion, updateVersionedConfigurationDraftRequest, _callback, opts);
         }
     }
 
     /**
-     * [EXPERIMENTAL] UpdateClientConfigurationDraft: Update a draft client configuration.
+     * [EXPERIMENTAL] UpdateVersionedConfigurationDraft: Update a draft versioned configuration.
      * Updates the value of an existing draft configuration. Only draft versions can be updated; locked versions are immutable. This endpoint can be called multiple times before locking. The user must be authenticated and entitled to call this method.
      * @param configType The category of configuration. (required)
      * @param name The logical name of the configuration. (required)
      * @param majorVersion The major version of the draft to update. (required)
      * @param minorVersion The minor version of the draft to update. (required)
-     * @return APIupdateClientConfigurationDraftRequest
+     * @return APIupdateVersionedConfigurationDraftRequest
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
@@ -1395,7 +1395,7 @@ public class ClientConfigurationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIupdateClientConfigurationDraftRequest updateClientConfigurationDraft(String configType, String name, Integer majorVersion, Integer minorVersion) {
-        return new APIupdateClientConfigurationDraftRequest(configType, name, majorVersion, minorVersion);
+    public APIupdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraft(String configType, String name, Integer majorVersion, Integer minorVersion) {
+        return new APIupdateVersionedConfigurationDraftRequest(configType, name, majorVersion, minorVersion);
     }
 }

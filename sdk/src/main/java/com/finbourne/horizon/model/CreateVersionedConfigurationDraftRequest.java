@@ -46,10 +46,10 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Request to create a new draft client configuration.
+ * Request to create a new draft versioned configuration.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CreateClientConfigurationDraftRequest {
+public class CreateVersionedConfigurationDraftRequest {
   public static final String SERIALIZED_NAME_MAJOR_VERSION = "majorVersion";
   @SerializedName(SERIALIZED_NAME_MAJOR_VERSION)
   private Integer majorVersion;
@@ -66,10 +66,10 @@ public class CreateClientConfigurationDraftRequest {
   @SerializedName(SERIALIZED_NAME_SOURCE_MINOR_VERSION)
   private Integer sourceMinorVersion;
 
-  public CreateClientConfigurationDraftRequest() {
+  public CreateVersionedConfigurationDraftRequest() {
   }
 
-  public CreateClientConfigurationDraftRequest majorVersion(Integer majorVersion) {
+  public CreateVersionedConfigurationDraftRequest majorVersion(Integer majorVersion) {
     
     this.majorVersion = majorVersion;
     return this;
@@ -90,7 +90,7 @@ public class CreateClientConfigurationDraftRequest {
   }
 
 
-  public CreateClientConfigurationDraftRequest minorVersion(Integer minorVersion) {
+  public CreateVersionedConfigurationDraftRequest minorVersion(Integer minorVersion) {
     
     this.minorVersion = minorVersion;
     return this;
@@ -111,7 +111,7 @@ public class CreateClientConfigurationDraftRequest {
   }
 
 
-  public CreateClientConfigurationDraftRequest sourceMajorVersion(Integer sourceMajorVersion) {
+  public CreateVersionedConfigurationDraftRequest sourceMajorVersion(Integer sourceMajorVersion) {
     
     this.sourceMajorVersion = sourceMajorVersion;
     return this;
@@ -132,7 +132,7 @@ public class CreateClientConfigurationDraftRequest {
   }
 
 
-  public CreateClientConfigurationDraftRequest sourceMinorVersion(Integer sourceMinorVersion) {
+  public CreateVersionedConfigurationDraftRequest sourceMinorVersion(Integer sourceMinorVersion) {
     
     this.sourceMinorVersion = sourceMinorVersion;
     return this;
@@ -162,11 +162,11 @@ public class CreateClientConfigurationDraftRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CreateClientConfigurationDraftRequest createClientConfigurationDraftRequest = (CreateClientConfigurationDraftRequest) o;
-    return Objects.equals(this.majorVersion, createClientConfigurationDraftRequest.majorVersion) &&
-        Objects.equals(this.minorVersion, createClientConfigurationDraftRequest.minorVersion) &&
-        Objects.equals(this.sourceMajorVersion, createClientConfigurationDraftRequest.sourceMajorVersion) &&
-        Objects.equals(this.sourceMinorVersion, createClientConfigurationDraftRequest.sourceMinorVersion);
+    CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequest = (CreateVersionedConfigurationDraftRequest) o;
+    return Objects.equals(this.majorVersion, createVersionedConfigurationDraftRequest.majorVersion) &&
+        Objects.equals(this.minorVersion, createVersionedConfigurationDraftRequest.minorVersion) &&
+        Objects.equals(this.sourceMajorVersion, createVersionedConfigurationDraftRequest.sourceMajorVersion) &&
+        Objects.equals(this.sourceMinorVersion, createVersionedConfigurationDraftRequest.sourceMinorVersion);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -188,7 +188,7 @@ public class CreateClientConfigurationDraftRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CreateClientConfigurationDraftRequest {\n");
+    sb.append("class CreateVersionedConfigurationDraftRequest {\n");
     sb.append("    majorVersion: ").append(toIndentedString(majorVersion)).append("\n");
     sb.append("    minorVersion: ").append(toIndentedString(minorVersion)).append("\n");
     sb.append("    sourceMajorVersion: ").append(toIndentedString(sourceMajorVersion)).append("\n");
@@ -228,12 +228,12 @@ public class CreateClientConfigurationDraftRequest {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CreateClientConfigurationDraftRequest
+  * @throws IOException if the JSON Element is invalid with respect to CreateVersionedConfigurationDraftRequest
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CreateClientConfigurationDraftRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CreateClientConfigurationDraftRequest is not found in the empty JSON string", CreateClientConfigurationDraftRequest.openapiRequiredFields.toString()));
+        if (!CreateVersionedConfigurationDraftRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CreateVersionedConfigurationDraftRequest is not found in the empty JSON string", CreateVersionedConfigurationDraftRequest.openapiRequiredFields.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -243,22 +243,22 @@ public class CreateClientConfigurationDraftRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CreateClientConfigurationDraftRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CreateClientConfigurationDraftRequest' and its subtypes
+       if (!CreateVersionedConfigurationDraftRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CreateVersionedConfigurationDraftRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CreateClientConfigurationDraftRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CreateClientConfigurationDraftRequest.class));
+       final TypeAdapter<CreateVersionedConfigurationDraftRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CreateVersionedConfigurationDraftRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CreateClientConfigurationDraftRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<CreateVersionedConfigurationDraftRequest>() {
            @Override
-           public void write(JsonWriter out, CreateClientConfigurationDraftRequest value) throws IOException {
+           public void write(JsonWriter out, CreateVersionedConfigurationDraftRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CreateClientConfigurationDraftRequest read(JsonReader in) throws IOException {
+           public CreateVersionedConfigurationDraftRequest read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -269,18 +269,18 @@ public class CreateClientConfigurationDraftRequest {
   }
 
  /**
-  * Create an instance of CreateClientConfigurationDraftRequest given an JSON string
+  * Create an instance of CreateVersionedConfigurationDraftRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CreateClientConfigurationDraftRequest
-  * @throws IOException if the JSON string is invalid with respect to CreateClientConfigurationDraftRequest
+  * @return An instance of CreateVersionedConfigurationDraftRequest
+  * @throws IOException if the JSON string is invalid with respect to CreateVersionedConfigurationDraftRequest
   */
-  public static CreateClientConfigurationDraftRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CreateClientConfigurationDraftRequest.class);
+  public static CreateVersionedConfigurationDraftRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CreateVersionedConfigurationDraftRequest.class);
   }
 
  /**
-  * Convert an instance of CreateClientConfigurationDraftRequest to an JSON string
+  * Convert an instance of CreateVersionedConfigurationDraftRequest to an JSON string
   *
   * @return JSON string
   */

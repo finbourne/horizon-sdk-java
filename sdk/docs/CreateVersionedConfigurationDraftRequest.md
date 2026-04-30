@@ -1,5 +1,5 @@
-# com.finbourne.horizon.model.CreateClientConfigurationDraftRequest
-Request to create a new draft client configuration.
+# com.finbourne.horizon.model.CreateVersionedConfigurationDraftRequest
+Request to create a new draft versioned configuration.
 
 ## Properties
 
@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **sourceMinorVersion** | **Integer** | The minor version of an existing record to copy the value from. Must be supplied together with SourceMajorVersion. If omitted, the new draft is initialised with an empty JSON object. | [optional] [default to Integer]
 
 ```java
-import com.finbourne.horizon.model.CreateClientConfigurationDraftRequest;
+import com.finbourne.horizon.model.CreateVersionedConfigurationDraftRequest;
 import java.util.*;
 import java.lang.System;
 import java.net.URI;
@@ -22,7 +22,7 @@ import java.net.URI;
 @jakarta.annotation.Nullable Integer SourceMinorVersion = new Integer("100.00");
 
 
-CreateClientConfigurationDraftRequest createClientConfigurationDraftRequestInstance = new CreateClientConfigurationDraftRequest()
+CreateVersionedConfigurationDraftRequest createVersionedConfigurationDraftRequestInstance = new CreateVersionedConfigurationDraftRequest()
     .MajorVersion(MajorVersion)
     .MinorVersion(MinorVersion)
     .SourceMajorVersion(SourceMajorVersion)

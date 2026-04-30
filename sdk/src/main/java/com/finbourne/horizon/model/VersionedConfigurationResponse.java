@@ -45,10 +45,10 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Represents a versioned client configuration record.
+ * Represents a versioned configuration record.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ClientConfigurationResponse {
+public class VersionedConfigurationResponse {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
@@ -73,10 +73,10 @@ public class ClientConfigurationResponse {
   @SerializedName(SERIALIZED_NAME_IS_DRAFT)
   private Boolean isDraft;
 
-  public ClientConfigurationResponse() {
+  public VersionedConfigurationResponse() {
   }
 
-  public ClientConfigurationResponse name(String name) {
+  public VersionedConfigurationResponse name(String name) {
     
     this.name = name;
     return this;
@@ -97,7 +97,7 @@ public class ClientConfigurationResponse {
   }
 
 
-  public ClientConfigurationResponse configType(String configType) {
+  public VersionedConfigurationResponse configType(String configType) {
     
     this.configType = configType;
     return this;
@@ -118,7 +118,7 @@ public class ClientConfigurationResponse {
   }
 
 
-  public ClientConfigurationResponse majorVersion(Integer majorVersion) {
+  public VersionedConfigurationResponse majorVersion(Integer majorVersion) {
     
     this.majorVersion = majorVersion;
     return this;
@@ -139,7 +139,7 @@ public class ClientConfigurationResponse {
   }
 
 
-  public ClientConfigurationResponse minorVersion(Integer minorVersion) {
+  public VersionedConfigurationResponse minorVersion(Integer minorVersion) {
     
     this.minorVersion = minorVersion;
     return this;
@@ -160,7 +160,7 @@ public class ClientConfigurationResponse {
   }
 
 
-  public ClientConfigurationResponse value(String value) {
+  public VersionedConfigurationResponse value(String value) {
     
     this.value = value;
     return this;
@@ -181,7 +181,7 @@ public class ClientConfigurationResponse {
   }
 
 
-  public ClientConfigurationResponse isDraft(Boolean isDraft) {
+  public VersionedConfigurationResponse isDraft(Boolean isDraft) {
     
     this.isDraft = isDraft;
     return this;
@@ -211,13 +211,13 @@ public class ClientConfigurationResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ClientConfigurationResponse clientConfigurationResponse = (ClientConfigurationResponse) o;
-    return Objects.equals(this.name, clientConfigurationResponse.name) &&
-        Objects.equals(this.configType, clientConfigurationResponse.configType) &&
-        Objects.equals(this.majorVersion, clientConfigurationResponse.majorVersion) &&
-        Objects.equals(this.minorVersion, clientConfigurationResponse.minorVersion) &&
-        Objects.equals(this.value, clientConfigurationResponse.value) &&
-        Objects.equals(this.isDraft, clientConfigurationResponse.isDraft);
+    VersionedConfigurationResponse versionedConfigurationResponse = (VersionedConfigurationResponse) o;
+    return Objects.equals(this.name, versionedConfigurationResponse.name) &&
+        Objects.equals(this.configType, versionedConfigurationResponse.configType) &&
+        Objects.equals(this.majorVersion, versionedConfigurationResponse.majorVersion) &&
+        Objects.equals(this.minorVersion, versionedConfigurationResponse.minorVersion) &&
+        Objects.equals(this.value, versionedConfigurationResponse.value) &&
+        Objects.equals(this.isDraft, versionedConfigurationResponse.isDraft);
   }
 
   @Override
@@ -228,7 +228,7 @@ public class ClientConfigurationResponse {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ClientConfigurationResponse {\n");
+    sb.append("class VersionedConfigurationResponse {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    configType: ").append(toIndentedString(configType)).append("\n");
     sb.append("    majorVersion: ").append(toIndentedString(majorVersion)).append("\n");
@@ -278,17 +278,17 @@ public class ClientConfigurationResponse {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ClientConfigurationResponse
+  * @throws IOException if the JSON Element is invalid with respect to VersionedConfigurationResponse
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!ClientConfigurationResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ClientConfigurationResponse is not found in the empty JSON string", ClientConfigurationResponse.openapiRequiredFields.toString()));
+        if (!VersionedConfigurationResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in VersionedConfigurationResponse is not found in the empty JSON string", VersionedConfigurationResponse.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : ClientConfigurationResponse.openapiRequiredFields) {
+      for (String requiredField : VersionedConfigurationResponse.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
@@ -309,22 +309,22 @@ public class ClientConfigurationResponse {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ClientConfigurationResponse.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ClientConfigurationResponse' and its subtypes
+       if (!VersionedConfigurationResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'VersionedConfigurationResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ClientConfigurationResponse> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ClientConfigurationResponse.class));
+       final TypeAdapter<VersionedConfigurationResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(VersionedConfigurationResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<ClientConfigurationResponse>() {
+       return (TypeAdapter<T>) new TypeAdapter<VersionedConfigurationResponse>() {
            @Override
-           public void write(JsonWriter out, ClientConfigurationResponse value) throws IOException {
+           public void write(JsonWriter out, VersionedConfigurationResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public ClientConfigurationResponse read(JsonReader in) throws IOException {
+           public VersionedConfigurationResponse read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -335,18 +335,18 @@ public class ClientConfigurationResponse {
   }
 
  /**
-  * Create an instance of ClientConfigurationResponse given an JSON string
+  * Create an instance of VersionedConfigurationResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of ClientConfigurationResponse
-  * @throws IOException if the JSON string is invalid with respect to ClientConfigurationResponse
+  * @return An instance of VersionedConfigurationResponse
+  * @throws IOException if the JSON string is invalid with respect to VersionedConfigurationResponse
   */
-  public static ClientConfigurationResponse fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ClientConfigurationResponse.class);
+  public static VersionedConfigurationResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, VersionedConfigurationResponse.class);
   }
 
  /**
-  * Convert an instance of ClientConfigurationResponse to an JSON string
+  * Convert an instance of VersionedConfigurationResponse to an JSON string
   *
   * @return JSON string
   */

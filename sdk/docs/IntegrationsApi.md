@@ -16,6 +16,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**getIntegrationConfigurationFields**](IntegrationsApi.md#getIntegrationConfigurationFields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration |
 | [**getIntegrationConfigurationProperties**](IntegrationsApi.md#getIntegrationConfigurationProperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration |
 | [**getSchema**](IntegrationsApi.md#getSchema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance. |
+| [**getTpfTransactionHistorySearch**](IntegrationsApi.md#getTpfTransactionHistorySearch) | **GET** /api/integrations/trade-publication-framework/transactions/search | [EARLY ACCESS] GetTpfTransactionHistorySearch: Endpoint to search TPF transaction by transaction ID and/or instrument identifier, with filtering by instance and date range |
 | [**listDataflowProcessors**](IntegrationsApi.md#listDataflowProcessors) | **GET** /api/integrations/dataflow/processors | [EXPERIMENTAL] ListDataflowProcessors: List processor types. |
 | [**listInstances**](IntegrationsApi.md#listInstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations. |
 | [**listIntegrations**](IntegrationsApi.md#listIntegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations. |
@@ -1142,6 +1143,109 @@ public class IntegrationsApiExample {
 | **200** | The system defined JSON schema for the details of a specified integration. |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The integration type does not exist or is not enabled. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getTpfTransactionHistorySearch
+
+> PagedResourceListOfTpfTransactionSearchResponse getTpfTransactionHistorySearch(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken)
+
+[EARLY ACCESS] GetTpfTransactionHistorySearch: Endpoint to search TPF transaction by transaction ID and/or instrument identifier, with filtering by instance and date range
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        String transactionId = "transactionId_example"; // String | 
+        String instrumentId = "instrumentId_example"; // String | 
+        String dateFrom = "dateFrom_example"; // String | 
+        String dateTo = "dateTo_example"; // String | 
+        String status = "status_example"; // String | 
+        String instanceId = "instanceId_example"; // String | 
+        Integer pageSize = 400; // Integer | 
+        String pageToken = ""; // String | 
+        try {
+            // uncomment the below to set overrides at the request level
+            // PagedResourceListOfTpfTransactionSearchResponse result = apiInstance.getTpfTransactionHistorySearch(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken).execute(opts);
+
+            PagedResourceListOfTpfTransactionSearchResponse result = apiInstance.getTpfTransactionHistorySearch(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#getTpfTransactionHistorySearch");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **transactionId** | **String**|  | [optional] |
+| **instrumentId** | **String**|  | [optional] |
+| **dateFrom** | **String**|  | [optional] |
+| **dateTo** | **String**|  | [optional] |
+| **status** | **String**|  | [optional] |
+| **instanceId** | **String**|  | [optional] |
+| **pageSize** | **Integer**|  | [optional] [default to 400] |
+| **pageToken** | **String**|  | [optional] [default to ] |
+
+### Return type
+
+[**PagedResourceListOfTpfTransactionSearchResponse**](PagedResourceListOfTpfTransactionSearchResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)

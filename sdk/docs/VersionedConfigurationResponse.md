@@ -1,5 +1,5 @@
-# com.finbourne.horizon.model.ClientConfigurationResponse
-Represents a versioned client configuration record.
+# com.finbourne.horizon.model.VersionedConfigurationResponse
+Represents a versioned configuration record.
 
 ## Properties
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **isDraft** | **Boolean** | Whether this version is still in draft state. Draft versions can be edited; locked versions cannot. | [default to Boolean]
 
 ```java
-import com.finbourne.horizon.model.ClientConfigurationResponse;
+import com.finbourne.horizon.model.VersionedConfigurationResponse;
 import java.util.*;
 import java.lang.System;
 import java.net.URI;
@@ -26,7 +26,7 @@ String Value = "example Value";
 Boolean IsDraft = true;
 
 
-ClientConfigurationResponse clientConfigurationResponseInstance = new ClientConfigurationResponse()
+VersionedConfigurationResponse versionedConfigurationResponseInstance = new VersionedConfigurationResponse()
     .Name(Name)
     .ConfigType(ConfigType)
     .MajorVersion(MajorVersion)

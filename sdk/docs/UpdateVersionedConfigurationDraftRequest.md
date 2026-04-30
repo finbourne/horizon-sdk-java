@@ -1,5 +1,5 @@
-# com.finbourne.horizon.model.UpdateClientConfigurationDraftRequest
-Request to update the value of an existing draft client configuration.
+# com.finbourne.horizon.model.UpdateVersionedConfigurationDraftRequest
+Request to update the value of an existing draft versioned configuration.
 
 ## Properties
 
@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **value** | **String** | The new JSON value to store. Must be valid JSON. | [default to String]
 
 ```java
-import com.finbourne.horizon.model.UpdateClientConfigurationDraftRequest;
+import com.finbourne.horizon.model.UpdateVersionedConfigurationDraftRequest;
 import java.util.*;
 import java.lang.System;
 import java.net.URI;
@@ -16,7 +16,7 @@ import java.net.URI;
 String Value = "example Value";
 
 
-UpdateClientConfigurationDraftRequest updateClientConfigurationDraftRequestInstance = new UpdateClientConfigurationDraftRequest()
+UpdateVersionedConfigurationDraftRequest updateVersionedConfigurationDraftRequestInstance = new UpdateVersionedConfigurationDraftRequest()
     .Value(Value);
 ```
 

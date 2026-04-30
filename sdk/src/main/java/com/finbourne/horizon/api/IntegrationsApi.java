@@ -38,6 +38,7 @@ import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.PagedResourceListOfIFieldMapping;
 import com.finbourne.horizon.model.PagedResourceListOfIPropertyMapping;
+import com.finbourne.horizon.model.PagedResourceListOfTpfTransactionSearchResponse;
 import com.finbourne.horizon.model.ProcessorDescription;
 import com.finbourne.horizon.model.ProcessorSchemaResponse;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
@@ -3085,6 +3086,347 @@ public class IntegrationsApi {
      */
     public APIgetSchemaRequest getSchema(String integration) {
         return new APIgetSchemaRequest(integration);
+    }
+    private okhttp3.Call getTpfTransactionHistorySearchCall(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken, final ApiCallback _callback) throws ApiException {
+        return getTpfTransactionHistorySearchCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getTpfTransactionHistorySearchCall(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/trade-publication-framework/transactions/search";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (transactionId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("transactionId", transactionId));
+        }
+
+        if (instrumentId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("instrumentId", instrumentId));
+        }
+
+        if (dateFrom != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dateFrom", dateFrom));
+        }
+
+        if (dateTo != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dateTo", dateTo));
+        }
+
+        if (status != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("status", status));
+        }
+
+        if (instanceId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("instanceId", instanceId));
+        }
+
+        if (pageSize != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("pageSize", pageSize));
+        }
+
+        if (pageToken != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("pageToken", pageToken));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getTpfTransactionHistorySearchValidateBeforeCall(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return getTpfTransactionHistorySearchCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, _callback, opts);
+
+    }
+
+
+    private ApiResponse<PagedResourceListOfTpfTransactionSearchResponse> getTpfTransactionHistorySearchWithHttpInfo(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken) throws ApiException {
+        okhttp3.Call localVarCall = getTpfTransactionHistorySearchValidateBeforeCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PagedResourceListOfTpfTransactionSearchResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<PagedResourceListOfTpfTransactionSearchResponse> getTpfTransactionHistorySearchWithHttpInfo(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getTpfTransactionHistorySearchValidateBeforeCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, null, opts);
+        Type localVarReturnType = new TypeToken<PagedResourceListOfTpfTransactionSearchResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getTpfTransactionHistorySearchAsync(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken, final ApiCallback<PagedResourceListOfTpfTransactionSearchResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getTpfTransactionHistorySearchValidateBeforeCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PagedResourceListOfTpfTransactionSearchResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getTpfTransactionHistorySearchAsync(String transactionId, String instrumentId, String dateFrom, String dateTo, String status, String instanceId, Integer pageSize, String pageToken, final ApiCallback<PagedResourceListOfTpfTransactionSearchResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getTpfTransactionHistorySearchValidateBeforeCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, _callback, opts);
+        Type localVarReturnType = new TypeToken<PagedResourceListOfTpfTransactionSearchResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetTpfTransactionHistorySearchRequest {
+        private String transactionId;
+        private String instrumentId;
+        private String dateFrom;
+        private String dateTo;
+        private String status;
+        private String instanceId;
+        private Integer pageSize;
+        private String pageToken;
+
+        private APIgetTpfTransactionHistorySearchRequest() {
+        }
+
+        /**
+         * Set transactionId
+         * @param transactionId  (optional)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest transactionId(String transactionId) {
+            this.transactionId = transactionId;
+            return this;
+        }
+
+        /**
+         * Set instrumentId
+         * @param instrumentId  (optional)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest instrumentId(String instrumentId) {
+            this.instrumentId = instrumentId;
+            return this;
+        }
+
+        /**
+         * Set dateFrom
+         * @param dateFrom  (optional)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest dateFrom(String dateFrom) {
+            this.dateFrom = dateFrom;
+            return this;
+        }
+
+        /**
+         * Set dateTo
+         * @param dateTo  (optional)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest dateTo(String dateTo) {
+            this.dateTo = dateTo;
+            return this;
+        }
+
+        /**
+         * Set status
+         * @param status  (optional)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest status(String status) {
+            this.status = status;
+            return this;
+        }
+
+        /**
+         * Set instanceId
+         * @param instanceId  (optional)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest instanceId(String instanceId) {
+            this.instanceId = instanceId;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize  (optional, default to 400)
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest pageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set pageToken
+         * @param pageToken  (optional, default to )
+         * @return APIgetTpfTransactionHistorySearchRequest
+         */
+        public APIgetTpfTransactionHistorySearchRequest pageToken(String pageToken) {
+            this.pageToken = pageToken;
+            return this;
+        }
+
+        /**
+         * Build call for getTpfTransactionHistorySearch
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getTpfTransactionHistorySearchCall(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, _callback);
+        }
+
+        /**
+         * Execute getTpfTransactionHistorySearch request
+         * @return PagedResourceListOfTpfTransactionSearchResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public PagedResourceListOfTpfTransactionSearchResponse execute() throws ApiException {
+            ApiResponse<PagedResourceListOfTpfTransactionSearchResponse> localVarResp = getTpfTransactionHistorySearchWithHttpInfo(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getTpfTransactionHistorySearch request. Use any specified configuration options to override any other configuration for this request only.
+         * @return PagedResourceListOfTpfTransactionSearchResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public PagedResourceListOfTpfTransactionSearchResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<PagedResourceListOfTpfTransactionSearchResponse> localVarResp = getTpfTransactionHistorySearchWithHttpInfo(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getTpfTransactionHistorySearch request with HTTP info returned
+         * @return ApiResponse&lt;PagedResourceListOfTpfTransactionSearchResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PagedResourceListOfTpfTransactionSearchResponse> executeWithHttpInfo() throws ApiException {
+            return getTpfTransactionHistorySearchWithHttpInfo(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken);
+        }
+
+        /**
+         * Execute getTpfTransactionHistorySearch request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;PagedResourceListOfTpfTransactionSearchResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PagedResourceListOfTpfTransactionSearchResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getTpfTransactionHistorySearchWithHttpInfo(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, opts);
+        }
+
+        /**
+         * Execute getTpfTransactionHistorySearch request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfTpfTransactionSearchResponse> _callback) throws ApiException {
+            return getTpfTransactionHistorySearchAsync(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, _callback);
+        }
+
+        /**
+         * Execute getTpfTransactionHistorySearch request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfTpfTransactionSearchResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return getTpfTransactionHistorySearchAsync(transactionId, instrumentId, dateFrom, dateTo, status, instanceId, pageSize, pageToken, _callback, opts);
+        }
+    }
+
+    /**
+     * [EARLY ACCESS] GetTpfTransactionHistorySearch: Endpoint to search TPF transaction by transaction ID and/or instrument identifier, with filtering by instance and date range
+     * 
+     * @return APIgetTpfTransactionHistorySearchRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetTpfTransactionHistorySearchRequest getTpfTransactionHistorySearch() {
+        return new APIgetTpfTransactionHistorySearchRequest();
     }
     private okhttp3.Call listDataflowProcessorsCall(final ApiCallback _callback) throws ApiException {
         return listDataflowProcessorsCall( _callback, new ConfigurationOptions());

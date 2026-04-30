@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3257
+  version: 0.1.3307
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -15,8 +15,6 @@ servers:
 security:
 - {}
 tags:
-- description: Manage versioned client configuration records
-  name: ClientConfigurations
 - description: Provides instrument search and upsert functions.
   name: Instrument
 - description: "Install, configure, and execute Horizon integrations"
@@ -29,377 +27,9 @@ tags:
   name: Runs
 - description: Provides information about Vendor configurations
   name: Vendor
+- description: Manage versioned configuration records
+  name: VersionedConfigurations
 paths:
-  /api/clientconfiguration/{configType}:
-    get:
-      description: |-
-        Returns all configuration records for the given config type, across all versions and states
-        (both draft and locked), ordered by version descending.
-        The user must be authenticated and entitled to call this method.
-      operationId: ListClientConfigurations
-      parameters:
-      - description: The category of configuration to list.
-        explode: false
-        in: path
-        name: configType
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/ClientConfigurationResponse'
-                type: array
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: The client does not exist.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] ListClientConfigurations: List client configurations."
-      tags:
-      - ClientConfigurations
-      x-fbn-apistatus: Experimental
-      x-accepts: application/json
-  /api/clientconfiguration/{configType}/{name}:
-    get:
-      description: |-
-        Returns a specific configuration record. When both majorVersion and minorVersion are omitted,
-        the highest available version is returned. Both must be supplied together or both omitted.
-        The user must be authenticated and entitled to call this method.
-      operationId: GetClientConfiguration
-      parameters:
-      - description: The category of configuration.
-        explode: false
-        in: path
-        name: configType
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: The logical name of the configuration.
-        explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: "The major version to retrieve. Must be supplied together with\
-          \ minorVersion, or both omitted."
-        explode: true
-        in: query
-        name: majorVersion
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-        x-nullable: true
-      - description: "The minor version to retrieve. Must be supplied together with\
-          \ majorVersion, or both omitted."
-        explode: true
-        in: query
-        name: minorVersion
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-        x-nullable: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClientConfigurationResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: The client or configuration does not exist.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] GetClientConfiguration: Get a client configuration."
-      tags:
-      - ClientConfigurations
-      x-fbn-apistatus: Experimental
-      x-accepts: application/json
-  /api/clientconfiguration/{configType}/{name}/draft:
-    post:
-      description: |-
-        Creates a new draft configuration record. Configurations follow a draft/locked lifecycle:
-        create a draft here, refine it with the update endpoint, then commit it with the lock endpoint.
-        If both majorVersion and minorVersion are omitted in the request body, the next version is
-        assigned automatically by incrementing the minor version of the current highest version (starting
-        at 1.0 if none exists). The user must be authenticated and entitled to call this method.
-      operationId: CreateClientConfigurationDraft
-      parameters:
-      - description: The category of configuration.
-        explode: false
-        in: path
-        name: configType
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: The logical name of the configuration.
-        explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            example:
-              majorVersion: 1
-              minorVersion: 1
-              sourceMajorVersion: 1
-              sourceMinorVersion: 0
-            schema:
-              $ref: '#/components/schemas/CreateClientConfigurationDraftRequest'
-        description: "Options for the new draft, including optional explicit version\
-          \ and source version."
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClientConfigurationResponse'
-          description: Created
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: The client does not exist.
-        "409":
-          description: A configuration with the specified version already exists.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] CreateClientConfigurationDraft: Create a draft client\
-        \ configuration."
-      tags:
-      - ClientConfigurations
-      x-fbn-apistatus: Experimental
-      x-content-type: application/json
-      x-accepts: application/json
-  /api/clientconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft:
-    put:
-      description: |-
-        Updates the value of an existing draft configuration. Only draft versions can be updated;
-        locked versions are immutable. This endpoint can be called multiple times before locking.
-        The user must be authenticated and entitled to call this method.
-      operationId: UpdateClientConfigurationDraft
-      parameters:
-      - description: The category of configuration.
-        explode: false
-        in: path
-        name: configType
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: The logical name of the configuration.
-        explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: The major version of the draft to update.
-        explode: false
-        in: path
-        name: majorVersion
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      - description: The minor version of the draft to update.
-        explode: false
-        in: path
-        name: minorVersion
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            example:
-              value: "{\"key\": \"value\"}"
-            schema:
-              $ref: '#/components/schemas/UpdateClientConfigurationDraftRequest'
-        description: The updated value.
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClientConfigurationResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: "The client or configuration version does not exist, or the\
-            \ version is already locked."
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] UpdateClientConfigurationDraft: Update a draft client\
-        \ configuration."
-      tags:
-      - ClientConfigurations
-      x-fbn-apistatus: Experimental
-      x-content-type: application/json
-      x-accepts: application/json
-  /api/clientconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/lock:
-    post:
-      description: |-
-        Locks a draft configuration version, making it immutable and ready for use. Once locked,
-        a version cannot be edited or unlocked. All versions are retained permanently.
-        The user must be authenticated and entitled to call this method.
-      operationId: LockClientConfigurationVersion
-      parameters:
-      - description: The category of configuration.
-        explode: false
-        in: path
-        name: configType
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: The logical name of the configuration.
-        explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\-_]+$"
-          type: string
-        style: simple
-      - description: The major version to lock.
-        explode: false
-        in: path
-        name: majorVersion
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      - description: The minor version to lock.
-        explode: false
-        in: path
-        name: minorVersion
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClientConfigurationResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: "The client or configuration version does not exist, or the\
-            \ version is already locked."
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] LockClientConfigurationVersion: Lock a client configuration\
-        \ version."
-      tags:
-      - ClientConfigurations
-      x-fbn-apistatus: Experimental
-      x-accepts: application/json
   /api/instrument/onboarding/create:
     post:
       operationId: CreateInstrument
@@ -2134,6 +1764,172 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/integrations/trade-publication-framework/transactions/search:
+    get:
+      operationId: GetTpfTransactionHistorySearch
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: transactionId
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: instrumentId
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: dateFrom
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: dateTo
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: instanceId
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 400
+          format: int32
+          maximum: 500
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: ""
+        explode: true
+        in: query
+        name: pageToken
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - transactionId: TXN-2024-001
+                  instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+                  instanceName: TPF-Production-Instance
+                  batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
+                  publicationStatus: Sent
+                  instrumentName: Apple Inc.
+                  instrumentType: Equity
+                  tradeDate: 2024-04-14T00:00:00.0000000+00:00
+                  settlementDate: 2024-04-16T00:00:00.0000000+00:00
+                  fileName: trades_20240415_103000.csv
+                  destinations:
+                  - SFTP
+                  - S3
+                - transactionId: TXN-2024-002
+                  instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+                  instanceName: TPF-Production-Instance
+                  batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
+                  publicationStatus: Skipped
+                  instrumentName: Microsoft Corp.
+                  instrumentType: Equity
+                  tradeDate: 2024-04-14T00:00:00.0000000+00:00
+                  settlementDate: 2024-04-16T00:00:00.0000000+00:00
+                  skipReason: Duplicate transaction detected
+                  fileName: trades_20240415_103000.csv
+                  destinations:
+                  - SFTP
+                  - S3
+                - transactionId: TXN-2024-003
+                  instanceId: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
+                  instanceName: TPF-UAT-Instance
+                  batchId: d4e5f6a7-b8c9-7d8e-1f2a-3b4c5d6e7f8a
+                  runStartTime: 2024-04-15T14:45:00.0000000+00:00
+                  publicationStatus: Failed
+                  instrumentName: Tesla Inc.
+                  instrumentType: Equity
+                  tradeDate: 2024-04-15T00:00:00.0000000+00:00
+                  destinations:
+                  - Drive
+                links: []
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfTpfTransactionSearchResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetTpfTransactionHistorySearch: Endpoint to search\
+        \ TPF transaction by transaction ID and/or instrument identifier, with filtering\
+        \ by instance and date range"
+      tags:
+      - Integrations
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
   /api/logs:
     get:
       description: Get integration log results
@@ -3378,6 +3174,376 @@ paths:
       - Vendor
       x-fbn-apistatus: EarlyAccess
       x-accepts: application/json
+  /api/versionedconfiguration/{configType}:
+    get:
+      description: |-
+        Returns all configuration records for the given config type, across all versions and states
+        (both draft and locked), ordered by version descending.
+        The user must be authenticated and entitled to call this method.
+      operationId: ListVersionedConfigurations
+      parameters:
+      - description: The category of configuration to list.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VersionedConfigurationResponse'
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/versionedconfiguration/{configType}/{name}:
+    get:
+      description: |-
+        Returns a specific configuration record. When both majorVersion and minorVersion are omitted,
+        the highest available version is returned. Both must be supplied together or both omitted.
+        The user must be authenticated and entitled to call this method.
+      operationId: GetVersionedConfiguration
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: "The major version to retrieve. Must be supplied together with\
+          \ minorVersion, or both omitted."
+        explode: true
+        in: query
+        name: majorVersion
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "The minor version to retrieve. Must be supplied together with\
+          \ majorVersion, or both omitted."
+        explode: true
+        in: query
+        name: minorVersion
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client or configuration does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetVersionedConfiguration: Get a versioned configuration."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/versionedconfiguration/{configType}/{name}/draft:
+    post:
+      description: |-
+        Creates a new draft configuration record. Configurations follow a draft/locked lifecycle:
+        create a draft here, refine it with the update endpoint, then commit it with the lock endpoint.
+        If both majorVersion and minorVersion are omitted in the request body, the next version is
+        assigned automatically by incrementing the minor version of the current highest version (starting
+        at 1.0 if none exists). The user must be authenticated and entitled to call this method.
+      operationId: CreateVersionedConfigurationDraft
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              majorVersion: 1
+              minorVersion: 1
+              sourceMajorVersion: 1
+              sourceMinorVersion: 0
+            schema:
+              $ref: '#/components/schemas/CreateVersionedConfigurationDraftRequest'
+        description: "Options for the new draft, including optional explicit version\
+          \ and source version."
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedConfigurationResponse'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client does not exist.
+        "409":
+          description: A configuration with the specified version already exists.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateVersionedConfigurationDraft: Create a draft versioned\
+        \ configuration."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft:
+    put:
+      description: |-
+        Updates the value of an existing draft configuration. Only draft versions can be updated;
+        locked versions are immutable. This endpoint can be called multiple times before locking.
+        The user must be authenticated and entitled to call this method.
+      operationId: UpdateVersionedConfigurationDraft
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The major version of the draft to update.
+        explode: false
+        in: path
+        name: majorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The minor version of the draft to update.
+        explode: false
+        in: path
+        name: minorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              value: "{\"key\": \"value\"}"
+            schema:
+              $ref: '#/components/schemas/UpdateVersionedConfigurationDraftRequest'
+        description: The updated value.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: "The client or configuration version does not exist, or the\
+            \ version is already locked."
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateVersionedConfigurationDraft: Update a draft versioned\
+        \ configuration."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/lock:
+    post:
+      description: |-
+        Locks a draft configuration version, making it immutable and ready for use. Once locked,
+        a version cannot be edited or unlocked. All versions are retained permanently.
+        The user must be authenticated and entitled to call this method.
+      operationId: LockVersionedConfigurationVersion
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The major version to lock.
+        explode: false
+        in: path
+        name: majorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The minor version to lock.
+        explode: false
+        in: path
+        name: minorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: "The client or configuration version does not exist, or the\
+            \ version is already locked."
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] LockVersionedConfigurationVersion: Lock a versioned\
+        \ configuration version."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
 components:
   schemas:
     AllowedParameterValue:
@@ -3605,86 +3771,6 @@ components:
       required:
       - runIds
       type: object
-    ClientConfigurationResponse:
-      additionalProperties: false
-      description: Represents a versioned client configuration record.
-      example:
-        name: name
-        isDraft: true
-        configType: configType
-        majorVersion: 0
-        minorVersion: 6
-        value: value
-      properties:
-        name:
-          description: The logical name of the configuration.
-          type: string
-        configType:
-          description: The category of configuration.
-          type: string
-        majorVersion:
-          description: The major version number.
-          format: int32
-          type: integer
-        minorVersion:
-          description: The minor version number.
-          format: int32
-          type: integer
-        value:
-          description: The JSON configuration value.
-          type: string
-        isDraft:
-          description: Whether this version is still in draft state. Draft versions
-            can be edited; locked versions cannot.
-          type: boolean
-      required:
-      - configType
-      - isDraft
-      - majorVersion
-      - minorVersion
-      - name
-      - value
-      type: object
-    CreateClientConfigurationDraftRequest:
-      additionalProperties: false
-      description: Request to create a new draft client configuration.
-      example:
-        majorVersion: 0
-        minorVersion: 6
-        sourceMinorVersion: 5
-        sourceMajorVersion: 1
-      properties:
-        majorVersion:
-          description: |-
-            The major version for the new draft. Must be supplied together with minorVersion,
-            or both omitted to auto-assign the next version.
-          format: int32
-          nullable: true
-          type: integer
-        minorVersion:
-          description: |-
-            The minor version for the new draft. Must be supplied together with MajorVersion,
-            or both omitted to auto-assign the next version.
-          format: int32
-          nullable: true
-          type: integer
-        sourceMajorVersion:
-          description: |-
-            The major version of an existing record to copy the value from.
-            Must be supplied together with SourceMinorVersion.
-            If omitted, the new draft is initialised with an empty JSON object.
-          format: int32
-          nullable: true
-          type: integer
-        sourceMinorVersion:
-          description: |-
-            The minor version of an existing record to copy the value from.
-            Must be supplied together with SourceMajorVersion.
-            If omitted, the new draft is initialised with an empty JSON object.
-          format: int32
-          nullable: true
-          type: integer
-      type: object
     CreateInstanceRequest:
       additionalProperties: false
       description: A request to add a new instance to an integration.
@@ -3771,6 +3857,46 @@ components:
       - name
       - postProcessTasks
       - triggers
+      type: object
+    CreateVersionedConfigurationDraftRequest:
+      additionalProperties: false
+      description: Request to create a new draft versioned configuration.
+      example:
+        majorVersion: 0
+        minorVersion: 6
+        sourceMinorVersion: 5
+        sourceMajorVersion: 1
+      properties:
+        majorVersion:
+          description: |-
+            The major version for the new draft. Must be supplied together with minorVersion,
+            or both omitted to auto-assign the next version.
+          format: int32
+          nullable: true
+          type: integer
+        minorVersion:
+          description: |-
+            The minor version for the new draft. Must be supplied together with MajorVersion,
+            or both omitted to auto-assign the next version.
+          format: int32
+          nullable: true
+          type: integer
+        sourceMajorVersion:
+          description: |-
+            The major version of an existing record to copy the value from.
+            Must be supplied together with SourceMinorVersion.
+            If omitted, the new draft is initialised with an empty JSON object.
+          format: int32
+          nullable: true
+          type: integer
+        sourceMinorVersion:
+          description: |-
+            The minor version of an existing record to copy the value from.
+            Must be supplied together with SourceMajorVersion.
+            If omitted, the new draft is initialised with an empty JSON object.
+          format: int32
+          nullable: true
+          type: integer
       type: object
     EnrichmentResponse:
       additionalProperties: false
@@ -6320,6 +6446,83 @@ components:
       required:
       - values
       type: object
+    PagedResourceListOfTpfTransactionSearchResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - publicationStatus: publicationStatus
+          instrumentType: instrumentType
+          fileName: fileName
+          instanceName: instanceName
+          instrumentId: instrumentId
+          destinations:
+          - destinations
+          - destinations
+          tradeDate: 2000-01-23T04:56:07.000+00:00
+          settlementDate: 2000-01-23T04:56:07.000+00:00
+          batchId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          transactionId: transactionId
+          instrumentName: instrumentName
+          instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          runStartTime: 2000-01-23T04:56:07.000+00:00
+          portfolioScope: portfolioScope
+          failureReason: failureReason
+          skipReason: skipReason
+          portfolioCode: portfolioCode
+        - publicationStatus: publicationStatus
+          instrumentType: instrumentType
+          fileName: fileName
+          instanceName: instanceName
+          instrumentId: instrumentId
+          destinations:
+          - destinations
+          - destinations
+          tradeDate: 2000-01-23T04:56:07.000+00:00
+          settlementDate: 2000-01-23T04:56:07.000+00:00
+          batchId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          transactionId: transactionId
+          instrumentName: instrumentName
+          instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          runStartTime: 2000-01-23T04:56:07.000+00:00
+          portfolioScope: portfolioScope
+          failureReason: failureReason
+          skipReason: skipReason
+          portfolioCode: portfolioCode
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/TpfTransactionSearchResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfVendorProduct:
       additionalProperties: false
       example:
@@ -6792,6 +6995,107 @@ components:
           nullable: true
           type: integer
       type: object
+    TpfTransactionSearchResponse:
+      additionalProperties: false
+      description: TPF send history record
+      example:
+        publicationStatus: publicationStatus
+        instrumentType: instrumentType
+        fileName: fileName
+        instanceName: instanceName
+        instrumentId: instrumentId
+        destinations:
+        - destinations
+        - destinations
+        tradeDate: 2000-01-23T04:56:07.000+00:00
+        settlementDate: 2000-01-23T04:56:07.000+00:00
+        batchId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        transactionId: transactionId
+        instrumentName: instrumentName
+        instanceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        runStartTime: 2000-01-23T04:56:07.000+00:00
+        portfolioScope: portfolioScope
+        failureReason: failureReason
+        skipReason: skipReason
+        portfolioCode: portfolioCode
+      properties:
+        transactionId:
+          description: Transaction identifier
+          type: string
+        instanceId:
+          description: Integration instance ID where the transaction was processed
+          format: uuid
+          type: string
+        instanceName:
+          description: Integration instance name
+          type: string
+        batchId:
+          description: Unique identifier of the batch
+          format: uuid
+          type: string
+        runStartTime:
+          description: Timestamp when the batch/run started
+          format: date-time
+          type: string
+        publicationStatus:
+          description: Publication status of the transaction (Sent | Skipped | Failed)
+          type: string
+        instrumentName:
+          description: Instrument name
+          type: string
+        instrumentType:
+          description: Instrument type
+          type: string
+        tradeDate:
+          description: Trade date of the transaction
+          format: date-time
+          type: string
+        settlementDate:
+          description: Settlement date of the transaction
+          format: date-time
+          nullable: true
+          type: string
+        skipReason:
+          description: Reason the transaction was skipped (if applicable)
+          nullable: true
+          type: string
+        fileName:
+          description: Output file associated with the publication run
+          nullable: true
+          type: string
+        destinations:
+          description: Destinations to which the transaction was published
+          items:
+            type: string
+          nullable: true
+          type: array
+        portfolioCode:
+          description: PortfolioCode showing portfolio code
+          nullable: true
+          type: string
+        portfolioScope:
+          description: PortfolioScope displaying portfolio scope
+          nullable: true
+          type: string
+        failureReason:
+          description: FailureReason to show failure reason
+          nullable: true
+          type: string
+        instrumentId:
+          description: InstrumentId showing instrument id of transaction
+          nullable: true
+          type: string
+      required:
+      - batchId
+      - instanceId
+      - instanceName
+      - instrumentName
+      - instrumentType
+      - publicationStatus
+      - runStartTime
+      - tradeDate
+      - transactionId
+      type: object
     Trigger:
       additionalProperties: false
       description: Response defining a trigger for an instance.
@@ -6816,20 +7120,6 @@ components:
       - cronExpression
       - timeZone
       - type
-      type: object
-    UpdateClientConfigurationDraftRequest:
-      additionalProperties: false
-      description: Request to update the value of an existing draft client configuration.
-      example:
-        value: value
-      properties:
-        value:
-          description: The new JSON value to store. Must be valid JSON.
-          maxLength: 100000
-          minLength: 0
-          type: string
-      required:
-      - value
       type: object
     UpdateInstanceRequest:
       additionalProperties: false
@@ -6909,6 +7199,20 @@ components:
       - postProcessTasks
       - triggers
       type: object
+    UpdateVersionedConfigurationDraftRequest:
+      additionalProperties: false
+      description: Request to update the value of an existing draft versioned configuration.
+      example:
+        value: value
+      properties:
+        value:
+          description: The new JSON value to store. Must be valid JSON.
+          maxLength: 100000
+          minLength: 0
+          type: string
+      required:
+      - value
+      type: object
     VendorField:
       additionalProperties: false
       description: Reference to a specific vendor field
@@ -6954,6 +7258,46 @@ components:
       - vendorName
       - vendorProductKey
       type: object
+    VersionedConfigurationResponse:
+      additionalProperties: false
+      description: Represents a versioned configuration record.
+      example:
+        name: name
+        isDraft: true
+        configType: configType
+        majorVersion: 0
+        minorVersion: 6
+        value: value
+      properties:
+        name:
+          description: The logical name of the configuration.
+          type: string
+        configType:
+          description: The category of configuration.
+          type: string
+        majorVersion:
+          description: The major version number.
+          format: int32
+          type: integer
+        minorVersion:
+          description: The minor version number.
+          format: int32
+          type: integer
+        value:
+          description: The JSON configuration value.
+          type: string
+        isDraft:
+          description: Whether this version is still in draft state. Draft versions
+            can be edited; locked versions cannot.
+          type: boolean
+      required:
+      - configType
+      - isDraft
+      - majorVersion
+      - minorVersion
+      - name
+      - value
+      type: object
   securitySchemes:
     oauth2:
       description: OAuth2 Implicit Grant
@@ -6965,12 +7309,12 @@ components:
 x-tagGroups:
   name: API
   tags:
-  - ClientConfigurations
   - Instrument
   - Integrations
   - Logs
   - ProcessHistory
   - Runs
   - Vendor
+  - VersionedConfigurations
 x-group-parameters: true
 
