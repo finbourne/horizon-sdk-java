@@ -30,6 +30,7 @@ import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.UpdateVersionedConfigurationDraftRequest;
 import com.finbourne.horizon.model.VersionedConfigurationResponse;
+import com.finbourne.horizon.model.VersionedConfigurationTypeResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -341,6 +342,271 @@ public class VersionedConfigurationsApi {
     public APIcreateVersionedConfigurationDraftRequest createVersionedConfigurationDraft(String configType, String name) {
         return new APIcreateVersionedConfigurationDraftRequest(configType, name);
     }
+    private okhttp3.Call deleteVersionedConfigurationVersionCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback) throws ApiException {
+        return deleteVersionedConfigurationVersionCall(configType, name, majorVersion, minorVersion,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteVersionedConfigurationVersionCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}"
+            .replace("{" + "configType" + "}", localVarApiClient.escapeString(configType.toString()))
+            .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()))
+            .replace("{" + "majorVersion" + "}", localVarApiClient.escapeString(majorVersion.toString()))
+            .replace("{" + "minorVersion" + "}", localVarApiClient.escapeString(minorVersion.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteVersionedConfigurationVersionValidateBeforeCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'configType' is set
+        if (configType == null) {
+            throw new ApiException("Missing the required parameter 'configType' when calling deleteVersionedConfigurationVersion(Async)");
+        }
+
+        // verify the required parameter 'name' is set
+        if (name == null) {
+            throw new ApiException("Missing the required parameter 'name' when calling deleteVersionedConfigurationVersion(Async)");
+        }
+
+        // verify the required parameter 'majorVersion' is set
+        if (majorVersion == null) {
+            throw new ApiException("Missing the required parameter 'majorVersion' when calling deleteVersionedConfigurationVersion(Async)");
+        }
+
+        // verify the required parameter 'minorVersion' is set
+        if (minorVersion == null) {
+            throw new ApiException("Missing the required parameter 'minorVersion' when calling deleteVersionedConfigurationVersion(Async)");
+        }
+
+        return deleteVersionedConfigurationVersionCall(configType, name, majorVersion, minorVersion, _callback, opts);
+
+    }
+
+
+    private ApiResponse<VersionedConfigurationResponse> deleteVersionedConfigurationVersionWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion) throws ApiException {
+        okhttp3.Call localVarCall = deleteVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<VersionedConfigurationResponse> deleteVersionedConfigurationVersionWithHttpInfo(String configType, String name, Integer majorVersion, Integer minorVersion, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, null, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call deleteVersionedConfigurationVersionAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteVersionedConfigurationVersionAsync(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteVersionedConfigurationVersionValidateBeforeCall(configType, name, majorVersion, minorVersion, _callback, opts);
+        Type localVarReturnType = new TypeToken<VersionedConfigurationResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIdeleteVersionedConfigurationVersionRequest {
+        private final String configType;
+        private final String name;
+        private final Integer majorVersion;
+        private final Integer minorVersion;
+
+        private APIdeleteVersionedConfigurationVersionRequest(String configType, String name, Integer majorVersion, Integer minorVersion) {
+            this.configType = configType;
+            this.name = name;
+            this.majorVersion = majorVersion;
+            this.minorVersion = minorVersion;
+        }
+
+        /**
+         * Build call for deleteVersionedConfigurationVersion
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deleteVersionedConfigurationVersionCall(configType, name, majorVersion, minorVersion, _callback);
+        }
+
+        /**
+         * Execute deleteVersionedConfigurationVersion request
+         * @return VersionedConfigurationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public VersionedConfigurationResponse execute() throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = deleteVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute deleteVersionedConfigurationVersion request. Use any specified configuration options to override any other configuration for this request only.
+         * @return VersionedConfigurationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public VersionedConfigurationResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<VersionedConfigurationResponse> localVarResp = deleteVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute deleteVersionedConfigurationVersion request with HTTP info returned
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo() throws ApiException {
+            return deleteVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion);
+        }
+
+        /**
+         * Execute deleteVersionedConfigurationVersion request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;VersionedConfigurationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<VersionedConfigurationResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteVersionedConfigurationVersionWithHttpInfo(configType, name, majorVersion, minorVersion, opts);
+        }
+
+        /**
+         * Execute deleteVersionedConfigurationVersion request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback) throws ApiException {
+            return deleteVersionedConfigurationVersionAsync(configType, name, majorVersion, minorVersion, _callback);
+        }
+
+        /**
+         * Execute deleteVersionedConfigurationVersion request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<VersionedConfigurationResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteVersionedConfigurationVersionAsync(configType, name, majorVersion, minorVersion, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] DeleteVersionedConfigurationVersion: Delete a versioned configuration version.
+     * Permanently deletes the specified configuration version regardless of whether it is locked. Returns the deleted record. The user must be authenticated and entitled to call this method.
+     * @param configType The category of configuration. (required)
+     * @param name The logical name of the configuration. (required)
+     * @param majorVersion The major version to delete. (required)
+     * @param minorVersion The minor version to delete. (required)
+     * @return APIdeleteVersionedConfigurationVersionRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The client or configuration version does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIdeleteVersionedConfigurationVersionRequest deleteVersionedConfigurationVersion(String configType, String name, Integer majorVersion, Integer minorVersion) {
+        return new APIdeleteVersionedConfigurationVersionRequest(configType, name, majorVersion, minorVersion);
+    }
     private okhttp3.Call getVersionedConfigurationCall(String configType, String name, Integer majorVersion, Integer minorVersion, final ApiCallback _callback) throws ApiException {
         return getVersionedConfigurationCall(configType, name, majorVersion, minorVersion,  _callback, new ConfigurationOptions());
     }
@@ -618,6 +884,448 @@ public class VersionedConfigurationsApi {
     public APIgetVersionedConfigurationRequest getVersionedConfiguration(String configType, String name) {
         return new APIgetVersionedConfigurationRequest(configType, name);
     }
+    private okhttp3.Call getVersionedConfigurationTypesCall(final ApiCallback _callback) throws ApiException {
+        return getVersionedConfigurationTypesCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getVersionedConfigurationTypesCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/versionedconfiguration/config-types";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getVersionedConfigurationTypesValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return getVersionedConfigurationTypesCall(_callback, opts);
+
+    }
+
+
+    private ApiResponse<List<VersionedConfigurationTypeResponse>> getVersionedConfigurationTypesWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = getVersionedConfigurationTypesValidateBeforeCall(null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationTypeResponse>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<VersionedConfigurationTypeResponse>> getVersionedConfigurationTypesWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getVersionedConfigurationTypesValidateBeforeCall(null, opts);
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationTypeResponse>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getVersionedConfigurationTypesAsync(final ApiCallback<List<VersionedConfigurationTypeResponse>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getVersionedConfigurationTypesValidateBeforeCall(_callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationTypeResponse>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getVersionedConfigurationTypesAsync(final ApiCallback<List<VersionedConfigurationTypeResponse>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getVersionedConfigurationTypesValidateBeforeCall(_callback, opts);
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationTypeResponse>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetVersionedConfigurationTypesRequest {
+
+        private APIgetVersionedConfigurationTypesRequest() {
+        }
+
+        /**
+         * Build call for getVersionedConfigurationTypes
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getVersionedConfigurationTypesCall(_callback);
+        }
+
+        /**
+         * Execute getVersionedConfigurationTypes request
+         * @return List&lt;VersionedConfigurationTypeResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<VersionedConfigurationTypeResponse> execute() throws ApiException {
+            ApiResponse<List<VersionedConfigurationTypeResponse>> localVarResp = getVersionedConfigurationTypesWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getVersionedConfigurationTypes request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;VersionedConfigurationTypeResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<VersionedConfigurationTypeResponse> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<VersionedConfigurationTypeResponse>> localVarResp = getVersionedConfigurationTypesWithHttpInfo(opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getVersionedConfigurationTypes request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;VersionedConfigurationTypeResponse&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<VersionedConfigurationTypeResponse>> executeWithHttpInfo() throws ApiException {
+            return getVersionedConfigurationTypesWithHttpInfo();
+        }
+
+        /**
+         * Execute getVersionedConfigurationTypes request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;VersionedConfigurationTypeResponse&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<VersionedConfigurationTypeResponse>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getVersionedConfigurationTypesWithHttpInfo(opts);
+        }
+
+        /**
+         * Execute getVersionedConfigurationTypes request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<VersionedConfigurationTypeResponse>> _callback) throws ApiException {
+            return getVersionedConfigurationTypesAsync(_callback);
+        }
+
+        /**
+         * Execute getVersionedConfigurationTypes request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<VersionedConfigurationTypeResponse>> _callback, ConfigurationOptions opts) throws ApiException {
+            return getVersionedConfigurationTypesAsync(_callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetVersionedConfigurationTypes: List available versioned configuration types.
+     * Returns all registered configuration types with their display names. The user must be authenticated and entitled to call this method.
+     * @return APIgetVersionedConfigurationTypesRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetVersionedConfigurationTypesRequest getVersionedConfigurationTypes() {
+        return new APIgetVersionedConfigurationTypesRequest();
+    }
+    private okhttp3.Call listAllVersionedConfigurationsCall(final ApiCallback _callback) throws ApiException {
+        return listAllVersionedConfigurationsCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listAllVersionedConfigurationsCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/versionedconfiguration/all";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call listAllVersionedConfigurationsValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listAllVersionedConfigurationsCall(_callback, opts);
+
+    }
+
+
+    private ApiResponse<List<VersionedConfigurationResponse>> listAllVersionedConfigurationsWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = listAllVersionedConfigurationsValidateBeforeCall(null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<List<VersionedConfigurationResponse>> listAllVersionedConfigurationsWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listAllVersionedConfigurationsValidateBeforeCall(null, opts);
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call listAllVersionedConfigurationsAsync(final ApiCallback<List<VersionedConfigurationResponse>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = listAllVersionedConfigurationsValidateBeforeCall(_callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listAllVersionedConfigurationsAsync(final ApiCallback<List<VersionedConfigurationResponse>> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listAllVersionedConfigurationsValidateBeforeCall(_callback, opts);
+        Type localVarReturnType = new TypeToken<List<VersionedConfigurationResponse>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIlistAllVersionedConfigurationsRequest {
+
+        private APIlistAllVersionedConfigurationsRequest() {
+        }
+
+        /**
+         * Build call for listAllVersionedConfigurations
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listAllVersionedConfigurationsCall(_callback);
+        }
+
+        /**
+         * Execute listAllVersionedConfigurations request
+         * @return List&lt;VersionedConfigurationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<VersionedConfigurationResponse> execute() throws ApiException {
+            ApiResponse<List<VersionedConfigurationResponse>> localVarResp = listAllVersionedConfigurationsWithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listAllVersionedConfigurations request. Use any specified configuration options to override any other configuration for this request only.
+         * @return List&lt;VersionedConfigurationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<VersionedConfigurationResponse> execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<List<VersionedConfigurationResponse>> localVarResp = listAllVersionedConfigurationsWithHttpInfo(opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listAllVersionedConfigurations request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;VersionedConfigurationResponse&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<VersionedConfigurationResponse>> executeWithHttpInfo() throws ApiException {
+            return listAllVersionedConfigurationsWithHttpInfo();
+        }
+
+        /**
+         * Execute listAllVersionedConfigurations request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;List&lt;VersionedConfigurationResponse&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<VersionedConfigurationResponse>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listAllVersionedConfigurationsWithHttpInfo(opts);
+        }
+
+        /**
+         * Execute listAllVersionedConfigurations request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<VersionedConfigurationResponse>> _callback) throws ApiException {
+            return listAllVersionedConfigurationsAsync(_callback);
+        }
+
+        /**
+         * Execute listAllVersionedConfigurations request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<VersionedConfigurationResponse>> _callback, ConfigurationOptions opts) throws ApiException {
+            return listAllVersionedConfigurationsAsync(_callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] ListAllVersionedConfigurations: List all versioned configurations.
+     * Returns all configuration records across all config types, versions and states (both draft and locked), ordered by version descending. The user must be authenticated and entitled to call this method.
+     * @return APIlistAllVersionedConfigurationsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The client does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIlistAllVersionedConfigurationsRequest listAllVersionedConfigurations() {
+        return new APIlistAllVersionedConfigurationsRequest();
+    }
     private okhttp3.Call listVersionedConfigurationsCall(String configType, final ApiCallback _callback) throws ApiException {
         return listVersionedConfigurationsCall(configType,  _callback, new ConfigurationOptions());
     }
@@ -840,7 +1548,7 @@ public class VersionedConfigurationsApi {
     }
 
     /**
-     * [EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations.
+     * [EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations for a config type.
      * Returns all configuration records for the given config type, across all versions and states (both draft and locked), ordered by version descending. The user must be authenticated and entitled to call this method.
      * @param configType The category of configuration to list. (required)
      * @return APIlistVersionedConfigurationsRequest

@@ -66,6 +66,10 @@ public class CreateVersionedConfigurationDraftRequest {
   @SerializedName(SERIALIZED_NAME_SOURCE_MINOR_VERSION)
   private Integer sourceMinorVersion;
 
+  public static final String SERIALIZED_NAME_VALUE = "value";
+  @SerializedName(SERIALIZED_NAME_VALUE)
+  private String value;
+
   public CreateVersionedConfigurationDraftRequest() {
   }
 
@@ -153,6 +157,27 @@ public class CreateVersionedConfigurationDraftRequest {
   }
 
 
+  public CreateVersionedConfigurationDraftRequest value(String value) {
+    
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * The initial JSON value for the new draft. If omitted, the draft is initialised with an empty JSON object. Cannot be supplied together with SourceMajorVersion/SourceMinorVersion.
+   * @return value
+  **/
+  @jakarta.annotation.Nullable
+  public String getValue() {
+    return value;
+  }
+
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -166,7 +191,8 @@ public class CreateVersionedConfigurationDraftRequest {
     return Objects.equals(this.majorVersion, createVersionedConfigurationDraftRequest.majorVersion) &&
         Objects.equals(this.minorVersion, createVersionedConfigurationDraftRequest.minorVersion) &&
         Objects.equals(this.sourceMajorVersion, createVersionedConfigurationDraftRequest.sourceMajorVersion) &&
-        Objects.equals(this.sourceMinorVersion, createVersionedConfigurationDraftRequest.sourceMinorVersion);
+        Objects.equals(this.sourceMinorVersion, createVersionedConfigurationDraftRequest.sourceMinorVersion) &&
+        Objects.equals(this.value, createVersionedConfigurationDraftRequest.value);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -175,7 +201,7 @@ public class CreateVersionedConfigurationDraftRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(majorVersion, minorVersion, sourceMajorVersion, sourceMinorVersion);
+    return Objects.hash(majorVersion, minorVersion, sourceMajorVersion, sourceMinorVersion, value);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -193,6 +219,7 @@ public class CreateVersionedConfigurationDraftRequest {
     sb.append("    minorVersion: ").append(toIndentedString(minorVersion)).append("\n");
     sb.append("    sourceMajorVersion: ").append(toIndentedString(sourceMajorVersion)).append("\n");
     sb.append("    sourceMinorVersion: ").append(toIndentedString(sourceMinorVersion)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -219,6 +246,7 @@ public class CreateVersionedConfigurationDraftRequest {
     openapiFields.add("minorVersion");
     openapiFields.add("sourceMajorVersion");
     openapiFields.add("sourceMinorVersion");
+    openapiFields.add("value");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -237,6 +265,9 @@ public class CreateVersionedConfigurationDraftRequest {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull()) && !jsonObj.get("value").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `value` to be a primitive type in the JSON string but got `%s`", jsonObj.get("value").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

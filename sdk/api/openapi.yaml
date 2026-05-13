@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3326
+  version: 0.1.3358
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3174,6 +3174,69 @@ paths:
       - Vendor
       x-fbn-apistatus: EarlyAccess
       x-accepts: application/json
+  /api/versionedconfiguration/all:
+    get:
+      description: |-
+        Returns all configuration records across all config types, versions and states
+        (both draft and locked), ordered by version descending.
+        The user must be authenticated and entitled to call this method.
+      operationId: ListAllVersionedConfigurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VersionedConfigurationResponse'
+                type: array
+          description: OK
+        "404":
+          description: The client does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListAllVersionedConfigurations: List all versioned\
+        \ configurations."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/versionedconfiguration/config-types:
+    get:
+      description: |-
+        Returns all registered configuration types with their display names.
+        The user must be authenticated and entitled to call this method.
+      operationId: GetVersionedConfigurationTypes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VersionedConfigurationTypeResponse'
+                type: array
+          description: OK
+        "404":
+          description: The client does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetVersionedConfigurationTypes: List available versioned\
+        \ configuration types."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/versionedconfiguration/{configType}:
     get:
       description: |-
@@ -3218,7 +3281,8 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations."
+      summary: "[EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations\
+        \ for a config type."
       tags:
       - VersionedConfigurations
       x-fbn-apistatus: Experimental
@@ -3378,6 +3442,82 @@ paths:
       - VersionedConfigurations
       x-fbn-apistatus: Experimental
       x-content-type: application/json
+      x-accepts: application/json
+  /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}:
+    delete:
+      description: |-
+        Permanently deletes the specified configuration version regardless of whether it is locked.
+        Returns the deleted record. The user must be authenticated and entitled to call this method.
+      operationId: DeleteVersionedConfigurationVersion
+      parameters:
+      - description: The category of configuration.
+        explode: false
+        in: path
+        name: configType
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The logical name of the configuration.
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The major version to delete.
+        explode: false
+        in: path
+        name: majorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The minor version to delete.
+        explode: false
+        in: path
+        name: minorVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionedConfigurationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The client or configuration version does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteVersionedConfigurationVersion: Delete a versioned\
+        \ configuration version."
+      tags:
+      - VersionedConfigurations
+      x-fbn-apistatus: Experimental
       x-accepts: application/json
   /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft:
     put:
@@ -3864,6 +4004,7 @@ components:
       example:
         majorVersion: 0
         minorVersion: 6
+        value: value
         sourceMinorVersion: 5
         sourceMajorVersion: 1
       properties:
@@ -3897,6 +4038,13 @@ components:
           format: int32
           nullable: true
           type: integer
+        value:
+          description: |-
+            The initial JSON value for the new draft.
+            If omitted, the draft is initialised with an empty JSON object.
+            Cannot be supplied together with SourceMajorVersion/SourceMinorVersion.
+          nullable: true
+          type: string
       type: object
     EnrichmentResponse:
       additionalProperties: false
@@ -7297,6 +7445,21 @@ components:
       - minorVersion
       - name
       - value
+      type: object
+    VersionedConfigurationTypeResponse:
+      additionalProperties: false
+      description: Represents a registered versioned configuration type.
+      example:
+        displayName: displayName
+        configType: configType
+      properties:
+        configType:
+          type: string
+        displayName:
+          type: string
+      required:
+      - configType
+      - displayName
       type: object
   securitySchemes:
     oauth2:

@@ -5,8 +5,11 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createVersionedConfigurationDraft**](VersionedConfigurationsApi.md#createVersionedConfigurationDraft) | **POST** /api/versionedconfiguration/{configType}/{name}/draft | [EXPERIMENTAL] CreateVersionedConfigurationDraft: Create a draft versioned configuration. |
+| [**deleteVersionedConfigurationVersion**](VersionedConfigurationsApi.md#deleteVersionedConfigurationVersion) | **DELETE** /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion} | [EXPERIMENTAL] DeleteVersionedConfigurationVersion: Delete a versioned configuration version. |
 | [**getVersionedConfiguration**](VersionedConfigurationsApi.md#getVersionedConfiguration) | **GET** /api/versionedconfiguration/{configType}/{name} | [EXPERIMENTAL] GetVersionedConfiguration: Get a versioned configuration. |
-| [**listVersionedConfigurations**](VersionedConfigurationsApi.md#listVersionedConfigurations) | **GET** /api/versionedconfiguration/{configType} | [EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations. |
+| [**getVersionedConfigurationTypes**](VersionedConfigurationsApi.md#getVersionedConfigurationTypes) | **GET** /api/versionedconfiguration/config-types | [EXPERIMENTAL] GetVersionedConfigurationTypes: List available versioned configuration types. |
+| [**listAllVersionedConfigurations**](VersionedConfigurationsApi.md#listAllVersionedConfigurations) | **GET** /api/versionedconfiguration/all | [EXPERIMENTAL] ListAllVersionedConfigurations: List all versioned configurations. |
+| [**listVersionedConfigurations**](VersionedConfigurationsApi.md#listVersionedConfigurations) | **GET** /api/versionedconfiguration/{configType} | [EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations for a config type. |
 | [**lockVersionedConfigurationVersion**](VersionedConfigurationsApi.md#lockVersionedConfigurationVersion) | **POST** /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/lock | [EXPERIMENTAL] LockVersionedConfigurationVersion: Lock a versioned configuration version. |
 | [**updateVersionedConfigurationDraft**](VersionedConfigurationsApi.md#updateVersionedConfigurationDraft) | **PUT** /api/versionedconfiguration/{configType}/{name}/{majorVersion}/{minorVersion}/draft | [EXPERIMENTAL] UpdateVersionedConfigurationDraft: Update a draft versioned configuration. |
 
@@ -104,6 +107,104 @@ public class VersionedConfigurationsApiExample {
 | **400** | The details of the input related failure |  -  |
 | **404** | The client does not exist. |  -  |
 | **409** | A configuration with the specified version already exists. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## deleteVersionedConfigurationVersion
+
+> VersionedConfigurationResponse deleteVersionedConfigurationVersion(configType, name, majorVersion, minorVersion)
+
+[EXPERIMENTAL] DeleteVersionedConfigurationVersion: Delete a versioned configuration version.
+
+Permanently deletes the specified configuration version regardless of whether it is locked. Returns the deleted record. The user must be authenticated and entitled to call this method.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.VersionedConfigurationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class VersionedConfigurationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VersionedConfigurationsApi apiInstance = apiFactory.build(VersionedConfigurationsApi.class);
+
+        VersionedConfigurationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(VersionedConfigurationsApi.class);
+        String configType = "configType_example"; // String | The category of configuration.
+        String name = "name_example"; // String | The logical name of the configuration.
+        Integer majorVersion = 56; // Integer | The major version to delete.
+        Integer minorVersion = 56; // Integer | The minor version to delete.
+        try {
+            // uncomment the below to set overrides at the request level
+            // VersionedConfigurationResponse result = apiInstance.deleteVersionedConfigurationVersion(configType, name, majorVersion, minorVersion).execute(opts);
+
+            VersionedConfigurationResponse result = apiInstance.deleteVersionedConfigurationVersion(configType, name, majorVersion, minorVersion).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VersionedConfigurationsApi#deleteVersionedConfigurationVersion");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **configType** | **String**| The category of configuration. | |
+| **name** | **String**| The logical name of the configuration. | |
+| **majorVersion** | **Integer**| The major version to delete. | |
+| **minorVersion** | **Integer**| The minor version to delete. | |
+
+### Return type
+
+[**VersionedConfigurationResponse**](VersionedConfigurationResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The client or configuration version does not exist. |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -207,11 +308,185 @@ public class VersionedConfigurationsApiExample {
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 
+## getVersionedConfigurationTypes
+
+> List&lt;VersionedConfigurationTypeResponse&gt; getVersionedConfigurationTypes()
+
+[EXPERIMENTAL] GetVersionedConfigurationTypes: List available versioned configuration types.
+
+Returns all registered configuration types with their display names. The user must be authenticated and entitled to call this method.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.VersionedConfigurationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class VersionedConfigurationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VersionedConfigurationsApi apiInstance = apiFactory.build(VersionedConfigurationsApi.class);
+
+        VersionedConfigurationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(VersionedConfigurationsApi.class);
+        try {
+            // uncomment the below to set overrides at the request level
+            // List<VersionedConfigurationTypeResponse> result = apiInstance.getVersionedConfigurationTypes().execute(opts);
+
+            List<VersionedConfigurationTypeResponse> result = apiInstance.getVersionedConfigurationTypes().execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VersionedConfigurationsApi#getVersionedConfigurationTypes");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List&lt;VersionedConfigurationTypeResponse&gt;**](VersionedConfigurationTypeResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **404** | The client does not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## listAllVersionedConfigurations
+
+> List&lt;VersionedConfigurationResponse&gt; listAllVersionedConfigurations()
+
+[EXPERIMENTAL] ListAllVersionedConfigurations: List all versioned configurations.
+
+Returns all configuration records across all config types, versions and states (both draft and locked), ordered by version descending. The user must be authenticated and entitled to call this method.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.VersionedConfigurationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class VersionedConfigurationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // VersionedConfigurationsApi apiInstance = apiFactory.build(VersionedConfigurationsApi.class);
+
+        VersionedConfigurationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(VersionedConfigurationsApi.class);
+        try {
+            // uncomment the below to set overrides at the request level
+            // List<VersionedConfigurationResponse> result = apiInstance.listAllVersionedConfigurations().execute(opts);
+
+            List<VersionedConfigurationResponse> result = apiInstance.listAllVersionedConfigurations().execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VersionedConfigurationsApi#listAllVersionedConfigurations");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List&lt;VersionedConfigurationResponse&gt;**](VersionedConfigurationResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **404** | The client does not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
 ## listVersionedConfigurations
 
 > List&lt;VersionedConfigurationResponse&gt; listVersionedConfigurations(configType)
 
-[EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations.
+[EXPERIMENTAL] ListVersionedConfigurations: List versioned configurations for a config type.
 
 Returns all configuration records for the given config type, across all versions and states (both draft and locked), ordered by version descending. The user must be authenticated and entitled to call this method.
 
