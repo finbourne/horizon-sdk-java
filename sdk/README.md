@@ -23,7 +23,6 @@ Class | Method | HTTP request | Description
 *IntegrationsApi* | [**getIntegrationConfigurationFields**](docs/IntegrationsApi.md#getintegrationconfigurationfields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration
 *IntegrationsApi* | [**getIntegrationConfigurationProperties**](docs/IntegrationsApi.md#getintegrationconfigurationproperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration
 *IntegrationsApi* | [**getSchema**](docs/IntegrationsApi.md#getschema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance.
-*IntegrationsApi* | [**getTpfTransactionHistorySearch**](docs/IntegrationsApi.md#gettpftransactionhistorysearch) | **GET** /api/integrations/trade-publication-framework/transactions/search | [EARLY ACCESS] GetTpfTransactionHistorySearch: Endpoint to search TPF transaction by transaction ID and/or instrument identifier, with filtering by instance and date range
 *IntegrationsApi* | [**listDataflowProcessors**](docs/IntegrationsApi.md#listdataflowprocessors) | **GET** /api/integrations/dataflow/processors | [EXPERIMENTAL] ListDataflowProcessors: List processor types.
 *IntegrationsApi* | [**listInstances**](docs/IntegrationsApi.md#listinstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations.
 *IntegrationsApi* | [**listIntegrations**](docs/IntegrationsApi.md#listintegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations.
@@ -40,6 +39,12 @@ Class | Method | HTTP request | Description
 *RunsApi* | [**getRunResults**](docs/RunsApi.md#getrunresults) | **GET** /api/runs | [EXPERIMENTAL] GetRunResults: Get run results
 *RunsApi* | [**rerunInstance**](docs/RunsApi.md#reruninstance) | **PUT** /api/runs/{runId}/rerun | [EXPERIMENTAL] RerunInstance: Reruns a single instance execution.
 *RunsApi* | [**stopInstanceExecution**](docs/RunsApi.md#stopinstanceexecution) | **PUT** /api/runs/{instanceId}/{runId}/stop | [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution.
+*TradePublicationFrameworkApi* | [**getTpfTransactionHistorySearch**](docs/TradePublicationFrameworkApi.md#gettpftransactionhistorysearch) | **GET** /api/trade-publication-framework/transactions/search | [EXPERIMENTAL] GetTpfTransactionHistorySearch: Endpoint to search TPF transaction by transaction ID and/or instrument identifier, with filtering by instance and date range
+*TradePublicationFrameworkApi* | [**getTransactionPayload**](docs/TradePublicationFrameworkApi.md#gettransactionpayload) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions/{transactionId}/payload | [EXPERIMENTAL] GetTransactionPayload: Transaction payload detail
+*TradePublicationFrameworkApi* | [**listInstanceRunHistory**](docs/TradePublicationFrameworkApi.md#listinstancerunhistory) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs | [EXPERIMENTAL] ListInstanceRunHistory: List run history for a given TPF instance, with pagination support.
+*TradePublicationFrameworkApi* | [**listInstancesWithStatus**](docs/TradePublicationFrameworkApi.md#listinstanceswithstatus) | **GET** /api/trade-publication-framework/instances | [EXPERIMENTAL] ListInstancesWithStatus: Lists all instances of the Trade Publication Framework (TPF).
+*TradePublicationFrameworkApi* | [**listRunFiles**](docs/TradePublicationFrameworkApi.md#listrunfiles) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files | [EXPERIMENTAL] ListRunFiles: List Files in a run
+*TradePublicationFrameworkApi* | [**listRunTransactions**](docs/TradePublicationFrameworkApi.md#listruntransactions) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions | [EXPERIMENTAL] ListRunTransactions: List Transactions in a run.
 *VendorApi* | [**getCoreFieldMappingsForProductEntity**](docs/VendorApi.md#getcorefieldmappingsforproductentity) | **GET** /api/vendor/mappings/fields | [EARLY ACCESS] GetCoreFieldMappingsForProductEntity: Get core field mappings for a given vendor product's entity.
 *VendorApi* | [**getOptionalMappingsForProductEntity**](docs/VendorApi.md#getoptionalmappingsforproductentity) | **GET** /api/vendor/mappings/optional | [EARLY ACCESS] GetOptionalMappingsForProductEntity: Get a user defined LUSID property mappings for the specified vendor / LUSID entity.
 *VendorApi* | [**getPropertyMappingsForProductEntity**](docs/VendorApi.md#getpropertymappingsforproductentity) | **GET** /api/vendor/mappings/properties | [EARLY ACCESS] GetPropertyMappingsForProductEntity: Gets the property mappings for a given vendor product's entity
@@ -67,18 +72,24 @@ Class | Method | HTTP request | Description
  - [CancelRunRequest](docs/CancelRunRequest.md)
  - [CreateInstanceRequest](docs/CreateInstanceRequest.md)
  - [CreateVersionedConfigurationDraftRequest](docs/CreateVersionedConfigurationDraftRequest.md)
+ - [DestinationResponse](docs/DestinationResponse.md)
  - [EnrichmentResponse](docs/EnrichmentResponse.md)
  - [ExecuteInstanceResponse](docs/ExecuteInstanceResponse.md)
  - [ExternalLogInsertionRequest](docs/ExternalLogInsertionRequest.md)
  - [ExternalLogRecord](docs/ExternalLogRecord.md)
  - [FieldMapping](docs/FieldMapping.md)
+ - [FileDestinationResponse](docs/FileDestinationResponse.md)
  - [FileDetails](docs/FileDetails.md)
  - [IFieldMapping](docs/IFieldMapping.md)
  - [IIntegrationLogResponse](docs/IIntegrationLogResponse.md)
  - [IPropertyMapping](docs/IPropertyMapping.md)
  - [Identifiers](docs/Identifiers.md)
+ - [InstanceDestinations](docs/InstanceDestinations.md)
  - [InstanceExecutionReferenceId](docs/InstanceExecutionReferenceId.md)
  - [InstanceIdentifier](docs/InstanceIdentifier.md)
+ - [InstanceResponse](docs/InstanceResponse.md)
+ - [InstanceRunResponse](docs/InstanceRunResponse.md)
+ - [InstancesResponse](docs/InstancesResponse.md)
  - [IntegrationCancellationResponse](docs/IntegrationCancellationResponse.md)
  - [IntegrationDescription](docs/IntegrationDescription.md)
  - [IntegrationInstance](docs/IntegrationInstance.md)
@@ -114,10 +125,13 @@ Class | Method | HTTP request | Description
  - [PagedResourceListOfIFieldMapping](docs/PagedResourceListOfIFieldMapping.md)
  - [PagedResourceListOfIIntegrationLogResponse](docs/PagedResourceListOfIIntegrationLogResponse.md)
  - [PagedResourceListOfIPropertyMapping](docs/PagedResourceListOfIPropertyMapping.md)
+ - [PagedResourceListOfInstanceRunResponse](docs/PagedResourceListOfInstanceRunResponse.md)
  - [PagedResourceListOfIntegrationRunResponse](docs/PagedResourceListOfIntegrationRunResponse.md)
  - [PagedResourceListOfProcessInformation](docs/PagedResourceListOfProcessInformation.md)
  - [PagedResourceListOfProcessUpdateResult](docs/PagedResourceListOfProcessUpdateResult.md)
+ - [PagedResourceListOfRunFileResponse](docs/PagedResourceListOfRunFileResponse.md)
  - [PagedResourceListOfTpfTransactionSearchResponse](docs/PagedResourceListOfTpfTransactionSearchResponse.md)
+ - [PagedResourceListOfTransactionResponse](docs/PagedResourceListOfTransactionResponse.md)
  - [PagedResourceListOfVendorProduct](docs/PagedResourceListOfVendorProduct.md)
  - [PermIdData](docs/PermIdData.md)
  - [PostProcessTask](docs/PostProcessTask.md)
@@ -131,7 +145,11 @@ Class | Method | HTTP request | Description
  - [QuerySpecification](docs/QuerySpecification.md)
  - [ResourceId](docs/ResourceId.md)
  - [RowDetails](docs/RowDetails.md)
+ - [RunFileResponse](docs/RunFileResponse.md)
+ - [TpfPortfolio](docs/TpfPortfolio.md)
  - [TpfTransactionSearchResponse](docs/TpfTransactionSearchResponse.md)
+ - [TransactionPayloadResponse](docs/TransactionPayloadResponse.md)
+ - [TransactionResponse](docs/TransactionResponse.md)
  - [Trigger](docs/Trigger.md)
  - [UpdateInstanceRequest](docs/UpdateInstanceRequest.md)
  - [UpdateVersionedConfigurationDraftRequest](docs/UpdateVersionedConfigurationDraftRequest.md)

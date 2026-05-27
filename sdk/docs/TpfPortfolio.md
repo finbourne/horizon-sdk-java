@@ -1,0 +1,27 @@
+# com.finbourne.horizon.model.TpfPortfolio
+record containing details of a TPF portfolio.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**scope** | **String** |  | [default to String]
+**code** | **String** |  | [default to String]
+
+```java
+import com.finbourne.horizon.model.TpfPortfolio;
+import java.util.*;
+import java.lang.System;
+import java.net.URI;
+
+String Scope = "example Scope";
+String Code = "example Code";
+
+
+TpfPortfolio tpfPortfolioInstance = new TpfPortfolio()
+    .Scope(Scope)
+    .Code(Code);
+```
+
+
+[Back to Model list](../README.md#documentation-for-models) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to README](../README.md)

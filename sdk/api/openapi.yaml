@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3364
+  version: 0.1.3403
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -25,6 +25,8 @@ tags:
   name: ProcessHistory
 - description: Get Integration runs
   name: Runs
+- description: Provides information about Trade Publication Framework
+  name: TradePublicationFramework
 - description: Provides information about Vendor configurations
   name: Vendor
 - description: Manage versioned configuration records
@@ -1764,172 +1766,6 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/integrations/trade-publication-framework/transactions/search:
-    get:
-      operationId: GetTpfTransactionHistorySearch
-      parameters:
-      - description: ""
-        explode: true
-        in: query
-        name: transactionId
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: instrumentId
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: dateFrom
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: dateTo
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: status
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: instanceId
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: pageSize
-        required: false
-        schema:
-          default: 400
-          format: int32
-          maximum: 500
-          minimum: 1
-          type: integer
-        style: form
-        x-nullable: true
-      - description: ""
-        explode: true
-        in: query
-        name: pageToken
-        required: false
-        schema:
-          default: ""
-          maxLength: 500
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                values:
-                - transactionId: TXN-2024-001
-                  instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
-                  instanceName: TPF-Production-Instance
-                  batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
-                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
-                  publicationStatus: Sent
-                  instrumentName: Apple Inc.
-                  instrumentType: Equity
-                  tradeDate: 2024-04-14T00:00:00.0000000+00:00
-                  settlementDate: 2024-04-16T00:00:00.0000000+00:00
-                  fileName: trades_20240415_103000.csv
-                  destinations:
-                  - SFTP
-                  - S3
-                - transactionId: TXN-2024-002
-                  instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
-                  instanceName: TPF-Production-Instance
-                  batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
-                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
-                  publicationStatus: Skipped
-                  instrumentName: Microsoft Corp.
-                  instrumentType: Equity
-                  tradeDate: 2024-04-14T00:00:00.0000000+00:00
-                  settlementDate: 2024-04-16T00:00:00.0000000+00:00
-                  skipReason: Duplicate transaction detected
-                  fileName: trades_20240415_103000.csv
-                  destinations:
-                  - SFTP
-                  - S3
-                - transactionId: TXN-2024-003
-                  instanceId: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
-                  instanceName: TPF-UAT-Instance
-                  batchId: d4e5f6a7-b8c9-7d8e-1f2a-3b4c5d6e7f8a
-                  runStartTime: 2024-04-15T14:45:00.0000000+00:00
-                  publicationStatus: Failed
-                  instrumentName: Tesla Inc.
-                  instrumentType: Equity
-                  tradeDate: 2024-04-15T00:00:00.0000000+00:00
-                  destinations:
-                  - Drive
-                links: []
-              schema:
-                $ref: '#/components/schemas/PagedResourceListOfTpfTransactionSearchResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EARLY ACCESS] GetTpfTransactionHistorySearch: Endpoint to search\
-        \ TPF transaction by transaction ID and/or instrument identifier, with filtering\
-        \ by instance and date range"
-      tags:
-      - Integrations
-      x-fbn-apistatus: EarlyAccess
-      x-accepts: application/json
   /api/logs:
     get:
       description: Get integration log results
@@ -2702,6 +2538,481 @@ paths:
       summary: "[EXPERIMENTAL] RerunInstance: Reruns a single instance execution."
       tags:
       - Runs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances:
+    get:
+      operationId: ListInstancesWithStatus
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstancesResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListInstancesWithStatus: Lists all instances of the\
+        \ Trade Publication Framework (TPF)."
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/runs:
+    get:
+      operationId: ListInstanceRunHistory
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfInstanceRunResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListInstanceRunHistory: List run history for a given\
+        \ TPF instance, with pagination support."
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files:
+    get:
+      operationId: ListRunFiles
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfRunFileResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested TPF instance or run does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListRunFiles: List Files in a run"
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions:
+    get:
+      operationId: ListRunTransactions
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: status
+        required: true
+        schema:
+          maxLength: 50
+          minLength: 0
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfTransactionResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested TPF instance or run does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListRunTransactions: List Transactions in a run."
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions/{transactionId}/payload:
+    get:
+      operationId: GetTransactionPayload
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: transactionId
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionPayloadResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: "The requested TPF instance, run, or transaction payload does\
+            \ not exist."
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetTransactionPayload: Transaction payload detail"
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/transactions/search:
+    get:
+      operationId: GetTpfTransactionHistorySearch
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: transactionId
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: instrumentId
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: dateFrom
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: dateTo
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: instanceId
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 400
+          format: int32
+          maximum: 500
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: ""
+        explode: true
+        in: query
+        name: pageToken
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - transactionId: TXN-2024-001
+                  instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+                  instanceName: TPF-Production-Instance
+                  batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
+                  publicationStatus: Sent
+                  instrumentName: Apple Inc.
+                  instrumentType: Equity
+                  tradeDate: 2024-04-14T00:00:00.0000000+00:00
+                  settlementDate: 2024-04-16T00:00:00.0000000+00:00
+                  fileName: trades_20240415_103000.csv
+                  destinations:
+                  - SFTP
+                  - S3
+                - transactionId: TXN-2024-002
+                  instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+                  instanceName: TPF-Production-Instance
+                  batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
+                  publicationStatus: Skipped
+                  instrumentName: Microsoft Corp.
+                  instrumentType: Equity
+                  tradeDate: 2024-04-14T00:00:00.0000000+00:00
+                  settlementDate: 2024-04-16T00:00:00.0000000+00:00
+                  skipReason: Duplicate transaction detected
+                  fileName: trades_20240415_103000.csv
+                  destinations:
+                  - SFTP
+                  - S3
+                - transactionId: TXN-2024-003
+                  instanceId: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
+                  instanceName: TPF-UAT-Instance
+                  batchId: d4e5f6a7-b8c9-7d8e-1f2a-3b4c5d6e7f8a
+                  runStartTime: 2024-04-15T14:45:00.0000000+00:00
+                  publicationStatus: Failed
+                  instrumentName: Tesla Inc.
+                  instrumentType: Equity
+                  tradeDate: 2024-04-15T00:00:00.0000000+00:00
+                  destinations:
+                  - Drive
+                links: []
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfTpfTransactionSearchResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetTpfTransactionHistorySearch: Endpoint to search\
+        \ TPF transaction by transaction ID and/or instrument identifier, with filtering\
+        \ by instance and date range"
+      tags:
+      - TradePublicationFramework
       x-fbn-apistatus: Experimental
       x-accepts: application/json
   /api/vendor/$query:
@@ -4046,6 +4357,21 @@ components:
           nullable: true
           type: string
       type: object
+    DestinationResponse:
+      additionalProperties: false
+      description: file type and path details
+      example:
+        path: path
+        type: type
+      properties:
+        type:
+          type: string
+        path:
+          type: string
+      required:
+      - path
+      - type
+      type: object
     EnrichmentResponse:
       additionalProperties: false
       description: Collated enrichment result information
@@ -4290,6 +4616,33 @@ components:
       - vendorFields
       - versions
       type: object
+    FileDestinationResponse:
+      additionalProperties: false
+      description: record containing details of a single file destination for a run.
+      example:
+        path: path
+        failureReason: failureReason
+        type: type
+        error: error
+        status: status
+      properties:
+        type:
+          type: string
+        path:
+          type: string
+        status:
+          type: string
+        error:
+          nullable: true
+          type: string
+        failureReason:
+          nullable: true
+          type: string
+      required:
+      - path
+      - status
+      - type
+      type: object
     FileDetails:
       additionalProperties: false
       description: Information associated with files
@@ -4450,6 +4803,25 @@ components:
       - logId
       - logType
       type: object
+    InstanceDestinations:
+      additionalProperties: false
+      description: record containing details of the destinations for an instance.
+      example:
+        name: name
+        destinationType: destinationType
+        destinationPath: destinationPath
+      properties:
+        destinationType:
+          type: string
+        name:
+          type: string
+        destinationPath:
+          type: string
+      required:
+      - destinationPath
+      - destinationType
+      - name
+      type: object
     InstanceDetails:
       additionalProperties: false
       description: "Base DTO type of an integration configuration specific to the\
@@ -4484,6 +4856,191 @@ components:
           type: string
       required:
       - id
+      type: object
+    InstanceResponse:
+      additionalProperties: false
+      description: record containing details of a single instance.
+      example:
+        schedule: schedule
+        lastRunAt: 2000-01-23T04:56:07.000+00:00
+        latestRunsIn24Hours: latestRunsIn24Hours
+        destinations:
+        - name: name
+          destinationType: destinationType
+          destinationPath: destinationPath
+        - name: name
+          destinationType: destinationType
+          destinationPath: destinationPath
+        name: name
+        portfolios:
+        - code: code
+          scope: scope
+        - code: code
+          scope: scope
+        lastRunStatus: lastRunStatus
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        scheduleTimezone: scheduleTimezone
+        enabled: true
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        portfolios:
+          items:
+            $ref: '#/components/schemas/TpfPortfolio'
+          type: array
+        schedule:
+          nullable: true
+          type: string
+        scheduleTimezone:
+          nullable: true
+          type: string
+        lastRunAt:
+          format: date-time
+          nullable: true
+          type: string
+        lastRunStatus:
+          nullable: true
+          type: string
+        latestRunsIn24Hours:
+          nullable: true
+          type: string
+        destinations:
+          items:
+            $ref: '#/components/schemas/InstanceDestinations'
+          type: array
+      required:
+      - destinations
+      - enabled
+      - id
+      - name
+      - portfolios
+      type: object
+    InstanceRunResponse:
+      additionalProperties: false
+      description: Response containing details of a single run for an instance.
+      example:
+        skippedCount: 5
+        attempt: 0
+        batchReferenceId: batchReferenceId
+        sentCount: 1
+        duration: duration
+        total: 6
+        failedCount: 5
+        failedFiles: 2
+        startTime: 2000-01-23T04:56:07.000+00:00
+        runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        endTime: 2000-01-23T04:56:07.000+00:00
+        status: status
+        triggeredBy: triggeredBy
+      properties:
+        runId:
+          format: uuid
+          type: string
+        batchReferenceId:
+          nullable: true
+          type: string
+        attempt:
+          format: int32
+          nullable: true
+          type: integer
+        startTime:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          nullable: true
+          type: string
+        duration:
+          format: date-span
+          nullable: true
+          type: string
+        status:
+          type: string
+        triggeredBy:
+          nullable: true
+          type: string
+        total:
+          format: int32
+          type: integer
+        sentCount:
+          format: int64
+          type: integer
+        skippedCount:
+          format: int64
+          type: integer
+        failedCount:
+          format: int64
+          type: integer
+        failedFiles:
+          format: int32
+          type: integer
+      required:
+      - failedCount
+      - failedFiles
+      - runId
+      - sentCount
+      - skippedCount
+      - startTime
+      - status
+      - total
+      type: object
+    InstancesResponse:
+      additionalProperties: false
+      description: record containing a list of instances.
+      example:
+        instances:
+        - schedule: schedule
+          lastRunAt: 2000-01-23T04:56:07.000+00:00
+          latestRunsIn24Hours: latestRunsIn24Hours
+          destinations:
+          - name: name
+            destinationType: destinationType
+            destinationPath: destinationPath
+          - name: name
+            destinationType: destinationType
+            destinationPath: destinationPath
+          name: name
+          portfolios:
+          - code: code
+            scope: scope
+          - code: code
+            scope: scope
+          lastRunStatus: lastRunStatus
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          scheduleTimezone: scheduleTimezone
+          enabled: true
+        - schedule: schedule
+          lastRunAt: 2000-01-23T04:56:07.000+00:00
+          latestRunsIn24Hours: latestRunsIn24Hours
+          destinations:
+          - name: name
+            destinationType: destinationType
+            destinationPath: destinationPath
+          - name: name
+            destinationType: destinationType
+            destinationPath: destinationPath
+          name: name
+          portfolios:
+          - code: code
+            scope: scope
+          - code: code
+            scope: scope
+          lastRunStatus: lastRunStatus
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          scheduleTimezone: scheduleTimezone
+          enabled: true
+      properties:
+        instances:
+          items:
+            $ref: '#/components/schemas/InstanceResponse'
+          type: array
+      required:
+      - instances
       type: object
     IntegrationCancellationResponse:
       additionalProperties: false
@@ -6284,6 +6841,71 @@ components:
       required:
       - values
       type: object
+    PagedResourceListOfInstanceRunResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - skippedCount: 5
+          attempt: 0
+          batchReferenceId: batchReferenceId
+          sentCount: 1
+          duration: duration
+          total: 6
+          failedCount: 5
+          failedFiles: 2
+          startTime: 2000-01-23T04:56:07.000+00:00
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          endTime: 2000-01-23T04:56:07.000+00:00
+          status: status
+          triggeredBy: triggeredBy
+        - skippedCount: 5
+          attempt: 0
+          batchReferenceId: batchReferenceId
+          sentCount: 1
+          duration: duration
+          total: 6
+          failedCount: 5
+          failedFiles: 2
+          startTime: 2000-01-23T04:56:07.000+00:00
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          endTime: 2000-01-23T04:56:07.000+00:00
+          status: status
+          triggeredBy: triggeredBy
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/InstanceRunResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfIntegrationRunResponse:
       additionalProperties: false
       example:
@@ -6594,6 +7216,83 @@ components:
       required:
       - values
       type: object
+    PagedResourceListOfRunFileResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - transactionIds:
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          fileName: fileName
+          encrypted: true
+          destinations:
+          - path: path
+            failureReason: failureReason
+            type: type
+            error: error
+            status: status
+          - path: path
+            failureReason: failureReason
+            type: type
+            error: error
+            status: status
+          generatedAt: 2000-01-23T04:56:07.000+00:00
+          fileHash: fileHash
+          rowCount: 0
+        - transactionIds:
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          fileName: fileName
+          encrypted: true
+          destinations:
+          - path: path
+            failureReason: failureReason
+            type: type
+            error: error
+            status: status
+          - path: path
+            failureReason: failureReason
+            type: type
+            error: error
+            status: status
+          generatedAt: 2000-01-23T04:56:07.000+00:00
+          fileHash: fileHash
+          rowCount: 0
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/RunFileResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfTpfTransactionSearchResponse:
       additionalProperties: false
       example:
@@ -6658,6 +7357,83 @@ components:
         values:
           items:
             $ref: '#/components/schemas/TpfTransactionSearchResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
+    PagedResourceListOfTransactionResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - publicationStatus: publicationStatus
+          instrumentType: instrumentType
+          outputFileName: outputFileName
+          instrumentId: instrumentId
+          destinations:
+          - path: path
+            type: type
+          - path: path
+            type: type
+          tradeDate: 2000-01-23T04:56:07.000+00:00
+          settlementDate: 2000-01-23T04:56:07.000+00:00
+          sentAt: 2000-01-23T04:56:07.000+00:00
+          transactionId: transactionId
+          instrumentName: instrumentName
+          portfolioScope: portfolioScope
+          failureReason: failureReason
+          skipReason: skipReason
+          portfolioCode: portfolioCode
+          status: status
+        - publicationStatus: publicationStatus
+          instrumentType: instrumentType
+          outputFileName: outputFileName
+          instrumentId: instrumentId
+          destinations:
+          - path: path
+            type: type
+          - path: path
+            type: type
+          tradeDate: 2000-01-23T04:56:07.000+00:00
+          settlementDate: 2000-01-23T04:56:07.000+00:00
+          sentAt: 2000-01-23T04:56:07.000+00:00
+          transactionId: transactionId
+          instrumentName: instrumentName
+          portfolioScope: portfolioScope
+          failureReason: failureReason
+          skipReason: skipReason
+          portfolioCode: portfolioCode
+          status: status
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/TransactionResponse'
           type: array
         href:
           format: uri
@@ -7143,6 +7919,75 @@ components:
           nullable: true
           type: integer
       type: object
+    RunFileResponse:
+      additionalProperties: false
+      description: record containing details of a single file for a run.
+      example:
+        transactionIds:
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        fileName: fileName
+        encrypted: true
+        destinations:
+        - path: path
+          failureReason: failureReason
+          type: type
+          error: error
+          status: status
+        - path: path
+          failureReason: failureReason
+          type: type
+          error: error
+          status: status
+        generatedAt: 2000-01-23T04:56:07.000+00:00
+        fileHash: fileHash
+        rowCount: 0
+      properties:
+        fileName:
+          type: string
+        generatedAt:
+          format: date-time
+          type: string
+        rowCount:
+          format: int32
+          type: integer
+        fileHash:
+          type: string
+        encrypted:
+          type: boolean
+        destinations:
+          items:
+            $ref: '#/components/schemas/FileDestinationResponse'
+          type: array
+        transactionIds:
+          items:
+            format: uuid
+            type: string
+          type: array
+      required:
+      - destinations
+      - encrypted
+      - fileHash
+      - fileName
+      - generatedAt
+      - rowCount
+      - transactionIds
+      type: object
+    TpfPortfolio:
+      additionalProperties: false
+      description: record containing details of a TPF portfolio.
+      example:
+        code: code
+        scope: scope
+      properties:
+        scope:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - scope
+      type: object
     TpfTransactionSearchResponse:
       additionalProperties: false
       description: TPF send history record
@@ -7241,6 +8086,108 @@ components:
       - instrumentType
       - publicationStatus
       - runStartTime
+      - tradeDate
+      - transactionId
+      type: object
+    TransactionPayloadResponse:
+      additionalProperties: false
+      description: record containing details of a transaction payload.
+      example:
+        columns:
+        - columns
+        - columns
+        values:
+          key: values
+        rawCsvRow: rawCsvRow
+      properties:
+        columns:
+          items:
+            type: string
+          type: array
+        values:
+          additionalProperties:
+            type: string
+          type: object
+        rawCsvRow:
+          type: string
+      required:
+      - columns
+      - rawCsvRow
+      - values
+      type: object
+    TransactionResponse:
+      additionalProperties: false
+      description: Response containing details of a single transaction for a run.
+      example:
+        publicationStatus: publicationStatus
+        instrumentType: instrumentType
+        outputFileName: outputFileName
+        instrumentId: instrumentId
+        destinations:
+        - path: path
+          type: type
+        - path: path
+          type: type
+        tradeDate: 2000-01-23T04:56:07.000+00:00
+        settlementDate: 2000-01-23T04:56:07.000+00:00
+        sentAt: 2000-01-23T04:56:07.000+00:00
+        transactionId: transactionId
+        instrumentName: instrumentName
+        portfolioScope: portfolioScope
+        failureReason: failureReason
+        skipReason: skipReason
+        portfolioCode: portfolioCode
+        status: status
+      properties:
+        transactionId:
+          type: string
+        publicationStatus:
+          type: string
+        portfolioScope:
+          nullable: true
+          type: string
+        portfolioCode:
+          nullable: true
+          type: string
+        instrumentId:
+          type: string
+        instrumentType:
+          type: string
+        instrumentName:
+          type: string
+        tradeDate:
+          format: date-time
+          type: string
+        settlementDate:
+          format: date-time
+          type: string
+        status:
+          type: string
+        skipReason:
+          nullable: true
+          type: string
+        failureReason:
+          nullable: true
+          type: string
+        outputFileName:
+          nullable: true
+          type: string
+        sentAt:
+          format: date-time
+          nullable: true
+          type: string
+        destinations:
+          items:
+            $ref: '#/components/schemas/DestinationResponse'
+          type: array
+      required:
+      - destinations
+      - instrumentId
+      - instrumentName
+      - instrumentType
+      - publicationStatus
+      - settlementDate
+      - status
       - tradeDate
       - transactionId
       type: object
@@ -7477,6 +8424,7 @@ x-tagGroups:
   - Logs
   - ProcessHistory
   - Runs
+  - TradePublicationFramework
   - Vendor
   - VersionedConfigurations
 x-group-parameters: true
