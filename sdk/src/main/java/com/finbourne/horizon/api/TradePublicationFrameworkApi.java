@@ -32,6 +32,8 @@ import com.finbourne.horizon.model.PagedResourceListOfInstanceRunResponse;
 import com.finbourne.horizon.model.PagedResourceListOfRunFileResponse;
 import com.finbourne.horizon.model.PagedResourceListOfTpfTransactionSearchResponse;
 import com.finbourne.horizon.model.PagedResourceListOfTransactionResponse;
+import com.finbourne.horizon.model.ReplayTransactionsRequest;
+import com.finbourne.horizon.model.ReplayTransactionsResponse;
 import com.finbourne.horizon.model.TransactionPayloadResponse;
 
 import java.lang.reflect.Type;
@@ -1712,5 +1714,255 @@ public class TradePublicationFrameworkApi {
      */
     public APIlistRunTransactionsRequest listRunTransactions(String instanceId, String runId, String status) {
         return new APIlistRunTransactionsRequest(instanceId, runId, status);
+    }
+    private okhttp3.Call replayTransactionsCall(String instanceId, ReplayTransactionsRequest replayTransactionsRequest, final ApiCallback _callback) throws ApiException {
+        return replayTransactionsCall(instanceId, replayTransactionsRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call replayTransactionsCall(String instanceId, ReplayTransactionsRequest replayTransactionsRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = replayTransactionsRequest;
+
+        // create path and map variables
+        String localVarPath = "/api/trade-publication-framework/instances/{instanceId}/replay"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json",
+            "application/json",
+            "text/json",
+            "application/*+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call replayTransactionsValidateBeforeCall(String instanceId, ReplayTransactionsRequest replayTransactionsRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling replayTransactions(Async)");
+        }
+
+        // verify the required parameter 'replayTransactionsRequest' is set
+        if (replayTransactionsRequest == null) {
+            throw new ApiException("Missing the required parameter 'replayTransactionsRequest' when calling replayTransactions(Async)");
+        }
+
+        return replayTransactionsCall(instanceId, replayTransactionsRequest, _callback, opts);
+
+    }
+
+
+    private ApiResponse<ReplayTransactionsResponse> replayTransactionsWithHttpInfo(String instanceId, ReplayTransactionsRequest replayTransactionsRequest) throws ApiException {
+        okhttp3.Call localVarCall = replayTransactionsValidateBeforeCall(instanceId, replayTransactionsRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ReplayTransactionsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ReplayTransactionsResponse> replayTransactionsWithHttpInfo(String instanceId, ReplayTransactionsRequest replayTransactionsRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = replayTransactionsValidateBeforeCall(instanceId, replayTransactionsRequest, null, opts);
+        Type localVarReturnType = new TypeToken<ReplayTransactionsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call replayTransactionsAsync(String instanceId, ReplayTransactionsRequest replayTransactionsRequest, final ApiCallback<ReplayTransactionsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = replayTransactionsValidateBeforeCall(instanceId, replayTransactionsRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ReplayTransactionsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call replayTransactionsAsync(String instanceId, ReplayTransactionsRequest replayTransactionsRequest, final ApiCallback<ReplayTransactionsResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = replayTransactionsValidateBeforeCall(instanceId, replayTransactionsRequest, _callback, opts);
+        Type localVarReturnType = new TypeToken<ReplayTransactionsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIreplayTransactionsRequest {
+        private final String instanceId;
+        private final ReplayTransactionsRequest replayTransactionsRequest;
+
+        private APIreplayTransactionsRequest(String instanceId, ReplayTransactionsRequest replayTransactionsRequest) {
+            this.instanceId = instanceId;
+            this.replayTransactionsRequest = replayTransactionsRequest;
+        }
+
+        /**
+         * Build call for replayTransactions
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return replayTransactionsCall(instanceId, replayTransactionsRequest, _callback);
+        }
+
+        /**
+         * Execute replayTransactions request
+         * @return ReplayTransactionsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ReplayTransactionsResponse execute() throws ApiException {
+            ApiResponse<ReplayTransactionsResponse> localVarResp = replayTransactionsWithHttpInfo(instanceId, replayTransactionsRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute replayTransactions request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ReplayTransactionsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ReplayTransactionsResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ReplayTransactionsResponse> localVarResp = replayTransactionsWithHttpInfo(instanceId, replayTransactionsRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute replayTransactions request with HTTP info returned
+         * @return ApiResponse&lt;ReplayTransactionsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ReplayTransactionsResponse> executeWithHttpInfo() throws ApiException {
+            return replayTransactionsWithHttpInfo(instanceId, replayTransactionsRequest);
+        }
+
+        /**
+         * Execute replayTransactions request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ReplayTransactionsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ReplayTransactionsResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return replayTransactionsWithHttpInfo(instanceId, replayTransactionsRequest, opts);
+        }
+
+        /**
+         * Execute replayTransactions request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ReplayTransactionsResponse> _callback) throws ApiException {
+            return replayTransactionsAsync(instanceId, replayTransactionsRequest, _callback);
+        }
+
+        /**
+         * Execute replayTransactions request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ReplayTransactionsResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return replayTransactionsAsync(instanceId, replayTransactionsRequest, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] ReplayTransactions: Replay one or more transactions through a TPF instance
+     * 
+     * @param instanceId  (required)
+     * @param replayTransactionsRequest  (required)
+     * @return APIreplayTransactionsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The requested TPF instance does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIreplayTransactionsRequest replayTransactions(String instanceId, ReplayTransactionsRequest replayTransactionsRequest) {
+        return new APIreplayTransactionsRequest(instanceId, replayTransactionsRequest);
     }
 }

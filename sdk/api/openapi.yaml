@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3403
+  version: 0.1.3432
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2563,6 +2563,97 @@ paths:
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/replay:
+    post:
+      operationId: ReplayTransactions
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              transactionIds:
+              - 78ae7078-74d0-44ba-9b04-695c465984a4
+              - txn-002
+              - 0aa6deb8-0d32-463a-bfee-67cd96e669a6
+              mode: DryRun
+              options:
+                overridePublicationStatus: New
+            schema:
+              $ref: '#/components/schemas/ReplayTransactionsRequest'
+          application/json:
+            example:
+              transactionIds:
+              - 78ae7078-74d0-44ba-9b04-695c465984a4
+              - txn-002
+              - 0aa6deb8-0d32-463a-bfee-67cd96e669a6
+              mode: DryRun
+              options:
+                overridePublicationStatus: New
+            schema:
+              $ref: '#/components/schemas/ReplayTransactionsRequest'
+          text/json:
+            example:
+              transactionIds:
+              - 78ae7078-74d0-44ba-9b04-695c465984a4
+              - txn-002
+              - 0aa6deb8-0d32-463a-bfee-67cd96e669a6
+              mode: DryRun
+              options:
+                overridePublicationStatus: New
+            schema:
+              $ref: '#/components/schemas/ReplayTransactionsRequest'
+          application/*+json:
+            example:
+              transactionIds:
+              - 78ae7078-74d0-44ba-9b04-695c465984a4
+              - txn-002
+              - 0aa6deb8-0d32-463a-bfee-67cd96e669a6
+              mode: DryRun
+              options:
+                overridePublicationStatus: New
+            schema:
+              $ref: '#/components/schemas/ReplayTransactionsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplayTransactionsResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested TPF instance does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ReplayTransactions: Replay one or more transactions\
+        \ through a TPF instance"
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/trade-publication-framework/instances/{instanceId}/runs:
     get:
@@ -7874,6 +7965,89 @@ components:
           format: int32
           nullable: true
           type: integer
+      type: object
+    ReplayOptions:
+      additionalProperties: false
+      description: Optional parameters for replay operations.
+      example:
+        overridePublicationStatus: overridePublicationStatus
+      properties:
+        overridePublicationStatus:
+          description: "Override publication status for all transactions (e.g., force\
+            \ as \"New\")."
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
+      type: object
+    ReplayTransactionsRequest:
+      additionalProperties: false
+      description: |-
+        Request to replay one or more transactions through a TPF instance.
+        The instance ID is specified in the route path.
+      example:
+        mode: mode
+        transactionIds:
+        - transactionIds
+        - transactionIds
+        destinations:
+        - destinations
+        - destinations
+        options:
+          overridePublicationStatus: overridePublicationStatus
+      properties:
+        transactionIds:
+          description: List of transaction IDs to replay.
+          items:
+            type: string
+          type: array
+        mode:
+          description: Replay mode - DryRun (preview only) or Committed (real send).
+          maxLength: 50
+          minLength: 0
+          type: string
+        destinations:
+          description: |-
+            Target destinations for Committed mode. Required for Committed, forbidden for DryRun.
+            Valid values: Drive, Sftp, S3, Local
+          items:
+            type: string
+          nullable: true
+          type: array
+        options:
+          $ref: '#/components/schemas/ReplayOptions'
+      required:
+      - mode
+      - transactionIds
+      type: object
+    ReplayTransactionsResponse:
+      additionalProperties: false
+      description: Response from a replay transactions operation containing the CSV
+        output.
+      example:
+        mode: mode
+        csvOutput: csvOutput
+        transactionCount: 0
+        message: message
+        batchReferenceId: batchReferenceId
+      properties:
+        batchReferenceId:
+          type: string
+        mode:
+          type: string
+        transactionCount:
+          format: int32
+          type: integer
+        csvOutput:
+          type: string
+        message:
+          type: string
+      required:
+      - batchReferenceId
+      - csvOutput
+      - message
+      - mode
+      - transactionCount
       type: object
     ResourceId:
       additionalProperties: false
