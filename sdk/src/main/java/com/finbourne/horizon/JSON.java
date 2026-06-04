@@ -174,7 +174,9 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.ResourceId.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.RowDetails.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.RunFileResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.TpfFileDeliveryInfo.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.TpfPortfolio.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.TpfRetrySftpResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.TpfTransactionSearchResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.TransactionPayloadResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.TransactionResponse.CustomTypeAdapterFactory());

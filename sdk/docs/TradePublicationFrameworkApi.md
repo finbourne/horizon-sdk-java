@@ -11,6 +11,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**listRunFiles**](TradePublicationFrameworkApi.md#listRunFiles) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files | [EXPERIMENTAL] ListRunFiles: List Files in a run |
 | [**listRunTransactions**](TradePublicationFrameworkApi.md#listRunTransactions) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions | [EXPERIMENTAL] ListRunTransactions: List Transactions in a run. |
 | [**replayTransactions**](TradePublicationFrameworkApi.md#replayTransactions) | **POST** /api/trade-publication-framework/instances/{instanceId}/replay | [EXPERIMENTAL] ReplayTransactions: Replay one or more transactions through a TPF instance |
+| [**retryTpfSftpDelivery**](TradePublicationFrameworkApi.md#retryTpfSftpDelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp | [EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously sent TPF file |
 
 
 
@@ -669,6 +670,99 @@ public class TradePublicationFrameworkApiExample {
 | **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The requested TPF instance does not exist. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## retryTpfSftpDelivery
+
+> TpfRetrySftpResponse retryTpfSftpDelivery(instanceId, fileId)
+
+[EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously sent TPF file
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.TradePublicationFrameworkApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class TradePublicationFrameworkApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
+
+        TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
+        String instanceId = "instanceId_example"; // String | Integration instance ID
+        Long fileId = 56L; // Long | File delivery ID to retry
+        try {
+            // uncomment the below to set overrides at the request level
+            // TpfRetrySftpResponse result = apiInstance.retryTpfSftpDelivery(instanceId, fileId).execute(opts);
+
+            TpfRetrySftpResponse result = apiInstance.retryTpfSftpDelivery(instanceId, fileId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradePublicationFrameworkApi#retryTpfSftpDelivery");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**| Integration instance ID | |
+| **fileId** | **Long**| File delivery ID to retry | |
+
+### Return type
+
+[**TpfRetrySftpResponse**](TpfRetrySftpResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Retry succeeded - file re-sent to SFTP |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | File delivery record not found |  -  |
+| **409** | Duplicate file detected - same hash already delivered to destination |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)

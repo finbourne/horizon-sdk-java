@@ -34,6 +34,7 @@ import com.finbourne.horizon.model.PagedResourceListOfTpfTransactionSearchRespon
 import com.finbourne.horizon.model.PagedResourceListOfTransactionResponse;
 import com.finbourne.horizon.model.ReplayTransactionsRequest;
 import com.finbourne.horizon.model.ReplayTransactionsResponse;
+import com.finbourne.horizon.model.TpfRetrySftpResponse;
 import com.finbourne.horizon.model.TransactionPayloadResponse;
 
 import java.lang.reflect.Type;
@@ -1964,5 +1965,260 @@ public class TradePublicationFrameworkApi {
      */
     public APIreplayTransactionsRequest replayTransactions(String instanceId, ReplayTransactionsRequest replayTransactionsRequest) {
         return new APIreplayTransactionsRequest(instanceId, replayTransactionsRequest);
+    }
+    private okhttp3.Call retryTpfSftpDeliveryCall(String instanceId, Long fileId, final ApiCallback _callback) throws ApiException {
+        return retryTpfSftpDeliveryCall(instanceId, fileId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call retryTpfSftpDeliveryCall(String instanceId, Long fileId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()))
+            .replace("{" + "fileId" + "}", localVarApiClient.escapeString(fileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call retryTpfSftpDeliveryValidateBeforeCall(String instanceId, Long fileId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling retryTpfSftpDelivery(Async)");
+        }
+
+        // verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new ApiException("Missing the required parameter 'fileId' when calling retryTpfSftpDelivery(Async)");
+        }
+
+        return retryTpfSftpDeliveryCall(instanceId, fileId, _callback, opts);
+
+    }
+
+
+    private ApiResponse<TpfRetrySftpResponse> retryTpfSftpDeliveryWithHttpInfo(String instanceId, Long fileId) throws ApiException {
+        okhttp3.Call localVarCall = retryTpfSftpDeliveryValidateBeforeCall(instanceId, fileId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<TpfRetrySftpResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<TpfRetrySftpResponse> retryTpfSftpDeliveryWithHttpInfo(String instanceId, Long fileId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = retryTpfSftpDeliveryValidateBeforeCall(instanceId, fileId, null, opts);
+        Type localVarReturnType = new TypeToken<TpfRetrySftpResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call retryTpfSftpDeliveryAsync(String instanceId, Long fileId, final ApiCallback<TpfRetrySftpResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retryTpfSftpDeliveryValidateBeforeCall(instanceId, fileId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<TpfRetrySftpResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call retryTpfSftpDeliveryAsync(String instanceId, Long fileId, final ApiCallback<TpfRetrySftpResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = retryTpfSftpDeliveryValidateBeforeCall(instanceId, fileId, _callback, opts);
+        Type localVarReturnType = new TypeToken<TpfRetrySftpResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretryTpfSftpDeliveryRequest {
+        private final String instanceId;
+        private final Long fileId;
+
+        private APIretryTpfSftpDeliveryRequest(String instanceId, Long fileId) {
+            this.instanceId = instanceId;
+            this.fileId = fileId;
+        }
+
+        /**
+         * Build call for retryTpfSftpDelivery
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retryTpfSftpDeliveryCall(instanceId, fileId, _callback);
+        }
+
+        /**
+         * Execute retryTpfSftpDelivery request
+         * @return TpfRetrySftpResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public TpfRetrySftpResponse execute() throws ApiException {
+            ApiResponse<TpfRetrySftpResponse> localVarResp = retryTpfSftpDeliveryWithHttpInfo(instanceId, fileId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retryTpfSftpDelivery request. Use any specified configuration options to override any other configuration for this request only.
+         * @return TpfRetrySftpResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public TpfRetrySftpResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<TpfRetrySftpResponse> localVarResp = retryTpfSftpDeliveryWithHttpInfo(instanceId, fileId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retryTpfSftpDelivery request with HTTP info returned
+         * @return ApiResponse&lt;TpfRetrySftpResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<TpfRetrySftpResponse> executeWithHttpInfo() throws ApiException {
+            return retryTpfSftpDeliveryWithHttpInfo(instanceId, fileId);
+        }
+
+        /**
+         * Execute retryTpfSftpDelivery request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;TpfRetrySftpResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<TpfRetrySftpResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return retryTpfSftpDeliveryWithHttpInfo(instanceId, fileId, opts);
+        }
+
+        /**
+         * Execute retryTpfSftpDelivery request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<TpfRetrySftpResponse> _callback) throws ApiException {
+            return retryTpfSftpDeliveryAsync(instanceId, fileId, _callback);
+        }
+
+        /**
+         * Execute retryTpfSftpDelivery request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<TpfRetrySftpResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return retryTpfSftpDeliveryAsync(instanceId, fileId, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously sent TPF file
+     * 
+     * @param instanceId Integration instance ID (required)
+     * @param fileId File delivery ID to retry (required)
+     * @return APIretryTpfSftpDeliveryRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Retry succeeded - file re-sent to SFTP </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> File delivery record not found </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Duplicate file detected - same hash already delivered to destination </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIretryTpfSftpDeliveryRequest retryTpfSftpDelivery(String instanceId, Long fileId) {
+        return new APIretryTpfSftpDeliveryRequest(instanceId, fileId);
     }
 }

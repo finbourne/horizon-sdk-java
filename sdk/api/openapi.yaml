@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3432
+  version: 0.1.3466
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2560,6 +2560,74 @@ paths:
       - oauth2: []
       summary: "[EXPERIMENTAL] ListInstancesWithStatus: Lists all instances of the\
         \ Trade Publication Framework (TPF)."
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp:
+    post:
+      operationId: RetryTpfSftpDelivery
+      parameters:
+      - description: Integration instance ID
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - description: File delivery ID to retry
+        explode: false
+        in: path
+        name: fileId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                success: true
+                message: SFTP file delivery retry recorded successfully
+                newFileDeliveryId: 1234567
+                retriedAt: 2026-05-01T14:30:00.0000000+00:00
+                originalFile:
+                  id: 1234560
+                  fileName: trades_20260501_103000.csv
+                  fileHash: a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2
+                  destinationPath: /outbound/trades/
+                  status: Delivered
+                  generatedAt: 2026-05-01T10:30:00.0000000+00:00
+              schema:
+                $ref: '#/components/schemas/TpfRetrySftpResponse'
+          description: Retry succeeded - file re-sent to SFTP
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: File delivery record not found
+        "409":
+          description: Duplicate file detected - same hash already delivered to destination
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously\
+        \ sent TPF file"
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
@@ -8147,6 +8215,45 @@ components:
       - rowCount
       - transactionIds
       type: object
+    TpfFileDeliveryInfo:
+      additionalProperties: false
+      description: Information about a file delivery
+      example:
+        fileName: fileName
+        generatedAt: 2000-01-23T04:56:07.000+00:00
+        fileHash: fileHash
+        id: 6
+        destinationPath: destinationPath
+        status: status
+      properties:
+        id:
+          description: File delivery ID
+          format: int64
+          type: integer
+        fileName:
+          description: File name
+          type: string
+        fileHash:
+          description: SHA-256 hash of the file content
+          type: string
+        destinationPath:
+          description: SFTP destination path
+          type: string
+        status:
+          description: Delivery status
+          type: string
+        generatedAt:
+          description: Timestamp when the file was originally generated
+          format: date-time
+          type: string
+      required:
+      - destinationPath
+      - fileHash
+      - fileName
+      - generatedAt
+      - id
+      - status
+      type: object
     TpfPortfolio:
       additionalProperties: false
       description: record containing details of a TPF portfolio.
@@ -8161,6 +8268,54 @@ components:
       required:
       - code
       - scope
+      type: object
+    TpfRetrySftpResponse:
+      additionalProperties: false
+      description: Response from retrying SFTP file delivery
+      example:
+        originalFile:
+          fileName: fileName
+          generatedAt: 2000-01-23T04:56:07.000+00:00
+          fileHash: fileHash
+          id: 6
+          destinationPath: destinationPath
+          status: status
+        success: true
+        retriedAt: 2000-01-23T04:56:07.000+00:00
+        duplicateFile:
+          fileName: fileName
+          generatedAt: 2000-01-23T04:56:07.000+00:00
+          fileHash: fileHash
+          id: 6
+          destinationPath: destinationPath
+          status: status
+        message: message
+        newFileDeliveryId: 0
+      properties:
+        success:
+          description: Whether the retry was successful
+          type: boolean
+        message:
+          description: Status message describing the result
+          type: string
+        newFileDeliveryId:
+          description: ID of the new file delivery record created for this retry (if
+            successful)
+          format: int64
+          nullable: true
+          type: integer
+        retriedAt:
+          description: Timestamp when the retry was executed
+          format: date-time
+          nullable: true
+          type: string
+        originalFile:
+          $ref: '#/components/schemas/TpfFileDeliveryInfo'
+        duplicateFile:
+          $ref: '#/components/schemas/TpfFileDeliveryInfo'
+      required:
+      - message
+      - success
       type: object
     TpfTransactionSearchResponse:
       additionalProperties: false
