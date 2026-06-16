@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3467
+  version: 0.1.3518
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2564,6 +2564,307 @@ paths:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/deliveries:
+    get:
+      description: |-
+        Retrieve file delivery records for a Trade Publication Framework instance.
+        Returns an aggregated view of file delivery outcomes across all runs.
+        Filterable by delivery status and date range.
+        Supports pagination for large result sets.
+      operationId: GetTpfFileDeliveries
+      parameters:
+      - description: Integration instance ID
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - description: "Filter by delivery status (Completed, Error, Pending)"
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          $ref: '#/components/schemas/FileDeliveryStatus'
+        style: form
+        x-nullable: true
+      - description: Filter deliveries from this time (inclusive)
+        explode: true
+        in: query
+        name: dateFrom
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+        x-nullable: true
+      - description: Filter deliveries to this time (inclusive)
+        explode: true
+        in: query
+        name: dateTo
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+        x-nullable: true
+      - description: "Page size for pagination (default 50, max 500)"
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          format: int32
+          maximum: 500
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: Pagination token from previous response
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - runId: 550e8400-e29b-41d4-a716-446655440001
+                  runStartTime: 2024-01-15T10:30:00.0000000+00:00
+                  fileName: trades_20240115_103000.csv
+                  generatedAt: 2024-01-15T10:35:00.0000000+00:00
+                  rowCount: 150
+                  fileHash: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+                  destinationType: Sftp
+                  destinationPath: /outbound/trades/trades_20240115_103000.csv
+                  destinationStatus: Completed
+                  destinationName: Vendor SFTP Server
+                - runId: 550e8400-e29b-41d4-a716-446655440002
+                  runStartTime: 2024-01-15T11:00:00.0000000+00:00
+                  fileName: trades_20240115_110000.csv
+                  generatedAt: 2024-01-15T11:05:00.0000000+00:00
+                  rowCount: 75
+                  fileHash: b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7
+                  destinationType: S3
+                  destinationPath: s3://bucket-name/trades/trades_20240115_110000.csv
+                  destinationStatus: Error
+                  destinationError: Connection timeout to S3 bucket
+                  destinationName: AWS S3 Backup
+                links: []
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfTpfFileDeliveryResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetTpfFileDeliveries: Search TPF file deliveries for\
+        \ a specific instance"
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/failed:
+    get:
+      operationId: ListFailedDeliveries
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: resolved
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+        x-nullable: true
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - batchReferenceId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
+                  failedCount: 2
+                  failureReason: "SFTP connection timed out after 30s, Destination\
+                    \ rejected payload: malformed header"
+                  lastAttemptAt: 2024-04-15T10:40:00.0000000+00:00
+                  attemptCount: 3
+                  resolved: false
+                - batchReferenceId: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
+                  runId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+                  runStartTime: 2024-04-15T10:30:00.0000000+00:00
+                  failedCount: 1
+                  failureReason: "Destination rejected payload: malformed header"
+                  lastAttemptAt: 2024-04-15T10:40:00.0000000+00:00
+                  attemptCount: 1
+                  resolved: true
+                  resolvedAt: 2024-04-15T12:00:00.0000000+00:00
+                  resolutionReason: Superseded by txn-789
+                links: []
+              schema:
+                $ref: '#/components/schemas/PagedResourceListOfFailedDeliveryResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested TPF instance does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListFailedDeliveries: List failed deliveries for a\
+        \ given TPF instance, filtered by resolved state, with pagination support."
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/failed/{batchReferenceId}/resolve:
+    put:
+      operationId: ResolveFailedDelivery
+      parameters:
+      - explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: batchReferenceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              reason: Transaction already processed manually in downstream system
+            schema:
+              $ref: '#/components/schemas/ResolveFailedDeliveryRequest'
+          application/json:
+            example:
+              reason: Transaction already processed manually in downstream system
+            schema:
+              $ref: '#/components/schemas/ResolveFailedDeliveryRequest'
+          text/json:
+            example:
+              reason: Transaction already processed manually in downstream system
+            schema:
+              $ref: '#/components/schemas/ResolveFailedDeliveryRequest'
+          application/*+json:
+            example:
+              reason: Transaction already processed manually in downstream system
+            schema:
+              $ref: '#/components/schemas/ResolveFailedDeliveryRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResolveFailedDeliveryResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: No failed delivery was found for the batch.
+        "409":
+          description: The failed deliveries for the batch have already been resolved.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ResolveFailedDelivery: Resolve a failed delivery without\
+        \ retry"
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
   /api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp:
     post:
       operationId: RetryTpfSftpDelivery
@@ -2889,7 +3190,7 @@ paths:
       - explode: true
         in: query
         name: status
-        required: true
+        required: false
         schema:
           maxLength: 50
           minLength: 0
@@ -4513,6 +4814,8 @@ components:
             The initial JSON value for the new draft.
             If omitted, the draft is initialised with an empty JSON object.
             Cannot be supplied together with SourceMajorVersion/SourceMinorVersion.
+          maxLength: 100000
+          minLength: 0
           nullable: true
           type: string
       type: object
@@ -4721,6 +5024,62 @@ components:
       - logstatus
       - timestamp
       type: object
+    FailedDeliveryResponse:
+      additionalProperties: false
+      description: |-
+        A batch's failed deliveries returned by the list endpoint, aggregated to one row per batch.
+        Finbourne.Horizon.Integrations.Web.Dto.Integrations.TradePublicationFramework.Response.FailedDeliveryResponse.FailedCount is the number of failed deliveries in the batch and
+        Finbourne.Horizon.Integrations.Web.Dto.Integrations.TradePublicationFramework.Response.FailedDeliveryResponse.FailureReason is the comma-separated set of their failure reasons.
+      example:
+        resolutionReason: resolutionReason
+        runStartTime: 2000-01-23T04:56:07.000+00:00
+        failedCount: 0
+        resolvedAt: 2000-01-23T04:56:07.000+00:00
+        failureReason: failureReason
+        lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+        attemptCount: 6
+        runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        batchReferenceId: batchReferenceId
+        resolved: true
+      properties:
+        batchReferenceId:
+          type: string
+        runId:
+          format: uuid
+          type: string
+        runStartTime:
+          format: date-time
+          type: string
+        failedCount:
+          format: int32
+          type: integer
+        failureReason:
+          type: string
+        lastAttemptAt:
+          format: date-time
+          type: string
+        attemptCount:
+          format: int32
+          type: integer
+        resolved:
+          type: boolean
+        resolvedAt:
+          format: date-time
+          nullable: true
+          type: string
+        resolutionReason:
+          nullable: true
+          type: string
+      required:
+      - attemptCount
+      - batchReferenceId
+      - failedCount
+      - failureReason
+      - lastAttemptAt
+      - resolved
+      - runId
+      - runStartTime
+      type: object
     FieldMapping:
       additionalProperties: false
       description: Mapping from a set of Vendor Fields to a LUSID core entity field
@@ -4775,6 +5134,12 @@ components:
       - vendorFields
       - versions
       type: object
+    FileDeliveryStatus:
+      enum:
+      - Completed
+      - Pending
+      - Error
+      type: string
     FileDestinationResponse:
       additionalProperties: false
       description: record containing details of a single file destination for a run.
@@ -5085,7 +5450,7 @@ components:
       example:
         skippedCount: 5
         attempt: 0
-        batchReferenceId: batchReferenceId
+        batchReferenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         sentCount: 1
         duration: duration
         total: 6
@@ -5101,7 +5466,7 @@ components:
           format: uuid
           type: string
         batchReferenceId:
-          nullable: true
+          format: uuid
           type: string
         attempt:
           format: int32
@@ -5139,6 +5504,7 @@ components:
           format: int32
           type: integer
       required:
+      - batchReferenceId
       - failedCount
       - failedFiles
       - runId
@@ -6838,6 +7204,65 @@ components:
       required:
       - results
       type: object
+    PagedResourceListOfFailedDeliveryResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - resolutionReason: resolutionReason
+          runStartTime: 2000-01-23T04:56:07.000+00:00
+          failedCount: 0
+          resolvedAt: 2000-01-23T04:56:07.000+00:00
+          failureReason: failureReason
+          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+          attemptCount: 6
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          batchReferenceId: batchReferenceId
+          resolved: true
+        - resolutionReason: resolutionReason
+          runStartTime: 2000-01-23T04:56:07.000+00:00
+          failedCount: 0
+          resolvedAt: 2000-01-23T04:56:07.000+00:00
+          failureReason: failureReason
+          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+          attemptCount: 6
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          batchReferenceId: batchReferenceId
+          resolved: true
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/FailedDeliveryResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfIFieldMapping:
       additionalProperties: false
       example:
@@ -7008,7 +7433,7 @@ components:
         values:
         - skippedCount: 5
           attempt: 0
-          batchReferenceId: batchReferenceId
+          batchReferenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
           duration: duration
           total: 6
@@ -7021,7 +7446,7 @@ components:
           triggeredBy: triggeredBy
         - skippedCount: 5
           attempt: 0
-          batchReferenceId: batchReferenceId
+          batchReferenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
           duration: duration
           total: 6
@@ -7439,6 +7864,67 @@ components:
         values:
           items:
             $ref: '#/components/schemas/RunFileResponse'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
+    PagedResourceListOfTpfFileDeliveryResponse:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - fileName: fileName
+          runStartTime: 2000-01-23T04:56:07.000+00:00
+          destinationError: destinationError
+          destinationName: destinationName
+          generatedAt: 2000-01-23T04:56:07.000+00:00
+          fileHash: fileHash
+          destinationType: destinationType
+          runId: runId
+          rowCount: 0
+          destinationPath: destinationPath
+          destinationStatus: destinationStatus
+        - fileName: fileName
+          runStartTime: 2000-01-23T04:56:07.000+00:00
+          destinationError: destinationError
+          destinationName: destinationName
+          generatedAt: 2000-01-23T04:56:07.000+00:00
+          fileHash: fileHash
+          destinationType: destinationType
+          runId: runId
+          rowCount: 0
+          destinationPath: destinationPath
+          destinationStatus: destinationStatus
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/TpfFileDeliveryResponse'
           type: array
         href:
           format: uri
@@ -8117,6 +8603,55 @@ components:
       - mode
       - transactionCount
       type: object
+    ResolveFailedDeliveryRequest:
+      additionalProperties: false
+      description: Request to resolve a failed delivery without retry.
+      example:
+        reason: reason
+      properties:
+        reason:
+          description: The reason for resolving the failed delivery without retrying.
+          maxLength: 500
+          minLength: 0
+          type: string
+      required:
+      - reason
+      type: object
+    ResolveFailedDeliveryResponse:
+      additionalProperties: false
+      description: |-
+        Response from resolving the failed deliveries for a batch without retry. Resolution is
+        batch-level, so Finbourne.Horizon.Integrations.Web.Dto.Integrations.TradePublicationFramework.Response.ResolveFailedDeliveryResponse.ResolvedCount is the number of failed deliveries marked resolved.
+      example:
+        resolutionReason: resolutionReason
+        resolvedAt: 2000-01-23T04:56:07.000+00:00
+        resolvedCount: 0
+        message: message
+        batchReferenceId: batchReferenceId
+        resolved: true
+      properties:
+        batchReferenceId:
+          type: string
+        resolvedCount:
+          format: int32
+          type: integer
+        resolved:
+          type: boolean
+        resolvedAt:
+          format: date-time
+          type: string
+        resolutionReason:
+          type: string
+        message:
+          type: string
+      required:
+      - batchReferenceId
+      - message
+      - resolutionReason
+      - resolved
+      - resolvedAt
+      - resolvedCount
+      type: object
     ResourceId:
       additionalProperties: false
       example:
@@ -8253,6 +8788,60 @@ components:
       - generatedAt
       - id
       - status
+      type: object
+    TpfFileDeliveryResponse:
+      additionalProperties: false
+      description: Response model for TPF file delivery search results
+      example:
+        fileName: fileName
+        runStartTime: 2000-01-23T04:56:07.000+00:00
+        destinationError: destinationError
+        destinationName: destinationName
+        generatedAt: 2000-01-23T04:56:07.000+00:00
+        fileHash: fileHash
+        destinationType: destinationType
+        runId: runId
+        rowCount: 0
+        destinationPath: destinationPath
+        destinationStatus: destinationStatus
+      properties:
+        runId:
+          nullable: true
+          type: string
+        runStartTime:
+          format: date-time
+          nullable: true
+          type: string
+        fileName:
+          type: string
+        generatedAt:
+          format: date-time
+          type: string
+        rowCount:
+          format: int32
+          type: integer
+        fileHash:
+          nullable: true
+          type: string
+        destinationType:
+          type: string
+        destinationPath:
+          nullable: true
+          type: string
+        destinationStatus:
+          type: string
+        destinationError:
+          nullable: true
+          type: string
+        destinationName:
+          nullable: true
+          type: string
+      required:
+      - destinationStatus
+      - destinationType
+      - fileName
+      - generatedAt
+      - rowCount
       type: object
     TpfPortfolio:
       additionalProperties: false

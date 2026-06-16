@@ -58,7 +58,7 @@ public class InstanceRunResponse {
 
   public static final String SERIALIZED_NAME_BATCH_REFERENCE_ID = "batchReferenceId";
   @SerializedName(SERIALIZED_NAME_BATCH_REFERENCE_ID)
-  private String batchReferenceId;
+  private UUID batchReferenceId;
 
   public static final String SERIALIZED_NAME_ATTEMPT = "attempt";
   @SerializedName(SERIALIZED_NAME_ATTEMPT)
@@ -128,7 +128,7 @@ public class InstanceRunResponse {
   }
 
 
-  public InstanceRunResponse batchReferenceId(String batchReferenceId) {
+  public InstanceRunResponse batchReferenceId(UUID batchReferenceId) {
     
     this.batchReferenceId = batchReferenceId;
     return this;
@@ -138,13 +138,13 @@ public class InstanceRunResponse {
    * Get batchReferenceId
    * @return batchReferenceId
   **/
-  @jakarta.annotation.Nullable
-  public String getBatchReferenceId() {
+  @jakarta.annotation.Nonnull
+  public UUID getBatchReferenceId() {
     return batchReferenceId;
   }
 
 
-  public void setBatchReferenceId(String batchReferenceId) {
+  public void setBatchReferenceId(UUID batchReferenceId) {
     this.batchReferenceId = batchReferenceId;
   }
 
@@ -477,6 +477,7 @@ public class InstanceRunResponse {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("runId");
+    openapiRequiredFields.add("batchReferenceId");
     openapiRequiredFields.add("startTime");
     openapiRequiredFields.add("status");
     openapiRequiredFields.add("total");
@@ -509,7 +510,7 @@ public class InstanceRunResponse {
       if (!jsonObj.get("runId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `runId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("runId").toString()));
       }
-      if ((jsonObj.get("batchReferenceId") != null && !jsonObj.get("batchReferenceId").isJsonNull()) && !jsonObj.get("batchReferenceId").isJsonPrimitive()) {
+      if (!jsonObj.get("batchReferenceId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `batchReferenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("batchReferenceId").toString()));
       }
       if ((jsonObj.get("duration") != null && !jsonObj.get("duration").isJsonNull()) && !jsonObj.get("duration").isJsonPrimitive()) {

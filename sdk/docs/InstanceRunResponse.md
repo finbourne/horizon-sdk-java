@@ -6,7 +6,7 @@ Response containing details of a single run for an instance.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **runId** | [**UUID**](UUID.md) |  | [default to UUID]
-**batchReferenceId** | **String** |  | [optional] [default to String]
+**batchReferenceId** | [**UUID**](UUID.md) |  | [default to UUID]
 **attempt** | **Integer** |  | [optional] [default to Integer]
 **startTime** | [**OffsetDateTime**](OffsetDateTime.md) |  | [default to OffsetDateTime]
 **endTime** | [**OffsetDateTime**](OffsetDateTime.md) |  | [optional] [default to OffsetDateTime]
@@ -26,7 +26,7 @@ import java.lang.System;
 import java.net.URI;
 
 UUID RunId = "example RunId";
-@jakarta.annotation.Nullable String BatchReferenceId = "example BatchReferenceId";
+UUID BatchReferenceId = "example BatchReferenceId";
 @jakarta.annotation.Nullable Integer Attempt = new Integer("100.00");
 OffsetDateTime StartTime = OffsetDateTime.now();
 @jakarta.annotation.Nullable OffsetDateTime EndTime = OffsetDateTime.now();
