@@ -14,6 +14,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**listRunTransactions**](TradePublicationFrameworkApi.md#listRunTransactions) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions | [EXPERIMENTAL] ListRunTransactions: List Transactions in a run. |
 | [**replayTransactions**](TradePublicationFrameworkApi.md#replayTransactions) | **POST** /api/trade-publication-framework/instances/{instanceId}/replay | [EXPERIMENTAL] ReplayTransactions: Replay one or more transactions through a TPF instance |
 | [**resolveFailedDelivery**](TradePublicationFrameworkApi.md#resolveFailedDelivery) | **PUT** /api/trade-publication-framework/instances/{instanceId}/failed/{batchReferenceId}/resolve | [EXPERIMENTAL] ResolveFailedDelivery: Resolve a failed delivery without retry |
+| [**retryFailedDelivery**](TradePublicationFrameworkApi.md#retryFailedDelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/failed/retry | [EXPERIMENTAL] RetryFailedDelivery: Retry failed deliveries for Trade Publication Framework |
 | [**retryTpfSftpDelivery**](TradePublicationFrameworkApi.md#retryTpfSftpDelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp | [EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously sent TPF file |
 
 
@@ -965,6 +966,100 @@ public class TradePublicationFrameworkApiExample {
 | **400** | The details of the input related failure |  -  |
 | **404** | No failed delivery was found for the batch. |  -  |
 | **409** | The failed deliveries for the batch have already been resolved. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## retryFailedDelivery
+
+> TpfFailedDeliveryResponse retryFailedDelivery(instanceId, tpfRetryFailedDeliveryRequest)
+
+[EXPERIMENTAL] RetryFailedDelivery: Retry failed deliveries for Trade Publication Framework
+
+Re-runs the delivery task only (payload already built - skips build task). Always committed - no preview mode. Increments attempt count on failure, sets resolved to true on success. Uses existing ReplayBatchElement on ITradeTrackingRepository. Requires entitlement to execute integrations.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.TradePublicationFrameworkApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class TradePublicationFrameworkApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
+
+        TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
+        String instanceId = "instanceId_example"; // String | Integration instance identifier
+        TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest = new TpfRetryFailedDeliveryRequest(); // TpfRetryFailedDeliveryRequest | Request containing batch element reference identifiers to retry
+        try {
+            // uncomment the below to set overrides at the request level
+            // TpfFailedDeliveryResponse result = apiInstance.retryFailedDelivery(instanceId, tpfRetryFailedDeliveryRequest).execute(opts);
+
+            TpfFailedDeliveryResponse result = apiInstance.retryFailedDelivery(instanceId, tpfRetryFailedDeliveryRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradePublicationFrameworkApi#retryFailedDelivery");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**| Integration instance identifier | |
+| **tpfRetryFailedDeliveryRequest** | [**TpfRetryFailedDeliveryRequest**](TpfRetryFailedDeliveryRequest.md)| Request containing batch element reference identifiers to retry | |
+
+### Return type
+
+[**TpfFailedDeliveryResponse**](TpfFailedDeliveryResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The requested instance does not exist. |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)

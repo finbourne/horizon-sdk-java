@@ -40,6 +40,8 @@ import com.finbourne.horizon.model.ReplayTransactionsRequest;
 import com.finbourne.horizon.model.ReplayTransactionsResponse;
 import com.finbourne.horizon.model.ResolveFailedDeliveryRequest;
 import com.finbourne.horizon.model.ResolveFailedDeliveryResponse;
+import com.finbourne.horizon.model.TpfFailedDeliveryResponse;
+import com.finbourne.horizon.model.TpfRetryFailedDeliveryRequest;
 import com.finbourne.horizon.model.TpfRetrySftpResponse;
 import com.finbourne.horizon.model.TransactionPayloadResponse;
 
@@ -2829,6 +2831,256 @@ public class TradePublicationFrameworkApi {
      */
     public APIresolveFailedDeliveryRequest resolveFailedDelivery(String instanceId, String batchReferenceId, ResolveFailedDeliveryRequest resolveFailedDeliveryRequest) {
         return new APIresolveFailedDeliveryRequest(instanceId, batchReferenceId, resolveFailedDeliveryRequest);
+    }
+    private okhttp3.Call retryFailedDeliveryCall(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest, final ApiCallback _callback) throws ApiException {
+        return retryFailedDeliveryCall(instanceId, tpfRetryFailedDeliveryRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call retryFailedDeliveryCall(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = tpfRetryFailedDeliveryRequest;
+
+        // create path and map variables
+        String localVarPath = "/api/trade-publication-framework/instances/{instanceId}/failed/retry"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json",
+            "application/json",
+            "text/json",
+            "application/*+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call retryFailedDeliveryValidateBeforeCall(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling retryFailedDelivery(Async)");
+        }
+
+        // verify the required parameter 'tpfRetryFailedDeliveryRequest' is set
+        if (tpfRetryFailedDeliveryRequest == null) {
+            throw new ApiException("Missing the required parameter 'tpfRetryFailedDeliveryRequest' when calling retryFailedDelivery(Async)");
+        }
+
+        return retryFailedDeliveryCall(instanceId, tpfRetryFailedDeliveryRequest, _callback, opts);
+
+    }
+
+
+    private ApiResponse<TpfFailedDeliveryResponse> retryFailedDeliveryWithHttpInfo(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest) throws ApiException {
+        okhttp3.Call localVarCall = retryFailedDeliveryValidateBeforeCall(instanceId, tpfRetryFailedDeliveryRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<TpfFailedDeliveryResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<TpfFailedDeliveryResponse> retryFailedDeliveryWithHttpInfo(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = retryFailedDeliveryValidateBeforeCall(instanceId, tpfRetryFailedDeliveryRequest, null, opts);
+        Type localVarReturnType = new TypeToken<TpfFailedDeliveryResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call retryFailedDeliveryAsync(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest, final ApiCallback<TpfFailedDeliveryResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = retryFailedDeliveryValidateBeforeCall(instanceId, tpfRetryFailedDeliveryRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<TpfFailedDeliveryResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call retryFailedDeliveryAsync(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest, final ApiCallback<TpfFailedDeliveryResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = retryFailedDeliveryValidateBeforeCall(instanceId, tpfRetryFailedDeliveryRequest, _callback, opts);
+        Type localVarReturnType = new TypeToken<TpfFailedDeliveryResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIretryFailedDeliveryRequest {
+        private final String instanceId;
+        private final TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest;
+
+        private APIretryFailedDeliveryRequest(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest) {
+            this.instanceId = instanceId;
+            this.tpfRetryFailedDeliveryRequest = tpfRetryFailedDeliveryRequest;
+        }
+
+        /**
+         * Build call for retryFailedDelivery
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return retryFailedDeliveryCall(instanceId, tpfRetryFailedDeliveryRequest, _callback);
+        }
+
+        /**
+         * Execute retryFailedDelivery request
+         * @return TpfFailedDeliveryResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public TpfFailedDeliveryResponse execute() throws ApiException {
+            ApiResponse<TpfFailedDeliveryResponse> localVarResp = retryFailedDeliveryWithHttpInfo(instanceId, tpfRetryFailedDeliveryRequest);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retryFailedDelivery request. Use any specified configuration options to override any other configuration for this request only.
+         * @return TpfFailedDeliveryResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public TpfFailedDeliveryResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<TpfFailedDeliveryResponse> localVarResp = retryFailedDeliveryWithHttpInfo(instanceId, tpfRetryFailedDeliveryRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute retryFailedDelivery request with HTTP info returned
+         * @return ApiResponse&lt;TpfFailedDeliveryResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<TpfFailedDeliveryResponse> executeWithHttpInfo() throws ApiException {
+            return retryFailedDeliveryWithHttpInfo(instanceId, tpfRetryFailedDeliveryRequest);
+        }
+
+        /**
+         * Execute retryFailedDelivery request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;TpfFailedDeliveryResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<TpfFailedDeliveryResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return retryFailedDeliveryWithHttpInfo(instanceId, tpfRetryFailedDeliveryRequest, opts);
+        }
+
+        /**
+         * Execute retryFailedDelivery request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<TpfFailedDeliveryResponse> _callback) throws ApiException {
+            return retryFailedDeliveryAsync(instanceId, tpfRetryFailedDeliveryRequest, _callback);
+        }
+
+        /**
+         * Execute retryFailedDelivery request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<TpfFailedDeliveryResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return retryFailedDeliveryAsync(instanceId, tpfRetryFailedDeliveryRequest, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] RetryFailedDelivery: Retry failed deliveries for Trade Publication Framework
+     * Re-runs the delivery task only (payload already built - skips build task). Always committed - no preview mode. Increments attempt count on failure, sets resolved to true on success. Uses existing ReplayBatchElement on ITradeTrackingRepository. Requires entitlement to execute integrations.
+     * @param instanceId Integration instance identifier (required)
+     * @param tpfRetryFailedDeliveryRequest Request containing batch element reference identifiers to retry (required)
+     * @return APIretryFailedDeliveryRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The requested instance does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIretryFailedDeliveryRequest retryFailedDelivery(String instanceId, TpfRetryFailedDeliveryRequest tpfRetryFailedDeliveryRequest) {
+        return new APIretryFailedDeliveryRequest(instanceId, tpfRetryFailedDeliveryRequest);
     }
     private okhttp3.Call retryTpfSftpDeliveryCall(String instanceId, Long fileId, final ApiCallback _callback) throws ApiException {
         return retryTpfSftpDeliveryCall(instanceId, fileId,  _callback, new ConfigurationOptions());

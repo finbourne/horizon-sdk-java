@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3518
+  version: 0.1.3572
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2785,6 +2785,101 @@ paths:
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/failed/retry:
+    post:
+      description: |-
+        Re-runs the delivery task only (payload already built - skips build task). Always committed - no preview mode.
+        Increments attempt count on failure, sets resolved to true on success.
+        Uses existing ReplayBatchElement on ITradeTrackingRepository.
+        Requires entitlement to execute integrations.
+      operationId: RetryFailedDelivery
+      parameters:
+      - description: Integration instance identifier
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              batchElementReferenceIds:
+              - elem-001
+              - elem-002
+              - elem-003
+            schema:
+              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
+          application/json:
+            example:
+              batchElementReferenceIds:
+              - elem-001
+              - elem-002
+              - elem-003
+            schema:
+              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
+          text/json:
+            example:
+              batchElementReferenceIds:
+              - elem-001
+              - elem-002
+              - elem-003
+            schema:
+              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
+          application/*+json:
+            example:
+              batchElementReferenceIds:
+              - elem-001
+              - elem-002
+              - elem-003
+            schema:
+              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
+        description: Request containing batch element reference identifiers to retry
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                submitted: 3
+                results:
+                - batchElementReferenceId: elem-001
+                  status: Retrying
+                - batchElementReferenceId: elem-002
+                  status: Retrying
+                - batchElementReferenceId: elem-003
+                  status: NotFound
+              schema:
+                $ref: '#/components/schemas/TpfFailedDeliveryResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The requested instance does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] RetryFailedDelivery: Retry failed deliveries for Trade\
+        \ Publication Framework"
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/trade-publication-framework/instances/{instanceId}/failed/{batchReferenceId}/resolve:
     put:
@@ -8750,6 +8845,30 @@ components:
       - rowCount
       - transactionIds
       type: object
+    TpfFailedDeliveryResponse:
+      additionalProperties: false
+      description: Response for bulk retry operation of failed deliveries
+      example:
+        submitted: 0
+        results:
+        - batchElementReferenceId: batchElementReferenceId
+          status: status
+        - batchElementReferenceId: batchElementReferenceId
+          status: status
+      properties:
+        submitted:
+          description: Number of batch elements submitted for retry
+          format: int32
+          type: integer
+        results:
+          description: Per-element retry results
+          items:
+            $ref: '#/components/schemas/TpfRetryElementResult'
+          type: array
+      required:
+      - results
+      - submitted
+      type: object
     TpfFileDeliveryInfo:
       additionalProperties: false
       description: Information about a file delivery
@@ -8857,6 +8976,44 @@ components:
       required:
       - code
       - scope
+      type: object
+    TpfRetryElementResult:
+      additionalProperties: false
+      description: Result for a single batch element retry attempt
+      example:
+        batchElementReferenceId: batchElementReferenceId
+        status: status
+      properties:
+        batchElementReferenceId:
+          description: Batch element reference identifier
+          type: string
+        status:
+          description: "Status of the retry attempt (e.g., \"Retrying\", \"NotFound\"\
+            )"
+          type: string
+      required:
+      - batchElementReferenceId
+      - status
+      type: object
+    TpfRetryFailedDeliveryRequest:
+      additionalProperties: false
+      description: |-
+        Request to retry failed deliveries for multiple batch elements.
+        The integration instance identifier is supplied via the route, not the body.
+      example:
+        batchElementReferenceIds:
+        - batchElementReferenceIds
+        - batchElementReferenceIds
+      properties:
+        batchElementReferenceIds:
+          description: |-
+            Batch element reference identifiers to retry.
+            No regex pattern is required as batch element IDs are vendor-defined strings with varying formats.
+          items:
+            type: string
+          type: array
+      required:
+      - batchElementReferenceIds
       type: object
     TpfRetrySftpResponse:
       additionalProperties: false
