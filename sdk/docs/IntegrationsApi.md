@@ -10,8 +10,8 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**executeInstanceWithParams**](IntegrationsApi.md#executeInstanceWithParams) | **POST** /api/integrations/instances/{instanceId}/executewithparams | [EXPERIMENTAL] ExecuteInstanceWithParams: Execute an integration instance with runtime parameters |
 | [**getDataflowProcessorSchema**](IntegrationsApi.md#getDataflowProcessorSchema) | **GET** /api/integrations/dataflow/processors/{processorType}/schema | [EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype. |
 | [**getExecutionIdsForInstance**](IntegrationsApi.md#getExecutionIdsForInstance) | **GET** /api/integrations/instances/{instanceId}/executions | [EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance execution ids. |
-| [**getInstance**](IntegrationsApi.md#getInstance) | **GET** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration. |
-| [**getInstanceOptionalPropertyMapping**](IntegrationsApi.md#getInstanceOptionalPropertyMapping) | **GET** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance |
+| [**getInstance**](IntegrationsApi.md#getInstance) | **GET** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] GetInstance: Get a specified instance for a given integration. |
+| [**getInstanceOptionalPropertyMapping**](IntegrationsApi.md#getInstanceOptionalPropertyMapping) | **GET** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an integration instance |
 | [**getIntegrationConfiguration**](IntegrationsApi.md#getIntegrationConfiguration) | **GET** /api/integrations/configuration/{integration} | [EXPERIMENTAL] GetIntegrationConfiguration: Get the Field and Property Mapping configuration for a given integration |
 | [**getIntegrationConfigurationFields**](IntegrationsApi.md#getIntegrationConfigurationFields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration |
 | [**getIntegrationConfigurationProperties**](IntegrationsApi.md#getIntegrationConfigurationProperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration |
@@ -19,7 +19,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**listDataflowProcessors**](IntegrationsApi.md#listDataflowProcessors) | **GET** /api/integrations/dataflow/processors | [EXPERIMENTAL] ListDataflowProcessors: List processor types. |
 | [**listInstances**](IntegrationsApi.md#listInstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations. |
 | [**listIntegrations**](IntegrationsApi.md#listIntegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations. |
-| [**setInstanceOptionalPropertyMapping**](IntegrationsApi.md#setInstanceOptionalPropertyMapping) | **PUT** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an Integration Instance |
+| [**setInstanceOptionalPropertyMapping**](IntegrationsApi.md#setInstanceOptionalPropertyMapping) | **PUT** /api/integrations/instances/configuration/{integration}/{instanceId} | [EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an integration instance |
 | [**updateInstance**](IntegrationsApi.md#updateInstance) | **PUT** /api/integrations/instances/{instanceId} | [EXPERIMENTAL] UpdateInstance: Update a single integration instance. |
 
 
@@ -581,7 +581,7 @@ public class IntegrationsApiExample {
 
 > IntegrationInstanceResponse getInstance(instanceId)
 
-[EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration.
+[EXPERIMENTAL] GetInstance: Get a specified instance for a given integration.
 
 The user must be authenticated to call this method.
 
@@ -673,7 +673,7 @@ public class IntegrationsApiExample {
 
 > Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; getInstanceOptionalPropertyMapping(integration, instanceId)
 
-[EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an Integration Instance
+[EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an integration instance
 
 Will return the full list of optional properties configured for this integration instance and any naming overrides
 
@@ -1411,7 +1411,7 @@ This endpoint does not need any parameter.
 
 > Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; setInstanceOptionalPropertyMapping(instanceId, integration, requestBody)
 
-[EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an Integration Instance
+[EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an integration instance
 
 The full list of properties must be supplied, the removal of a property from this list will remove it from the integration instance
 

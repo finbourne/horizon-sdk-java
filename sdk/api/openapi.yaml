@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3602
+  version: 0.1.3629
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1292,7 +1292,7 @@ paths:
       security:
       - oauth2: []
       summary: "[EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional\
-        \ Property Mapping for an Integration Instance"
+        \ Property Mapping for an integration instance"
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
@@ -1374,7 +1374,7 @@ paths:
       security:
       - oauth2: []
       summary: "[EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional\
-        \ Property Mapping for an Integration Instance"
+        \ Property Mapping for an integration instance"
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
@@ -1477,7 +1477,7 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetInstance: Get a specified Instance for a given integration."
+      summary: "[EXPERIMENTAL] GetInstance: Get a specified instance for a given integration."
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
@@ -4157,7 +4157,9 @@ paths:
     get:
       description: |-
         Returns a specific configuration record. When both majorVersion and minorVersion are omitted,
-        the highest available version is returned. Both must be supplied together or both omitted.
+        the highest available locked version is returned. Both must be supplied together or both omitted.
+        When includeDrafts is true and no version is specified, the highest available version regardless of draft state is returned.
+        When an explicit version is supplied via majorVersion and minorVersion, includeDrafts is ignored and the exact version is returned regardless of its draft state.
         The user must be authenticated and entitled to call this method.
       operationId: GetVersionedConfiguration
       parameters:
@@ -4203,6 +4205,17 @@ paths:
         schema:
           format: int32
           type: integer
+        style: form
+        x-nullable: true
+      - description: "When true and no explicit version is supplied, includes draft\
+          \ versions when determining the highest available version. Defaults to false."
+        explode: true
+        in: query
+        name: includeDrafts
+        required: false
+        schema:
+          default: false
+          type: boolean
         style: form
         x-nullable: true
       responses:

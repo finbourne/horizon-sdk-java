@@ -212,11 +212,11 @@ public class VersionedConfigurationsApiExample {
 
 ## getVersionedConfiguration
 
-> VersionedConfigurationResponse getVersionedConfiguration(configType, name, majorVersion, minorVersion)
+> VersionedConfigurationResponse getVersionedConfiguration(configType, name, majorVersion, minorVersion, includeDrafts)
 
 [EXPERIMENTAL] GetVersionedConfiguration: Get a versioned configuration.
 
-Returns a specific configuration record. When both majorVersion and minorVersion are omitted, the highest available version is returned. Both must be supplied together or both omitted. The user must be authenticated and entitled to call this method.
+Returns a specific configuration record. When both majorVersion and minorVersion are omitted, the highest available locked version is returned. Both must be supplied together or both omitted. When includeDrafts is true and no version is specified, the highest available version regardless of draft state is returned. When an explicit version is supplied via majorVersion and minorVersion, includeDrafts is ignored and the exact version is returned regardless of its draft state. The user must be authenticated and entitled to call this method.
 
 ### Example
 
@@ -261,11 +261,12 @@ public class VersionedConfigurationsApiExample {
         String name = "name_example"; // String | The logical name of the configuration.
         Integer majorVersion = 56; // Integer | The major version to retrieve. Must be supplied together with minorVersion, or both omitted.
         Integer minorVersion = 56; // Integer | The minor version to retrieve. Must be supplied together with majorVersion, or both omitted.
+        Boolean includeDrafts = false; // Boolean | When true and no explicit version is supplied, includes draft versions when determining the highest available version. Defaults to false.
         try {
             // uncomment the below to set overrides at the request level
-            // VersionedConfigurationResponse result = apiInstance.getVersionedConfiguration(configType, name, majorVersion, minorVersion).execute(opts);
+            // VersionedConfigurationResponse result = apiInstance.getVersionedConfiguration(configType, name, majorVersion, minorVersion, includeDrafts).execute(opts);
 
-            VersionedConfigurationResponse result = apiInstance.getVersionedConfiguration(configType, name, majorVersion, minorVersion).execute();
+            VersionedConfigurationResponse result = apiInstance.getVersionedConfiguration(configType, name, majorVersion, minorVersion, includeDrafts).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling VersionedConfigurationsApi#getVersionedConfiguration");
@@ -286,6 +287,7 @@ public class VersionedConfigurationsApiExample {
 | **name** | **String**| The logical name of the configuration. | |
 | **majorVersion** | **Integer**| The major version to retrieve. Must be supplied together with minorVersion, or both omitted. | [optional] |
 | **minorVersion** | **Integer**| The minor version to retrieve. Must be supplied together with majorVersion, or both omitted. | [optional] |
+| **includeDrafts** | **Boolean**| When true and no explicit version is supplied, includes draft versions when determining the highest available version. Defaults to false. | [optional] [default to false] |
 
 ### Return type
 
