@@ -49,10 +49,14 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * record containing details of a transaction payload.
+ * record containing the payload for a single transaction. Columns is compiled once from the TPF instance configuration and is identical across every item in the paginated result.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class TransactionPayloadResponse {
+public class TransactionPayload {
+  public static final String SERIALIZED_NAME_TRANSACTION_ID = "transactionId";
+  @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
+  private String transactionId;
+
   public static final String SERIALIZED_NAME_COLUMNS = "columns";
   @SerializedName(SERIALIZED_NAME_COLUMNS)
   private List<String> columns = new ArrayList<>();
@@ -65,16 +69,37 @@ public class TransactionPayloadResponse {
   @SerializedName(SERIALIZED_NAME_RAW_CSV_ROW)
   private String rawCsvRow;
 
-  public TransactionPayloadResponse() {
+  public TransactionPayload() {
   }
 
-  public TransactionPayloadResponse columns(List<String> columns) {
+  public TransactionPayload transactionId(String transactionId) {
+    
+    this.transactionId = transactionId;
+    return this;
+  }
+
+   /**
+   * Get transactionId
+   * @return transactionId
+  **/
+  @jakarta.annotation.Nonnull
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
+  }
+
+
+  public TransactionPayload columns(List<String> columns) {
     
     this.columns = columns;
     return this;
   }
 
-  public TransactionPayloadResponse addColumnsItem(String columnsItem) {
+  public TransactionPayload addColumnsItem(String columnsItem) {
     if (this.columns == null) {
       this.columns = new ArrayList<>();
     }
@@ -97,13 +122,13 @@ public class TransactionPayloadResponse {
   }
 
 
-  public TransactionPayloadResponse values(Map<String, String> values) {
+  public TransactionPayload values(Map<String, String> values) {
     
     this.values = values;
     return this;
   }
 
-  public TransactionPayloadResponse putValuesItem(String key, String valuesItem) {
+  public TransactionPayload putValuesItem(String key, String valuesItem) {
     if (this.values == null) {
       this.values = new HashMap<>();
     }
@@ -126,7 +151,7 @@ public class TransactionPayloadResponse {
   }
 
 
-  public TransactionPayloadResponse rawCsvRow(String rawCsvRow) {
+  public TransactionPayload rawCsvRow(String rawCsvRow) {
     
     this.rawCsvRow = rawCsvRow;
     return this;
@@ -156,21 +181,23 @@ public class TransactionPayloadResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TransactionPayloadResponse transactionPayloadResponse = (TransactionPayloadResponse) o;
-    return Objects.equals(this.columns, transactionPayloadResponse.columns) &&
-        Objects.equals(this.values, transactionPayloadResponse.values) &&
-        Objects.equals(this.rawCsvRow, transactionPayloadResponse.rawCsvRow);
+    TransactionPayload transactionPayload = (TransactionPayload) o;
+    return Objects.equals(this.transactionId, transactionPayload.transactionId) &&
+        Objects.equals(this.columns, transactionPayload.columns) &&
+        Objects.equals(this.values, transactionPayload.values) &&
+        Objects.equals(this.rawCsvRow, transactionPayload.rawCsvRow);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(columns, values, rawCsvRow);
+    return Objects.hash(transactionId, columns, values, rawCsvRow);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TransactionPayloadResponse {\n");
+    sb.append("class TransactionPayload {\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    columns: ").append(toIndentedString(columns)).append("\n");
     sb.append("    values: ").append(toIndentedString(values)).append("\n");
     sb.append("    rawCsvRow: ").append(toIndentedString(rawCsvRow)).append("\n");
@@ -196,12 +223,14 @@ public class TransactionPayloadResponse {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("transactionId");
     openapiFields.add("columns");
     openapiFields.add("values");
     openapiFields.add("rawCsvRow");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("transactionId");
     openapiRequiredFields.add("columns");
     openapiRequiredFields.add("values");
     openapiRequiredFields.add("rawCsvRow");
@@ -211,22 +240,25 @@ public class TransactionPayloadResponse {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to TransactionPayloadResponse
+  * @throws IOException if the JSON Element is invalid with respect to TransactionPayload
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!TransactionPayloadResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in TransactionPayloadResponse is not found in the empty JSON string", TransactionPayloadResponse.openapiRequiredFields.toString()));
+        if (!TransactionPayload.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in TransactionPayload is not found in the empty JSON string", TransactionPayload.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : TransactionPayloadResponse.openapiRequiredFields) {
+      for (String requiredField : TransactionPayload.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (!jsonObj.get("transactionId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `transactionId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("transactionId").toString()));
+      }
       // ensure the required json array is present
       if (jsonObj.get("columns") == null) {
         throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
@@ -242,22 +274,22 @@ public class TransactionPayloadResponse {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!TransactionPayloadResponse.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'TransactionPayloadResponse' and its subtypes
+       if (!TransactionPayload.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'TransactionPayload' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<TransactionPayloadResponse> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(TransactionPayloadResponse.class));
+       final TypeAdapter<TransactionPayload> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(TransactionPayload.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<TransactionPayloadResponse>() {
+       return (TypeAdapter<T>) new TypeAdapter<TransactionPayload>() {
            @Override
-           public void write(JsonWriter out, TransactionPayloadResponse value) throws IOException {
+           public void write(JsonWriter out, TransactionPayload value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public TransactionPayloadResponse read(JsonReader in) throws IOException {
+           public TransactionPayload read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -268,18 +300,18 @@ public class TransactionPayloadResponse {
   }
 
  /**
-  * Create an instance of TransactionPayloadResponse given an JSON string
+  * Create an instance of TransactionPayload given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of TransactionPayloadResponse
-  * @throws IOException if the JSON string is invalid with respect to TransactionPayloadResponse
+  * @return An instance of TransactionPayload
+  * @throws IOException if the JSON string is invalid with respect to TransactionPayload
   */
-  public static TransactionPayloadResponse fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, TransactionPayloadResponse.class);
+  public static TransactionPayload fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, TransactionPayload.class);
   }
 
  /**
-  * Convert an instance of TransactionPayloadResponse to an JSON string
+  * Convert an instance of TransactionPayload to an JSON string
   *
   * @return JSON string
   */

@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3629
+  version: 0.1.3641
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3342,7 +3342,7 @@ paths:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions/{transactionId}/payload:
+  /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions/payload:
     get:
       operationId: GetTransactionPayload
       parameters:
@@ -3366,21 +3366,44 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: false
-        in: path
+      - explode: true
+        in: query
         name: transactionId
-        required: true
+        required: false
         schema:
           maxLength: 64
           minLength: 0
           type: string
-        style: simple
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: ""
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionPayloadResponse'
+                $ref: '#/components/schemas/PagedResourceListOfTransactionPayload'
           description: OK
         "400":
           content:
@@ -3389,8 +3412,7 @@ paths:
                 $ref: '#/components/schemas/LusidValidationProblemDetails'
           description: The details of the input related failure
         "404":
-          description: "The requested TPF instance, run, or transaction payload does\
-            \ not exist."
+          description: The requested TPF instance or run does not exist.
         default:
           content:
             application/json:
@@ -3399,7 +3421,9 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetTransactionPayload: Transaction payload detail"
+      summary: "[EXPERIMENTAL] GetTransactionPayload: Transaction payloads for a run,\
+        \ with pagination support. When transactionId is supplied the single matching\
+        \ payload is returned; otherwise all payloads for the instance/run are returned."
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
@@ -8123,6 +8147,59 @@ components:
       required:
       - values
       type: object
+    PagedResourceListOfTransactionPayload:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - columns:
+          - columns
+          - columns
+          values:
+            key: values
+          rawCsvRow: rawCsvRow
+          transactionId: transactionId
+        - columns:
+          - columns
+          - columns
+          values:
+            key: values
+          rawCsvRow: rawCsvRow
+          transactionId: transactionId
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/TransactionPayload'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfTransactionResponse:
       additionalProperties: false
       example:
@@ -9177,9 +9254,11 @@ components:
       - tradeDate
       - transactionId
       type: object
-    TransactionPayloadResponse:
+    TransactionPayload:
       additionalProperties: false
-      description: record containing details of a transaction payload.
+      description: |-
+        record containing the payload for a single transaction. Columns is compiled once from the TPF
+        instance configuration and is identical across every item in the paginated result.
       example:
         columns:
         - columns
@@ -9187,7 +9266,10 @@ components:
         values:
           key: values
         rawCsvRow: rawCsvRow
+        transactionId: transactionId
       properties:
+        transactionId:
+          type: string
         columns:
           items:
             type: string
@@ -9201,6 +9283,7 @@ components:
       required:
       - columns
       - rawCsvRow
+      - transactionId
       - values
       type: object
     TransactionResponse:
