@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3641
+  version: 0.1.3722
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1018,6 +1018,10 @@ paths:
                 description: Reads data from external sources and parses it into records
                 category: Source
                 isActive: true
+                isConnectionRequired: true
+                relationships:
+                - OnSuccess
+                - OnError
               schema:
                 items:
                   $ref: '#/components/schemas/ProcessorDescription'
@@ -8480,11 +8484,15 @@ components:
       additionalProperties: false
       description: Represents a processor in the Horizon integration system.
       example:
+        relationships:
+        - relationships
+        - relationships
         displayName: displayName
         name: name
         description: description
         category: category
         isActive: true
+        isConnectionRequired: true
       properties:
         name:
           type: string
@@ -8496,12 +8504,20 @@ components:
           type: string
         isActive:
           type: boolean
+        isConnectionRequired:
+          type: boolean
+        relationships:
+          items:
+            type: string
+          type: array
       required:
       - category
       - description
       - displayName
       - isActive
+      - isConnectionRequired
       - name
+      - relationships
       type: object
     ProcessorSchemaResponse:
       additionalProperties: false

@@ -17,7 +17,9 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,6 +70,14 @@ public class ProcessorDescription {
   public static final String SERIALIZED_NAME_IS_ACTIVE = "isActive";
   @SerializedName(SERIALIZED_NAME_IS_ACTIVE)
   private Boolean isActive;
+
+  public static final String SERIALIZED_NAME_IS_CONNECTION_REQUIRED = "isConnectionRequired";
+  @SerializedName(SERIALIZED_NAME_IS_CONNECTION_REQUIRED)
+  private Boolean isConnectionRequired;
+
+  public static final String SERIALIZED_NAME_RELATIONSHIPS = "relationships";
+  @SerializedName(SERIALIZED_NAME_RELATIONSHIPS)
+  private List<String> relationships = new ArrayList<>();
 
   public ProcessorDescription() {
   }
@@ -177,6 +187,56 @@ public class ProcessorDescription {
   }
 
 
+  public ProcessorDescription isConnectionRequired(Boolean isConnectionRequired) {
+    
+    this.isConnectionRequired = isConnectionRequired;
+    return this;
+  }
+
+   /**
+   * Get isConnectionRequired
+   * @return isConnectionRequired
+  **/
+  @jakarta.annotation.Nonnull
+  public Boolean getIsConnectionRequired() {
+    return isConnectionRequired;
+  }
+
+
+  public void setIsConnectionRequired(Boolean isConnectionRequired) {
+    this.isConnectionRequired = isConnectionRequired;
+  }
+
+
+  public ProcessorDescription relationships(List<String> relationships) {
+    
+    this.relationships = relationships;
+    return this;
+  }
+
+  public ProcessorDescription addRelationshipsItem(String relationshipsItem) {
+    if (this.relationships == null) {
+      this.relationships = new ArrayList<>();
+    }
+    this.relationships.add(relationshipsItem);
+    return this;
+  }
+
+   /**
+   * Get relationships
+   * @return relationships
+  **/
+  @jakarta.annotation.Nonnull
+  public List<String> getRelationships() {
+    return relationships;
+  }
+
+
+  public void setRelationships(List<String> relationships) {
+    this.relationships = relationships;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -191,12 +251,14 @@ public class ProcessorDescription {
         Objects.equals(this.displayName, processorDescription.displayName) &&
         Objects.equals(this.description, processorDescription.description) &&
         Objects.equals(this.category, processorDescription.category) &&
-        Objects.equals(this.isActive, processorDescription.isActive);
+        Objects.equals(this.isActive, processorDescription.isActive) &&
+        Objects.equals(this.isConnectionRequired, processorDescription.isConnectionRequired) &&
+        Objects.equals(this.relationships, processorDescription.relationships);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, displayName, description, category, isActive);
+    return Objects.hash(name, displayName, description, category, isActive, isConnectionRequired, relationships);
   }
 
   @Override
@@ -208,6 +270,8 @@ public class ProcessorDescription {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    category: ").append(toIndentedString(category)).append("\n");
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
+    sb.append("    isConnectionRequired: ").append(toIndentedString(isConnectionRequired)).append("\n");
+    sb.append("    relationships: ").append(toIndentedString(relationships)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -235,6 +299,8 @@ public class ProcessorDescription {
     openapiFields.add("description");
     openapiFields.add("category");
     openapiFields.add("isActive");
+    openapiFields.add("isConnectionRequired");
+    openapiFields.add("relationships");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -243,6 +309,8 @@ public class ProcessorDescription {
     openapiRequiredFields.add("description");
     openapiRequiredFields.add("category");
     openapiRequiredFields.add("isActive");
+    openapiRequiredFields.add("isConnectionRequired");
+    openapiRequiredFields.add("relationships");
   }
 
  /**
@@ -276,6 +344,12 @@ public class ProcessorDescription {
       }
       if (!jsonObj.get("category").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `category` to be a primitive type in the JSON string but got `%s`", jsonObj.get("category").toString()));
+      }
+      // ensure the required json array is present
+      if (jsonObj.get("relationships") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("relationships").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `relationships` to be an array in the JSON string but got `%s`", jsonObj.get("relationships").toString()));
       }
   }
 
