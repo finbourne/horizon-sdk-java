@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3722
+  version: 0.1.3741
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3433,100 +3433,71 @@ paths:
       x-fbn-apistatus: Experimental
       x-accepts: application/json
   /api/trade-publication-framework/transactions/search:
-    get:
+    post:
       operationId: GetTpfTransactionHistorySearch
-      parameters:
-      - description: ""
-        explode: true
-        in: query
-        name: transactionId
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: instrumentId
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: dateFrom
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: dateTo
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: status
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: instanceId
-        required: false
-        schema:
-          maxLength: 16384
-          minLength: 0
-          pattern: "^[\\s\\S]*$"
-          type: string
-        style: form
-      - description: ""
-        explode: true
-        in: query
-        name: pageSize
-        required: false
-        schema:
-          default: 400
-          format: int32
-          maximum: 500
-          minimum: 1
-          type: integer
-        style: form
-        x-nullable: true
-      - description: ""
-        explode: true
-        in: query
-        name: pageToken
-        required: false
-        schema:
-          default: ""
-          maxLength: 500
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
-          type: string
-        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              transactionIds:
+              - TXN-2024-001
+              - TXN-2024-002
+              instrumentIdentifiers:
+              - GB0002634946
+              - US0378331005
+              instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+              from: 2024-04-01T00:00:00.0000000+00:00
+              to: 2024-04-30T00:00:00.0000000+00:00
+              limit: 50
+              status: Sent
+            schema:
+              $ref: '#/components/schemas/TpfTransactionSearchRequest'
+          application/json:
+            example:
+              transactionIds:
+              - TXN-2024-001
+              - TXN-2024-002
+              instrumentIdentifiers:
+              - GB0002634946
+              - US0378331005
+              instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+              from: 2024-04-01T00:00:00.0000000+00:00
+              to: 2024-04-30T00:00:00.0000000+00:00
+              limit: 50
+              status: Sent
+            schema:
+              $ref: '#/components/schemas/TpfTransactionSearchRequest'
+          text/json:
+            example:
+              transactionIds:
+              - TXN-2024-001
+              - TXN-2024-002
+              instrumentIdentifiers:
+              - GB0002634946
+              - US0378331005
+              instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+              from: 2024-04-01T00:00:00.0000000+00:00
+              to: 2024-04-30T00:00:00.0000000+00:00
+              limit: 50
+              status: Sent
+            schema:
+              $ref: '#/components/schemas/TpfTransactionSearchRequest'
+          application/*+json:
+            example:
+              transactionIds:
+              - TXN-2024-001
+              - TXN-2024-002
+              instrumentIdentifiers:
+              - GB0002634946
+              - US0378331005
+              instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
+              from: 2024-04-01T00:00:00.0000000+00:00
+              to: 2024-04-30T00:00:00.0000000+00:00
+              limit: 50
+              status: Sent
+            schema:
+              $ref: '#/components/schemas/TpfTransactionSearchRequest'
+        description: Search filters and pagination options.
       responses:
         "200":
           content:
@@ -3591,12 +3562,13 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetTpfTransactionHistorySearch: Endpoint to search\
-        \ TPF transaction by transaction ID and/or instrument identifier, with filtering\
-        \ by instance and date range"
+      summary: |-
+        [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, and publication status.
+        Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR'd within each filter, AND'd between filters).
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/vendor/$query:
     post:
@@ -9168,6 +9140,82 @@ components:
       required:
       - message
       - success
+      type: object
+    TpfTransactionSearchRequest:
+      additionalProperties: false
+      description: |-
+        Request body for the POST transaction-search endpoint.
+        Multiple values in TransactionIds and InstrumentIdentifiers are OR'd within each filter;
+        both filters together are AND'd.
+      example:
+        transactionIds:
+        - transactionIds
+        - transactionIds
+        instanceId: instanceId
+        limit: 81
+        instrumentIdentifiers:
+        - instrumentIdentifiers
+        - instrumentIdentifiers
+        from: 2000-01-23T04:56:07.000+00:00
+        to: 2000-01-23T04:56:07.000+00:00
+        page: page
+        status: status
+      properties:
+        transactionIds:
+          description: One or more LUSID transaction IDs to search for (max 50). Values
+            are OR'd.
+          items:
+            type: string
+          nullable: true
+          type: array
+        instrumentIdentifiers:
+          description: "One or more instrument identifiers in any supported format\
+            \ (ISIN, CUSIP, LUID, etc.) to search for (max 50). Values are OR'd."
+          items:
+            type: string
+          nullable: true
+          type: array
+        instanceId:
+          description: Instance ID to filter by. Omit or leave null to search all
+            instances the caller has access to.
+          maxLength: 36
+          minLength: 36
+          nullable: true
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        from:
+          description: Start of the date range (inclusive). Defaults to 30 days ago
+            if neither From nor To is provided.
+          format: date-time
+          nullable: true
+          type: string
+        to:
+          description: End of the date range (inclusive). Defaults to now if not provided.
+          format: date-time
+          nullable: true
+          type: string
+        limit:
+          description: Maximum number of results to return per page.
+          format: int32
+          maximum: 1000
+          minimum: 1
+          nullable: true
+          type: integer
+        page:
+          description: Pagination token from a previous response NextPage or PreviousPage.
+            Omit for the first page.
+          maxLength: 500
+          minLength: 1
+          nullable: true
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        status:
+          description: "Publication status to filter by. Valid values: Sent, Skipped,\
+            \ Failed. Optional."
+          maxLength: 50
+          minLength: 0
+          nullable: true
+          type: string
       type: object
     TpfTransactionSearchResponse:
       additionalProperties: false
