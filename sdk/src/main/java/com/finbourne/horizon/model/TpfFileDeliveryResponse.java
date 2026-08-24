@@ -19,6 +19,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
@@ -94,6 +95,10 @@ public class TpfFileDeliveryResponse {
   public static final String SERIALIZED_NAME_DESTINATION_NAME = "destinationName";
   @SerializedName(SERIALIZED_NAME_DESTINATION_NAME)
   private String destinationName;
+
+  public static final String SERIALIZED_NAME_FILE_UUID = "fileUuid";
+  @SerializedName(SERIALIZED_NAME_FILE_UUID)
+  private UUID fileUuid;
 
   public TpfFileDeliveryResponse() {
   }
@@ -329,6 +334,27 @@ public class TpfFileDeliveryResponse {
   }
 
 
+  public TpfFileDeliveryResponse fileUuid(UUID fileUuid) {
+    
+    this.fileUuid = fileUuid;
+    return this;
+  }
+
+   /**
+   * Get fileUuid
+   * @return fileUuid
+  **/
+  @jakarta.annotation.Nonnull
+  public UUID getFileUuid() {
+    return fileUuid;
+  }
+
+
+  public void setFileUuid(UUID fileUuid) {
+    this.fileUuid = fileUuid;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -349,7 +375,8 @@ public class TpfFileDeliveryResponse {
         Objects.equals(this.destinationPath, tpfFileDeliveryResponse.destinationPath) &&
         Objects.equals(this.destinationStatus, tpfFileDeliveryResponse.destinationStatus) &&
         Objects.equals(this.destinationError, tpfFileDeliveryResponse.destinationError) &&
-        Objects.equals(this.destinationName, tpfFileDeliveryResponse.destinationName);
+        Objects.equals(this.destinationName, tpfFileDeliveryResponse.destinationName) &&
+        Objects.equals(this.fileUuid, tpfFileDeliveryResponse.fileUuid);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -358,7 +385,7 @@ public class TpfFileDeliveryResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationStatus, destinationError, destinationName);
+    return Objects.hash(runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationStatus, destinationError, destinationName, fileUuid);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -383,6 +410,7 @@ public class TpfFileDeliveryResponse {
     sb.append("    destinationStatus: ").append(toIndentedString(destinationStatus)).append("\n");
     sb.append("    destinationError: ").append(toIndentedString(destinationError)).append("\n");
     sb.append("    destinationName: ").append(toIndentedString(destinationName)).append("\n");
+    sb.append("    fileUuid: ").append(toIndentedString(fileUuid)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -416,6 +444,7 @@ public class TpfFileDeliveryResponse {
     openapiFields.add("destinationStatus");
     openapiFields.add("destinationError");
     openapiFields.add("destinationName");
+    openapiFields.add("fileUuid");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -424,6 +453,7 @@ public class TpfFileDeliveryResponse {
     openapiRequiredFields.add("rowCount");
     openapiRequiredFields.add("destinationType");
     openapiRequiredFields.add("destinationStatus");
+    openapiRequiredFields.add("fileUuid");
   }
 
  /**
@@ -469,6 +499,9 @@ public class TpfFileDeliveryResponse {
       }
       if ((jsonObj.get("destinationName") != null && !jsonObj.get("destinationName").isJsonNull()) && !jsonObj.get("destinationName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `destinationName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("destinationName").toString()));
+      }
+      if (!jsonObj.get("fileUuid").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `fileUuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fileUuid").toString()));
       }
   }
 

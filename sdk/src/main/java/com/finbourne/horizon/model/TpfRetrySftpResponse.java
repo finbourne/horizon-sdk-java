@@ -20,6 +20,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
@@ -60,9 +61,9 @@ public class TpfRetrySftpResponse {
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
-  public static final String SERIALIZED_NAME_NEW_FILE_DELIVERY_ID = "newFileDeliveryId";
-  @SerializedName(SERIALIZED_NAME_NEW_FILE_DELIVERY_ID)
-  private Long newFileDeliveryId;
+  public static final String SERIALIZED_NAME_NEW_FILE_DELIVERY_UUID = "newFileDeliveryUuid";
+  @SerializedName(SERIALIZED_NAME_NEW_FILE_DELIVERY_UUID)
+  private UUID newFileDeliveryUuid;
 
   public static final String SERIALIZED_NAME_RETRIED_AT = "retriedAt";
   @SerializedName(SERIALIZED_NAME_RETRIED_AT)
@@ -121,24 +122,24 @@ public class TpfRetrySftpResponse {
   }
 
 
-  public TpfRetrySftpResponse newFileDeliveryId(Long newFileDeliveryId) {
+  public TpfRetrySftpResponse newFileDeliveryUuid(UUID newFileDeliveryUuid) {
     
-    this.newFileDeliveryId = newFileDeliveryId;
+    this.newFileDeliveryUuid = newFileDeliveryUuid;
     return this;
   }
 
    /**
-   * ID of the new file delivery record created for this retry (if successful)
-   * @return newFileDeliveryId
+   * UUID of the new file delivery record created for this retry (if successful)
+   * @return newFileDeliveryUuid
   **/
   @jakarta.annotation.Nullable
-  public Long getNewFileDeliveryId() {
-    return newFileDeliveryId;
+  public UUID getNewFileDeliveryUuid() {
+    return newFileDeliveryUuid;
   }
 
 
-  public void setNewFileDeliveryId(Long newFileDeliveryId) {
-    this.newFileDeliveryId = newFileDeliveryId;
+  public void setNewFileDeliveryUuid(UUID newFileDeliveryUuid) {
+    this.newFileDeliveryUuid = newFileDeliveryUuid;
   }
 
 
@@ -217,7 +218,7 @@ public class TpfRetrySftpResponse {
     TpfRetrySftpResponse tpfRetrySftpResponse = (TpfRetrySftpResponse) o;
     return Objects.equals(this.success, tpfRetrySftpResponse.success) &&
         Objects.equals(this.message, tpfRetrySftpResponse.message) &&
-        Objects.equals(this.newFileDeliveryId, tpfRetrySftpResponse.newFileDeliveryId) &&
+        Objects.equals(this.newFileDeliveryUuid, tpfRetrySftpResponse.newFileDeliveryUuid) &&
         Objects.equals(this.retriedAt, tpfRetrySftpResponse.retriedAt) &&
         Objects.equals(this.originalFile, tpfRetrySftpResponse.originalFile) &&
         Objects.equals(this.duplicateFile, tpfRetrySftpResponse.duplicateFile);
@@ -229,7 +230,7 @@ public class TpfRetrySftpResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, message, newFileDeliveryId, retriedAt, originalFile, duplicateFile);
+    return Objects.hash(success, message, newFileDeliveryUuid, retriedAt, originalFile, duplicateFile);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -245,7 +246,7 @@ public class TpfRetrySftpResponse {
     sb.append("class TpfRetrySftpResponse {\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    newFileDeliveryId: ").append(toIndentedString(newFileDeliveryId)).append("\n");
+    sb.append("    newFileDeliveryUuid: ").append(toIndentedString(newFileDeliveryUuid)).append("\n");
     sb.append("    retriedAt: ").append(toIndentedString(retriedAt)).append("\n");
     sb.append("    originalFile: ").append(toIndentedString(originalFile)).append("\n");
     sb.append("    duplicateFile: ").append(toIndentedString(duplicateFile)).append("\n");
@@ -273,7 +274,7 @@ public class TpfRetrySftpResponse {
     openapiFields = new HashSet<String>();
     openapiFields.add("success");
     openapiFields.add("message");
-    openapiFields.add("newFileDeliveryId");
+    openapiFields.add("newFileDeliveryUuid");
     openapiFields.add("retriedAt");
     openapiFields.add("originalFile");
     openapiFields.add("duplicateFile");
@@ -306,6 +307,9 @@ public class TpfRetrySftpResponse {
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if (!jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if ((jsonObj.get("newFileDeliveryUuid") != null && !jsonObj.get("newFileDeliveryUuid").isJsonNull()) && !jsonObj.get("newFileDeliveryUuid").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `newFileDeliveryUuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("newFileDeliveryUuid").toString()));
       }
       // validate the optional field `originalFile`
       if (jsonObj.get("originalFile") != null && !jsonObj.get("originalFile").isJsonNull()) {

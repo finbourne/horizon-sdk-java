@@ -19,6 +19,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,9 +51,9 @@ import com.finbourne.horizon.JSON;
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TpfFileDeliveryInfo {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
+  public static final String SERIALIZED_NAME_FILE_UUID = "fileUuid";
+  @SerializedName(SERIALIZED_NAME_FILE_UUID)
+  private UUID fileUuid;
 
   public static final String SERIALIZED_NAME_FILE_NAME = "fileName";
   @SerializedName(SERIALIZED_NAME_FILE_NAME)
@@ -77,24 +78,24 @@ public class TpfFileDeliveryInfo {
   public TpfFileDeliveryInfo() {
   }
 
-  public TpfFileDeliveryInfo id(Long id) {
+  public TpfFileDeliveryInfo fileUuid(UUID fileUuid) {
     
-    this.id = id;
+    this.fileUuid = fileUuid;
     return this;
   }
 
    /**
-   * File delivery ID
-   * @return id
+   * File delivery UUID — the identifier the retry endpoint accepts
+   * @return fileUuid
   **/
   @jakarta.annotation.Nonnull
-  public Long getId() {
-    return id;
+  public UUID getFileUuid() {
+    return fileUuid;
   }
 
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setFileUuid(UUID fileUuid) {
+    this.fileUuid = fileUuid;
   }
 
 
@@ -213,7 +214,7 @@ public class TpfFileDeliveryInfo {
       return false;
     }
     TpfFileDeliveryInfo tpfFileDeliveryInfo = (TpfFileDeliveryInfo) o;
-    return Objects.equals(this.id, tpfFileDeliveryInfo.id) &&
+    return Objects.equals(this.fileUuid, tpfFileDeliveryInfo.fileUuid) &&
         Objects.equals(this.fileName, tpfFileDeliveryInfo.fileName) &&
         Objects.equals(this.fileHash, tpfFileDeliveryInfo.fileHash) &&
         Objects.equals(this.destinationPath, tpfFileDeliveryInfo.destinationPath) &&
@@ -223,14 +224,14 @@ public class TpfFileDeliveryInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, fileName, fileHash, destinationPath, status, generatedAt);
+    return Objects.hash(fileUuid, fileName, fileHash, destinationPath, status, generatedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TpfFileDeliveryInfo {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    fileUuid: ").append(toIndentedString(fileUuid)).append("\n");
     sb.append("    fileName: ").append(toIndentedString(fileName)).append("\n");
     sb.append("    fileHash: ").append(toIndentedString(fileHash)).append("\n");
     sb.append("    destinationPath: ").append(toIndentedString(destinationPath)).append("\n");
@@ -258,7 +259,7 @@ public class TpfFileDeliveryInfo {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("id");
+    openapiFields.add("fileUuid");
     openapiFields.add("fileName");
     openapiFields.add("fileHash");
     openapiFields.add("destinationPath");
@@ -267,7 +268,7 @@ public class TpfFileDeliveryInfo {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("id");
+    openapiRequiredFields.add("fileUuid");
     openapiRequiredFields.add("fileName");
     openapiRequiredFields.add("fileHash");
     openapiRequiredFields.add("destinationPath");
@@ -295,6 +296,9 @@ public class TpfFileDeliveryInfo {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (!jsonObj.get("fileUuid").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `fileUuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fileUuid").toString()));
+      }
       if (!jsonObj.get("fileName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `fileName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fileName").toString()));
       }

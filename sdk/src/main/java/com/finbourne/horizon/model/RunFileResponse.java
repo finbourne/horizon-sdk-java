@@ -82,6 +82,14 @@ public class RunFileResponse {
   @SerializedName(SERIALIZED_NAME_TRANSACTION_IDS)
   private List<UUID> transactionIds = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_FILE_UUID = "fileUuid";
+  @SerializedName(SERIALIZED_NAME_FILE_UUID)
+  private UUID fileUuid;
+
+  public static final String SERIALIZED_NAME_FAILED_TRANSACTION_IDS = "failedTransactionIds";
+  @SerializedName(SERIALIZED_NAME_FAILED_TRANSACTION_IDS)
+  private List<UUID> failedTransactionIds = new ArrayList<>();
+
   public RunFileResponse() {
   }
 
@@ -248,6 +256,56 @@ public class RunFileResponse {
   }
 
 
+  public RunFileResponse fileUuid(UUID fileUuid) {
+    
+    this.fileUuid = fileUuid;
+    return this;
+  }
+
+   /**
+   * Get fileUuid
+   * @return fileUuid
+  **/
+  @jakarta.annotation.Nonnull
+  public UUID getFileUuid() {
+    return fileUuid;
+  }
+
+
+  public void setFileUuid(UUID fileUuid) {
+    this.fileUuid = fileUuid;
+  }
+
+
+  public RunFileResponse failedTransactionIds(List<UUID> failedTransactionIds) {
+    
+    this.failedTransactionIds = failedTransactionIds;
+    return this;
+  }
+
+  public RunFileResponse addFailedTransactionIdsItem(UUID failedTransactionIdsItem) {
+    if (this.failedTransactionIds == null) {
+      this.failedTransactionIds = new ArrayList<>();
+    }
+    this.failedTransactionIds.add(failedTransactionIdsItem);
+    return this;
+  }
+
+   /**
+   * Get failedTransactionIds
+   * @return failedTransactionIds
+  **/
+  @jakarta.annotation.Nonnull
+  public List<UUID> getFailedTransactionIds() {
+    return failedTransactionIds;
+  }
+
+
+  public void setFailedTransactionIds(List<UUID> failedTransactionIds) {
+    this.failedTransactionIds = failedTransactionIds;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -264,12 +322,14 @@ public class RunFileResponse {
         Objects.equals(this.fileHash, runFileResponse.fileHash) &&
         Objects.equals(this.encrypted, runFileResponse.encrypted) &&
         Objects.equals(this.destinations, runFileResponse.destinations) &&
-        Objects.equals(this.transactionIds, runFileResponse.transactionIds);
+        Objects.equals(this.transactionIds, runFileResponse.transactionIds) &&
+        Objects.equals(this.fileUuid, runFileResponse.fileUuid) &&
+        Objects.equals(this.failedTransactionIds, runFileResponse.failedTransactionIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileName, generatedAt, rowCount, fileHash, encrypted, destinations, transactionIds);
+    return Objects.hash(fileName, generatedAt, rowCount, fileHash, encrypted, destinations, transactionIds, fileUuid, failedTransactionIds);
   }
 
   @Override
@@ -283,6 +343,8 @@ public class RunFileResponse {
     sb.append("    encrypted: ").append(toIndentedString(encrypted)).append("\n");
     sb.append("    destinations: ").append(toIndentedString(destinations)).append("\n");
     sb.append("    transactionIds: ").append(toIndentedString(transactionIds)).append("\n");
+    sb.append("    fileUuid: ").append(toIndentedString(fileUuid)).append("\n");
+    sb.append("    failedTransactionIds: ").append(toIndentedString(failedTransactionIds)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -312,6 +374,8 @@ public class RunFileResponse {
     openapiFields.add("encrypted");
     openapiFields.add("destinations");
     openapiFields.add("transactionIds");
+    openapiFields.add("fileUuid");
+    openapiFields.add("failedTransactionIds");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -322,6 +386,8 @@ public class RunFileResponse {
     openapiRequiredFields.add("encrypted");
     openapiRequiredFields.add("destinations");
     openapiRequiredFields.add("transactionIds");
+    openapiRequiredFields.add("fileUuid");
+    openapiRequiredFields.add("failedTransactionIds");
   }
 
  /**
@@ -365,6 +431,15 @@ public class RunFileResponse {
         throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
       } else if (!jsonObj.get("transactionIds").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `transactionIds` to be an array in the JSON string but got `%s`", jsonObj.get("transactionIds").toString()));
+      }
+      if (!jsonObj.get("fileUuid").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `fileUuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fileUuid").toString()));
+      }
+      // ensure the required json array is present
+      if (jsonObj.get("failedTransactionIds") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("failedTransactionIds").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `failedTransactionIds` to be an array in the JSON string but got `%s`", jsonObj.get("failedTransactionIds").toString()));
       }
   }
 

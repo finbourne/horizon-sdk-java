@@ -5,7 +5,7 @@ Information about a file delivery
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **Long** | File delivery ID | [default to Long]
+**fileUuid** | [**UUID**](UUID.md) | File delivery UUID — the identifier the retry endpoint accepts | [default to UUID]
 **fileName** | **String** | File name | [default to String]
 **fileHash** | **String** | SHA-256 hash of the file content | [default to String]
 **destinationPath** | **String** | SFTP destination path | [default to String]
@@ -18,7 +18,7 @@ import java.util.*;
 import java.lang.System;
 import java.net.URI;
 
-Long Id = new Long("100.00");
+UUID FileUuid = "example FileUuid";
 String FileName = "example FileName";
 String FileHash = "example FileHash";
 String DestinationPath = "example DestinationPath";
@@ -27,7 +27,7 @@ OffsetDateTime GeneratedAt = OffsetDateTime.now();
 
 
 TpfFileDeliveryInfo tpfFileDeliveryInfoInstance = new TpfFileDeliveryInfo()
-    .Id(Id)
+    .FileUuid(FileUuid)
     .FileName(FileName)
     .FileHash(FileHash)
     .DestinationPath(DestinationPath)

@@ -198,6 +198,11 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.VendorProduct.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.VersionedConfigurationResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.VersionedConfigurationTypeResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.WorkflowResultFieldResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.WorkflowResultFieldsResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.WorkflowResultFieldsTaskResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.WorkflowRunResultResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.horizon.model.WorkflowRunResultsResponse.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 

@@ -41,6 +41,7 @@ import com.finbourne.horizon.model.PagedResourceListOfIPropertyMapping;
 import com.finbourne.horizon.model.ProcessorDescription;
 import com.finbourne.horizon.model.ProcessorSchemaResponse;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
+import com.finbourne.horizon.model.WorkflowResultFieldsResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -3085,6 +3086,244 @@ public class IntegrationsApi {
      */
     public APIgetSchemaRequest getSchema(String integration) {
         return new APIgetSchemaRequest(integration);
+    }
+    private okhttp3.Call getWorkflowResultFieldsCall(String instanceId, final ApiCallback _callback) throws ApiException {
+        return getWorkflowResultFieldsCall(instanceId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getWorkflowResultFieldsCall(String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/integrations/instances/{instanceId}/workflow/resultfields"
+            .replace("{" + "instanceId" + "}", localVarApiClient.escapeString(instanceId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getWorkflowResultFieldsValidateBeforeCall(String instanceId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'instanceId' is set
+        if (instanceId == null) {
+            throw new ApiException("Missing the required parameter 'instanceId' when calling getWorkflowResultFields(Async)");
+        }
+
+        return getWorkflowResultFieldsCall(instanceId, _callback, opts);
+
+    }
+
+
+    private ApiResponse<WorkflowResultFieldsResponse> getWorkflowResultFieldsWithHttpInfo(String instanceId) throws ApiException {
+        okhttp3.Call localVarCall = getWorkflowResultFieldsValidateBeforeCall(instanceId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<WorkflowResultFieldsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<WorkflowResultFieldsResponse> getWorkflowResultFieldsWithHttpInfo(String instanceId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getWorkflowResultFieldsValidateBeforeCall(instanceId, null, opts);
+        Type localVarReturnType = new TypeToken<WorkflowResultFieldsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getWorkflowResultFieldsAsync(String instanceId, final ApiCallback<WorkflowResultFieldsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getWorkflowResultFieldsValidateBeforeCall(instanceId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<WorkflowResultFieldsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getWorkflowResultFieldsAsync(String instanceId, final ApiCallback<WorkflowResultFieldsResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getWorkflowResultFieldsValidateBeforeCall(instanceId, _callback, opts);
+        Type localVarReturnType = new TypeToken<WorkflowResultFieldsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetWorkflowResultFieldsRequest {
+        private final String instanceId;
+
+        private APIgetWorkflowResultFieldsRequest(String instanceId) {
+            this.instanceId = instanceId;
+        }
+
+        /**
+         * Build call for getWorkflowResultFields
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getWorkflowResultFieldsCall(instanceId, _callback);
+        }
+
+        /**
+         * Execute getWorkflowResultFields request
+         * @return WorkflowResultFieldsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public WorkflowResultFieldsResponse execute() throws ApiException {
+            ApiResponse<WorkflowResultFieldsResponse> localVarResp = getWorkflowResultFieldsWithHttpInfo(instanceId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getWorkflowResultFields request. Use any specified configuration options to override any other configuration for this request only.
+         * @return WorkflowResultFieldsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public WorkflowResultFieldsResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<WorkflowResultFieldsResponse> localVarResp = getWorkflowResultFieldsWithHttpInfo(instanceId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getWorkflowResultFields request with HTTP info returned
+         * @return ApiResponse&lt;WorkflowResultFieldsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<WorkflowResultFieldsResponse> executeWithHttpInfo() throws ApiException {
+            return getWorkflowResultFieldsWithHttpInfo(instanceId);
+        }
+
+        /**
+         * Execute getWorkflowResultFields request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;WorkflowResultFieldsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<WorkflowResultFieldsResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getWorkflowResultFieldsWithHttpInfo(instanceId, opts);
+        }
+
+        /**
+         * Execute getWorkflowResultFields request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<WorkflowResultFieldsResponse> _callback) throws ApiException {
+            return getWorkflowResultFieldsAsync(instanceId, _callback);
+        }
+
+        /**
+         * Execute getWorkflowResultFields request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<WorkflowResultFieldsResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return getWorkflowResultFieldsAsync(instanceId, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetWorkflowResultFields: Get the Workflow result fields an integration instance returns
+     * Returns the result fields this instance&#39;s &#x60;RunWorkflow&#x60; post-process tasks declare, so a caller can discover what a run will report back before starting one. An instance with no enabled &#x60;RunWorkflow&#x60; post-process task is not an error: the response has &#x60;reportsToWorkflow&#x60; false and no fields. Note that such an instance will not report back at all, even when a Workflow task starts the run — configuring a &#x60;RunWorkflow&#x60; post-process task is what closes that loop. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
+     * @return APIgetWorkflowResultFieldsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> The declared result fields </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The integration instance does not exist </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetWorkflowResultFieldsRequest getWorkflowResultFields(String instanceId) {
+        return new APIgetWorkflowResultFieldsRequest(instanceId);
     }
     private okhttp3.Call listDataflowProcessorsCall(final ApiCallback _callback) throws ApiException {
         return listDataflowProcessorsCall( _callback, new ConfigurationOptions());

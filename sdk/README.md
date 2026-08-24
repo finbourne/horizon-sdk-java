@@ -23,6 +23,7 @@ Class | Method | HTTP request | Description
 *IntegrationsApi* | [**getIntegrationConfigurationFields**](docs/IntegrationsApi.md#getintegrationconfigurationfields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration
 *IntegrationsApi* | [**getIntegrationConfigurationProperties**](docs/IntegrationsApi.md#getintegrationconfigurationproperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration
 *IntegrationsApi* | [**getSchema**](docs/IntegrationsApi.md#getschema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance.
+*IntegrationsApi* | [**getWorkflowResultFields**](docs/IntegrationsApi.md#getworkflowresultfields) | **GET** /api/integrations/instances/{instanceId}/workflow/resultfields | [EXPERIMENTAL] GetWorkflowResultFields: Get the Workflow result fields an integration instance returns
 *IntegrationsApi* | [**listDataflowProcessors**](docs/IntegrationsApi.md#listdataflowprocessors) | **GET** /api/integrations/dataflow/processors | [EXPERIMENTAL] ListDataflowProcessors: List processor types.
 *IntegrationsApi* | [**listInstances**](docs/IntegrationsApi.md#listinstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations.
 *IntegrationsApi* | [**listIntegrations**](docs/IntegrationsApi.md#listintegrations) | **GET** /api/integrations | [EXPERIMENTAL] ListIntegrations: List available integrations.
@@ -37,6 +38,7 @@ Class | Method | HTTP request | Description
 *ProcessHistoryApi* | [**processHistoryEntries**](docs/ProcessHistoryApi.md#processhistoryentries) | **POST** /api/process-history/$query | [EARLY ACCESS] ProcessHistoryEntries: Get process history entries
 *RunsApi* | [**cancelInstance**](docs/RunsApi.md#cancelinstance) | **PUT** /api/runs/cancel | [EXPERIMENTAL] CancelInstance: Cancels multiple instance executions.
 *RunsApi* | [**getRunResults**](docs/RunsApi.md#getrunresults) | **GET** /api/runs | [EXPERIMENTAL] GetRunResults: Get run results
+*RunsApi* | [**getWorkflowRunResults**](docs/RunsApi.md#getworkflowrunresults) | **GET** /api/runs/{runId}/workflow/results | [EXPERIMENTAL] GetWorkflowRunResults: Get the status and published result values of an integration run
 *RunsApi* | [**rerunInstance**](docs/RunsApi.md#reruninstance) | **PUT** /api/runs/{runId}/rerun | [EXPERIMENTAL] RerunInstance: Reruns a single instance execution.
 *RunsApi* | [**stopInstanceExecution**](docs/RunsApi.md#stopinstanceexecution) | **PUT** /api/runs/{instanceId}/{runId}/stop | [EXPERIMENTAL] StopInstanceExecution: Stops a single instance execution.
 *TradePublicationFrameworkApi* | [**getTpfFileDeliveries**](docs/TradePublicationFrameworkApi.md#gettpffiledeliveries) | **GET** /api/trade-publication-framework/instances/{instanceId}/deliveries | [EXPERIMENTAL] GetTpfFileDeliveries: Search TPF file deliveries for a specific instance
@@ -50,7 +52,7 @@ Class | Method | HTTP request | Description
 *TradePublicationFrameworkApi* | [**replayTransactions**](docs/TradePublicationFrameworkApi.md#replaytransactions) | **POST** /api/trade-publication-framework/instances/{instanceId}/replay | [EXPERIMENTAL] ReplayTransactions: Replay one or more transactions through a TPF instance
 *TradePublicationFrameworkApi* | [**resolveFailedDelivery**](docs/TradePublicationFrameworkApi.md#resolvefaileddelivery) | **PUT** /api/trade-publication-framework/instances/{instanceId}/failed/{batchReferenceId}/resolve | [EXPERIMENTAL] ResolveFailedDelivery: Resolve a failed delivery without retry
 *TradePublicationFrameworkApi* | [**retryFailedDelivery**](docs/TradePublicationFrameworkApi.md#retryfaileddelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/failed/retry | [EXPERIMENTAL] RetryFailedDelivery: Retry failed deliveries for Trade Publication Framework
-*TradePublicationFrameworkApi* | [**retryTpfSftpDelivery**](docs/TradePublicationFrameworkApi.md#retrytpfsftpdelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp | [EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously sent TPF file
+*TradePublicationFrameworkApi* | [**retryTpfSftpDelivery**](docs/TradePublicationFrameworkApi.md#retrytpfsftpdelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/files/{fileUuid}/retry-sftp | [EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously sent TPF file
 *VendorApi* | [**getCoreFieldMappingsForProductEntity**](docs/VendorApi.md#getcorefieldmappingsforproductentity) | **GET** /api/vendor/mappings/fields | [EARLY ACCESS] GetCoreFieldMappingsForProductEntity: Get core field mappings for a given vendor product's entity.
 *VendorApi* | [**getOptionalMappingsForProductEntity**](docs/VendorApi.md#getoptionalmappingsforproductentity) | **GET** /api/vendor/mappings/optional | [EARLY ACCESS] GetOptionalMappingsForProductEntity: Get a user defined LUSID property mappings for the specified vendor / LUSID entity.
 *VendorApi* | [**getPropertyMappingsForProductEntity**](docs/VendorApi.md#getpropertymappingsforproductentity) | **GET** /api/vendor/mappings/properties | [EARLY ACCESS] GetPropertyMappingsForProductEntity: Gets the property mappings for a given vendor product's entity
@@ -180,4 +182,9 @@ Class | Method | HTTP request | Description
  - [VendorProduct](docs/VendorProduct.md)
  - [VersionedConfigurationResponse](docs/VersionedConfigurationResponse.md)
  - [VersionedConfigurationTypeResponse](docs/VersionedConfigurationTypeResponse.md)
+ - [WorkflowResultFieldResponse](docs/WorkflowResultFieldResponse.md)
+ - [WorkflowResultFieldsResponse](docs/WorkflowResultFieldsResponse.md)
+ - [WorkflowResultFieldsTaskResponse](docs/WorkflowResultFieldsTaskResponse.md)
+ - [WorkflowRunResultResponse](docs/WorkflowRunResultResponse.md)
+ - [WorkflowRunResultsResponse](docs/WorkflowRunResultsResponse.md)
 

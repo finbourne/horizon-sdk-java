@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | **Boolean** | Whether the retry was successful | [default to Boolean]
 **message** | **String** | Status message describing the result | [default to String]
-**newFileDeliveryId** | **Long** | ID of the new file delivery record created for this retry (if successful) | [optional] [default to Long]
+**newFileDeliveryUuid** | [**UUID**](UUID.md) | UUID of the new file delivery record created for this retry (if successful) | [optional] [default to UUID]
 **retriedAt** | [**OffsetDateTime**](OffsetDateTime.md) | Timestamp when the retry was executed | [optional] [default to OffsetDateTime]
 **originalFile** | [**TpfFileDeliveryInfo**](TpfFileDeliveryInfo.md) |  | [optional] [default to TpfFileDeliveryInfo]
 **duplicateFile** | [**TpfFileDeliveryInfo**](TpfFileDeliveryInfo.md) |  | [optional] [default to TpfFileDeliveryInfo]
@@ -20,7 +20,7 @@ import java.net.URI;
 
 Boolean Success = true;
 String Message = "example Message";
-@jakarta.annotation.Nullable Long NewFileDeliveryId = new Long("100.00");
+@jakarta.annotation.Nullable UUID NewFileDeliveryUuid = "example NewFileDeliveryUuid";
 @jakarta.annotation.Nullable OffsetDateTime RetriedAt = OffsetDateTime.now();
 TpfFileDeliveryInfo OriginalFile = new TpfFileDeliveryInfo();
 TpfFileDeliveryInfo DuplicateFile = new TpfFileDeliveryInfo();
@@ -29,7 +29,7 @@ TpfFileDeliveryInfo DuplicateFile = new TpfFileDeliveryInfo();
 TpfRetrySftpResponse tpfRetrySftpResponseInstance = new TpfRetrySftpResponse()
     .Success(Success)
     .Message(Message)
-    .NewFileDeliveryId(NewFileDeliveryId)
+    .NewFileDeliveryUuid(NewFileDeliveryUuid)
     .RetriedAt(RetriedAt)
     .OriginalFile(OriginalFile)
     .DuplicateFile(DuplicateFile);

@@ -31,6 +31,7 @@ import com.finbourne.horizon.model.IntegrationRerunResponse;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
 import com.finbourne.horizon.model.PagedResourceListOfIntegrationRunResponse;
+import com.finbourne.horizon.model.WorkflowRunResultsResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -601,6 +602,244 @@ public class RunsApi {
      */
     public APIgetRunResultsRequest getRunResults() {
         return new APIgetRunResultsRequest();
+    }
+    private okhttp3.Call getWorkflowRunResultsCall(String runId, final ApiCallback _callback) throws ApiException {
+        return getWorkflowRunResultsCall(runId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getWorkflowRunResultsCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/runs/{runId}/workflow/results"
+            .replace("{" + "runId" + "}", localVarApiClient.escapeString(runId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getWorkflowRunResultsValidateBeforeCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'runId' is set
+        if (runId == null) {
+            throw new ApiException("Missing the required parameter 'runId' when calling getWorkflowRunResults(Async)");
+        }
+
+        return getWorkflowRunResultsCall(runId, _callback, opts);
+
+    }
+
+
+    private ApiResponse<WorkflowRunResultsResponse> getWorkflowRunResultsWithHttpInfo(String runId) throws ApiException {
+        okhttp3.Call localVarCall = getWorkflowRunResultsValidateBeforeCall(runId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<WorkflowRunResultsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<WorkflowRunResultsResponse> getWorkflowRunResultsWithHttpInfo(String runId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getWorkflowRunResultsValidateBeforeCall(runId, null, opts);
+        Type localVarReturnType = new TypeToken<WorkflowRunResultsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getWorkflowRunResultsAsync(String runId, final ApiCallback<WorkflowRunResultsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getWorkflowRunResultsValidateBeforeCall(runId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<WorkflowRunResultsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getWorkflowRunResultsAsync(String runId, final ApiCallback<WorkflowRunResultsResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getWorkflowRunResultsValidateBeforeCall(runId, _callback, opts);
+        Type localVarReturnType = new TypeToken<WorkflowRunResultsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetWorkflowRunResultsRequest {
+        private final String runId;
+
+        private APIgetWorkflowRunResultsRequest(String runId) {
+            this.runId = runId;
+        }
+
+        /**
+         * Build call for getWorkflowRunResults
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getWorkflowRunResultsCall(runId, _callback);
+        }
+
+        /**
+         * Execute getWorkflowRunResults request
+         * @return WorkflowRunResultsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public WorkflowRunResultsResponse execute() throws ApiException {
+            ApiResponse<WorkflowRunResultsResponse> localVarResp = getWorkflowRunResultsWithHttpInfo(runId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getWorkflowRunResults request. Use any specified configuration options to override any other configuration for this request only.
+         * @return WorkflowRunResultsResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public WorkflowRunResultsResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<WorkflowRunResultsResponse> localVarResp = getWorkflowRunResultsWithHttpInfo(runId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getWorkflowRunResults request with HTTP info returned
+         * @return ApiResponse&lt;WorkflowRunResultsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<WorkflowRunResultsResponse> executeWithHttpInfo() throws ApiException {
+            return getWorkflowRunResultsWithHttpInfo(runId);
+        }
+
+        /**
+         * Execute getWorkflowRunResults request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;WorkflowRunResultsResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<WorkflowRunResultsResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getWorkflowRunResultsWithHttpInfo(runId, opts);
+        }
+
+        /**
+         * Execute getWorkflowRunResults request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<WorkflowRunResultsResponse> _callback) throws ApiException {
+            return getWorkflowRunResultsAsync(runId, _callback);
+        }
+
+        /**
+         * Execute getWorkflowRunResults request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<WorkflowRunResultsResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return getWorkflowRunResultsAsync(runId, _callback, opts);
+        }
+    }
+
+    /**
+     * [EXPERIMENTAL] GetWorkflowRunResults: Get the status and published result values of an integration run
+     * Returns the run&#39;s status alongside the result values the run published, so a caller waiting on an integration it started can poll one route rather than combining a status call with a results call. The response carries one entry per field the instance declares, matching the shape the instance reported when the caller discovered it, and a declared field the run published nothing for carries a null value. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
+     * @param runId Run identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
+     * @return APIgetWorkflowRunResultsRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> The run status and its published result values. </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The run does not exist. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetWorkflowRunResultsRequest getWorkflowRunResults(String runId) {
+        return new APIgetWorkflowRunResultsRequest(runId);
     }
     private okhttp3.Call rerunInstanceCall(String runId, final ApiCallback _callback) throws ApiException {
         return rerunInstanceCall(runId,  _callback, new ConfigurationOptions());

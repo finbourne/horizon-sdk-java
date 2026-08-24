@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3801
+  version: 0.1.3822
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1723,6 +1723,58 @@ paths:
       - Integrations
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/integrations/instances/{instanceId}/workflow/resultfields:
+    get:
+      description: |-
+        Returns the result fields this instance's `RunWorkflow` post-process tasks declare, so a caller can
+        discover what a run will report back before starting one.
+        An instance with no enabled `RunWorkflow` post-process task is not an error: the response has
+        `reportsToWorkflow` false and no fields. Note that such an instance will not report back at all,
+        even when a Workflow task starts the run — configuring a `RunWorkflow` post-process task is what
+        closes that loop.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
+      operationId: GetWorkflowResultFields
+      parameters:
+      - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowResultFieldsResponse'
+          description: The declared result fields
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The integration instance does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetWorkflowResultFields: Get the Workflow result fields\
+        \ an integration instance returns"
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/integrations/schema/{integration}:
     get:
       description: "The user must be authenticated, entitled to call this method,\
@@ -2544,6 +2596,57 @@ paths:
       - Runs
       x-fbn-apistatus: Experimental
       x-accepts: application/json
+  /api/runs/{runId}/workflow/results:
+    get:
+      description: |-
+        Returns the run's status alongside the result values the run published, so a caller waiting on an
+        integration it started can poll one route rather than combining a status call with a results call.
+        The response carries one entry per field the instance declares, matching the shape the instance
+        reported when the caller discovered it, and a declared field the run published nothing for carries a
+        null value.
+        The user must be authenticated, entitled to call this method, and the user's domain must be licensed for the integration.
+      operationId: GetWorkflowRunResults
+      parameters:
+      - description: Run identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRunResultsResponse'
+          description: The run status and its published result values.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The run does not exist.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetWorkflowRunResults: Get the status and published\
+        \ result values of an integration run"
+      tags:
+      - Runs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
   /api/trade-publication-framework/instances:
     get:
       operationId: ListInstancesWithStatus
@@ -2658,6 +2761,7 @@ paths:
                   destinationPath: /outbound/trades/trades_20240115_103000.csv
                   destinationStatus: Completed
                   destinationName: Vendor SFTP Server
+                  fileUuid: 7f3c1a2e-4b5d-4e6f-8a90-1b2c3d4e5f60
                 - runId: 550e8400-e29b-41d4-a716-446655440002
                   runStartTime: 2024-01-15T11:00:00.0000000+00:00
                   fileName: trades_20240115_110000.csv
@@ -2669,6 +2773,7 @@ paths:
                   destinationStatus: Error
                   destinationError: Connection timeout to S3 bucket
                   destinationName: AWS S3 Backup
+                  fileUuid: 8a4d2b3f-5c6e-4f70-9b01-2c3d4e5f6071
                 links: []
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfTpfFileDeliveryResponse'
@@ -2964,7 +3069,7 @@ paths:
       x-fbn-apistatus: Experimental
       x-content-type: application/json-patch+json
       x-accepts: application/json
-  /api/trade-publication-framework/instances/{instanceId}/files/{fileId}/retry-sftp:
+  /api/trade-publication-framework/instances/{instanceId}/files/{fileUuid}/retry-sftp:
     post:
       operationId: RetryTpfSftpDelivery
       parameters:
@@ -2979,15 +3084,17 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - description: File delivery ID to retry
+      - description: "File delivery UUID to retry, as returned by the run-files and\
+          \ file-deliveries listings"
         explode: false
         in: path
-        name: fileId
+        name: fileUuid
         required: true
         schema:
-          format: int64
-          minimum: 1
-          type: integer
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
         style: simple
       responses:
         "200":
@@ -2996,10 +3103,10 @@ paths:
               example:
                 success: true
                 message: SFTP file delivery retry recorded successfully
-                newFileDeliveryId: 1234567
+                newFileDeliveryUuid: 9b5e3c40-6d7f-4081-ac12-3d4e5f607182
                 retriedAt: 2026-05-01T14:30:00.0000000+00:00
                 originalFile:
-                  id: 1234560
+                  fileUuid: 7f3c1a2e-4b5d-4e6f-8a90-1b2c3d4e5f60
                   fileName: trades_20260501_103000.csv
                   fileHash: a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2
                   destinationPath: /outbound/trades/
@@ -7932,7 +8039,11 @@ components:
             status: status
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
+          failedTransactionIds:
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           rowCount: 0
+          fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - transactionIds:
           - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -7951,7 +8062,11 @@ components:
             status: status
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
+          failedTransactionIds:
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           rowCount: 0
+          fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         links:
         - method: method
           description: description
@@ -8002,6 +8117,7 @@ components:
           rowCount: 0
           destinationPath: destinationPath
           destinationStatus: destinationStatus
+          fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - fileName: fileName
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
@@ -8013,6 +8129,7 @@ components:
           rowCount: 0
           destinationPath: destinationPath
           destinationStatus: destinationStatus
+          fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         links:
         - method: method
           description: description
@@ -8891,7 +9008,11 @@ components:
           status: status
         generatedAt: 2000-01-23T04:56:07.000+00:00
         fileHash: fileHash
+        failedTransactionIds:
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         rowCount: 0
+        fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         fileName:
           type: string
@@ -8914,11 +9035,21 @@ components:
             format: uuid
             type: string
           type: array
+        fileUuid:
+          format: uuid
+          type: string
+        failedTransactionIds:
+          items:
+            format: uuid
+            type: string
+          type: array
       required:
       - destinations
       - encrypted
+      - failedTransactionIds
       - fileHash
       - fileName
+      - fileUuid
       - generatedAt
       - rowCount
       - transactionIds
@@ -8954,14 +9085,14 @@ components:
         fileName: fileName
         generatedAt: 2000-01-23T04:56:07.000+00:00
         fileHash: fileHash
-        id: 6
         destinationPath: destinationPath
+        fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         status: status
       properties:
-        id:
-          description: File delivery ID
-          format: int64
-          type: integer
+        fileUuid:
+          description: File delivery UUID — the identifier the retry endpoint accepts
+          format: uuid
+          type: string
         fileName:
           description: File name
           type: string
@@ -8982,8 +9113,8 @@ components:
       - destinationPath
       - fileHash
       - fileName
+      - fileUuid
       - generatedAt
-      - id
       - status
       type: object
     TpfFileDeliveryResponse:
@@ -9001,6 +9132,7 @@ components:
         rowCount: 0
         destinationPath: destinationPath
         destinationStatus: destinationStatus
+        fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         runId:
           nullable: true
@@ -9033,10 +9165,14 @@ components:
         destinationName:
           nullable: true
           type: string
+        fileUuid:
+          format: uuid
+          type: string
       required:
       - destinationStatus
       - destinationType
       - fileName
+      - fileUuid
       - generatedAt
       - rowCount
       type: object
@@ -9101,8 +9237,8 @@ components:
           fileName: fileName
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
-          id: 6
           destinationPath: destinationPath
+          fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           status: status
         success: true
         retriedAt: 2000-01-23T04:56:07.000+00:00
@@ -9110,11 +9246,11 @@ components:
           fileName: fileName
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
-          id: 6
           destinationPath: destinationPath
+          fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           status: status
+        newFileDeliveryUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         message: message
-        newFileDeliveryId: 0
       properties:
         success:
           description: Whether the retry was successful
@@ -9122,12 +9258,12 @@ components:
         message:
           description: Status message describing the result
           type: string
-        newFileDeliveryId:
-          description: ID of the new file delivery record created for this retry (if
-            successful)
-          format: int64
+        newFileDeliveryUuid:
+          description: UUID of the new file delivery record created for this retry
+            (if successful)
+          format: uuid
           nullable: true
-          type: integer
+          type: string
         retriedAt:
           description: Timestamp when the retry was executed
           format: date-time
@@ -9642,6 +9778,209 @@ components:
       required:
       - configType
       - displayName
+      type: object
+    WorkflowResultFieldResponse:
+      additionalProperties: false
+      description: A single declared field.
+      example:
+        displayName: displayName
+        name: name
+        description: description
+        type: type
+      properties:
+        name:
+          type: string
+        type:
+          description: "One of the Workflow field types: String, Decimal, DateTime,\
+            \ Boolean, LusidUserId."
+          type: string
+        displayName:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - name
+      - type
+      type: object
+    WorkflowResultFieldsResponse:
+      additionalProperties: false
+      description: The result fields an instance returns to the Workflow task that
+        started its run.
+      example:
+        reportsToWorkflow: true
+        resultFields:
+        - displayName: displayName
+          name: name
+          description: description
+          type: type
+        - displayName: displayName
+          name: name
+          description: description
+          type: type
+        instanceId: instanceId
+        tasks:
+        - resultFields:
+          - resultFields
+          - resultFields
+          triggerOn: triggerOn
+          name: name
+        - resultFields:
+          - resultFields
+          - resultFields
+          triggerOn: triggerOn
+          name: name
+      properties:
+        instanceId:
+          description: The instance these fields belong to.
+          type: string
+        reportsToWorkflow:
+          description: Whether this instance has an enabled RunWorkflow post-process
+            task at all.
+          type: boolean
+        resultFields:
+          description: Every distinct field declared across this instance's RunWorkflow
+            tasks.
+          items:
+            $ref: '#/components/schemas/WorkflowResultFieldResponse'
+          type: array
+        tasks:
+          description: "Per-task breakdown: an instance may declare different fields\
+            \ on success and on failure."
+          items:
+            $ref: '#/components/schemas/WorkflowResultFieldsTaskResponse'
+          type: array
+      required:
+      - instanceId
+      - reportsToWorkflow
+      - resultFields
+      - tasks
+      type: object
+    WorkflowResultFieldsTaskResponse:
+      additionalProperties: false
+      description: One of the instance's enabled RunWorkflow post-process tasks.
+      example:
+        resultFields:
+        - resultFields
+        - resultFields
+        triggerOn: triggerOn
+        name: name
+      properties:
+        name:
+          type: string
+        triggerOn:
+          description: "When this task fires: OnSuccess, OnFailure or Always."
+          type: string
+        resultFields:
+          description: Names of the fields this particular task declares.
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - resultFields
+      - triggerOn
+      type: object
+    WorkflowRunResultResponse:
+      additionalProperties: false
+      description: A single declared field and the value this run published for it.
+      example:
+        displayName: displayName
+        name: name
+        type: type
+        value: value
+      properties:
+        name:
+          type: string
+        type:
+          description: "One of the Workflow field types: String, Decimal, DateTime,\
+            \ Boolean, LusidUserId."
+          type: string
+        value:
+          description: "The published value, or null when the run published nothing\
+            \ for this field."
+          nullable: true
+          type: string
+        displayName:
+          nullable: true
+          type: string
+      required:
+      - name
+      - type
+      type: object
+    WorkflowRunResultsResponse:
+      additionalProperties: false
+      description: |-
+        A run's status and the result values it published, which is what the Workflow AQS polls while it waits for
+        an integration it started to finish.
+      example:
+        reportsToWorkflow: true
+        queuedAt: 2000-01-23T04:56:07.000+00:00
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        instanceId: instanceId
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        runId: runId
+        attempt: 0
+        results:
+        - displayName: displayName
+          name: name
+          type: type
+          value: value
+        - displayName: displayName
+          name: name
+          type: type
+          value: value
+        status: status
+      properties:
+        runId:
+          description: "The run these results belong to, as returned by the execute\
+            \ endpoint."
+          type: string
+        instanceId:
+          description: The instance that ran.
+          type: string
+        status:
+          description: |-
+            The run's status, reported exactly as the runs endpoint reports it: Queued, Started, Completed, Errored
+            or Interrupted. A caller waiting for the run to finish is waiting for one of the last three.
+          type: string
+        queuedAt:
+          format: date-time
+          nullable: true
+          type: string
+        startedAt:
+          format: date-time
+          nullable: true
+          type: string
+        completedAt:
+          description: Null until the run reaches a terminal status.
+          format: date-time
+          nullable: true
+          type: string
+        attempt:
+          description: "Which attempt this run is, counting reruns of the same work."
+          format: int32
+          type: integer
+        reportsToWorkflow:
+          description: |-
+            Whether this run was started by a Workflow task. False for a scheduled or file-triggered run, which
+            publishes no results because nothing is waiting on them.
+          type: boolean
+        results:
+          description: |-
+            One entry per field the instance declares, so the shape matches what the discovery endpoint promised
+            when the worker was created. A declared field the run never published carries a null value.
+          items:
+            $ref: '#/components/schemas/WorkflowRunResultResponse'
+          type: array
+      required:
+      - attempt
+      - instanceId
+      - reportsToWorkflow
+      - results
+      - runId
+      - status
       type: object
   securitySchemes:
     oauth2:
