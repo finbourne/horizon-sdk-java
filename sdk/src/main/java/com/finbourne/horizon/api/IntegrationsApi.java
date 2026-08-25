@@ -1262,7 +1262,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype.
-     * 
+     * The user must be authenticated and the user&#39;s domain must be licensed for integration dataflow to call this method.
      * @param processorType  (required)
      * @return APIgetDataflowProcessorSchemaRequest
      * @http.response.details
@@ -3533,7 +3533,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] ListDataflowProcessors: List processor types.
-     * The user must be authenticated to call this method.
+     * The user must be authenticated and the user&#39;s domain must be licensed for integration dataflow to call this method.
      * @return APIlistDataflowProcessorsRequest
      * @http.response.details
      <table summary="Response Details" border="1">

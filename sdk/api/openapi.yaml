@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3822
+  version: 0.1.3831
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1006,7 +1006,8 @@ paths:
       x-accepts: application/json
   /api/integrations/dataflow/processors:
     get:
-      description: The user must be authenticated to call this method.
+      description: The user must be authenticated and the user's domain must be licensed
+        for integration dataflow to call this method.
       operationId: ListDataflowProcessors
       responses:
         "200":
@@ -1044,6 +1045,8 @@ paths:
       x-accepts: application/json
   /api/integrations/dataflow/processors/{processorType}/schema:
     get:
+      description: The user must be authenticated and the user's domain must be licensed
+        for integration dataflow to call this method.
       operationId: GetDataflowProcessorSchema
       parameters:
       - description: ""
