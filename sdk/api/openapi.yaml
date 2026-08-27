@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3837
+  version: 0.1.3851
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -5602,7 +5602,13 @@ components:
       example:
         schedule: schedule
         lastRunAt: 2000-01-23T04:56:07.000+00:00
-        latestRunsIn24Hours: latestRunsIn24Hours
+        latestRunsIn24Hours:
+          total: 0
+          statusCounts:
+          - count: 6
+            status: status
+          - count: 6
+            status: status
         destinations:
         - name: name
           destinationType: destinationType
@@ -5646,8 +5652,7 @@ components:
           nullable: true
           type: string
         latestRunsIn24Hours:
-          nullable: true
-          type: string
+          $ref: '#/components/schemas/LatestRunsResponse'
         destinations:
           items:
             $ref: '#/components/schemas/InstanceDestinations'
@@ -5736,7 +5741,13 @@ components:
         instances:
         - schedule: schedule
           lastRunAt: 2000-01-23T04:56:07.000+00:00
-          latestRunsIn24Hours: latestRunsIn24Hours
+          latestRunsIn24Hours:
+            total: 0
+            statusCounts:
+            - count: 6
+              status: status
+            - count: 6
+              status: status
           destinations:
           - name: name
             destinationType: destinationType
@@ -5756,7 +5767,13 @@ components:
           enabled: true
         - schedule: schedule
           lastRunAt: 2000-01-23T04:56:07.000+00:00
-          latestRunsIn24Hours: latestRunsIn24Hours
+          latestRunsIn24Hours:
+            total: 0
+            statusCounts:
+            - count: 6
+              status: status
+            - count: 6
+              status: status
           destinations:
           - name: name
             destinationType: destinationType
@@ -6697,6 +6714,28 @@ components:
       type: string
     JsonValidator:
       additionalProperties: false
+      type: object
+    LatestRunsResponse:
+      additionalProperties: false
+      description: record containing the 24-hour run summary grouped by external status.
+      example:
+        total: 0
+        statusCounts:
+        - count: 6
+          status: status
+        - count: 6
+          status: status
+      properties:
+        total:
+          format: int32
+          type: integer
+        statusCounts:
+          items:
+            $ref: '#/components/schemas/RunStatusCount'
+          type: array
+      required:
+      - statusCounts
+      - total
       type: object
     Link:
       additionalProperties: false
@@ -9053,6 +9092,22 @@ components:
       - generatedAt
       - rowCount
       - transactionIds
+      type: object
+    RunStatusCount:
+      additionalProperties: false
+      description: record containing the count of runs for a given status.
+      example:
+        count: 6
+        status: status
+      properties:
+        status:
+          type: string
+        count:
+          format: int32
+          type: integer
+      required:
+      - count
+      - status
       type: object
     TpfFailedDeliveryResponse:
       additionalProperties: false

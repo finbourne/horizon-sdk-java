@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **scheduleTimezone** | **String** |  | [optional] [default to String]
 **lastRunAt** | [**OffsetDateTime**](OffsetDateTime.md) |  | [optional] [default to OffsetDateTime]
 **lastRunStatus** | **String** |  | [optional] [default to String]
-**latestRunsIn24Hours** | **String** |  | [optional] [default to String]
+**latestRunsIn24Hours** | [**LatestRunsResponse**](LatestRunsResponse.md) |  | [optional] [default to LatestRunsResponse]
 **destinations** | [**List&lt;InstanceDestinations&gt;**](InstanceDestinations.md) |  | [default to List<InstanceDestinations>]
 
 ```java
@@ -30,7 +30,7 @@ List<TpfPortfolio> Portfolios = new List<TpfPortfolio>();
 @jakarta.annotation.Nullable String ScheduleTimezone = "example ScheduleTimezone";
 @jakarta.annotation.Nullable OffsetDateTime LastRunAt = OffsetDateTime.now();
 @jakarta.annotation.Nullable String LastRunStatus = "example LastRunStatus";
-@jakarta.annotation.Nullable String LatestRunsIn24Hours = "example LatestRunsIn24Hours";
+LatestRunsResponse LatestRunsIn24Hours = new LatestRunsResponse();
 List<InstanceDestinations> Destinations = new List<InstanceDestinations>();
 
 

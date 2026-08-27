@@ -12,6 +12,7 @@ package com.finbourne.horizon.model;
 
 import java.util.Objects;
 import com.finbourne.horizon.model.InstanceDestinations;
+import com.finbourne.horizon.model.LatestRunsResponse;
 import com.finbourne.horizon.model.TpfPortfolio;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -90,7 +91,7 @@ public class InstanceResponse {
 
   public static final String SERIALIZED_NAME_LATEST_RUNS_IN24_HOURS = "latestRunsIn24Hours";
   @SerializedName(SERIALIZED_NAME_LATEST_RUNS_IN24_HOURS)
-  private String latestRunsIn24Hours;
+  private LatestRunsResponse latestRunsIn24Hours;
 
   public static final String SERIALIZED_NAME_DESTINATIONS = "destinations";
   @SerializedName(SERIALIZED_NAME_DESTINATIONS)
@@ -275,7 +276,7 @@ public class InstanceResponse {
   }
 
 
-  public InstanceResponse latestRunsIn24Hours(String latestRunsIn24Hours) {
+  public InstanceResponse latestRunsIn24Hours(LatestRunsResponse latestRunsIn24Hours) {
     
     this.latestRunsIn24Hours = latestRunsIn24Hours;
     return this;
@@ -286,12 +287,12 @@ public class InstanceResponse {
    * @return latestRunsIn24Hours
   **/
   @jakarta.annotation.Nullable
-  public String getLatestRunsIn24Hours() {
+  public LatestRunsResponse getLatestRunsIn24Hours() {
     return latestRunsIn24Hours;
   }
 
 
-  public void setLatestRunsIn24Hours(String latestRunsIn24Hours) {
+  public void setLatestRunsIn24Hours(LatestRunsResponse latestRunsIn24Hours) {
     this.latestRunsIn24Hours = latestRunsIn24Hours;
   }
 
@@ -464,8 +465,9 @@ public class InstanceResponse {
       if ((jsonObj.get("lastRunStatus") != null && !jsonObj.get("lastRunStatus").isJsonNull()) && !jsonObj.get("lastRunStatus").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `lastRunStatus` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastRunStatus").toString()));
       }
-      if ((jsonObj.get("latestRunsIn24Hours") != null && !jsonObj.get("latestRunsIn24Hours").isJsonNull()) && !jsonObj.get("latestRunsIn24Hours").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `latestRunsIn24Hours` to be a primitive type in the JSON string but got `%s`", jsonObj.get("latestRunsIn24Hours").toString()));
+      // validate the optional field `latestRunsIn24Hours`
+      if (jsonObj.get("latestRunsIn24Hours") != null && !jsonObj.get("latestRunsIn24Hours").isJsonNull()) {
+        LatestRunsResponse.validateJsonElement(jsonObj.get("latestRunsIn24Hours"));
       }
       // ensure the json data is an array
       if (!jsonObj.get("destinations").isJsonArray()) {
