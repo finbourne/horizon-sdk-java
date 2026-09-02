@@ -1,5 +1,5 @@
 # com.finbourne.horizon.model.ReplayTransactionsResponse
-Response from a replay transactions operation containing the CSV output.
+Response from a replay transactions operation. For DryRun, Finbourne.Horizon.Integrations.Web.Dto.Integrations.TradePublicationFramework.Response.ReplayTransactionsResponse.PayloadOutput carries the preview payload in the instance's configured output format (CSV or XML); for Committed it is empty.
 
 ## Properties
 
@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **batchReferenceId** | **String** |  | [default to String]
 **mode** | **String** |  | [default to String]
 **transactionCount** | **Integer** |  | [default to Integer]
-**csvOutput** | **String** |  | [default to String]
+**payloadOutput** | **String** |  | [default to String]
 **message** | **String** |  | [default to String]
 
 ```java
@@ -20,7 +20,7 @@ import java.net.URI;
 String BatchReferenceId = "example BatchReferenceId";
 String Mode = "example Mode";
 Integer TransactionCount = new Integer("100.00");
-String CsvOutput = "example CsvOutput";
+String PayloadOutput = "example PayloadOutput";
 String Message = "example Message";
 
 
@@ -28,7 +28,7 @@ ReplayTransactionsResponse replayTransactionsResponseInstance = new ReplayTransa
     .BatchReferenceId(BatchReferenceId)
     .Mode(Mode)
     .TransactionCount(TransactionCount)
-    .CsvOutput(CsvOutput)
+    .PayloadOutput(PayloadOutput)
     .Message(Message);
 ```
 

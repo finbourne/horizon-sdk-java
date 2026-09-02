@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3851
+  version: 0.1.3871
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -8905,11 +8905,12 @@ components:
       type: object
     ReplayTransactionsResponse:
       additionalProperties: false
-      description: Response from a replay transactions operation containing the CSV
-        output.
+      description: |-
+        Response from a replay transactions operation. For DryRun, Finbourne.Horizon.Integrations.Web.Dto.Integrations.TradePublicationFramework.Response.ReplayTransactionsResponse.PayloadOutput carries the
+        preview payload in the instance's configured output format (CSV or XML); for Committed it is empty.
       example:
         mode: mode
-        csvOutput: csvOutput
+        payloadOutput: payloadOutput
         transactionCount: 0
         message: message
         batchReferenceId: batchReferenceId
@@ -8921,15 +8922,15 @@ components:
         transactionCount:
           format: int32
           type: integer
-        csvOutput:
+        payloadOutput:
           type: string
         message:
           type: string
       required:
       - batchReferenceId
-      - csvOutput
       - message
       - mode
+      - payloadOutput
       - transactionCount
       type: object
     ResolveFailedDeliveryRequest:

@@ -45,7 +45,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Response from a replay transactions operation containing the CSV output.
+ * Response from a replay transactions operation. For DryRun, Finbourne.Horizon.Integrations.Web.Dto.Integrations.TradePublicationFramework.Response.ReplayTransactionsResponse.PayloadOutput carries the preview payload in the instance&#39;s configured output format (CSV or XML); for Committed it is empty.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ReplayTransactionsResponse {
@@ -61,9 +61,9 @@ public class ReplayTransactionsResponse {
   @SerializedName(SERIALIZED_NAME_TRANSACTION_COUNT)
   private Integer transactionCount;
 
-  public static final String SERIALIZED_NAME_CSV_OUTPUT = "csvOutput";
-  @SerializedName(SERIALIZED_NAME_CSV_OUTPUT)
-  private String csvOutput;
+  public static final String SERIALIZED_NAME_PAYLOAD_OUTPUT = "payloadOutput";
+  @SerializedName(SERIALIZED_NAME_PAYLOAD_OUTPUT)
+  private String payloadOutput;
 
   public static final String SERIALIZED_NAME_MESSAGE = "message";
   @SerializedName(SERIALIZED_NAME_MESSAGE)
@@ -135,24 +135,24 @@ public class ReplayTransactionsResponse {
   }
 
 
-  public ReplayTransactionsResponse csvOutput(String csvOutput) {
+  public ReplayTransactionsResponse payloadOutput(String payloadOutput) {
     
-    this.csvOutput = csvOutput;
+    this.payloadOutput = payloadOutput;
     return this;
   }
 
    /**
-   * Get csvOutput
-   * @return csvOutput
+   * Get payloadOutput
+   * @return payloadOutput
   **/
   @jakarta.annotation.Nonnull
-  public String getCsvOutput() {
-    return csvOutput;
+  public String getPayloadOutput() {
+    return payloadOutput;
   }
 
 
-  public void setCsvOutput(String csvOutput) {
-    this.csvOutput = csvOutput;
+  public void setPayloadOutput(String payloadOutput) {
+    this.payloadOutput = payloadOutput;
   }
 
 
@@ -190,13 +190,13 @@ public class ReplayTransactionsResponse {
     return Objects.equals(this.batchReferenceId, replayTransactionsResponse.batchReferenceId) &&
         Objects.equals(this.mode, replayTransactionsResponse.mode) &&
         Objects.equals(this.transactionCount, replayTransactionsResponse.transactionCount) &&
-        Objects.equals(this.csvOutput, replayTransactionsResponse.csvOutput) &&
+        Objects.equals(this.payloadOutput, replayTransactionsResponse.payloadOutput) &&
         Objects.equals(this.message, replayTransactionsResponse.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(batchReferenceId, mode, transactionCount, csvOutput, message);
+    return Objects.hash(batchReferenceId, mode, transactionCount, payloadOutput, message);
   }
 
   @Override
@@ -206,7 +206,7 @@ public class ReplayTransactionsResponse {
     sb.append("    batchReferenceId: ").append(toIndentedString(batchReferenceId)).append("\n");
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
     sb.append("    transactionCount: ").append(toIndentedString(transactionCount)).append("\n");
-    sb.append("    csvOutput: ").append(toIndentedString(csvOutput)).append("\n");
+    sb.append("    payloadOutput: ").append(toIndentedString(payloadOutput)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -233,7 +233,7 @@ public class ReplayTransactionsResponse {
     openapiFields.add("batchReferenceId");
     openapiFields.add("mode");
     openapiFields.add("transactionCount");
-    openapiFields.add("csvOutput");
+    openapiFields.add("payloadOutput");
     openapiFields.add("message");
 
     // a set of required properties/fields (JSON key names)
@@ -241,7 +241,7 @@ public class ReplayTransactionsResponse {
     openapiRequiredFields.add("batchReferenceId");
     openapiRequiredFields.add("mode");
     openapiRequiredFields.add("transactionCount");
-    openapiRequiredFields.add("csvOutput");
+    openapiRequiredFields.add("payloadOutput");
     openapiRequiredFields.add("message");
   }
 
@@ -271,8 +271,8 @@ public class ReplayTransactionsResponse {
       if (!jsonObj.get("mode").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `mode` to be a primitive type in the JSON string but got `%s`", jsonObj.get("mode").toString()));
       }
-      if (!jsonObj.get("csvOutput").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `csvOutput` to be a primitive type in the JSON string but got `%s`", jsonObj.get("csvOutput").toString()));
+      if (!jsonObj.get("payloadOutput").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `payloadOutput` to be a primitive type in the JSON string but got `%s`", jsonObj.get("payloadOutput").toString()));
       }
       if (!jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
