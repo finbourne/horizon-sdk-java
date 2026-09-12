@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3871
+  version: 0.1.3912
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -8061,8 +8061,8 @@ components:
         nextPage: nextPage
         values:
         - transactionIds:
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - transactionIds
+          - transactionIds
           fileName: fileName
           encrypted: true
           destinations:
@@ -8079,13 +8079,13 @@ components:
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
           failedTransactionIds:
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - failedTransactionIds
+          - failedTransactionIds
           rowCount: 0
           fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - transactionIds:
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - transactionIds
+          - transactionIds
           fileName: fileName
           encrypted: true
           destinations:
@@ -8102,8 +8102,8 @@ components:
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
           failedTransactionIds:
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - failedTransactionIds
+          - failedTransactionIds
           rowCount: 0
           fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         links:
@@ -9031,8 +9031,8 @@ components:
       description: record containing details of a single file for a run.
       example:
         transactionIds:
-        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - transactionIds
+        - transactionIds
         fileName: fileName
         encrypted: true
         destinations:
@@ -9049,8 +9049,8 @@ components:
         generatedAt: 2000-01-23T04:56:07.000+00:00
         fileHash: fileHash
         failedTransactionIds:
-        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - failedTransactionIds
+        - failedTransactionIds
         rowCount: 0
         fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
@@ -9072,7 +9072,6 @@ components:
           type: array
         transactionIds:
           items:
-            format: uuid
             type: string
           type: array
         fileUuid:
@@ -9080,7 +9079,6 @@ components:
           type: string
         failedTransactionIds:
           items:
-            format: uuid
             type: string
           type: array
       required:

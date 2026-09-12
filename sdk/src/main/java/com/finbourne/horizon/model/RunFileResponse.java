@@ -80,7 +80,7 @@ public class RunFileResponse {
 
   public static final String SERIALIZED_NAME_TRANSACTION_IDS = "transactionIds";
   @SerializedName(SERIALIZED_NAME_TRANSACTION_IDS)
-  private List<UUID> transactionIds = new ArrayList<>();
+  private List<String> transactionIds = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FILE_UUID = "fileUuid";
   @SerializedName(SERIALIZED_NAME_FILE_UUID)
@@ -88,7 +88,7 @@ public class RunFileResponse {
 
   public static final String SERIALIZED_NAME_FAILED_TRANSACTION_IDS = "failedTransactionIds";
   @SerializedName(SERIALIZED_NAME_FAILED_TRANSACTION_IDS)
-  private List<UUID> failedTransactionIds = new ArrayList<>();
+  private List<String> failedTransactionIds = new ArrayList<>();
 
   public RunFileResponse() {
   }
@@ -227,13 +227,13 @@ public class RunFileResponse {
   }
 
 
-  public RunFileResponse transactionIds(List<UUID> transactionIds) {
+  public RunFileResponse transactionIds(List<String> transactionIds) {
     
     this.transactionIds = transactionIds;
     return this;
   }
 
-  public RunFileResponse addTransactionIdsItem(UUID transactionIdsItem) {
+  public RunFileResponse addTransactionIdsItem(String transactionIdsItem) {
     if (this.transactionIds == null) {
       this.transactionIds = new ArrayList<>();
     }
@@ -246,12 +246,12 @@ public class RunFileResponse {
    * @return transactionIds
   **/
   @jakarta.annotation.Nonnull
-  public List<UUID> getTransactionIds() {
+  public List<String> getTransactionIds() {
     return transactionIds;
   }
 
 
-  public void setTransactionIds(List<UUID> transactionIds) {
+  public void setTransactionIds(List<String> transactionIds) {
     this.transactionIds = transactionIds;
   }
 
@@ -277,13 +277,13 @@ public class RunFileResponse {
   }
 
 
-  public RunFileResponse failedTransactionIds(List<UUID> failedTransactionIds) {
+  public RunFileResponse failedTransactionIds(List<String> failedTransactionIds) {
     
     this.failedTransactionIds = failedTransactionIds;
     return this;
   }
 
-  public RunFileResponse addFailedTransactionIdsItem(UUID failedTransactionIdsItem) {
+  public RunFileResponse addFailedTransactionIdsItem(String failedTransactionIdsItem) {
     if (this.failedTransactionIds == null) {
       this.failedTransactionIds = new ArrayList<>();
     }
@@ -296,12 +296,12 @@ public class RunFileResponse {
    * @return failedTransactionIds
   **/
   @jakarta.annotation.Nonnull
-  public List<UUID> getFailedTransactionIds() {
+  public List<String> getFailedTransactionIds() {
     return failedTransactionIds;
   }
 
 
-  public void setFailedTransactionIds(List<UUID> failedTransactionIds) {
+  public void setFailedTransactionIds(List<String> failedTransactionIds) {
     this.failedTransactionIds = failedTransactionIds;
   }
 
