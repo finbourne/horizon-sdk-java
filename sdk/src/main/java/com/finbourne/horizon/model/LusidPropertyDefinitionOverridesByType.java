@@ -72,6 +72,10 @@ public class LusidPropertyDefinitionOverridesByType {
   @SerializedName(SERIALIZED_NAME_VENDOR_PACKAGE)
   private List<String> vendorPackage;
 
+  public static final String SERIALIZED_NAME_EFFECTIVE_FROM_OVERRIDE = "effectiveFromOverride";
+  @SerializedName(SERIALIZED_NAME_EFFECTIVE_FROM_OVERRIDE)
+  private String effectiveFromOverride;
+
   public LusidPropertyDefinitionOverridesByType() {
   }
 
@@ -196,6 +200,27 @@ public class LusidPropertyDefinitionOverridesByType {
   }
 
 
+  public LusidPropertyDefinitionOverridesByType effectiveFromOverride(String effectiveFromOverride) {
+    
+    this.effectiveFromOverride = effectiveFromOverride;
+    return this;
+  }
+
+   /**
+   * ISO-8601 instant to use as the property value&#39;s effectiveFrom instead of the date the integration derives, e.g. \&quot;0001-01-01T00:00:00Z\&quot;. Only accepted for integrations reporting supportsEffectiveFromOverride, and only for TimeVariant property definitions. Omit to leave any stored value untouched; send an empty string to clear it.
+   * @return effectiveFromOverride
+  **/
+  @jakarta.annotation.Nullable
+  public String getEffectiveFromOverride() {
+    return effectiveFromOverride;
+  }
+
+
+  public void setEffectiveFromOverride(String effectiveFromOverride) {
+    this.effectiveFromOverride = effectiveFromOverride;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -210,7 +235,8 @@ public class LusidPropertyDefinitionOverridesByType {
         Objects.equals(this.descriptionOverride, lusidPropertyDefinitionOverridesByType.descriptionOverride) &&
         Objects.equals(this.entityType, lusidPropertyDefinitionOverridesByType.entityType) &&
         Objects.equals(this.entitySubType, lusidPropertyDefinitionOverridesByType.entitySubType) &&
-        Objects.equals(this.vendorPackage, lusidPropertyDefinitionOverridesByType.vendorPackage);
+        Objects.equals(this.vendorPackage, lusidPropertyDefinitionOverridesByType.vendorPackage) &&
+        Objects.equals(this.effectiveFromOverride, lusidPropertyDefinitionOverridesByType.effectiveFromOverride);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -219,7 +245,7 @@ public class LusidPropertyDefinitionOverridesByType {
 
   @Override
   public int hashCode() {
-    return Objects.hash(displayNameOverride, descriptionOverride, entityType, entitySubType, vendorPackage);
+    return Objects.hash(displayNameOverride, descriptionOverride, entityType, entitySubType, vendorPackage, effectiveFromOverride);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -238,6 +264,7 @@ public class LusidPropertyDefinitionOverridesByType {
     sb.append("    entityType: ").append(toIndentedString(entityType)).append("\n");
     sb.append("    entitySubType: ").append(toIndentedString(entitySubType)).append("\n");
     sb.append("    vendorPackage: ").append(toIndentedString(vendorPackage)).append("\n");
+    sb.append("    effectiveFromOverride: ").append(toIndentedString(effectiveFromOverride)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -265,6 +292,7 @@ public class LusidPropertyDefinitionOverridesByType {
     openapiFields.add("entityType");
     openapiFields.add("entitySubType");
     openapiFields.add("vendorPackage");
+    openapiFields.add("effectiveFromOverride");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -299,6 +327,9 @@ public class LusidPropertyDefinitionOverridesByType {
       // ensure the optional json data is an array if present
       if (jsonObj.get("vendorPackage") != null && !jsonObj.get("vendorPackage").isJsonNull() && !jsonObj.get("vendorPackage").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `vendorPackage` to be an array in the JSON string but got `%s`", jsonObj.get("vendorPackage").toString()));
+      }
+      if ((jsonObj.get("effectiveFromOverride") != null && !jsonObj.get("effectiveFromOverride").isJsonNull()) && !jsonObj.get("effectiveFromOverride").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `effectiveFromOverride` to be a primitive type in the JSON string but got `%s`", jsonObj.get("effectiveFromOverride").toString()));
       }
   }
 

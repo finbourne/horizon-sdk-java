@@ -71,6 +71,10 @@ public class IntegrationDescription {
   @SerializedName(SERIALIZED_NAME_LICENSED)
   private Boolean licensed;
 
+  public static final String SERIALIZED_NAME_SUPPORTS_EFFECTIVE_FROM_OVERRIDE = "supportsEffectiveFromOverride";
+  @SerializedName(SERIALIZED_NAME_SUPPORTS_EFFECTIVE_FROM_OVERRIDE)
+  private Boolean supportsEffectiveFromOverride;
+
   public IntegrationDescription() {
   }
 
@@ -187,6 +191,27 @@ public class IntegrationDescription {
   }
 
 
+  public IntegrationDescription supportsEffectiveFromOverride(Boolean supportsEffectiveFromOverride) {
+    
+    this.supportsEffectiveFromOverride = supportsEffectiveFromOverride;
+    return this;
+  }
+
+   /**
+   * True if this integration allows a per-property effectiveFromOverride to be set via the optional property mapping endpoints, otherwise false.
+   * @return supportsEffectiveFromOverride
+  **/
+  @jakarta.annotation.Nonnull
+  public Boolean getSupportsEffectiveFromOverride() {
+    return supportsEffectiveFromOverride;
+  }
+
+
+  public void setSupportsEffectiveFromOverride(Boolean supportsEffectiveFromOverride) {
+    this.supportsEffectiveFromOverride = supportsEffectiveFromOverride;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -201,12 +226,13 @@ public class IntegrationDescription {
         Objects.equals(this.name, integrationDescription.name) &&
         Objects.equals(this.description, integrationDescription.description) &&
         Objects.equals(this.supportedTriggerTypes, integrationDescription.supportedTriggerTypes) &&
-        Objects.equals(this.licensed, integrationDescription.licensed);
+        Objects.equals(this.licensed, integrationDescription.licensed) &&
+        Objects.equals(this.supportsEffectiveFromOverride, integrationDescription.supportsEffectiveFromOverride);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, description, supportedTriggerTypes, licensed);
+    return Objects.hash(type, name, description, supportedTriggerTypes, licensed, supportsEffectiveFromOverride);
   }
 
   @Override
@@ -218,6 +244,7 @@ public class IntegrationDescription {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    supportedTriggerTypes: ").append(toIndentedString(supportedTriggerTypes)).append("\n");
     sb.append("    licensed: ").append(toIndentedString(licensed)).append("\n");
+    sb.append("    supportsEffectiveFromOverride: ").append(toIndentedString(supportsEffectiveFromOverride)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -245,6 +272,7 @@ public class IntegrationDescription {
     openapiFields.add("description");
     openapiFields.add("supportedTriggerTypes");
     openapiFields.add("licensed");
+    openapiFields.add("supportsEffectiveFromOverride");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -253,6 +281,7 @@ public class IntegrationDescription {
     openapiRequiredFields.add("description");
     openapiRequiredFields.add("supportedTriggerTypes");
     openapiRequiredFields.add("licensed");
+    openapiRequiredFields.add("supportsEffectiveFromOverride");
   }
 
  /**

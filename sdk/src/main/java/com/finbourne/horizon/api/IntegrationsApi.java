@@ -40,6 +40,7 @@ import com.finbourne.horizon.model.PagedResourceListOfIFieldMapping;
 import com.finbourne.horizon.model.PagedResourceListOfIPropertyMapping;
 import com.finbourne.horizon.model.ProcessorDescription;
 import com.finbourne.horizon.model.ProcessorSchemaResponse;
+import com.finbourne.horizon.model.SetInstanceOptionalPropertyMappingResponse;
 import com.finbourne.horizon.model.UpdateInstanceRequest;
 import com.finbourne.horizon.model.WorkflowResultFieldsResponse;
 
@@ -1145,7 +1146,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1162,7 +1163,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1180,7 +1181,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1198,7 +1199,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1215,7 +1216,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1233,7 +1234,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1251,7 +1252,7 @@ public class IntegrationsApi {
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-            <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
@@ -1262,7 +1263,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype.
-     * 
+     * The user must be authenticated and the user&#39;s domain must be licensed for integration dataflow to call this method. An unlicensed domain is answered with a 404, as for an unknown processor type.
      * @param processorType  (required)
      * @return APIgetDataflowProcessorSchemaRequest
      * @http.response.details
@@ -1270,7 +1271,7 @@ public class IntegrationsApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The processor type does not exist. </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The processor type does not exist, or your domain is not licensed for integration dataflow. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
@@ -1835,30 +1836,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId) throws ApiException {
+    private ApiResponse<SetInstanceOptionalPropertyMappingResponse> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId) throws ApiException {
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<SetInstanceOptionalPropertyMappingResponse> getInstanceOptionalPropertyMappingWithHttpInfo(String integration, String instanceId, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, null, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
+    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getInstanceOptionalPropertyMappingAsync(String integration, String instanceId, final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = getInstanceOptionalPropertyMappingValidateBeforeCall(integration, instanceId, _callback, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1892,7 +1893,7 @@ public class IntegrationsApi {
 
         /**
          * Execute getInstanceOptionalPropertyMapping request
-         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
+         * @return SetInstanceOptionalPropertyMappingResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1903,14 +1904,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverridesByType> execute() throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
+        public SetInstanceOptionalPropertyMappingResponse execute() throws ApiException {
+            ApiResponse<SetInstanceOptionalPropertyMappingResponse> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
             return localVarResp.getData();
         }
 
         /**
          * Execute getInstanceOptionalPropertyMapping request. Use any specified configuration options to override any other configuration for this request only.
-         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
+         * @return SetInstanceOptionalPropertyMappingResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1921,14 +1922,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverridesByType> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
+        public SetInstanceOptionalPropertyMappingResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<SetInstanceOptionalPropertyMappingResponse> localVarResp = getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute getInstanceOptionalPropertyMapping request with HTTP info returned
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
+         * @return ApiResponse&lt;SetInstanceOptionalPropertyMappingResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1939,13 +1940,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<SetInstanceOptionalPropertyMappingResponse> executeWithHttpInfo() throws ApiException {
             return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId);
         }
 
         /**
          * Execute getInstanceOptionalPropertyMapping request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
+         * @return ApiResponse&lt;SetInstanceOptionalPropertyMappingResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -1956,7 +1957,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<SetInstanceOptionalPropertyMappingResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return getInstanceOptionalPropertyMappingWithHttpInfo(integration, instanceId, opts);
         }
 
@@ -1974,7 +1975,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback) throws ApiException {
             return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback);
         }
 
@@ -1992,7 +1993,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback, ConfigurationOptions opts) throws ApiException {
             return getInstanceOptionalPropertyMappingAsync(integration, instanceId, _callback, opts);
         }
     }
@@ -3533,7 +3534,7 @@ public class IntegrationsApi {
 
     /**
      * [EXPERIMENTAL] ListDataflowProcessors: List processor types.
-     * The user must be authenticated to call this method.
+     * Any authenticated user can call this method. The processor list is empty unless the user&#39;s domain is licensed for integration dataflow.
      * @return APIlistDataflowProcessorsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -3546,11 +3547,11 @@ public class IntegrationsApi {
     public APIlistDataflowProcessorsRequest listDataflowProcessors() {
         return new APIlistDataflowProcessorsRequest();
     }
-    private okhttp3.Call listInstancesCall(final ApiCallback _callback) throws ApiException {
-        return listInstancesCall( _callback, new ConfigurationOptions());
+    private okhttp3.Call listInstancesCall(List<String> integrationTypes, String filter, final ApiCallback _callback) throws ApiException {
+        return listInstancesCall(integrationTypes, filter,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call listInstancesCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listInstancesCall(List<String> integrationTypes, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -3575,6 +3576,14 @@ public class IntegrationsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (integrationTypes != null) {
+            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "integrationTypes", integrationTypes));
+        }
+
+        if (filter != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter", filter));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -3595,43 +3604,65 @@ public class IntegrationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listInstancesValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
-        return listInstancesCall(_callback, opts);
+    private okhttp3.Call listInstancesValidateBeforeCall(List<String> integrationTypes, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listInstancesCall(integrationTypes, filter, _callback, opts);
 
     }
 
 
-    private ApiResponse<List<IntegrationInstance>> listInstancesWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null, new ConfigurationOptions());
+    private ApiResponse<List<IntegrationInstance>> listInstancesWithHttpInfo(List<String> integrationTypes, String filter) throws ApiException {
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(integrationTypes, filter, null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<List<IntegrationInstance>> listInstancesWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(null, opts);
+    private ApiResponse<List<IntegrationInstance>> listInstancesWithHttpInfo(List<String> integrationTypes, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(integrationTypes, filter, null, opts);
         Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listInstancesAsync(final ApiCallback<List<IntegrationInstance>> _callback) throws ApiException {
+    private okhttp3.Call listInstancesAsync(List<String> integrationTypes, String filter, final ApiCallback<List<IntegrationInstance>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback, new ConfigurationOptions());
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(integrationTypes, filter, _callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call listInstancesAsync(final ApiCallback<List<IntegrationInstance>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listInstancesAsync(List<String> integrationTypes, String filter, final ApiCallback<List<IntegrationInstance>> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(_callback, opts);
+        okhttp3.Call localVarCall = listInstancesValidateBeforeCall(integrationTypes, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<List<IntegrationInstance>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIlistInstancesRequest {
+        private List<String> integrationTypes;
+        private String filter;
 
         private APIlistInstancesRequest() {
+        }
+
+        /**
+         * Set integrationTypes
+         * @param integrationTypes Restrict results to these integration types e.g. \&quot;copp-clark\&quot;. Types the caller is not licensed and entitled for match nothing. (optional)
+         * @return APIlistInstancesRequest
+         */
+        public APIlistInstancesRequest integrationTypes(List<String> integrationTypes) {
+            this.integrationTypes = integrationTypes;
+            return this;
+        }
+
+        /**
+         * Set filter
+         * @param filter A Finbourne filter over Name, Description and Enabled e.g. Name eq &#39;Market data&#39;. (optional)
+         * @return APIlistInstancesRequest
+         */
+        public APIlistInstancesRequest filter(String filter) {
+            this.filter = filter;
+            return this;
         }
 
         /**
@@ -3643,12 +3674,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listInstancesCall(_callback);
+            return listInstancesCall(integrationTypes, filter, _callback);
         }
 
         /**
@@ -3659,12 +3691,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public List<IntegrationInstance> execute() throws ApiException {
-            ApiResponse<List<IntegrationInstance>> localVarResp = listInstancesWithHttpInfo();
+            ApiResponse<List<IntegrationInstance>> localVarResp = listInstancesWithHttpInfo(integrationTypes, filter);
             return localVarResp.getData();
         }
 
@@ -3676,12 +3709,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public List<IntegrationInstance> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<List<IntegrationInstance>> localVarResp = listInstancesWithHttpInfo(opts);
+            ApiResponse<List<IntegrationInstance>> localVarResp = listInstancesWithHttpInfo(integrationTypes, filter, opts);
             return localVarResp.getData();
         }
 
@@ -3693,12 +3727,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public ApiResponse<List<IntegrationInstance>> executeWithHttpInfo() throws ApiException {
-            return listInstancesWithHttpInfo();
+            return listInstancesWithHttpInfo(integrationTypes, filter);
         }
 
         /**
@@ -3709,12 +3744,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public ApiResponse<List<IntegrationInstance>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return listInstancesWithHttpInfo(opts);
+            return listInstancesWithHttpInfo(integrationTypes, filter, opts);
         }
 
         /**
@@ -3726,12 +3762,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationInstance>> _callback) throws ApiException {
-            return listInstancesAsync(_callback);
+            return listInstancesAsync(integrationTypes, filter, _callback);
         }
 
         /**
@@ -3743,12 +3780,13 @@ public class IntegrationsApi {
          <table summary="Response Details" border="1">
             <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
             <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
             <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<List<IntegrationInstance>> _callback, ConfigurationOptions opts) throws ApiException {
-            return listInstancesAsync(_callback, opts);
+            return listInstancesAsync(integrationTypes, filter, _callback, opts);
         }
     }
 
@@ -3760,6 +3798,7 @@ public class IntegrationsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> The requested instance(s) do not exist. </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
@@ -4048,30 +4087,30 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody) throws ApiException {
+    private ApiResponse<SetInstanceOptionalPropertyMappingResponse> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody) throws ApiException {
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<SetInstanceOptionalPropertyMappingResponse> setInstanceOptionalPropertyMappingWithHttpInfo(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, null, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback, new ConfigurationOptions());
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call setInstanceOptionalPropertyMappingAsync(String instanceId, String integration, Map<String, LusidPropertyDefinitionOverridesByType> requestBody, final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = setInstanceOptionalPropertyMappingValidateBeforeCall(instanceId, integration, requestBody, _callback, opts);
-        Type localVarReturnType = new TypeToken<Map<String, LusidPropertyDefinitionOverridesByType>>(){}.getType();
+        Type localVarReturnType = new TypeToken<SetInstanceOptionalPropertyMappingResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -4116,7 +4155,7 @@ public class IntegrationsApi {
 
         /**
          * Execute setInstanceOptionalPropertyMapping request
-         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
+         * @return SetInstanceOptionalPropertyMappingResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -4127,14 +4166,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverridesByType> execute() throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
+        public SetInstanceOptionalPropertyMappingResponse execute() throws ApiException {
+            ApiResponse<SetInstanceOptionalPropertyMappingResponse> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
             return localVarResp.getData();
         }
 
         /**
          * Execute setInstanceOptionalPropertyMapping request. Use any specified configuration options to override any other configuration for this request only.
-         * @return Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;
+         * @return SetInstanceOptionalPropertyMappingResponse
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -4145,14 +4184,14 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public Map<String, LusidPropertyDefinitionOverridesByType> execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
+        public SetInstanceOptionalPropertyMappingResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<SetInstanceOptionalPropertyMappingResponse> localVarResp = setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
             return localVarResp.getData();
         }
 
         /**
          * Execute setInstanceOptionalPropertyMapping request with HTTP info returned
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
+         * @return ApiResponse&lt;SetInstanceOptionalPropertyMappingResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -4163,13 +4202,13 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo() throws ApiException {
+        public ApiResponse<SetInstanceOptionalPropertyMappingResponse> executeWithHttpInfo() throws ApiException {
             return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody);
         }
 
         /**
          * Execute setInstanceOptionalPropertyMapping request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
-         * @return ApiResponse&lt;Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;&gt;
+         * @return ApiResponse&lt;SetInstanceOptionalPropertyMappingResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
          * @http.response.details
          <table summary="Response Details" border="1">
@@ -4180,7 +4219,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public ApiResponse<Map<String, LusidPropertyDefinitionOverridesByType>> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        public ApiResponse<SetInstanceOptionalPropertyMappingResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
             return setInstanceOptionalPropertyMappingWithHttpInfo(instanceId, integration, requestBody, opts);
         }
 
@@ -4198,7 +4237,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback) throws ApiException {
             return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback);
         }
 
@@ -4216,7 +4255,7 @@ public class IntegrationsApi {
             <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
          </table>
          */
-        public okhttp3.Call executeAsync(final ApiCallback<Map<String, LusidPropertyDefinitionOverridesByType>> _callback, ConfigurationOptions opts) throws ApiException {
+        public okhttp3.Call executeAsync(final ApiCallback<SetInstanceOptionalPropertyMappingResponse> _callback, ConfigurationOptions opts) throws ApiException {
             return setInstanceOptionalPropertyMappingAsync(instanceId, integration, requestBody, _callback, opts);
         }
     }

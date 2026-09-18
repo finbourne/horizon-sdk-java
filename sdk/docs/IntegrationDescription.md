@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** | Describes the purpose of the integration. | [default to String]
 **supportedTriggerTypes** | **List&lt;String&gt;** | Trigger types (Time, File) the integration supports. | [default to List<String>]
 **licensed** | **Boolean** | True if your domain is licensed to use this integration, otherwise false. | [default to Boolean]
+**supportsEffectiveFromOverride** | **Boolean** | True if this integration allows a per-property effectiveFromOverride to be set via the optional property mapping endpoints, otherwise false. | [default to Boolean]
 
 ```java
 import com.finbourne.horizon.model.IntegrationDescription;
@@ -22,6 +23,7 @@ String Name = "example Name";
 String Description = "example Description";
 List<String> SupportedTriggerTypes = new List<String>();
 Boolean Licensed = true;
+Boolean SupportsEffectiveFromOverride = true;
 
 
 IntegrationDescription integrationDescriptionInstance = new IntegrationDescription()
@@ -29,7 +31,8 @@ IntegrationDescription integrationDescriptionInstance = new IntegrationDescripti
     .Name(Name)
     .Description(Description)
     .SupportedTriggerTypes(SupportedTriggerTypes)
-    .Licensed(Licensed);
+    .Licensed(Licensed)
+    .SupportsEffectiveFromOverride(SupportsEffectiveFromOverride);
 ```
 
 

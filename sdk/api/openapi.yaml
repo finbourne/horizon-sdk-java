@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3918
+  version: 0.1.3940
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -523,6 +523,7 @@ paths:
                 supportedTriggerTypes:
                 - Time
                 licensed: true
+                supportsEffectiveFromOverride: false
               schema:
                 items:
                   $ref: '#/components/schemas/IntegrationDescription'
@@ -1006,7 +1007,9 @@ paths:
       x-accepts: application/json
   /api/integrations/dataflow/processors:
     get:
-      description: The user must be authenticated to call this method.
+      description: |-
+        Any authenticated user can call this method. The processor list is empty unless the user's domain
+        is licensed for integration dataflow.
       operationId: ListDataflowProcessors
       responses:
         "200":
@@ -1044,6 +1047,9 @@ paths:
       x-accepts: application/json
   /api/integrations/dataflow/processors/{processorType}/schema:
     get:
+      description: |-
+        The user must be authenticated and the user's domain must be licensed for integration dataflow to
+        call this method. An unlicensed domain is answered with a 404, as for an unknown processor type.
       operationId: GetDataflowProcessorSchema
       parameters:
       - description: ""
@@ -1105,7 +1111,8 @@ paths:
                 $ref: '#/components/schemas/ProcessorSchemaResponse'
           description: OK
         "404":
-          description: The processor type does not exist.
+          description: "The processor type does not exist, or your domain is not licensed\
+            \ for integration dataflow."
         default:
           content:
             application/json:
@@ -1125,6 +1132,31 @@ paths:
     get:
       description: The user must be authenticated to call this method.
       operationId: ListInstances
+      parameters:
+      - description: Restrict results to these integration types e.g. "copp-clark".
+          Types the caller is not licensed and entitled for match nothing.
+        explode: true
+        in: query
+        name: integrationTypes
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "A Finbourne filter over Name, Description and Enabled e.g. Name\
+          \ eq 'Market data'."
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -1151,6 +1183,12 @@ paths:
                   $ref: '#/components/schemas/IntegrationInstance'
                 type: array
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
         "404":
           description: The requested instance(s) do not exist.
         default:
@@ -1275,17 +1313,24 @@ paths:
           content:
             application/json:
               example:
-                Instrument/TestVendor/CreditRating:
-                  displayNameOverride: Vendor Credit Rating
-                  entityType: Instrument
-                  entitySubType:
-                  - Equity
-                  vendorPackage:
-                  - Transaction
+                propertyOverrides:
+                  Instrument/TestVendor/CreditRating:
+                    displayNameOverride: Vendor Credit Rating
+                    entityType: Instrument
+                    entitySubType:
+                    - Equity
+                    vendorPackage:
+                    - Transaction
+                    effectiveFromOverride: 0001-01-01T00:00:00Z
+                  Instrument/TestVendor/CouponRate:
+                    entityType: Instrument
+                    entitySubType:
+                    - Bond
+                    vendorPackage:
+                    - Transaction
+                warnings: []
               schema:
-                additionalProperties:
-                  $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
-                type: object
+                $ref: '#/components/schemas/SetInstanceOptionalPropertyMappingResponse'
           description: OK
         default:
           content:
@@ -1339,6 +1384,13 @@ paths:
                 - Equity
                 vendorPackage:
                 - Transaction
+                effectiveFromOverride: 0001-01-01T00:00:00Z
+              Instrument/TestVendor/CouponRate:
+                entityType: Instrument
+                entitySubType:
+                - Bond
+                vendorPackage:
+                - Transaction
             schema:
               additionalProperties:
                 $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
@@ -1357,17 +1409,27 @@ paths:
           content:
             application/json:
               example:
-                Instrument/TestVendor/CreditRating:
-                  displayNameOverride: Vendor Credit Rating
-                  entityType: Instrument
-                  entitySubType:
-                  - Equity
-                  vendorPackage:
-                  - Transaction
+                propertyOverrides:
+                  Instrument/TestVendor/CreditRating:
+                    displayNameOverride: Vendor Credit Rating
+                    entityType: Instrument
+                    entitySubType:
+                    - Equity
+                    vendorPackage:
+                    - Transaction
+                    effectiveFromOverride: 0001-01-01T00:00:00Z
+                  Instrument/TestVendor/CouponRate:
+                    entityType: Instrument
+                    entitySubType:
+                    - Bond
+                    vendorPackage:
+                    - Transaction
+                warnings:
+                - "Property Instrument/TestVendor/CreditRating: sibling instance 'INT10\
+                  \ UAT' has effectiveFromOverride '(none)', this write is setting\
+                  \ '0001-01-01T00:00:00Z'."
               schema:
-                additionalProperties:
-                  $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
-                type: object
+                $ref: '#/components/schemas/SetInstanceOptionalPropertyMappingResponse'
           description: OK
         default:
           content:
@@ -4909,6 +4971,7 @@ components:
             - entitySubType
             - entitySubType
             descriptionOverride: descriptionOverride
+            effectiveFromOverride: effectiveFromOverride
             vendorPackage:
             - vendorPackage
             - vendorPackage
@@ -5670,7 +5733,7 @@ components:
       example:
         skippedCount: 5
         attempt: 0
-        batchReferenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         sentCount: 1
         duration: duration
         total: 6
@@ -5685,7 +5748,7 @@ components:
         runId:
           format: uuid
           type: string
-        batchReferenceId:
+        referenceId:
           format: uuid
           type: string
         attempt:
@@ -5724,9 +5787,9 @@ components:
           format: int32
           type: integer
       required:
-      - batchReferenceId
       - failedCount
       - failedFiles
+      - referenceId
       - runId
       - sentCount
       - skippedCount
@@ -5817,6 +5880,7 @@ components:
       additionalProperties: false
       description: Response containing the description of an integration.
       example:
+        supportsEffectiveFromOverride: true
         licensed: true
         supportedTriggerTypes:
         - supportedTriggerTypes
@@ -5843,11 +5907,16 @@ components:
           description: "True if your domain is licensed to use this integration, otherwise\
             \ false."
           type: boolean
+        supportsEffectiveFromOverride:
+          description: "True if this integration allows a per-property effectiveFromOverride\
+            \ to be set via the optional property mapping endpoints, otherwise false."
+          type: boolean
       required:
       - description
       - licensed
       - name
       - supportedTriggerTypes
+      - supportsEffectiveFromOverride
       - type
       type: object
     IntegrationEndResponse:
@@ -6981,6 +7050,7 @@ components:
         - entitySubType
         - entitySubType
         descriptionOverride: descriptionOverride
+        effectiveFromOverride: effectiveFromOverride
         vendorPackage:
         - vendorPackage
         - vendorPackage
@@ -7010,6 +7080,16 @@ components:
             type: string
           nullable: true
           type: array
+        effectiveFromOverride:
+          description: "ISO-8601 instant to use as the property value's effectiveFrom\
+            \ instead of the date the integration derives, e.g. \"0001-01-01T00:00:00Z\"\
+            . Only accepted for integrations reporting supportsEffectiveFromOverride,\
+            \ and only for TimeVariant property definitions. Omit to leave any stored\
+            \ value untouched; send an empty string to clear it."
+          maxLength: 4096
+          minLength: 0
+          nullable: true
+          type: string
       type: object
     LusidPropertyDefinitionOverridesResponse:
       additionalProperties: false
@@ -7687,7 +7767,7 @@ components:
         values:
         - skippedCount: 5
           attempt: 0
-          batchReferenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
           duration: duration
           total: 6
@@ -7700,7 +7780,7 @@ components:
           triggeredBy: triggeredBy
         - skippedCount: 5
           attempt: 0
-          batchReferenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
           duration: duration
           total: 6
@@ -9107,6 +9187,44 @@ components:
       required:
       - count
       - status
+      type: object
+    SetInstanceOptionalPropertyMappingResponse:
+      additionalProperties: false
+      description: Response for SetInstanceOptionalPropertyMapping.
+      example:
+        propertyOverrides:
+          key:
+            displayNameOverride: displayNameOverride
+            entityType: entityType
+            entitySubType:
+            - entitySubType
+            - entitySubType
+            descriptionOverride: descriptionOverride
+            effectiveFromOverride: effectiveFromOverride
+            vendorPackage:
+            - vendorPackage
+            - vendorPackage
+        warnings:
+        - warnings
+        - warnings
+      properties:
+        propertyOverrides:
+          additionalProperties:
+            $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
+          description: "The full, current optional property mapping for the instance,\
+            \ after the write."
+          type: object
+        warnings:
+          description: "Advisory warnings about a write that succeeded regardless,\
+            \ e.g. a future-dated effectiveFromOverride, or another enabled instance\
+            \ of the same integration holding a different effectiveFromOverride for\
+            \ the same property."
+          items:
+            type: string
+          type: array
+      required:
+      - propertyOverrides
+      - warnings
       type: object
     TpfFailedDeliveryResponse:
       additionalProperties: false

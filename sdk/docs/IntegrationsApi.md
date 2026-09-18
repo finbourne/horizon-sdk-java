@@ -400,6 +400,8 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] GetDataflowProcessorSchema: Returns processor configuration schema for a given processor type. This is used by the UI to render the configuration form for a processortype.
 
+The user must be authenticated and the user&#39;s domain must be licensed for integration dataflow to call this method. An unlicensed domain is answered with a 404, as for an unknown processor type.
+
 ### Example
 
 ```java
@@ -478,7 +480,7 @@ public class IntegrationsApiExample {
 |-------------|-------------|------------------|
 | **400** | The details of the input related failure |  -  |
 | **200** | OK |  -  |
-| **404** | The processor type does not exist. |  -  |
+| **404** | The processor type does not exist, or your domain is not licensed for integration dataflow. |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
@@ -672,7 +674,7 @@ public class IntegrationsApiExample {
 
 ## getInstanceOptionalPropertyMapping
 
-> Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; getInstanceOptionalPropertyMapping(integration, instanceId)
+> SetInstanceOptionalPropertyMappingResponse getInstanceOptionalPropertyMapping(integration, instanceId)
 
 [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an integration instance
 
@@ -721,9 +723,9 @@ public class IntegrationsApiExample {
         String instanceId = "instanceId_example"; // String | Identifier of the instance
         try {
             // uncomment the below to set overrides at the request level
-            // Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
+            // SetInstanceOptionalPropertyMappingResponse result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
 
-            Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
+            SetInstanceOptionalPropertyMappingResponse result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#getInstanceOptionalPropertyMapping");
@@ -745,7 +747,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-[**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md)
+[**SetInstanceOptionalPropertyMappingResponse**](SetInstanceOptionalPropertyMappingResponse.md)
 
 ### HTTP request headers
 
@@ -1246,7 +1248,7 @@ public class IntegrationsApiExample {
 
 [EXPERIMENTAL] ListDataflowProcessors: List processor types.
 
-The user must be authenticated to call this method.
+Any authenticated user can call this method. The processor list is empty unless the user&#39;s domain is licensed for integration dataflow.
 
 ### Example
 
@@ -1329,7 +1331,7 @@ This endpoint does not need any parameter.
 
 ## listInstances
 
-> List&lt;IntegrationInstance&gt; listInstances()
+> List&lt;IntegrationInstance&gt; listInstances(integrationTypes, filter)
 
 [EXPERIMENTAL] ListInstances: List instances across all integrations.
 
@@ -1374,11 +1376,13 @@ public class IntegrationsApiExample {
         // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
 
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        List<String> integrationTypes = Arrays.asList(); // List<String> | Restrict results to these integration types e.g. \"copp-clark\". Types the caller is not licensed and entitled for match nothing.
+        String filter = "filter_example"; // String | A Finbourne filter over Name, Description and Enabled e.g. Name eq 'Market data'.
         try {
             // uncomment the below to set overrides at the request level
-            // List<IntegrationInstance> result = apiInstance.listInstances().execute(opts);
+            // List<IntegrationInstance> result = apiInstance.listInstances(integrationTypes, filter).execute(opts);
 
-            List<IntegrationInstance> result = apiInstance.listInstances().execute();
+            List<IntegrationInstance> result = apiInstance.listInstances(integrationTypes, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#listInstances");
@@ -1392,7 +1396,11 @@ public class IntegrationsApiExample {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **integrationTypes** | [**List&lt;String&gt;**](String.md)| Restrict results to these integration types e.g. \&quot;copp-clark\&quot;. Types the caller is not licensed and entitled for match nothing. | [optional] |
+| **filter** | **String**| A Finbourne filter over Name, Description and Enabled e.g. Name eq &#39;Market data&#39;. | [optional] |
 
 ### Return type
 
@@ -1408,6 +1416,7 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
+| **400** | The details of the input related failure |  -  |
 | **404** | The requested instance(s) do not exist. |  -  |
 | **0** | Error response |  -  |
 
@@ -1502,7 +1511,7 @@ This endpoint does not need any parameter.
 
 ## setInstanceOptionalPropertyMapping
 
-> Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; setInstanceOptionalPropertyMapping(instanceId, integration, requestBody)
+> SetInstanceOptionalPropertyMappingResponse setInstanceOptionalPropertyMapping(instanceId, integration, requestBody)
 
 [EXPERIMENTAL] SetInstanceOptionalPropertyMapping: Set the Optional Property Mapping for an integration instance
 
@@ -1552,9 +1561,9 @@ public class IntegrationsApiExample {
         Map<String, LusidPropertyDefinitionOverridesByType> requestBody = new HashMap(); // Map<String, LusidPropertyDefinitionOverridesByType> | Properties to be included and any overrides
         try {
             // uncomment the below to set overrides at the request level
-            // Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute(opts);
+            // SetInstanceOptionalPropertyMappingResponse result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute(opts);
 
-            Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute();
+            SetInstanceOptionalPropertyMappingResponse result = apiInstance.setInstanceOptionalPropertyMapping(instanceId, integration, requestBody).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#setInstanceOptionalPropertyMapping");
@@ -1577,7 +1586,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-[**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md)
+[**SetInstanceOptionalPropertyMappingResponse**](SetInstanceOptionalPropertyMappingResponse.md)
 
 ### HTTP request headers
 

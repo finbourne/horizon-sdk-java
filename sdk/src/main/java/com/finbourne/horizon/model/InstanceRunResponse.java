@@ -56,9 +56,9 @@ public class InstanceRunResponse {
   @SerializedName(SERIALIZED_NAME_RUN_ID)
   private UUID runId;
 
-  public static final String SERIALIZED_NAME_BATCH_REFERENCE_ID = "batchReferenceId";
-  @SerializedName(SERIALIZED_NAME_BATCH_REFERENCE_ID)
-  private UUID batchReferenceId;
+  public static final String SERIALIZED_NAME_REFERENCE_ID = "referenceId";
+  @SerializedName(SERIALIZED_NAME_REFERENCE_ID)
+  private UUID referenceId;
 
   public static final String SERIALIZED_NAME_ATTEMPT = "attempt";
   @SerializedName(SERIALIZED_NAME_ATTEMPT)
@@ -128,24 +128,24 @@ public class InstanceRunResponse {
   }
 
 
-  public InstanceRunResponse batchReferenceId(UUID batchReferenceId) {
+  public InstanceRunResponse referenceId(UUID referenceId) {
     
-    this.batchReferenceId = batchReferenceId;
+    this.referenceId = referenceId;
     return this;
   }
 
    /**
-   * Get batchReferenceId
-   * @return batchReferenceId
+   * Get referenceId
+   * @return referenceId
   **/
   @jakarta.annotation.Nonnull
-  public UUID getBatchReferenceId() {
-    return batchReferenceId;
+  public UUID getReferenceId() {
+    return referenceId;
   }
 
 
-  public void setBatchReferenceId(UUID batchReferenceId) {
-    this.batchReferenceId = batchReferenceId;
+  public void setReferenceId(UUID referenceId) {
+    this.referenceId = referenceId;
   }
 
 
@@ -391,7 +391,7 @@ public class InstanceRunResponse {
     }
     InstanceRunResponse instanceRunResponse = (InstanceRunResponse) o;
     return Objects.equals(this.runId, instanceRunResponse.runId) &&
-        Objects.equals(this.batchReferenceId, instanceRunResponse.batchReferenceId) &&
+        Objects.equals(this.referenceId, instanceRunResponse.referenceId) &&
         Objects.equals(this.attempt, instanceRunResponse.attempt) &&
         Objects.equals(this.startTime, instanceRunResponse.startTime) &&
         Objects.equals(this.endTime, instanceRunResponse.endTime) &&
@@ -411,7 +411,7 @@ public class InstanceRunResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, batchReferenceId, attempt, startTime, endTime, duration, status, triggeredBy, total, sentCount, skippedCount, failedCount, failedFiles);
+    return Objects.hash(runId, referenceId, attempt, startTime, endTime, duration, status, triggeredBy, total, sentCount, skippedCount, failedCount, failedFiles);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -426,7 +426,7 @@ public class InstanceRunResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class InstanceRunResponse {\n");
     sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
-    sb.append("    batchReferenceId: ").append(toIndentedString(batchReferenceId)).append("\n");
+    sb.append("    referenceId: ").append(toIndentedString(referenceId)).append("\n");
     sb.append("    attempt: ").append(toIndentedString(attempt)).append("\n");
     sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
     sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
@@ -461,7 +461,7 @@ public class InstanceRunResponse {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("runId");
-    openapiFields.add("batchReferenceId");
+    openapiFields.add("referenceId");
     openapiFields.add("attempt");
     openapiFields.add("startTime");
     openapiFields.add("endTime");
@@ -477,7 +477,7 @@ public class InstanceRunResponse {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("runId");
-    openapiRequiredFields.add("batchReferenceId");
+    openapiRequiredFields.add("referenceId");
     openapiRequiredFields.add("startTime");
     openapiRequiredFields.add("status");
     openapiRequiredFields.add("total");
@@ -510,8 +510,8 @@ public class InstanceRunResponse {
       if (!jsonObj.get("runId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `runId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("runId").toString()));
       }
-      if (!jsonObj.get("batchReferenceId").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `batchReferenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("batchReferenceId").toString()));
+      if (!jsonObj.get("referenceId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `referenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("referenceId").toString()));
       }
       if ((jsonObj.get("duration") != null && !jsonObj.get("duration").isJsonNull()) && !jsonObj.get("duration").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `duration` to be a primitive type in the JSON string but got `%s`", jsonObj.get("duration").toString()));
