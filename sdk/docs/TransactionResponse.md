@@ -9,11 +9,11 @@ Name | Type | Description | Notes
 **publicationStatus** | **String** |  | [default to String]
 **portfolioScope** | **String** |  | [optional] [default to String]
 **portfolioCode** | **String** |  | [optional] [default to String]
-**instrumentId** | **String** |  | [default to String]
-**instrumentType** | **String** |  | [default to String]
-**instrumentName** | **String** |  | [default to String]
-**tradeDate** | [**OffsetDateTime**](OffsetDateTime.md) |  | [default to OffsetDateTime]
-**settlementDate** | [**OffsetDateTime**](OffsetDateTime.md) |  | [default to OffsetDateTime]
+**instrumentId** | **String** |  | [optional] [default to String]
+**instrumentType** | **String** |  | [optional] [default to String]
+**instrumentName** | **String** |  | [optional] [default to String]
+**tradeDate** | [**OffsetDateTime**](OffsetDateTime.md) |  | [optional] [default to OffsetDateTime]
+**settlementDate** | [**OffsetDateTime**](OffsetDateTime.md) |  | [optional] [default to OffsetDateTime]
 **status** | **String** |  | [default to String]
 **skipReason** | **String** |  | [optional] [default to String]
 **failureReason** | **String** |  | [optional] [default to String]
@@ -31,11 +31,11 @@ String TransactionId = "example TransactionId";
 String PublicationStatus = "example PublicationStatus";
 @jakarta.annotation.Nullable String PortfolioScope = "example PortfolioScope";
 @jakarta.annotation.Nullable String PortfolioCode = "example PortfolioCode";
-String InstrumentId = "example InstrumentId";
-String InstrumentType = "example InstrumentType";
-String InstrumentName = "example InstrumentName";
-OffsetDateTime TradeDate = OffsetDateTime.now();
-OffsetDateTime SettlementDate = OffsetDateTime.now();
+@jakarta.annotation.Nullable String InstrumentId = "example InstrumentId";
+@jakarta.annotation.Nullable String InstrumentType = "example InstrumentType";
+@jakarta.annotation.Nullable String InstrumentName = "example InstrumentName";
+@jakarta.annotation.Nullable OffsetDateTime TradeDate = OffsetDateTime.now();
+@jakarta.annotation.Nullable OffsetDateTime SettlementDate = OffsetDateTime.now();
 String Status = "example Status";
 @jakarta.annotation.Nullable String SkipReason = "example SkipReason";
 @jakarta.annotation.Nullable String FailureReason = "example FailureReason";

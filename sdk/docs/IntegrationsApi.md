@@ -674,7 +674,7 @@ public class IntegrationsApiExample {
 
 ## getInstanceOptionalPropertyMapping
 
-> SetInstanceOptionalPropertyMappingResponse getInstanceOptionalPropertyMapping(integration, instanceId)
+> Map&lt;String, LusidPropertyDefinitionOverridesByType&gt; getInstanceOptionalPropertyMapping(integration, instanceId)
 
 [EXPERIMENTAL] GetInstanceOptionalPropertyMapping: Get the Optional Property Mapping for an integration instance
 
@@ -723,9 +723,9 @@ public class IntegrationsApiExample {
         String instanceId = "instanceId_example"; // String | Identifier of the instance
         try {
             // uncomment the below to set overrides at the request level
-            // SetInstanceOptionalPropertyMappingResponse result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
+            // Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute(opts);
 
-            SetInstanceOptionalPropertyMappingResponse result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
+            Map<String, LusidPropertyDefinitionOverridesByType> result = apiInstance.getInstanceOptionalPropertyMapping(integration, instanceId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#getInstanceOptionalPropertyMapping");
@@ -747,7 +747,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-[**SetInstanceOptionalPropertyMappingResponse**](SetInstanceOptionalPropertyMappingResponse.md)
+[**Map&lt;String, LusidPropertyDefinitionOverridesByType&gt;**](LusidPropertyDefinitionOverridesByType.md)
 
 ### HTTP request headers
 

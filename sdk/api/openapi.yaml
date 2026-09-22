@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3944
+  version: 0.1.3961
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1313,24 +1313,24 @@ paths:
           content:
             application/json:
               example:
-                propertyOverrides:
-                  Instrument/TestVendor/CreditRating:
-                    displayNameOverride: Vendor Credit Rating
-                    entityType: Instrument
-                    entitySubType:
-                    - Equity
-                    vendorPackage:
-                    - Transaction
-                    effectiveFromOverride: 0001-01-01T00:00:00Z
-                  Instrument/TestVendor/CouponRate:
-                    entityType: Instrument
-                    entitySubType:
-                    - Bond
-                    vendorPackage:
-                    - Transaction
-                warnings: []
+                Instrument/TestVendor/CreditRating:
+                  displayNameOverride: Vendor Credit Rating
+                  entityType: Instrument
+                  entitySubType:
+                  - Equity
+                  vendorPackage:
+                  - Transaction
+                  effectiveFromOverride: 0001-01-01T00:00:00Z
+                Instrument/TestVendor/CouponRate:
+                  entityType: Instrument
+                  entitySubType:
+                  - Bond
+                  vendorPackage:
+                  - Transaction
               schema:
-                $ref: '#/components/schemas/SetInstanceOptionalPropertyMappingResponse'
+                additionalProperties:
+                  $ref: '#/components/schemas/LusidPropertyDefinitionOverridesByType'
+                type: object
           description: OK
         default:
           content:
@@ -9693,16 +9693,21 @@ components:
           nullable: true
           type: string
         instrumentId:
+          nullable: true
           type: string
         instrumentType:
+          nullable: true
           type: string
         instrumentName:
+          nullable: true
           type: string
         tradeDate:
           format: date-time
+          nullable: true
           type: string
         settlementDate:
           format: date-time
+          nullable: true
           type: string
         status:
           type: string
@@ -9725,13 +9730,8 @@ components:
           type: array
       required:
       - destinations
-      - instrumentId
-      - instrumentName
-      - instrumentType
       - publicationStatus
-      - settlementDate
       - status
-      - tradeDate
       - transactionId
       type: object
     Trigger:

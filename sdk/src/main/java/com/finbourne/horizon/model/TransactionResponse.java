@@ -211,7 +211,7 @@ public class TransactionResponse {
    * Get instrumentId
    * @return instrumentId
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getInstrumentId() {
     return instrumentId;
   }
@@ -232,7 +232,7 @@ public class TransactionResponse {
    * Get instrumentType
    * @return instrumentType
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getInstrumentType() {
     return instrumentType;
   }
@@ -253,7 +253,7 @@ public class TransactionResponse {
    * Get instrumentName
    * @return instrumentName
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public String getInstrumentName() {
     return instrumentName;
   }
@@ -274,7 +274,7 @@ public class TransactionResponse {
    * Get tradeDate
    * @return tradeDate
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public OffsetDateTime getTradeDate() {
     return tradeDate;
   }
@@ -295,7 +295,7 @@ public class TransactionResponse {
    * Get settlementDate
    * @return settlementDate
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public OffsetDateTime getSettlementDate() {
     return settlementDate;
   }
@@ -544,11 +544,6 @@ public class TransactionResponse {
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("transactionId");
     openapiRequiredFields.add("publicationStatus");
-    openapiRequiredFields.add("instrumentId");
-    openapiRequiredFields.add("instrumentType");
-    openapiRequiredFields.add("instrumentName");
-    openapiRequiredFields.add("tradeDate");
-    openapiRequiredFields.add("settlementDate");
     openapiRequiredFields.add("status");
     openapiRequiredFields.add("destinations");
   }
@@ -585,13 +580,13 @@ public class TransactionResponse {
       if ((jsonObj.get("portfolioCode") != null && !jsonObj.get("portfolioCode").isJsonNull()) && !jsonObj.get("portfolioCode").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `portfolioCode` to be a primitive type in the JSON string but got `%s`", jsonObj.get("portfolioCode").toString()));
       }
-      if (!jsonObj.get("instrumentId").isJsonPrimitive()) {
+      if ((jsonObj.get("instrumentId") != null && !jsonObj.get("instrumentId").isJsonNull()) && !jsonObj.get("instrumentId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instrumentId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentId").toString()));
       }
-      if (!jsonObj.get("instrumentType").isJsonPrimitive()) {
+      if ((jsonObj.get("instrumentType") != null && !jsonObj.get("instrumentType").isJsonNull()) && !jsonObj.get("instrumentType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instrumentType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentType").toString()));
       }
-      if (!jsonObj.get("instrumentName").isJsonPrimitive()) {
+      if ((jsonObj.get("instrumentName") != null && !jsonObj.get("instrumentName").isJsonNull()) && !jsonObj.get("instrumentName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instrumentName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentName").toString()));
       }
       if (!jsonObj.get("status").isJsonPrimitive()) {
