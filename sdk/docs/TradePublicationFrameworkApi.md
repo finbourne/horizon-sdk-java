@@ -405,7 +405,7 @@ public class TradePublicationFrameworkApiExample {
 
 ## listInstanceRunHistory
 
-> PagedResourceListOfInstanceRunResponse listInstanceRunHistory(instanceId, page, pageSize)
+> PagedResourceListOfInstanceRunResponse listInstanceRunHistory(instanceId, page, pageSize, filter)
 
 [EXPERIMENTAL] ListInstanceRunHistory: List run history for a given TPF instance, with pagination support.
 
@@ -451,11 +451,12 @@ public class TradePublicationFrameworkApiExample {
         String instanceId = "instanceId_example"; // String | 
         String page = ""; // String | 
         Integer pageSize = 100; // Integer | 
+        String filter = "filter_example"; // String | A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not filterable and will result in a 400 response.
         try {
             // uncomment the below to set overrides at the request level
-            // PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize).execute(opts);
+            // PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize, filter).execute(opts);
 
-            PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize).execute();
+            PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling TradePublicationFrameworkApi#listInstanceRunHistory");
@@ -475,6 +476,7 @@ public class TradePublicationFrameworkApiExample {
 | **instanceId** | **String**|  | |
 | **page** | **String**|  | [optional] [default to ] |
 | **pageSize** | **Integer**|  | [optional] [default to 100] |
+| **filter** | **String**| A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not filterable and will result in a 400 response. | [optional] |
 
 ### Return type
 

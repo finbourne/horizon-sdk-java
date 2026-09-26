@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3961
+  version: 0.1.3979
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3329,6 +3329,20 @@ paths:
           type: integer
         style: form
         x-nullable: true
+      - description: |-
+          A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and
+          failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not
+          filterable and will result in a 400 response.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
       responses:
         "200":
           content:

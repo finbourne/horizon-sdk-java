@@ -1205,11 +1205,11 @@ public class TradePublicationFrameworkApi {
     public APIlistFailedDeliveriesRequest listFailedDeliveries(String instanceId) {
         return new APIlistFailedDeliveriesRequest(instanceId);
     }
-    private okhttp3.Call listInstanceRunHistoryCall(String instanceId, String page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        return listInstanceRunHistoryCall(instanceId, page, pageSize,  _callback, new ConfigurationOptions());
+    private okhttp3.Call listInstanceRunHistoryCall(String instanceId, String page, Integer pageSize, String filter, final ApiCallback _callback) throws ApiException {
+        return listInstanceRunHistoryCall(instanceId, page, pageSize, filter,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call listInstanceRunHistoryCall(String instanceId, String page, Integer pageSize, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listInstanceRunHistoryCall(String instanceId, String page, Integer pageSize, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1243,6 +1243,10 @@ public class TradePublicationFrameworkApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("pageSize", pageSize));
         }
 
+        if (filter != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter", filter));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -1263,40 +1267,40 @@ public class TradePublicationFrameworkApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listInstanceRunHistoryValidateBeforeCall(String instanceId, String page, Integer pageSize, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listInstanceRunHistoryValidateBeforeCall(String instanceId, String page, Integer pageSize, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling listInstanceRunHistory(Async)");
         }
 
-        return listInstanceRunHistoryCall(instanceId, page, pageSize, _callback, opts);
+        return listInstanceRunHistoryCall(instanceId, page, pageSize, filter, _callback, opts);
 
     }
 
 
-    private ApiResponse<PagedResourceListOfInstanceRunResponse> listInstanceRunHistoryWithHttpInfo(String instanceId, String page, Integer pageSize) throws ApiException {
-        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, null, new ConfigurationOptions());
+    private ApiResponse<PagedResourceListOfInstanceRunResponse> listInstanceRunHistoryWithHttpInfo(String instanceId, String page, Integer pageSize, String filter) throws ApiException {
+        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, filter, null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<PagedResourceListOfInstanceRunResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<PagedResourceListOfInstanceRunResponse> listInstanceRunHistoryWithHttpInfo(String instanceId, String page, Integer pageSize, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, null, opts);
+    private ApiResponse<PagedResourceListOfInstanceRunResponse> listInstanceRunHistoryWithHttpInfo(String instanceId, String page, Integer pageSize, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, filter, null, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfInstanceRunResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call listInstanceRunHistoryAsync(String instanceId, String page, Integer pageSize, final ApiCallback<PagedResourceListOfInstanceRunResponse> _callback) throws ApiException {
+    private okhttp3.Call listInstanceRunHistoryAsync(String instanceId, String page, Integer pageSize, String filter, final ApiCallback<PagedResourceListOfInstanceRunResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, _callback, new ConfigurationOptions());
+        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, filter, _callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<PagedResourceListOfInstanceRunResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call listInstanceRunHistoryAsync(String instanceId, String page, Integer pageSize, final ApiCallback<PagedResourceListOfInstanceRunResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call listInstanceRunHistoryAsync(String instanceId, String page, Integer pageSize, String filter, final ApiCallback<PagedResourceListOfInstanceRunResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, _callback, opts);
+        okhttp3.Call localVarCall = listInstanceRunHistoryValidateBeforeCall(instanceId, page, pageSize, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfInstanceRunResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1306,6 +1310,7 @@ public class TradePublicationFrameworkApi {
         private final String instanceId;
         private String page;
         private Integer pageSize;
+        private String filter;
 
         private APIlistInstanceRunHistoryRequest(String instanceId) {
             this.instanceId = instanceId;
@@ -1332,6 +1337,16 @@ public class TradePublicationFrameworkApi {
         }
 
         /**
+         * Set filter
+         * @param filter A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not filterable and will result in a 400 response. (optional)
+         * @return APIlistInstanceRunHistoryRequest
+         */
+        public APIlistInstanceRunHistoryRequest filter(String filter) {
+            this.filter = filter;
+            return this;
+        }
+
+        /**
          * Build call for listInstanceRunHistory
          * @param _callback ApiCallback API callback
          * @return Call to execute
@@ -1345,7 +1360,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return listInstanceRunHistoryCall(instanceId, page, pageSize, _callback);
+            return listInstanceRunHistoryCall(instanceId, page, pageSize, filter, _callback);
         }
 
         /**
@@ -1361,7 +1376,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public PagedResourceListOfInstanceRunResponse execute() throws ApiException {
-            ApiResponse<PagedResourceListOfInstanceRunResponse> localVarResp = listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize);
+            ApiResponse<PagedResourceListOfInstanceRunResponse> localVarResp = listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize, filter);
             return localVarResp.getData();
         }
 
@@ -1378,7 +1393,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public PagedResourceListOfInstanceRunResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<PagedResourceListOfInstanceRunResponse> localVarResp = listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize, opts);
+            ApiResponse<PagedResourceListOfInstanceRunResponse> localVarResp = listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize, filter, opts);
             return localVarResp.getData();
         }
 
@@ -1395,7 +1410,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfInstanceRunResponse> executeWithHttpInfo() throws ApiException {
-            return listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize);
+            return listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize, filter);
         }
 
         /**
@@ -1411,7 +1426,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfInstanceRunResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize, opts);
+            return listInstanceRunHistoryWithHttpInfo(instanceId, page, pageSize, filter, opts);
         }
 
         /**
@@ -1428,7 +1443,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfInstanceRunResponse> _callback) throws ApiException {
-            return listInstanceRunHistoryAsync(instanceId, page, pageSize, _callback);
+            return listInstanceRunHistoryAsync(instanceId, page, pageSize, filter, _callback);
         }
 
         /**
@@ -1445,7 +1460,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfInstanceRunResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return listInstanceRunHistoryAsync(instanceId, page, pageSize, _callback, opts);
+            return listInstanceRunHistoryAsync(instanceId, page, pageSize, filter, _callback, opts);
         }
     }
 
