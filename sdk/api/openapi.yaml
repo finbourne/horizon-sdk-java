@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.3979
+  version: 0.1.3986
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3306,7 +3306,9 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: true
+      - description: The pagination token from the previous response; <i>filter</i>
+          and <i>sortBy</i> must be unchanged.
+        explode: true
         in: query
         name: page
         required: false
@@ -3330,9 +3332,8 @@ paths:
         style: form
         x-nullable: true
       - description: |-
-          A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and
-          failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not
-          filterable and will result in a 400 response.
+          A Finbourne filter on any response field except duration, e.g. startTime gte '2026-04-01T00:00:00Z'
+          and status eq 'Auto-retry'. status is the displayed status.
         explode: true
         in: query
         name: filter
@@ -3343,6 +3344,18 @@ paths:
           pattern: "^[\\s\\S]*$"
           type: string
         style: form
+      - description: "Up to two filterable fields, each suffixed \" ASC\" or \" DESC\"\
+          . Defaults to newest first."
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
       responses:
         "200":
           content:

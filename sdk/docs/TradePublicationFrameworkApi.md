@@ -405,7 +405,7 @@ public class TradePublicationFrameworkApiExample {
 
 ## listInstanceRunHistory
 
-> PagedResourceListOfInstanceRunResponse listInstanceRunHistory(instanceId, page, pageSize, filter)
+> PagedResourceListOfInstanceRunResponse listInstanceRunHistory(instanceId, page, pageSize, filter, sortBy)
 
 [EXPERIMENTAL] ListInstanceRunHistory: List run history for a given TPF instance, with pagination support.
 
@@ -449,14 +449,15 @@ public class TradePublicationFrameworkApiExample {
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
         String instanceId = "instanceId_example"; // String | 
-        String page = ""; // String | 
+        String page = ""; // String | The pagination token from the previous response; <i>filter</i> and <i>sortBy</i> must be unchanged.
         Integer pageSize = 100; // Integer | 
-        String filter = "filter_example"; // String | A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not filterable and will result in a 400 response.
+        String filter = "filter_example"; // String | A Finbourne filter on any response field except duration, e.g. startTime gte '2026-04-01T00:00:00Z' and status eq 'Auto-retry'. status is the displayed status.
+        List<String> sortBy = Arrays.asList(); // List<String> | Up to two filterable fields, each suffixed \" ASC\" or \" DESC\". Defaults to newest first.
         try {
             // uncomment the below to set overrides at the request level
-            // PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize, filter).execute(opts);
+            // PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize, filter, sortBy).execute(opts);
 
-            PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize, filter).execute();
+            PagedResourceListOfInstanceRunResponse result = apiInstance.listInstanceRunHistory(instanceId, page, pageSize, filter, sortBy).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling TradePublicationFrameworkApi#listInstanceRunHistory");
@@ -474,9 +475,10 @@ public class TradePublicationFrameworkApiExample {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **instanceId** | **String**|  | |
-| **page** | **String**|  | [optional] [default to ] |
+| **page** | **String**| The pagination token from the previous response; &lt;i&gt;filter&lt;/i&gt; and &lt;i&gt;sortBy&lt;/i&gt; must be unchanged. | [optional] [default to ] |
 | **pageSize** | **Integer**|  | [optional] [default to 100] |
-| **filter** | **String**| A Finbourne filter over runId, referenceId, attempt, total, sentCount, skippedCount, failedCount and failedFiles e.g. failedCount gt 0. status, triggeredBy, duration, startTime and endTime are not filterable and will result in a 400 response. | [optional] |
+| **filter** | **String**| A Finbourne filter on any response field except duration, e.g. startTime gte &#39;2026-04-01T00:00:00Z&#39; and status eq &#39;Auto-retry&#39;. status is the displayed status. | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)| Up to two filterable fields, each suffixed \&quot; ASC\&quot; or \&quot; DESC\&quot;. Defaults to newest first. | [optional] |
 
 ### Return type
 
