@@ -793,11 +793,11 @@ public class IntegrationsApi {
     public APIexecuteInstanceRequest executeInstance(String instanceId) {
         return new APIexecuteInstanceRequest(instanceId);
     }
-    private okhttp3.Call executeInstanceWithParamsCall(String instanceId, Map<String, String> requestBody, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call executeInstanceWithParamsCall(String instanceId, Map<String, Object> requestBody, final ApiCallback _callback) throws ApiException {
         return executeInstanceWithParamsCall(instanceId, requestBody,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call executeInstanceWithParamsCall(String instanceId, Map<String, String> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call executeInstanceWithParamsCall(String instanceId, Map<String, Object> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -844,7 +844,7 @@ public class IntegrationsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call executeInstanceWithParamsValidateBeforeCall(String instanceId, Map<String, String> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call executeInstanceWithParamsValidateBeforeCall(String instanceId, Map<String, Object> requestBody, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling executeInstanceWithParams(Async)");
@@ -860,19 +860,19 @@ public class IntegrationsApi {
     }
 
 
-    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithParamsWithHttpInfo(String instanceId, Map<String, String> requestBody) throws ApiException {
+    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithParamsWithHttpInfo(String instanceId, Map<String, Object> requestBody) throws ApiException {
         okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithParamsWithHttpInfo(String instanceId, Map<String, String> requestBody, ConfigurationOptions opts) throws ApiException {
+    private ApiResponse<ExecuteInstanceResponse> executeInstanceWithParamsWithHttpInfo(String instanceId, Map<String, Object> requestBody, ConfigurationOptions opts) throws ApiException {
         okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, null, opts);
         Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call executeInstanceWithParamsAsync(String instanceId, Map<String, String> requestBody, final ApiCallback<ExecuteInstanceResponse> _callback) throws ApiException {
+    private okhttp3.Call executeInstanceWithParamsAsync(String instanceId, Map<String, Object> requestBody, final ApiCallback<ExecuteInstanceResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, _callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
@@ -880,7 +880,7 @@ public class IntegrationsApi {
         return localVarCall;
     }
 
-    private okhttp3.Call executeInstanceWithParamsAsync(String instanceId, Map<String, String> requestBody, final ApiCallback<ExecuteInstanceResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call executeInstanceWithParamsAsync(String instanceId, Map<String, Object> requestBody, final ApiCallback<ExecuteInstanceResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
         okhttp3.Call localVarCall = executeInstanceWithParamsValidateBeforeCall(instanceId, requestBody, _callback, opts);
         Type localVarReturnType = new TypeToken<ExecuteInstanceResponse>(){}.getType();
@@ -890,9 +890,9 @@ public class IntegrationsApi {
 
     public class APIexecuteInstanceWithParamsRequest {
         private final String instanceId;
-        private final Map<String, String> requestBody;
+        private final Map<String, Object> requestBody;
 
-        private APIexecuteInstanceWithParamsRequest(String instanceId, Map<String, String> requestBody) {
+        private APIexecuteInstanceWithParamsRequest(String instanceId, Map<String, Object> requestBody) {
             this.instanceId = instanceId;
             this.requestBody = requestBody;
         }
@@ -1026,7 +1026,7 @@ public class IntegrationsApi {
      * [EXPERIMENTAL] ExecuteInstanceWithParams: Execute an integration instance with runtime parameters
      * Starts execution of an instance, returning its execution identifier. The user must be authenticated, entitled to call this method, and the user&#39;s domain must be licensed for the integration.
      * @param instanceId Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. (required)
-     * @param requestBody Dictionary(string,string) of runtime parameters passed to the integration instance (required)
+     * @param requestBody JSON object of runtime parameters passed to the integration instance. A processorName:configPath key overrides one processor config value for this run; any other key is a named run parameter. Nested objects are flattened to dotted keys. (required)
      * @return APIexecuteInstanceWithParamsRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1037,7 +1037,7 @@ public class IntegrationsApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIexecuteInstanceWithParamsRequest executeInstanceWithParams(String instanceId, Map<String, String> requestBody) {
+    public APIexecuteInstanceWithParamsRequest executeInstanceWithParams(String instanceId, Map<String, Object> requestBody) {
         return new APIexecuteInstanceWithParamsRequest(instanceId, requestBody);
     }
     private okhttp3.Call getDataflowProcessorSchemaCall(String processorType, final ApiCallback _callback) throws ApiException {

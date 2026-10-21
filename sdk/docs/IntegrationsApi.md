@@ -348,7 +348,7 @@ public class IntegrationsApiExample {
 
         IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
         String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
-        Map<String, String> requestBody = {"para1":"val1","para2":"val2"}; // Map<String, String> | Dictionary(string,string) of runtime parameters passed to the integration instance
+        Map<String, Object> requestBody = {"Ingest-1:batchSize":"500","requestId":"6f1c2d3e-9d1a-4b7e-8c21-0f3a5d6e7b89","filePath":"/inbound/settlements/SSI_20261020.txt","sourceInfo":{"useCaseId":"SETTLEMENT","channelId":"SWIFT","sourceId":"CUSTODY"}}; // Map<String, Object> | JSON object of runtime parameters passed to the integration instance. A processorName:configPath key overrides one processor config value for this run; any other key is a named run parameter. Nested objects are flattened to dotted keys.
         try {
             // uncomment the below to set overrides at the request level
             // ExecuteInstanceResponse result = apiInstance.executeInstanceWithParams(instanceId, requestBody).execute(opts);
@@ -371,7 +371,7 @@ public class IntegrationsApiExample {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **instanceId** | **String**| Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
-| **requestBody** | [**Map&lt;String, String&gt;**](String.md)| Dictionary(string,string) of runtime parameters passed to the integration instance | |
+| **requestBody** | [**Map&lt;String, Object&gt;**](Object.md)| JSON object of runtime parameters passed to the integration instance. A processorName:configPath key overrides one processor config value for this run; any other key is a named run parameter. Nested objects are flattened to dotted keys. | |
 
 ### Return type
 
