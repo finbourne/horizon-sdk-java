@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4132
+  version: 0.1.4147
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1237,6 +1237,21 @@ paths:
                   - EUR
                   importUnqualified: false
               postProcessTasks: []
+              alertRules:
+              - type: MustStartBy
+                severity: High
+                timeOfDay: 08:00
+                timeZone: Europe/London
+                daysOfWeek:
+                - Monday
+                - Tuesday
+                - Wednesday
+                - Thursday
+                - Friday
+                graceMinutes: 30
+              - type: MaxDuration
+                severity: Low
+                maxMinutes: 90
             schema:
               $ref: '#/components/schemas/CreateInstanceRequest'
         description: The new integration instance.
@@ -1524,6 +1539,21 @@ paths:
                     - GBP
                     importUnqualified: false
                 postProcessTasks: []
+                alertRules:
+                - type: MustStartBy
+                  severity: High
+                  timeOfDay: 08:00
+                  timeZone: Europe/London
+                  daysOfWeek:
+                  - Monday
+                  - Tuesday
+                  - Wednesday
+                  - Thursday
+                  - Friday
+                  graceMinutes: 30
+                - type: MaxDuration
+                  severity: Low
+                  maxMinutes: 90
               schema:
                 $ref: '#/components/schemas/IntegrationInstanceResponse'
           description: OK
@@ -1586,6 +1616,21 @@ paths:
                   - EUR
                   importUnqualified: false
               postProcessTasks: []
+              alertRules:
+              - type: MustStartBy
+                severity: High
+                timeOfDay: 08:00
+                timeZone: Europe/London
+                daysOfWeek:
+                - Monday
+                - Tuesday
+                - Wednesday
+                - Thursday
+                - Friday
+                graceMinutes: 30
+              - type: MaxDuration
+                severity: Low
+                maxMinutes: 90
             schema:
               $ref: '#/components/schemas/UpdateInstanceRequest'
         description: The new integration instance.
@@ -3393,7 +3438,8 @@ paths:
     get:
       operationId: ListRunFiles
       parameters:
-      - explode: false
+      - description: Integration instance ID.
+        explode: false
         in: path
         name: instanceId
         required: true
@@ -3403,7 +3449,8 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: false
+      - description: Run ID within the instance.
+        explode: false
         in: path
         name: runId
         required: true
@@ -3413,7 +3460,9 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: true
+      - description: The pagination token from the previous response; <i>filter</i>
+          and <i>sortBy</i> must be unchanged.
+        explode: true
         in: query
         name: page
         required: false
@@ -3424,7 +3473,8 @@ paths:
           pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
           type: string
         style: form
-      - explode: true
+      - description: Number of results per page.
+        explode: true
         in: query
         name: pageSize
         required: false
@@ -3434,6 +3484,30 @@ paths:
           maximum: 5000
           minimum: 1
           type: integer
+        style: form
+        x-nullable: true
+      - description: "A Finbourne filter on: fileName, generatedAt, rowCount, fileHash,\
+          \ encrypted, destinationType, destinationPath, status, fileUuid."
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: "Up to two filterable fields, each suffixed \" ASC\" or \" DESC\"\
+          . Defaults to newest first (GeneratedAt DESC, Id DESC)."
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
         style: form
         x-nullable: true
       responses:
@@ -3468,7 +3542,8 @@ paths:
     get:
       operationId: ListRunTransactions
       parameters:
-      - explode: false
+      - description: Integration instance ID.
+        explode: false
         in: path
         name: instanceId
         required: true
@@ -3478,7 +3553,8 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: false
+      - description: Run ID within the instance.
+        explode: false
         in: path
         name: runId
         required: true
@@ -3488,7 +3564,9 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: true
+      - description: "Filter by publication status (Sent, Skipped, Failed). This is\
+          \ the publication outcome, not the batched-transaction status."
+        explode: true
         in: query
         name: status
         required: false
@@ -3497,7 +3575,9 @@ paths:
           minLength: 0
           type: string
         style: form
-      - explode: true
+      - description: The pagination token from the previous response; <i>filter</i>
+          and <i>sortBy</i> must be unchanged.
+        explode: true
         in: query
         name: page
         required: false
@@ -3508,7 +3588,8 @@ paths:
           pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
           type: string
         style: form
-      - explode: true
+      - description: Number of results per page.
+        explode: true
         in: query
         name: pageSize
         required: false
@@ -3518,6 +3599,32 @@ paths:
           maximum: 5000
           minimum: 1
           type: integer
+        style: form
+        x-nullable: true
+      - description: |-
+          A Finbourne filter on: transactionId, portfolioScope, portfolioCode, instrumentId, instrumentType,
+          instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt.
+          The status field here is the batched-transaction status (Complete, Skipped, Failed), not the publication status — use the ?status= query parameter for that.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: "Up to two filterable fields, each suffixed \" ASC\" or \" DESC\"\
+          . Defaults to Id ASC."
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
         style: form
         x-nullable: true
       responses:
@@ -4767,6 +4874,92 @@ paths:
       x-accepts: application/json
 components:
   schemas:
+    AlertRule:
+      additionalProperties: false
+      description: |-
+        An alert rule on an integration instance. Finbourne.Horizon.Integrations.Web.Dto.AlertRule.Type selects the rule and decides which of the
+        optional fields apply. A field that does not belong to the selected type is rejected.
+      example:
+        severity: severity
+        graceMinutes: 115
+        includePaused: true
+        alertOnFirstFailure: true
+        timeZone: timeZone
+        maxMinutes: 6079
+        type: type
+        daysOfWeek:
+        - daysOfWeek
+        - daysOfWeek
+        - daysOfWeek
+        - daysOfWeek
+        - daysOfWeek
+        timeOfDay: timeOfDay
+      properties:
+        type:
+          description: "The rule type (Allowed: MustStartBy, MaxDuration, FailedAfterRetries)"
+          maxLength: 50
+          minLength: 0
+          type: string
+        severity:
+          description: |-
+            The severity alerts from this rule are raised at (Allowed: Critical, High, Medium, Low, Informational).
+            Critical pages on-call for a client-facing outage. High needs action today. Medium is a missed or late run.
+            Low is an overrun or record-count check. Informational never pages. Defaults per type when omitted:
+            MustStartBy and FailedAfterRetries Medium, MaxDuration Low.
+          maxLength: 20
+          minLength: 0
+          nullable: true
+          type: string
+        timeOfDay:
+          description: "MustStartBy only. The local time of day, as HH:mm, by which\
+            \ a run must have started."
+          maxLength: 5
+          minLength: 0
+          nullable: true
+          type: string
+        timeZone:
+          description: MustStartBy only. The IANA or Windows time zone id that TimeOfDay
+            is expressed in.
+          maxLength: 64
+          minLength: 0
+          nullable: true
+          type: string
+        daysOfWeek:
+          description: "MustStartBy only. The days the rule applies on, by name (e.g.\
+            \ Monday). Every day when omitted."
+          items:
+            type: string
+          maxItems: 7
+          nullable: true
+          type: array
+        graceMinutes:
+          description: MustStartBy only. Minutes after TimeOfDay before a missing
+            run counts as a breach. 0 when omitted.
+          format: int32
+          maximum: 1440
+          minimum: 0
+          nullable: true
+          type: integer
+        maxMinutes:
+          description: MaxDuration only. Alert once a run has been running for longer
+            than this many minutes. Minimum 10.
+          format: int32
+          maximum: 10080
+          minimum: 10
+          nullable: true
+          type: integer
+        includePaused:
+          description: MaxDuration only. Also measure paused runs. False when omitted.
+          nullable: true
+          type: boolean
+        alertOnFirstFailure:
+          description: "FailedAfterRetries only. Also alert on the first failure of\
+            \ a retry chain, not only when the retries are exhausted. False when omitted."
+          nullable: true
+          type: boolean
+      required:
+      - type
+      type: object
     AllowedParameterValue:
       additionalProperties: false
       description: An allowed parameter value for an OpenFigi Parameter Option.
@@ -5018,6 +5211,35 @@ components:
           action: action
           parameters: ""
         integrationType: integrationType
+        alertRules:
+        - severity: severity
+          graceMinutes: 115
+          includePaused: true
+          alertOnFirstFailure: true
+          timeZone: timeZone
+          maxMinutes: 6079
+          type: type
+          daysOfWeek:
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          timeOfDay: timeOfDay
+        - severity: severity
+          graceMinutes: 115
+          includePaused: true
+          alertOnFirstFailure: true
+          timeZone: timeZone
+          maxMinutes: 6079
+          type: type
+          daysOfWeek:
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          timeOfDay: timeOfDay
         name: name
         description: description
         details: "{}"
@@ -5070,6 +5292,14 @@ components:
         postProcessTasks:
           items:
             $ref: '#/components/schemas/PostProcessTask'
+          type: array
+        alertRules:
+          description: |-
+            Alert rules for the instance. On update the stored rules are replaced by this set when it is present, an empty
+            set clears them, and omitting the field leaves them unchanged.
+          items:
+            $ref: '#/components/schemas/AlertRule'
+          nullable: true
           type: array
       required:
       - description
@@ -6031,6 +6261,35 @@ components:
           action: action
           parameters: ""
         integrationType: integrationType
+        alertRules:
+        - severity: severity
+          graceMinutes: 115
+          includePaused: true
+          alertOnFirstFailure: true
+          timeZone: timeZone
+          maxMinutes: 6079
+          type: type
+          daysOfWeek:
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          timeOfDay: timeOfDay
+        - severity: severity
+          graceMinutes: 115
+          includePaused: true
+          alertOnFirstFailure: true
+          timeZone: timeZone
+          maxMinutes: 6079
+          type: type
+          daysOfWeek:
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          timeOfDay: timeOfDay
         name: name
         description: description
         details: "{}"
@@ -6088,7 +6347,13 @@ components:
           items:
             $ref: '#/components/schemas/PostProcessTask'
           type: array
+        alertRules:
+          description: The alert rules configured on the integration instance.
+          items:
+            $ref: '#/components/schemas/AlertRule'
+          type: array
       required:
+      - alertRules
       - description
       - details
       - enabled
@@ -9806,6 +10071,35 @@ components:
           action: action
           parameters: ""
         integrationType: integrationType
+        alertRules:
+        - severity: severity
+          graceMinutes: 115
+          includePaused: true
+          alertOnFirstFailure: true
+          timeZone: timeZone
+          maxMinutes: 6079
+          type: type
+          daysOfWeek:
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          timeOfDay: timeOfDay
+        - severity: severity
+          graceMinutes: 115
+          includePaused: true
+          alertOnFirstFailure: true
+          timeZone: timeZone
+          maxMinutes: 6079
+          type: type
+          daysOfWeek:
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          - daysOfWeek
+          timeOfDay: timeOfDay
         name: name
         description: description
         details: "{}"
@@ -9859,6 +10153,14 @@ components:
         postProcessTasks:
           items:
             $ref: '#/components/schemas/PostProcessTask'
+          type: array
+        alertRules:
+          description: |-
+            Alert rules for the instance. On update the stored rules are replaced by this set when it is present, an empty
+            set clears them, and omitting the field leaves them unchanged.
+          items:
+            $ref: '#/components/schemas/AlertRule'
+          nullable: true
           type: array
       required:
       - description

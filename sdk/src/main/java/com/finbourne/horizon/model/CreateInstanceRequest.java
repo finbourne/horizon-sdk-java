@@ -11,6 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.AlertRule;
 import com.finbourne.horizon.model.LusidPropertyDefinitionOverridesByType;
 import com.finbourne.horizon.model.PostProcessTask;
 import com.finbourne.horizon.model.Trigger;
@@ -88,6 +89,10 @@ public class CreateInstanceRequest {
   public static final String SERIALIZED_NAME_POST_PROCESS_TASKS = "postProcessTasks";
   @SerializedName(SERIALIZED_NAME_POST_PROCESS_TASKS)
   private List<PostProcessTask> postProcessTasks = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_ALERT_RULES = "alertRules";
+  @SerializedName(SERIALIZED_NAME_ALERT_RULES)
+  private List<AlertRule> alertRules;
 
   public CreateInstanceRequest() {
   }
@@ -284,6 +289,35 @@ public class CreateInstanceRequest {
   }
 
 
+  public CreateInstanceRequest alertRules(List<AlertRule> alertRules) {
+    
+    this.alertRules = alertRules;
+    return this;
+  }
+
+  public CreateInstanceRequest addAlertRulesItem(AlertRule alertRulesItem) {
+    if (this.alertRules == null) {
+      this.alertRules = new ArrayList<>();
+    }
+    this.alertRules.add(alertRulesItem);
+    return this;
+  }
+
+   /**
+   * Alert rules for the instance. On update the stored rules are replaced by this set when it is present, an empty set clears them, and omitting the field leaves them unchanged.
+   * @return alertRules
+  **/
+  @jakarta.annotation.Nullable
+  public List<AlertRule> getAlertRules() {
+    return alertRules;
+  }
+
+
+  public void setAlertRules(List<AlertRule> alertRules) {
+    this.alertRules = alertRules;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -301,7 +335,8 @@ public class CreateInstanceRequest {
         Objects.equals(this.enabled, createInstanceRequest.enabled) &&
         Objects.equals(this.triggers, createInstanceRequest.triggers) &&
         Objects.equals(this.details, createInstanceRequest.details) &&
-        Objects.equals(this.postProcessTasks, createInstanceRequest.postProcessTasks);
+        Objects.equals(this.postProcessTasks, createInstanceRequest.postProcessTasks) &&
+        Objects.equals(this.alertRules, createInstanceRequest.alertRules);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -310,7 +345,7 @@ public class CreateInstanceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(instanceOptionalProps, integrationType, name, description, enabled, triggers, details, postProcessTasks);
+    return Objects.hash(instanceOptionalProps, integrationType, name, description, enabled, triggers, details, postProcessTasks, alertRules);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -332,6 +367,7 @@ public class CreateInstanceRequest {
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    postProcessTasks: ").append(toIndentedString(postProcessTasks)).append("\n");
+    sb.append("    alertRules: ").append(toIndentedString(alertRules)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -362,6 +398,7 @@ public class CreateInstanceRequest {
     openapiFields.add("triggers");
     openapiFields.add("details");
     openapiFields.add("postProcessTasks");
+    openapiFields.add("alertRules");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -423,6 +460,20 @@ public class CreateInstanceRequest {
       for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
         PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
       };
+      if (jsonObj.get("alertRules") != null && !jsonObj.get("alertRules").isJsonNull()) {
+        JsonArray jsonArrayalertRules = jsonObj.getAsJsonArray("alertRules");
+        if (jsonArrayalertRules != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("alertRules").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `alertRules` to be an array in the JSON string but got `%s`", jsonObj.get("alertRules").toString()));
+          }
+
+          // validate the optional field `alertRules` (array)
+          for (int i = 0; i < jsonArrayalertRules.size(); i++) {
+            AlertRule.validateJsonElement(jsonArrayalertRules.get(i));
+          };
+        }
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

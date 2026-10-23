@@ -586,7 +586,7 @@ This endpoint does not need any parameter.
 
 ## listRunFiles
 
-> PagedResourceListOfRunFileResponse listRunFiles(instanceId, runId, page, pageSize)
+> PagedResourceListOfRunFileResponse listRunFiles(instanceId, runId, page, pageSize, filter, sortBy)
 
 [EXPERIMENTAL] ListRunFiles: List Files in a run
 
@@ -629,15 +629,17 @@ public class TradePublicationFrameworkApiExample {
         // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
-        String instanceId = "instanceId_example"; // String | 
-        String runId = "runId_example"; // String | 
-        String page = ""; // String | 
-        Integer pageSize = 100; // Integer | 
+        String instanceId = "instanceId_example"; // String | Integration instance ID.
+        String runId = "runId_example"; // String | Run ID within the instance.
+        String page = ""; // String | The pagination token from the previous response; <i>filter</i> and <i>sortBy</i> must be unchanged.
+        Integer pageSize = 100; // Integer | Number of results per page.
+        String filter = "filter_example"; // String | A Finbourne filter on: fileName, generatedAt, rowCount, fileHash, encrypted, destinationType, destinationPath, status, fileUuid.
+        List<String> sortBy = Arrays.asList(); // List<String> | Up to two filterable fields, each suffixed \" ASC\" or \" DESC\". Defaults to newest first (GeneratedAt DESC, Id DESC).
         try {
             // uncomment the below to set overrides at the request level
-            // PagedResourceListOfRunFileResponse result = apiInstance.listRunFiles(instanceId, runId, page, pageSize).execute(opts);
+            // PagedResourceListOfRunFileResponse result = apiInstance.listRunFiles(instanceId, runId, page, pageSize, filter, sortBy).execute(opts);
 
-            PagedResourceListOfRunFileResponse result = apiInstance.listRunFiles(instanceId, runId, page, pageSize).execute();
+            PagedResourceListOfRunFileResponse result = apiInstance.listRunFiles(instanceId, runId, page, pageSize, filter, sortBy).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling TradePublicationFrameworkApi#listRunFiles");
@@ -654,10 +656,12 @@ public class TradePublicationFrameworkApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **instanceId** | **String**|  | |
-| **runId** | **String**|  | |
-| **page** | **String**|  | [optional] [default to ] |
-| **pageSize** | **Integer**|  | [optional] [default to 100] |
+| **instanceId** | **String**| Integration instance ID. | |
+| **runId** | **String**| Run ID within the instance. | |
+| **page** | **String**| The pagination token from the previous response; &lt;i&gt;filter&lt;/i&gt; and &lt;i&gt;sortBy&lt;/i&gt; must be unchanged. | [optional] [default to ] |
+| **pageSize** | **Integer**| Number of results per page. | [optional] [default to 100] |
+| **filter** | **String**| A Finbourne filter on: fileName, generatedAt, rowCount, fileHash, encrypted, destinationType, destinationPath, status, fileUuid. | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)| Up to two filterable fields, each suffixed \&quot; ASC\&quot; or \&quot; DESC\&quot;. Defaults to newest first (GeneratedAt DESC, Id DESC). | [optional] |
 
 ### Return type
 
@@ -682,7 +686,7 @@ public class TradePublicationFrameworkApiExample {
 
 ## listRunTransactions
 
-> PagedResourceListOfTransactionResponse listRunTransactions(instanceId, runId, status, page, pageSize)
+> PagedResourceListOfTransactionResponse listRunTransactions(instanceId, runId, status, page, pageSize, filter, sortBy)
 
 [EXPERIMENTAL] ListRunTransactions: List Transactions in a run.
 
@@ -725,16 +729,18 @@ public class TradePublicationFrameworkApiExample {
         // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
-        String instanceId = "instanceId_example"; // String | 
-        String runId = "runId_example"; // String | 
-        String status = "status_example"; // String | 
-        String page = ""; // String | 
-        Integer pageSize = 100; // Integer | 
+        String instanceId = "instanceId_example"; // String | Integration instance ID.
+        String runId = "runId_example"; // String | Run ID within the instance.
+        String status = "status_example"; // String | Filter by publication status (Sent, Skipped, Failed). This is the publication outcome, not the batched-transaction status.
+        String page = ""; // String | The pagination token from the previous response; <i>filter</i> and <i>sortBy</i> must be unchanged.
+        Integer pageSize = 100; // Integer | Number of results per page.
+        String filter = "filter_example"; // String | A Finbourne filter on: transactionId, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt. The status field here is the batched-transaction status (Complete, Skipped, Failed), not the publication status — use the ?status= query parameter for that.
+        List<String> sortBy = Arrays.asList(); // List<String> | Up to two filterable fields, each suffixed \" ASC\" or \" DESC\". Defaults to Id ASC.
         try {
             // uncomment the below to set overrides at the request level
-            // PagedResourceListOfTransactionResponse result = apiInstance.listRunTransactions(instanceId, runId, status, page, pageSize).execute(opts);
+            // PagedResourceListOfTransactionResponse result = apiInstance.listRunTransactions(instanceId, runId, status, page, pageSize, filter, sortBy).execute(opts);
 
-            PagedResourceListOfTransactionResponse result = apiInstance.listRunTransactions(instanceId, runId, status, page, pageSize).execute();
+            PagedResourceListOfTransactionResponse result = apiInstance.listRunTransactions(instanceId, runId, status, page, pageSize, filter, sortBy).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling TradePublicationFrameworkApi#listRunTransactions");
@@ -751,11 +757,13 @@ public class TradePublicationFrameworkApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **instanceId** | **String**|  | |
-| **runId** | **String**|  | |
-| **status** | **String**|  | [optional] |
-| **page** | **String**|  | [optional] [default to ] |
-| **pageSize** | **Integer**|  | [optional] [default to 100] |
+| **instanceId** | **String**| Integration instance ID. | |
+| **runId** | **String**| Run ID within the instance. | |
+| **status** | **String**| Filter by publication status (Sent, Skipped, Failed). This is the publication outcome, not the batched-transaction status. | [optional] |
+| **page** | **String**| The pagination token from the previous response; &lt;i&gt;filter&lt;/i&gt; and &lt;i&gt;sortBy&lt;/i&gt; must be unchanged. | [optional] [default to ] |
+| **pageSize** | **Integer**| Number of results per page. | [optional] [default to 100] |
+| **filter** | **String**| A Finbourne filter on: transactionId, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt. The status field here is the batched-transaction status (Complete, Skipped, Failed), not the publication status — use the ?status&#x3D; query parameter for that. | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)| Up to two filterable fields, each suffixed \&quot; ASC\&quot; or \&quot; DESC\&quot;. Defaults to Id ASC. | [optional] |
 
 ### Return type
 

@@ -11,6 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.AlertRule;
 import com.finbourne.horizon.model.PostProcessTask;
 import com.finbourne.horizon.model.Trigger;
 import com.google.gson.TypeAdapter;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -84,6 +86,10 @@ public class UpdateInstanceRequest {
   public static final String SERIALIZED_NAME_POST_PROCESS_TASKS = "postProcessTasks";
   @SerializedName(SERIALIZED_NAME_POST_PROCESS_TASKS)
   private List<PostProcessTask> postProcessTasks = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_ALERT_RULES = "alertRules";
+  @SerializedName(SERIALIZED_NAME_ALERT_RULES)
+  private List<AlertRule> alertRules;
 
   public UpdateInstanceRequest() {
   }
@@ -272,6 +278,35 @@ public class UpdateInstanceRequest {
   }
 
 
+  public UpdateInstanceRequest alertRules(List<AlertRule> alertRules) {
+    
+    this.alertRules = alertRules;
+    return this;
+  }
+
+  public UpdateInstanceRequest addAlertRulesItem(AlertRule alertRulesItem) {
+    if (this.alertRules == null) {
+      this.alertRules = new ArrayList<>();
+    }
+    this.alertRules.add(alertRulesItem);
+    return this;
+  }
+
+   /**
+   * Alert rules for the instance. On update the stored rules are replaced by this set when it is present, an empty set clears them, and omitting the field leaves them unchanged.
+   * @return alertRules
+  **/
+  @jakarta.annotation.Nullable
+  public List<AlertRule> getAlertRules() {
+    return alertRules;
+  }
+
+
+  public void setAlertRules(List<AlertRule> alertRules) {
+    this.alertRules = alertRules;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -289,12 +324,24 @@ public class UpdateInstanceRequest {
         Objects.equals(this.enabled, updateInstanceRequest.enabled) &&
         Objects.equals(this.triggers, updateInstanceRequest.triggers) &&
         Objects.equals(this.details, updateInstanceRequest.details) &&
-        Objects.equals(this.postProcessTasks, updateInstanceRequest.postProcessTasks);
+        Objects.equals(this.postProcessTasks, updateInstanceRequest.postProcessTasks) &&
+        Objects.equals(this.alertRules, updateInstanceRequest.alertRules);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, integrationType, name, description, enabled, triggers, details, postProcessTasks);
+    return Objects.hash(id, integrationType, name, description, enabled, triggers, details, postProcessTasks, alertRules);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -309,6 +356,7 @@ public class UpdateInstanceRequest {
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    postProcessTasks: ").append(toIndentedString(postProcessTasks)).append("\n");
+    sb.append("    alertRules: ").append(toIndentedString(alertRules)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -339,6 +387,7 @@ public class UpdateInstanceRequest {
     openapiFields.add("triggers");
     openapiFields.add("details");
     openapiFields.add("postProcessTasks");
+    openapiFields.add("alertRules");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -404,6 +453,20 @@ public class UpdateInstanceRequest {
       for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
         PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
       };
+      if (jsonObj.get("alertRules") != null && !jsonObj.get("alertRules").isJsonNull()) {
+        JsonArray jsonArrayalertRules = jsonObj.getAsJsonArray("alertRules");
+        if (jsonArrayalertRules != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("alertRules").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `alertRules` to be an array in the JSON string but got `%s`", jsonObj.get("alertRules").toString()));
+          }
+
+          // validate the optional field `alertRules` (array)
+          for (int i = 0; i < jsonArrayalertRules.size(); i++) {
+            AlertRule.validateJsonElement(jsonArrayalertRules.get(i));
+          };
+        }
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

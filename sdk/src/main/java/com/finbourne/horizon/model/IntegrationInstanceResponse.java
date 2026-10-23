@@ -11,6 +11,7 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.AlertRule;
 import com.finbourne.horizon.model.PostProcessTask;
 import com.finbourne.horizon.model.Trigger;
 import com.google.gson.TypeAdapter;
@@ -84,6 +85,10 @@ public class IntegrationInstanceResponse {
   public static final String SERIALIZED_NAME_POST_PROCESS_TASKS = "postProcessTasks";
   @SerializedName(SERIALIZED_NAME_POST_PROCESS_TASKS)
   private List<PostProcessTask> postProcessTasks = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_ALERT_RULES = "alertRules";
+  @SerializedName(SERIALIZED_NAME_ALERT_RULES)
+  private List<AlertRule> alertRules = new ArrayList<>();
 
   public IntegrationInstanceResponse() {
   }
@@ -272,6 +277,35 @@ public class IntegrationInstanceResponse {
   }
 
 
+  public IntegrationInstanceResponse alertRules(List<AlertRule> alertRules) {
+    
+    this.alertRules = alertRules;
+    return this;
+  }
+
+  public IntegrationInstanceResponse addAlertRulesItem(AlertRule alertRulesItem) {
+    if (this.alertRules == null) {
+      this.alertRules = new ArrayList<>();
+    }
+    this.alertRules.add(alertRulesItem);
+    return this;
+  }
+
+   /**
+   * The alert rules configured on the integration instance.
+   * @return alertRules
+  **/
+  @jakarta.annotation.Nonnull
+  public List<AlertRule> getAlertRules() {
+    return alertRules;
+  }
+
+
+  public void setAlertRules(List<AlertRule> alertRules) {
+    this.alertRules = alertRules;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -289,12 +323,13 @@ public class IntegrationInstanceResponse {
         Objects.equals(this.enabled, integrationInstanceResponse.enabled) &&
         Objects.equals(this.triggers, integrationInstanceResponse.triggers) &&
         Objects.equals(this.details, integrationInstanceResponse.details) &&
-        Objects.equals(this.postProcessTasks, integrationInstanceResponse.postProcessTasks);
+        Objects.equals(this.postProcessTasks, integrationInstanceResponse.postProcessTasks) &&
+        Objects.equals(this.alertRules, integrationInstanceResponse.alertRules);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, integrationType, name, description, enabled, triggers, details, postProcessTasks);
+    return Objects.hash(id, integrationType, name, description, enabled, triggers, details, postProcessTasks, alertRules);
   }
 
   @Override
@@ -309,6 +344,7 @@ public class IntegrationInstanceResponse {
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    postProcessTasks: ").append(toIndentedString(postProcessTasks)).append("\n");
+    sb.append("    alertRules: ").append(toIndentedString(alertRules)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -339,6 +375,7 @@ public class IntegrationInstanceResponse {
     openapiFields.add("triggers");
     openapiFields.add("details");
     openapiFields.add("postProcessTasks");
+    openapiFields.add("alertRules");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -350,6 +387,7 @@ public class IntegrationInstanceResponse {
     openapiRequiredFields.add("triggers");
     openapiRequiredFields.add("details");
     openapiRequiredFields.add("postProcessTasks");
+    openapiRequiredFields.add("alertRules");
   }
 
  /**
@@ -403,6 +441,16 @@ public class IntegrationInstanceResponse {
       // validate the required field `postProcessTasks` (array)
       for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
         PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
+      };
+      // ensure the json data is an array
+      if (!jsonObj.get("alertRules").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `alertRules` to be an array in the JSON string but got `%s`", jsonObj.get("alertRules").toString()));
+      }
+
+      JsonArray jsonArrayalertRules = jsonObj.getAsJsonArray("alertRules");
+      // validate the required field `alertRules` (array)
+      for (int i = 0; i < jsonArrayalertRules.size(); i++) {
+        AlertRule.validateJsonElement(jsonArrayalertRules.get(i));
       };
   }
 
