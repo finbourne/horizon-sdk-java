@@ -69,6 +69,10 @@ public class TpfRetrySftpResponse {
   @SerializedName(SERIALIZED_NAME_RETRIED_AT)
   private OffsetDateTime retriedAt;
 
+  public static final String SERIALIZED_NAME_RESEND_RUN_ID = "resendRunId";
+  @SerializedName(SERIALIZED_NAME_RESEND_RUN_ID)
+  private UUID resendRunId;
+
   public static final String SERIALIZED_NAME_ORIGINAL_FILE = "originalFile";
   @SerializedName(SERIALIZED_NAME_ORIGINAL_FILE)
   private TpfFileDeliveryInfo originalFile;
@@ -164,6 +168,27 @@ public class TpfRetrySftpResponse {
   }
 
 
+  public TpfRetrySftpResponse resendRunId(UUID resendRunId) {
+    
+    this.resendRunId = resendRunId;
+    return this;
+  }
+
+   /**
+   * The run queued to resend the file; it appears in run history as a further attempt of the original run
+   * @return resendRunId
+  **/
+  @jakarta.annotation.Nullable
+  public UUID getResendRunId() {
+    return resendRunId;
+  }
+
+
+  public void setResendRunId(UUID resendRunId) {
+    this.resendRunId = resendRunId;
+  }
+
+
   public TpfRetrySftpResponse originalFile(TpfFileDeliveryInfo originalFile) {
     
     this.originalFile = originalFile;
@@ -220,6 +245,7 @@ public class TpfRetrySftpResponse {
         Objects.equals(this.message, tpfRetrySftpResponse.message) &&
         Objects.equals(this.newFileDeliveryUuid, tpfRetrySftpResponse.newFileDeliveryUuid) &&
         Objects.equals(this.retriedAt, tpfRetrySftpResponse.retriedAt) &&
+        Objects.equals(this.resendRunId, tpfRetrySftpResponse.resendRunId) &&
         Objects.equals(this.originalFile, tpfRetrySftpResponse.originalFile) &&
         Objects.equals(this.duplicateFile, tpfRetrySftpResponse.duplicateFile);
   }
@@ -230,7 +256,7 @@ public class TpfRetrySftpResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, message, newFileDeliveryUuid, retriedAt, originalFile, duplicateFile);
+    return Objects.hash(success, message, newFileDeliveryUuid, retriedAt, resendRunId, originalFile, duplicateFile);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -248,6 +274,7 @@ public class TpfRetrySftpResponse {
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    newFileDeliveryUuid: ").append(toIndentedString(newFileDeliveryUuid)).append("\n");
     sb.append("    retriedAt: ").append(toIndentedString(retriedAt)).append("\n");
+    sb.append("    resendRunId: ").append(toIndentedString(resendRunId)).append("\n");
     sb.append("    originalFile: ").append(toIndentedString(originalFile)).append("\n");
     sb.append("    duplicateFile: ").append(toIndentedString(duplicateFile)).append("\n");
     sb.append("}");
@@ -276,6 +303,7 @@ public class TpfRetrySftpResponse {
     openapiFields.add("message");
     openapiFields.add("newFileDeliveryUuid");
     openapiFields.add("retriedAt");
+    openapiFields.add("resendRunId");
     openapiFields.add("originalFile");
     openapiFields.add("duplicateFile");
 
@@ -310,6 +338,9 @@ public class TpfRetrySftpResponse {
       }
       if ((jsonObj.get("newFileDeliveryUuid") != null && !jsonObj.get("newFileDeliveryUuid").isJsonNull()) && !jsonObj.get("newFileDeliveryUuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `newFileDeliveryUuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("newFileDeliveryUuid").toString()));
+      }
+      if ((jsonObj.get("resendRunId") != null && !jsonObj.get("resendRunId").isJsonNull()) && !jsonObj.get("resendRunId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `resendRunId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("resendRunId").toString()));
       }
       // validate the optional field `originalFile`
       if (jsonObj.get("originalFile") != null && !jsonObj.get("originalFile").isJsonNull()) {

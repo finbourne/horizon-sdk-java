@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **instanceId** | [**UUID**](UUID.md) | Integration instance ID where the transaction was processed | [default to UUID]
 **instanceName** | **String** | Integration instance name | [default to String]
 **batchId** | [**UUID**](UUID.md) | Unique identifier of the batch | [default to UUID]
+**runId** | [**UUID**](UUID.md) | The run that processed the transaction for this instance, as shown in run monitoring | [default to UUID]
 **runStartTime** | [**OffsetDateTime**](OffsetDateTime.md) | Timestamp when the batch/run started | [default to OffsetDateTime]
 **publicationStatus** | **String** | Publication status of the transaction (Sent | Skipped | Failed) | [default to String]
 **instrumentName** | **String** | Instrument name | [default to String]
@@ -21,6 +22,8 @@ Name | Type | Description | Notes
 **portfolioCode** | **String** | PortfolioCode showing portfolio code | [optional] [default to String]
 **portfolioScope** | **String** | PortfolioScope displaying portfolio scope | [optional] [default to String]
 **failureReason** | **String** | FailureReason to show failure reason | [optional] [default to String]
+**failureStage** | **String** | Stage at which a failed transaction failed: Build or Delivery | [optional] [default to String]
+**sentAt** | [**OffsetDateTime**](OffsetDateTime.md) | When the transaction was sent, which is when its file reached a destination. Empty for Skipped and Failed rows | [optional] [default to OffsetDateTime]
 **instrumentId** | **String** | InstrumentId showing instrument id of transaction | [optional] [default to String]
 
 ```java
@@ -33,6 +36,7 @@ String TransactionId = "example TransactionId";
 UUID InstanceId = "example InstanceId";
 String InstanceName = "example InstanceName";
 UUID BatchId = "example BatchId";
+UUID RunId = "example RunId";
 OffsetDateTime RunStartTime = OffsetDateTime.now();
 String PublicationStatus = "example PublicationStatus";
 String InstrumentName = "example InstrumentName";
@@ -45,6 +49,8 @@ OffsetDateTime TradeDate = OffsetDateTime.now();
 @jakarta.annotation.Nullable String PortfolioCode = "example PortfolioCode";
 @jakarta.annotation.Nullable String PortfolioScope = "example PortfolioScope";
 @jakarta.annotation.Nullable String FailureReason = "example FailureReason";
+@jakarta.annotation.Nullable String FailureStage = "example FailureStage";
+@jakarta.annotation.Nullable OffsetDateTime SentAt = OffsetDateTime.now();
 @jakarta.annotation.Nullable String InstrumentId = "example InstrumentId";
 
 
@@ -53,6 +59,7 @@ TpfTransactionSearchResponse tpfTransactionSearchResponseInstance = new TpfTrans
     .InstanceId(InstanceId)
     .InstanceName(InstanceName)
     .BatchId(BatchId)
+    .RunId(RunId)
     .RunStartTime(RunStartTime)
     .PublicationStatus(PublicationStatus)
     .InstrumentName(InstrumentName)
@@ -65,6 +72,8 @@ TpfTransactionSearchResponse tpfTransactionSearchResponseInstance = new TpfTrans
     .PortfolioCode(PortfolioCode)
     .PortfolioScope(PortfolioScope)
     .FailureReason(FailureReason)
+    .FailureStage(FailureStage)
+    .SentAt(SentAt)
     .InstrumentId(InstrumentId);
 ```
 

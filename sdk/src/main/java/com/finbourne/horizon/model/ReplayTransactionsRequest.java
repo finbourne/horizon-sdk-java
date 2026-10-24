@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,10 +59,6 @@ public class ReplayTransactionsRequest {
   public static final String SERIALIZED_NAME_MODE = "mode";
   @SerializedName(SERIALIZED_NAME_MODE)
   private String mode;
-
-  public static final String SERIALIZED_NAME_DESTINATIONS = "destinations";
-  @SerializedName(SERIALIZED_NAME_DESTINATIONS)
-  private List<String> destinations;
 
   public static final String SERIALIZED_NAME_OPTIONS = "options";
   @SerializedName(SERIALIZED_NAME_OPTIONS)
@@ -122,35 +117,6 @@ public class ReplayTransactionsRequest {
   }
 
 
-  public ReplayTransactionsRequest destinations(List<String> destinations) {
-    
-    this.destinations = destinations;
-    return this;
-  }
-
-  public ReplayTransactionsRequest addDestinationsItem(String destinationsItem) {
-    if (this.destinations == null) {
-      this.destinations = new ArrayList<>();
-    }
-    this.destinations.add(destinationsItem);
-    return this;
-  }
-
-   /**
-   * Target destinations for Committed mode. Required for Committed, forbidden for DryRun. Valid values: Drive, Sftp, S3, Local
-   * @return destinations
-  **/
-  @jakarta.annotation.Nullable
-  public List<String> getDestinations() {
-    return destinations;
-  }
-
-
-  public void setDestinations(List<String> destinations) {
-    this.destinations = destinations;
-  }
-
-
   public ReplayTransactionsRequest options(ReplayOptions options) {
     
     this.options = options;
@@ -184,24 +150,12 @@ public class ReplayTransactionsRequest {
     ReplayTransactionsRequest replayTransactionsRequest = (ReplayTransactionsRequest) o;
     return Objects.equals(this.transactionIds, replayTransactionsRequest.transactionIds) &&
         Objects.equals(this.mode, replayTransactionsRequest.mode) &&
-        Objects.equals(this.destinations, replayTransactionsRequest.destinations) &&
         Objects.equals(this.options, replayTransactionsRequest.options);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionIds, mode, destinations, options);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(transactionIds, mode, options);
   }
 
   @Override
@@ -210,7 +164,6 @@ public class ReplayTransactionsRequest {
     sb.append("class ReplayTransactionsRequest {\n");
     sb.append("    transactionIds: ").append(toIndentedString(transactionIds)).append("\n");
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
-    sb.append("    destinations: ").append(toIndentedString(destinations)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -236,7 +189,6 @@ public class ReplayTransactionsRequest {
     openapiFields = new HashSet<String>();
     openapiFields.add("transactionIds");
     openapiFields.add("mode");
-    openapiFields.add("destinations");
     openapiFields.add("options");
 
     // a set of required properties/fields (JSON key names)
@@ -273,10 +225,6 @@ public class ReplayTransactionsRequest {
       }
       if (!jsonObj.get("mode").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `mode` to be a primitive type in the JSON string but got `%s`", jsonObj.get("mode").toString()));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("destinations") != null && !jsonObj.get("destinations").isJsonNull() && !jsonObj.get("destinations").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `destinations` to be an array in the JSON string but got `%s`", jsonObj.get("destinations").toString()));
       }
       // validate the optional field `options`
       if (jsonObj.get("options") != null && !jsonObj.get("options").isJsonNull()) {

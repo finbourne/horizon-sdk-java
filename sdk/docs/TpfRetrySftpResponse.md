@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **message** | **String** | Status message describing the result | [default to String]
 **newFileDeliveryUuid** | [**UUID**](UUID.md) | UUID of the new file delivery record created for this retry (if successful) | [optional] [default to UUID]
 **retriedAt** | [**OffsetDateTime**](OffsetDateTime.md) | Timestamp when the retry was executed | [optional] [default to OffsetDateTime]
+**resendRunId** | [**UUID**](UUID.md) | The run queued to resend the file; it appears in run history as a further attempt of the original run | [optional] [default to UUID]
 **originalFile** | [**TpfFileDeliveryInfo**](TpfFileDeliveryInfo.md) |  | [optional] [default to TpfFileDeliveryInfo]
 **duplicateFile** | [**TpfFileDeliveryInfo**](TpfFileDeliveryInfo.md) |  | [optional] [default to TpfFileDeliveryInfo]
 
@@ -22,6 +23,7 @@ Boolean Success = true;
 String Message = "example Message";
 @jakarta.annotation.Nullable UUID NewFileDeliveryUuid = "example NewFileDeliveryUuid";
 @jakarta.annotation.Nullable OffsetDateTime RetriedAt = OffsetDateTime.now();
+@jakarta.annotation.Nullable UUID ResendRunId = "example ResendRunId";
 TpfFileDeliveryInfo OriginalFile = new TpfFileDeliveryInfo();
 TpfFileDeliveryInfo DuplicateFile = new TpfFileDeliveryInfo();
 
@@ -31,6 +33,7 @@ TpfRetrySftpResponse tpfRetrySftpResponseInstance = new TpfRetrySftpResponse()
     .Message(Message)
     .NewFileDeliveryUuid(NewFileDeliveryUuid)
     .RetriedAt(RetriedAt)
+    .ResendRunId(ResendRunId)
     .OriginalFile(OriginalFile)
     .DuplicateFile(DuplicateFile);
 ```

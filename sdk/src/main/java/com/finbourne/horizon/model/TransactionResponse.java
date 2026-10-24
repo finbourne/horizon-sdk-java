@@ -50,7 +50,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Response containing details of a single transaction for a run.
+ * Response containing details of a single transaction for a run. A transaction built twice in one batch appears once per build. FailureStage says whether a failed transaction failed while being built (Build) or while its file was being delivered (Delivery).
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionResponse {
@@ -114,6 +114,10 @@ public class TransactionResponse {
   @SerializedName(SERIALIZED_NAME_DESTINATIONS)
   private List<DestinationResponse> destinations = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_FAILURE_STAGE = "failureStage";
+  @SerializedName(SERIALIZED_NAME_FAILURE_STAGE)
+  private String failureStage;
+
   public TransactionResponse() {
   }
 
@@ -145,7 +149,7 @@ public class TransactionResponse {
   }
 
    /**
-   * Get publicationStatus
+   * The outcome the screens show for this row: Sent, Skipped or Failed.
    * @return publicationStatus
   **/
   @jakarta.annotation.Nonnull
@@ -313,7 +317,7 @@ public class TransactionResponse {
   }
 
    /**
-   * Get status
+   * The batch element&#39;s processing state as the worker left it, not the outcome; read PublicationStatus for that.
    * @return status
   **/
   @jakarta.annotation.Nonnull
@@ -440,6 +444,27 @@ public class TransactionResponse {
   }
 
 
+  public TransactionResponse failureStage(String failureStage) {
+    
+    this.failureStage = failureStage;
+    return this;
+  }
+
+   /**
+   * Get failureStage
+   * @return failureStage
+  **/
+  @jakarta.annotation.Nullable
+  public String getFailureStage() {
+    return failureStage;
+  }
+
+
+  public void setFailureStage(String failureStage) {
+    this.failureStage = failureStage;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -464,7 +489,8 @@ public class TransactionResponse {
         Objects.equals(this.failureReason, transactionResponse.failureReason) &&
         Objects.equals(this.outputFileName, transactionResponse.outputFileName) &&
         Objects.equals(this.sentAt, transactionResponse.sentAt) &&
-        Objects.equals(this.destinations, transactionResponse.destinations);
+        Objects.equals(this.destinations, transactionResponse.destinations) &&
+        Objects.equals(this.failureStage, transactionResponse.failureStage);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -473,7 +499,7 @@ public class TransactionResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, publicationStatus, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, destinations);
+    return Objects.hash(transactionId, publicationStatus, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, destinations, failureStage);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -502,6 +528,7 @@ public class TransactionResponse {
     sb.append("    outputFileName: ").append(toIndentedString(outputFileName)).append("\n");
     sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
     sb.append("    destinations: ").append(toIndentedString(destinations)).append("\n");
+    sb.append("    failureStage: ").append(toIndentedString(failureStage)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -539,6 +566,7 @@ public class TransactionResponse {
     openapiFields.add("outputFileName");
     openapiFields.add("sentAt");
     openapiFields.add("destinations");
+    openapiFields.add("failureStage");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -611,6 +639,9 @@ public class TransactionResponse {
       for (int i = 0; i < jsonArraydestinations.size(); i++) {
         DestinationResponse.validateJsonElement(jsonArraydestinations.get(i));
       };
+      if ((jsonObj.get("failureStage") != null && !jsonObj.get("failureStage").isJsonNull()) && !jsonObj.get("failureStage").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `failureStage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("failureStage").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

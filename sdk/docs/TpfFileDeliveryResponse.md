@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **destinationError** | **String** |  | [optional] [default to String]
 **destinationName** | **String** |  | [optional] [default to String]
 **fileUuid** | [**UUID**](UUID.md) |  | [default to UUID]
+**canResend** | **Boolean** | Whether the data the file is rebuilt from is still retained, so a resend can be requested. | [default to Boolean]
 
 ```java
 import com.finbourne.horizon.model.TpfFileDeliveryResponse;
@@ -36,6 +37,7 @@ String DestinationStatus = "example DestinationStatus";
 @jakarta.annotation.Nullable String DestinationError = "example DestinationError";
 @jakarta.annotation.Nullable String DestinationName = "example DestinationName";
 UUID FileUuid = "example FileUuid";
+Boolean CanResend = true;
 
 
 TpfFileDeliveryResponse tpfFileDeliveryResponseInstance = new TpfFileDeliveryResponse()
@@ -50,7 +52,8 @@ TpfFileDeliveryResponse tpfFileDeliveryResponseInstance = new TpfFileDeliveryRes
     .DestinationStatus(DestinationStatus)
     .DestinationError(DestinationError)
     .DestinationName(DestinationName)
-    .FileUuid(FileUuid);
+    .FileUuid(FileUuid)
+    .CanResend(CanResend);
 ```
 
 

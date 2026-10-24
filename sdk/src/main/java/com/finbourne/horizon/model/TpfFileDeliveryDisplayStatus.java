@@ -20,20 +20,20 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Gets or Sets FileDeliveryStatus
+ * Gets or Sets TpfFileDeliveryDisplayStatus
  */
-@JsonAdapter(FileDeliveryStatus.Adapter.class)
-public enum FileDeliveryStatus {
+@JsonAdapter(TpfFileDeliveryDisplayStatus.Adapter.class)
+public enum TpfFileDeliveryDisplayStatus {
   
-  COMPLETED("Completed"),
+  DELIVERED("Delivered"),
   
   PENDING("Pending"),
   
-  ERROR("Error");
+  FAILED("Failed");
 
   private String value;
 
-  FileDeliveryStatus(String value) {
+  TpfFileDeliveryDisplayStatus(String value) {
     this.value = value;
   }
 
@@ -46,8 +46,8 @@ public enum FileDeliveryStatus {
     return String.valueOf(value);
   }
 
-  public static FileDeliveryStatus fromValue(String value) {
-    for (FileDeliveryStatus b : FileDeliveryStatus.values()) {
+  public static TpfFileDeliveryDisplayStatus fromValue(String value) {
+    for (TpfFileDeliveryDisplayStatus b : TpfFileDeliveryDisplayStatus.values()) {
       if (b.value.equals(value)) {
         return b;
       }
@@ -55,16 +55,16 @@ public enum FileDeliveryStatus {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 
-  public static class Adapter extends TypeAdapter<FileDeliveryStatus> {
+  public static class Adapter extends TypeAdapter<TpfFileDeliveryDisplayStatus> {
     @Override
-    public void write(final JsonWriter jsonWriter, final FileDeliveryStatus enumeration) throws IOException {
+    public void write(final JsonWriter jsonWriter, final TpfFileDeliveryDisplayStatus enumeration) throws IOException {
       jsonWriter.value(enumeration.getValue());
     }
 
     @Override
-    public FileDeliveryStatus read(final JsonReader jsonReader) throws IOException {
+    public TpfFileDeliveryDisplayStatus read(final JsonReader jsonReader) throws IOException {
       String value = jsonReader.nextString();
-      return FileDeliveryStatus.fromValue(value);
+      return TpfFileDeliveryDisplayStatus.fromValue(value);
     }
   }
 }

@@ -48,7 +48,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * Response containing details of a single run for an instance.
+ * Response containing details of a single run for an instance. The transaction and file figures describe the batch as it stands now, so they are reported on the latest attempt only and are null on earlier attempts of a retried run. Message explains a failed attempt and what will happen or must be done next; it is null for completed, running and queued attempts.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InstanceRunResponse {
@@ -103,6 +103,10 @@ public class InstanceRunResponse {
   public static final String SERIALIZED_NAME_FAILED_FILES = "failedFiles";
   @SerializedName(SERIALIZED_NAME_FAILED_FILES)
   private Integer failedFiles;
+
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
+  private String message;
 
   public InstanceRunResponse() {
   }
@@ -285,7 +289,7 @@ public class InstanceRunResponse {
    * Get total
    * @return total
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public Integer getTotal() {
     return total;
   }
@@ -306,7 +310,7 @@ public class InstanceRunResponse {
    * Get sentCount
    * @return sentCount
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public Long getSentCount() {
     return sentCount;
   }
@@ -327,7 +331,7 @@ public class InstanceRunResponse {
    * Get skippedCount
    * @return skippedCount
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public Long getSkippedCount() {
     return skippedCount;
   }
@@ -348,7 +352,7 @@ public class InstanceRunResponse {
    * Get failedCount
    * @return failedCount
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public Long getFailedCount() {
     return failedCount;
   }
@@ -369,7 +373,7 @@ public class InstanceRunResponse {
    * Get failedFiles
    * @return failedFiles
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public Integer getFailedFiles() {
     return failedFiles;
   }
@@ -377,6 +381,27 @@ public class InstanceRunResponse {
 
   public void setFailedFiles(Integer failedFiles) {
     this.failedFiles = failedFiles;
+  }
+
+
+  public InstanceRunResponse message(String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Get message
+   * @return message
+  **/
+  @jakarta.annotation.Nullable
+  public String getMessage() {
+    return message;
+  }
+
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
 
@@ -402,7 +427,8 @@ public class InstanceRunResponse {
         Objects.equals(this.sentCount, instanceRunResponse.sentCount) &&
         Objects.equals(this.skippedCount, instanceRunResponse.skippedCount) &&
         Objects.equals(this.failedCount, instanceRunResponse.failedCount) &&
-        Objects.equals(this.failedFiles, instanceRunResponse.failedFiles);
+        Objects.equals(this.failedFiles, instanceRunResponse.failedFiles) &&
+        Objects.equals(this.message, instanceRunResponse.message);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -411,7 +437,7 @@ public class InstanceRunResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, referenceId, attempt, startTime, endTime, duration, status, triggeredBy, total, sentCount, skippedCount, failedCount, failedFiles);
+    return Objects.hash(runId, referenceId, attempt, startTime, endTime, duration, status, triggeredBy, total, sentCount, skippedCount, failedCount, failedFiles, message);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -438,6 +464,7 @@ public class InstanceRunResponse {
     sb.append("    skippedCount: ").append(toIndentedString(skippedCount)).append("\n");
     sb.append("    failedCount: ").append(toIndentedString(failedCount)).append("\n");
     sb.append("    failedFiles: ").append(toIndentedString(failedFiles)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -473,6 +500,7 @@ public class InstanceRunResponse {
     openapiFields.add("skippedCount");
     openapiFields.add("failedCount");
     openapiFields.add("failedFiles");
+    openapiFields.add("message");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -480,11 +508,6 @@ public class InstanceRunResponse {
     openapiRequiredFields.add("referenceId");
     openapiRequiredFields.add("startTime");
     openapiRequiredFields.add("status");
-    openapiRequiredFields.add("total");
-    openapiRequiredFields.add("sentCount");
-    openapiRequiredFields.add("skippedCount");
-    openapiRequiredFields.add("failedCount");
-    openapiRequiredFields.add("failedFiles");
   }
 
  /**
@@ -521,6 +544,9 @@ public class InstanceRunResponse {
       }
       if ((jsonObj.get("triggeredBy") != null && !jsonObj.get("triggeredBy").isJsonNull()) && !jsonObj.get("triggeredBy").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `triggeredBy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("triggeredBy").toString()));
+      }
+      if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
       }
   }
 

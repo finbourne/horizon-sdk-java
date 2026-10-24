@@ -70,6 +70,10 @@ public class TpfTransactionSearchResponse {
   @SerializedName(SERIALIZED_NAME_BATCH_ID)
   private UUID batchId;
 
+  public static final String SERIALIZED_NAME_RUN_ID = "runId";
+  @SerializedName(SERIALIZED_NAME_RUN_ID)
+  private UUID runId;
+
   public static final String SERIALIZED_NAME_RUN_START_TIME = "runStartTime";
   @SerializedName(SERIALIZED_NAME_RUN_START_TIME)
   private OffsetDateTime runStartTime;
@@ -117,6 +121,14 @@ public class TpfTransactionSearchResponse {
   public static final String SERIALIZED_NAME_FAILURE_REASON = "failureReason";
   @SerializedName(SERIALIZED_NAME_FAILURE_REASON)
   private String failureReason;
+
+  public static final String SERIALIZED_NAME_FAILURE_STAGE = "failureStage";
+  @SerializedName(SERIALIZED_NAME_FAILURE_STAGE)
+  private String failureStage;
+
+  public static final String SERIALIZED_NAME_SENT_AT = "sentAt";
+  @SerializedName(SERIALIZED_NAME_SENT_AT)
+  private OffsetDateTime sentAt;
 
   public static final String SERIALIZED_NAME_INSTRUMENT_ID = "instrumentId";
   @SerializedName(SERIALIZED_NAME_INSTRUMENT_ID)
@@ -206,6 +218,27 @@ public class TpfTransactionSearchResponse {
 
   public void setBatchId(UUID batchId) {
     this.batchId = batchId;
+  }
+
+
+  public TpfTransactionSearchResponse runId(UUID runId) {
+    
+    this.runId = runId;
+    return this;
+  }
+
+   /**
+   * The run that processed the transaction for this instance, as shown in run monitoring
+   * @return runId
+  **/
+  @jakarta.annotation.Nonnull
+  public UUID getRunId() {
+    return runId;
+  }
+
+
+  public void setRunId(UUID runId) {
+    this.runId = runId;
   }
 
 
@@ -469,6 +502,48 @@ public class TpfTransactionSearchResponse {
   }
 
 
+  public TpfTransactionSearchResponse failureStage(String failureStage) {
+    
+    this.failureStage = failureStage;
+    return this;
+  }
+
+   /**
+   * Stage at which a failed transaction failed: Build or Delivery
+   * @return failureStage
+  **/
+  @jakarta.annotation.Nullable
+  public String getFailureStage() {
+    return failureStage;
+  }
+
+
+  public void setFailureStage(String failureStage) {
+    this.failureStage = failureStage;
+  }
+
+
+  public TpfTransactionSearchResponse sentAt(OffsetDateTime sentAt) {
+    
+    this.sentAt = sentAt;
+    return this;
+  }
+
+   /**
+   * When the transaction was sent, which is when its file reached a destination. Empty for Skipped and Failed rows
+   * @return sentAt
+  **/
+  @jakarta.annotation.Nullable
+  public OffsetDateTime getSentAt() {
+    return sentAt;
+  }
+
+
+  public void setSentAt(OffsetDateTime sentAt) {
+    this.sentAt = sentAt;
+  }
+
+
   public TpfTransactionSearchResponse instrumentId(String instrumentId) {
     
     this.instrumentId = instrumentId;
@@ -504,6 +579,7 @@ public class TpfTransactionSearchResponse {
         Objects.equals(this.instanceId, tpfTransactionSearchResponse.instanceId) &&
         Objects.equals(this.instanceName, tpfTransactionSearchResponse.instanceName) &&
         Objects.equals(this.batchId, tpfTransactionSearchResponse.batchId) &&
+        Objects.equals(this.runId, tpfTransactionSearchResponse.runId) &&
         Objects.equals(this.runStartTime, tpfTransactionSearchResponse.runStartTime) &&
         Objects.equals(this.publicationStatus, tpfTransactionSearchResponse.publicationStatus) &&
         Objects.equals(this.instrumentName, tpfTransactionSearchResponse.instrumentName) &&
@@ -516,6 +592,8 @@ public class TpfTransactionSearchResponse {
         Objects.equals(this.portfolioCode, tpfTransactionSearchResponse.portfolioCode) &&
         Objects.equals(this.portfolioScope, tpfTransactionSearchResponse.portfolioScope) &&
         Objects.equals(this.failureReason, tpfTransactionSearchResponse.failureReason) &&
+        Objects.equals(this.failureStage, tpfTransactionSearchResponse.failureStage) &&
+        Objects.equals(this.sentAt, tpfTransactionSearchResponse.sentAt) &&
         Objects.equals(this.instrumentId, tpfTransactionSearchResponse.instrumentId);
   }
 
@@ -525,7 +603,7 @@ public class TpfTransactionSearchResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, instanceId, instanceName, batchId, runStartTime, publicationStatus, instrumentName, instrumentType, tradeDate, settlementDate, skipReason, fileName, destinations, portfolioCode, portfolioScope, failureReason, instrumentId);
+    return Objects.hash(transactionId, instanceId, instanceName, batchId, runId, runStartTime, publicationStatus, instrumentName, instrumentType, tradeDate, settlementDate, skipReason, fileName, destinations, portfolioCode, portfolioScope, failureReason, failureStage, sentAt, instrumentId);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -543,6 +621,7 @@ public class TpfTransactionSearchResponse {
     sb.append("    instanceId: ").append(toIndentedString(instanceId)).append("\n");
     sb.append("    instanceName: ").append(toIndentedString(instanceName)).append("\n");
     sb.append("    batchId: ").append(toIndentedString(batchId)).append("\n");
+    sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
     sb.append("    runStartTime: ").append(toIndentedString(runStartTime)).append("\n");
     sb.append("    publicationStatus: ").append(toIndentedString(publicationStatus)).append("\n");
     sb.append("    instrumentName: ").append(toIndentedString(instrumentName)).append("\n");
@@ -555,6 +634,8 @@ public class TpfTransactionSearchResponse {
     sb.append("    portfolioCode: ").append(toIndentedString(portfolioCode)).append("\n");
     sb.append("    portfolioScope: ").append(toIndentedString(portfolioScope)).append("\n");
     sb.append("    failureReason: ").append(toIndentedString(failureReason)).append("\n");
+    sb.append("    failureStage: ").append(toIndentedString(failureStage)).append("\n");
+    sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
     sb.append("    instrumentId: ").append(toIndentedString(instrumentId)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -582,6 +663,7 @@ public class TpfTransactionSearchResponse {
     openapiFields.add("instanceId");
     openapiFields.add("instanceName");
     openapiFields.add("batchId");
+    openapiFields.add("runId");
     openapiFields.add("runStartTime");
     openapiFields.add("publicationStatus");
     openapiFields.add("instrumentName");
@@ -594,6 +676,8 @@ public class TpfTransactionSearchResponse {
     openapiFields.add("portfolioCode");
     openapiFields.add("portfolioScope");
     openapiFields.add("failureReason");
+    openapiFields.add("failureStage");
+    openapiFields.add("sentAt");
     openapiFields.add("instrumentId");
 
     // a set of required properties/fields (JSON key names)
@@ -602,6 +686,7 @@ public class TpfTransactionSearchResponse {
     openapiRequiredFields.add("instanceId");
     openapiRequiredFields.add("instanceName");
     openapiRequiredFields.add("batchId");
+    openapiRequiredFields.add("runId");
     openapiRequiredFields.add("runStartTime");
     openapiRequiredFields.add("publicationStatus");
     openapiRequiredFields.add("instrumentName");
@@ -641,6 +726,9 @@ public class TpfTransactionSearchResponse {
       if (!jsonObj.get("batchId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `batchId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("batchId").toString()));
       }
+      if (!jsonObj.get("runId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `runId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("runId").toString()));
+      }
       if (!jsonObj.get("publicationStatus").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `publicationStatus` to be a primitive type in the JSON string but got `%s`", jsonObj.get("publicationStatus").toString()));
       }
@@ -668,6 +756,9 @@ public class TpfTransactionSearchResponse {
       }
       if ((jsonObj.get("failureReason") != null && !jsonObj.get("failureReason").isJsonNull()) && !jsonObj.get("failureReason").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `failureReason` to be a primitive type in the JSON string but got `%s`", jsonObj.get("failureReason").toString()));
+      }
+      if ((jsonObj.get("failureStage") != null && !jsonObj.get("failureStage").isJsonNull()) && !jsonObj.get("failureStage").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `failureStage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("failureStage").toString()));
       }
       if ((jsonObj.get("instrumentId") != null && !jsonObj.get("instrumentId").isJsonNull()) && !jsonObj.get("instrumentId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instrumentId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentId").toString()));

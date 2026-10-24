@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4147
+  version: 0.1.4157
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1636,8 +1636,13 @@ paths:
         description: The new integration instance.
         required: true
       responses:
-        "204":
-          description: No Content
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateInstanceResponse'
+          description: The instance was updated. Warnings describe non-blocking findings
+            about the saved configuration.
         "400":
           content:
             application/json:
@@ -2804,13 +2809,13 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - description: "Filter by delivery status (Completed, Error, Pending)"
+      - description: "Filter by delivery outcome (Delivered, Failed, Pending)"
         explode: true
         in: query
         name: status
         required: false
         schema:
-          $ref: '#/components/schemas/FileDeliveryStatus'
+          $ref: '#/components/schemas/TpfFileDeliveryDisplayStatus'
         style: form
         x-nullable: true
       - description: Filter deliveries from this time (inclusive)
@@ -2872,9 +2877,10 @@ paths:
                   fileHash: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
                   destinationType: Sftp
                   destinationPath: /outbound/trades/trades_20240115_103000.csv
-                  destinationStatus: Completed
+                  destinationStatus: Delivered
                   destinationName: Vendor SFTP Server
                   fileUuid: 7f3c1a2e-4b5d-4e6f-8a90-1b2c3d4e5f60
+                  canResend: true
                 - runId: 550e8400-e29b-41d4-a716-446655440002
                   runStartTime: 2024-01-15T11:00:00.0000000+00:00
                   fileName: trades_20240115_110000.csv
@@ -2883,10 +2889,11 @@ paths:
                   fileHash: b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7
                   destinationType: S3
                   destinationPath: s3://bucket-name/trades/trades_20240115_110000.csv
-                  destinationStatus: Error
+                  destinationStatus: Failed
                   destinationError: Connection timeout to S3 bucket
                   destinationName: AWS S3 Backup
                   fileUuid: 8a4d2b3f-5c6e-4f70-9b01-2c3d4e5f6071
+                  canResend: true
                 links: []
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfTpfFileDeliveryResponse'
@@ -3008,101 +3015,6 @@ paths:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
       x-accepts: application/json
-  /api/trade-publication-framework/instances/{instanceId}/failed/retry:
-    post:
-      description: |-
-        Re-runs the delivery task only (payload already built - skips build task). Always committed - no preview mode.
-        Increments attempt count on failure, sets resolved to true on success.
-        Uses existing ReplayBatchElement on ITradeTrackingRepository.
-        Requires entitlement to execute integrations.
-      operationId: RetryFailedDelivery
-      parameters:
-      - description: Integration instance identifier
-        explode: false
-        in: path
-        name: instanceId
-        required: true
-        schema:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[a-zA-Z0-9\\-]+$"
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json-patch+json:
-            example:
-              batchElementReferenceIds:
-              - elem-001
-              - elem-002
-              - elem-003
-            schema:
-              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
-          application/json:
-            example:
-              batchElementReferenceIds:
-              - elem-001
-              - elem-002
-              - elem-003
-            schema:
-              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
-          text/json:
-            example:
-              batchElementReferenceIds:
-              - elem-001
-              - elem-002
-              - elem-003
-            schema:
-              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
-          application/*+json:
-            example:
-              batchElementReferenceIds:
-              - elem-001
-              - elem-002
-              - elem-003
-            schema:
-              $ref: '#/components/schemas/TpfRetryFailedDeliveryRequest'
-        description: Request containing batch element reference identifiers to retry
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                submitted: 3
-                results:
-                - batchElementReferenceId: elem-001
-                  status: Retrying
-                - batchElementReferenceId: elem-002
-                  status: Retrying
-                - batchElementReferenceId: elem-003
-                  status: NotFound
-              schema:
-                $ref: '#/components/schemas/TpfFailedDeliveryResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          description: The requested instance does not exist.
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "[EXPERIMENTAL] RetryFailedDelivery: Retry failed deliveries for Trade\
-        \ Publication Framework"
-      tags:
-      - TradePublicationFramework
-      x-fbn-apistatus: Experimental
-      x-content-type: application/json-patch+json
-      x-accepts: application/json
   /api/trade-publication-framework/instances/{instanceId}/failed/{batchReferenceId}/resolve:
     put:
       operationId: ResolveFailedDelivery
@@ -3209,6 +3121,16 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
+      - description: Resend even though the file already reached this destination
+        explode: true
+        in: query
+        name: confirmDuplicate
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+        x-nullable: true
       responses:
         "200":
           content:
@@ -3246,8 +3168,8 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] RetryTpfSftpDelivery: Retry SFTP delivery for a previously\
-        \ sent TPF file"
+      summary: "[EXPERIMENTAL] RetryTpfSftpDelivery: Resend a TPF file to the destination\
+        \ it was delivered to or failed to reach (SFTP or Drive)"
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
@@ -3817,6 +3739,7 @@ paths:
                   instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
                   instanceName: TPF-Production-Instance
                   batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runId: e5f6a7b8-c9d0-4e1f-8a2b-3c4d5e6f7a8b
                   runStartTime: 2024-04-15T10:30:00.0000000+00:00
                   publicationStatus: Sent
                   instrumentName: Apple Inc.
@@ -3831,6 +3754,7 @@ paths:
                   instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
                   instanceName: TPF-Production-Instance
                   batchId: b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e
+                  runId: e5f6a7b8-c9d0-4e1f-8a2b-3c4d5e6f7a8b
                   runStartTime: 2024-04-15T10:30:00.0000000+00:00
                   publicationStatus: Skipped
                   instrumentName: Microsoft Corp.
@@ -3846,6 +3770,7 @@ paths:
                   instanceId: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
                   instanceName: TPF-UAT-Instance
                   batchId: d4e5f6a7-b8c9-7d8e-1f2a-3b4c5d6e7f8a
+                  runId: f6a7b8c9-d0e1-4f2a-9b3c-4d5e6f7a8b9c
                   runStartTime: 2024-04-15T14:45:00.0000000+00:00
                   publicationStatus: Failed
                   instrumentName: Tesla Inc.
@@ -5675,12 +5600,6 @@ components:
       - vendorFields
       - versions
       type: object
-    FileDeliveryStatus:
-      enum:
-      - Completed
-      - Pending
-      - Error
-      type: string
     FileDestinationResponse:
       additionalProperties: false
       description: record containing details of a single file destination for a run.
@@ -5914,11 +5833,25 @@ components:
       additionalProperties: false
       description: Identifies a single instance of an integration.
       example:
+        warnings:
+        - severity: severity
+          field: field
+          message: message
+        - severity: severity
+          field: field
+          message: message
         id: id
       properties:
         id:
           description: Instance identifier.
           type: string
+        warnings:
+          description: Non-blocking findings about the saved configuration. Empty
+            when there are none.
+          items:
+            $ref: '#/components/schemas/ValidationNoticeResponse'
+          nullable: true
+          type: array
       required:
       - id
       type: object
@@ -5992,9 +5925,14 @@ components:
       type: object
     InstanceRunResponse:
       additionalProperties: false
-      description: Response containing details of a single run for an instance.
+      description: |-
+        Response containing details of a single run for an instance. The transaction and file figures describe
+        the batch as it stands now, so they are reported on the latest attempt only and are null on earlier
+        attempts of a retried run. Message explains a failed attempt and what will happen or must be done next;
+        it is null for completed, running and queued attempts.
       example:
         skippedCount: 5
+        message: message
         attempt: 0
         referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         sentCount: 1
@@ -6036,29 +5974,32 @@ components:
           type: string
         total:
           format: int32
+          nullable: true
           type: integer
         sentCount:
           format: int64
+          nullable: true
           type: integer
         skippedCount:
           format: int64
+          nullable: true
           type: integer
         failedCount:
           format: int64
+          nullable: true
           type: integer
         failedFiles:
           format: int32
+          nullable: true
           type: integer
+        message:
+          nullable: true
+          type: string
       required:
-      - failedCount
-      - failedFiles
       - referenceId
       - runId
-      - sentCount
-      - skippedCount
       - startTime
       - status
-      - total
       type: object
     InstancesResponse:
       additionalProperties: false
@@ -8064,6 +8005,7 @@ components:
         nextPage: nextPage
         values:
         - skippedCount: 5
+          message: message
           attempt: 0
           referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
@@ -8077,6 +8019,7 @@ components:
           status: status
           triggeredBy: triggeredBy
         - skippedCount: 5
+          message: message
           attempt: 0
           referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
@@ -8442,6 +8385,7 @@ components:
           - transactionIds
           - transactionIds
           fileName: fileName
+          canResend: true
           encrypted: true
           destinations:
           - path: path
@@ -8465,6 +8409,7 @@ components:
           - transactionIds
           - transactionIds
           fileName: fileName
+          canResend: true
           encrypted: true
           destinations:
           - path: path
@@ -8524,28 +8469,30 @@ components:
         nextPage: nextPage
         values:
         - fileName: fileName
+          canResend: true
+          fileHash: fileHash
+          destinationStatus: destinationStatus
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
           destinationName: destinationName
           generatedAt: 2000-01-23T04:56:07.000+00:00
-          fileHash: fileHash
           destinationType: destinationType
           runId: runId
           rowCount: 0
           destinationPath: destinationPath
-          destinationStatus: destinationStatus
           fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - fileName: fileName
+          canResend: true
+          fileHash: fileHash
+          destinationStatus: destinationStatus
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
           destinationName: destinationName
           generatedAt: 2000-01-23T04:56:07.000+00:00
-          fileHash: fileHash
           destinationType: destinationType
           runId: runId
           rowCount: 0
           destinationPath: destinationPath
-          destinationStatus: destinationStatus
           fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         links:
         - method: method
@@ -8596,6 +8543,8 @@ components:
           - destinations
           tradeDate: 2000-01-23T04:56:07.000+00:00
           settlementDate: 2000-01-23T04:56:07.000+00:00
+          failureStage: failureStage
+          sentAt: 2000-01-23T04:56:07.000+00:00
           batchId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           transactionId: transactionId
           instrumentName: instrumentName
@@ -8603,6 +8552,7 @@ components:
           runStartTime: 2000-01-23T04:56:07.000+00:00
           portfolioScope: portfolioScope
           failureReason: failureReason
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           skipReason: skipReason
           portfolioCode: portfolioCode
         - publicationStatus: publicationStatus
@@ -8615,6 +8565,8 @@ components:
           - destinations
           tradeDate: 2000-01-23T04:56:07.000+00:00
           settlementDate: 2000-01-23T04:56:07.000+00:00
+          failureStage: failureStage
+          sentAt: 2000-01-23T04:56:07.000+00:00
           batchId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           transactionId: transactionId
           instrumentName: instrumentName
@@ -8622,6 +8574,7 @@ components:
           runStartTime: 2000-01-23T04:56:07.000+00:00
           portfolioScope: portfolioScope
           failureReason: failureReason
+          runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           skipReason: skipReason
           portfolioCode: portfolioCode
         links:
@@ -8663,14 +8616,16 @@ components:
         previousPage: previousPage
         nextPage: nextPage
         values:
-        - columns:
+        - publicationStatus: publicationStatus
+          columns:
           - columns
           - columns
           values:
             key: values
           rawCsvRow: rawCsvRow
           transactionId: transactionId
-        - columns:
+        - publicationStatus: publicationStatus
+          columns:
           - columns
           - columns
           values:
@@ -8728,6 +8683,7 @@ components:
           tradeDate: 2000-01-23T04:56:07.000+00:00
           settlementDate: 2000-01-23T04:56:07.000+00:00
           sentAt: 2000-01-23T04:56:07.000+00:00
+          failureStage: failureStage
           transactionId: transactionId
           instrumentName: instrumentName
           portfolioScope: portfolioScope
@@ -8747,6 +8703,7 @@ components:
           tradeDate: 2000-01-23T04:56:07.000+00:00
           settlementDate: 2000-01-23T04:56:07.000+00:00
           sentAt: 2000-01-23T04:56:07.000+00:00
+          failureStage: failureStage
           transactionId: transactionId
           instrumentName: instrumentName
           portfolioScope: portfolioScope
@@ -8905,8 +8862,8 @@ components:
           minLength: 0
           type: string
         targetInstance:
-          description: The instance identifier to trigger (for TriggerIntegration
-            action).
+          description: The identifier of the integration instance to run (RunIntegration
+            action only).
           maxLength: 256
           minLength: 0
           nullable: true
@@ -9251,9 +9208,6 @@ components:
         transactionIds:
         - transactionIds
         - transactionIds
-        destinations:
-        - destinations
-        - destinations
         options:
           overridePublicationStatus: overridePublicationStatus
       properties:
@@ -9267,14 +9221,6 @@ components:
           maxLength: 50
           minLength: 0
           type: string
-        destinations:
-          description: |-
-            Target destinations for Committed mode. Required for Committed, forbidden for DryRun.
-            Valid values: Drive, Sftp, S3, Local
-          items:
-            type: string
-          nullable: true
-          type: array
         options:
           $ref: '#/components/schemas/ReplayOptions'
       required:
@@ -9412,6 +9358,7 @@ components:
         - transactionIds
         - transactionIds
         fileName: fileName
+        canResend: true
         encrypted: true
         destinations:
         - path: path
@@ -9459,7 +9406,12 @@ components:
           items:
             type: string
           type: array
+        canResend:
+          description: "Whether the data the file is rebuilt from is still retained,\
+            \ so a resend can be requested."
+          type: boolean
       required:
+      - canResend
       - destinations
       - encrypted
       - failedTransactionIds
@@ -9524,30 +9476,12 @@ components:
       - propertyOverrides
       - warnings
       type: object
-    TpfFailedDeliveryResponse:
-      additionalProperties: false
-      description: Response for bulk retry operation of failed deliveries
-      example:
-        submitted: 0
-        results:
-        - batchElementReferenceId: batchElementReferenceId
-          status: status
-        - batchElementReferenceId: batchElementReferenceId
-          status: status
-      properties:
-        submitted:
-          description: Number of batch elements submitted for retry
-          format: int32
-          type: integer
-        results:
-          description: Per-element retry results
-          items:
-            $ref: '#/components/schemas/TpfRetryElementResult'
-          type: array
-      required:
-      - results
-      - submitted
-      type: object
+    TpfFileDeliveryDisplayStatus:
+      enum:
+      - Delivered
+      - Pending
+      - Failed
+      type: string
     TpfFileDeliveryInfo:
       additionalProperties: false
       description: Information about a file delivery
@@ -9592,16 +9526,17 @@ components:
       description: Response model for TPF file delivery search results
       example:
         fileName: fileName
+        canResend: true
+        fileHash: fileHash
+        destinationStatus: destinationStatus
         runStartTime: 2000-01-23T04:56:07.000+00:00
         destinationError: destinationError
         destinationName: destinationName
         generatedAt: 2000-01-23T04:56:07.000+00:00
-        fileHash: fileHash
         destinationType: destinationType
         runId: runId
         rowCount: 0
         destinationPath: destinationPath
-        destinationStatus: destinationStatus
         fileUuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         runId:
@@ -9638,7 +9573,12 @@ components:
         fileUuid:
           format: uuid
           type: string
+        canResend:
+          description: "Whether the data the file is rebuilt from is still retained,\
+            \ so a resend can be requested."
+          type: boolean
       required:
+      - canResend
       - destinationStatus
       - destinationType
       - fileName
@@ -9661,44 +9601,6 @@ components:
       - code
       - scope
       type: object
-    TpfRetryElementResult:
-      additionalProperties: false
-      description: Result for a single batch element retry attempt
-      example:
-        batchElementReferenceId: batchElementReferenceId
-        status: status
-      properties:
-        batchElementReferenceId:
-          description: Batch element reference identifier
-          type: string
-        status:
-          description: "Status of the retry attempt (e.g., \"Retrying\", \"NotFound\"\
-            )"
-          type: string
-      required:
-      - batchElementReferenceId
-      - status
-      type: object
-    TpfRetryFailedDeliveryRequest:
-      additionalProperties: false
-      description: |-
-        Request to retry failed deliveries for multiple batch elements.
-        The integration instance identifier is supplied via the route, not the body.
-      example:
-        batchElementReferenceIds:
-        - batchElementReferenceIds
-        - batchElementReferenceIds
-      properties:
-        batchElementReferenceIds:
-          description: |-
-            Batch element reference identifiers to retry.
-            No regex pattern is required as batch element IDs are vendor-defined strings with varying formats.
-          items:
-            type: string
-          type: array
-      required:
-      - batchElementReferenceIds
-      type: object
     TpfRetrySftpResponse:
       additionalProperties: false
       description: Response from retrying SFTP file delivery
@@ -9712,6 +9614,7 @@ components:
           status: status
         success: true
         retriedAt: 2000-01-23T04:56:07.000+00:00
+        resendRunId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         duplicateFile:
           fileName: fileName
           generatedAt: 2000-01-23T04:56:07.000+00:00
@@ -9737,6 +9640,12 @@ components:
         retriedAt:
           description: Timestamp when the retry was executed
           format: date-time
+          nullable: true
+          type: string
+        resendRunId:
+          description: The run queued to resend the file; it appears in run history
+            as a further attempt of the original run
+          format: uuid
           nullable: true
           type: string
         originalFile:
@@ -9837,6 +9746,8 @@ components:
         - destinations
         tradeDate: 2000-01-23T04:56:07.000+00:00
         settlementDate: 2000-01-23T04:56:07.000+00:00
+        failureStage: failureStage
+        sentAt: 2000-01-23T04:56:07.000+00:00
         batchId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         transactionId: transactionId
         instrumentName: instrumentName
@@ -9844,6 +9755,7 @@ components:
         runStartTime: 2000-01-23T04:56:07.000+00:00
         portfolioScope: portfolioScope
         failureReason: failureReason
+        runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         skipReason: skipReason
         portfolioCode: portfolioCode
       properties:
@@ -9859,6 +9771,11 @@ components:
           type: string
         batchId:
           description: Unique identifier of the batch
+          format: uuid
+          type: string
+        runId:
+          description: "The run that processed the transaction for this instance,\
+            \ as shown in run monitoring"
           format: uuid
           type: string
         runStartTime:
@@ -9909,6 +9826,16 @@ components:
           description: FailureReason to show failure reason
           nullable: true
           type: string
+        failureStage:
+          description: "Stage at which a failed transaction failed: Build or Delivery"
+          nullable: true
+          type: string
+        sentAt:
+          description: "When the transaction was sent, which is when its file reached\
+            \ a destination. Empty for Skipped and Failed rows"
+          format: date-time
+          nullable: true
+          type: string
         instrumentId:
           description: InstrumentId showing instrument id of transaction
           nullable: true
@@ -9920,6 +9847,7 @@ components:
       - instrumentName
       - instrumentType
       - publicationStatus
+      - runId
       - runStartTime
       - tradeDate
       - transactionId
@@ -9929,7 +9857,9 @@ components:
       description: |-
         record containing the payload for a single transaction. Columns is compiled once from the TPF
         instance configuration and is identical across every item in the paginated result.
+        PublicationStatus is the row's outcome: Sent, or Failed when the file holding it reached no destination.
       example:
+        publicationStatus: publicationStatus
         columns:
         - columns
         - columns
@@ -9950,15 +9880,21 @@ components:
           type: object
         rawCsvRow:
           type: string
+        publicationStatus:
+          type: string
       required:
       - columns
+      - publicationStatus
       - rawCsvRow
       - transactionId
       - values
       type: object
     TransactionResponse:
       additionalProperties: false
-      description: Response containing details of a single transaction for a run.
+      description: |-
+        Response containing details of a single transaction for a run. A transaction built twice in one batch
+        appears once per build. FailureStage says whether a failed transaction failed while being built (Build)
+        or while its file was being delivered (Delivery).
       example:
         publicationStatus: publicationStatus
         instrumentType: instrumentType
@@ -9972,6 +9908,7 @@ components:
         tradeDate: 2000-01-23T04:56:07.000+00:00
         settlementDate: 2000-01-23T04:56:07.000+00:00
         sentAt: 2000-01-23T04:56:07.000+00:00
+        failureStage: failureStage
         transactionId: transactionId
         instrumentName: instrumentName
         portfolioScope: portfolioScope
@@ -9983,6 +9920,8 @@ components:
         transactionId:
           type: string
         publicationStatus:
+          description: "The outcome the screens show for this row: Sent, Skipped or\
+            \ Failed."
           type: string
         portfolioScope:
           nullable: true
@@ -10008,6 +9947,8 @@ components:
           nullable: true
           type: string
         status:
+          description: "The batch element's processing state as the worker left it,\
+            \ not the outcome; read PublicationStatus for that."
           type: string
         skipReason:
           nullable: true
@@ -10026,6 +9967,9 @@ components:
           items:
             $ref: '#/components/schemas/DestinationResponse'
           type: array
+        failureStage:
+          nullable: true
+          type: string
       required:
       - destinations
       - publicationStatus
@@ -10172,6 +10116,26 @@ components:
       - postProcessTasks
       - triggers
       type: object
+    UpdateInstanceResponse:
+      additionalProperties: false
+      description: The outcome of updating an instance.
+      example:
+        warnings:
+        - severity: severity
+          field: field
+          message: message
+        - severity: severity
+          field: field
+          message: message
+      properties:
+        warnings:
+          description: Non-blocking findings about the saved configuration. Empty
+            when there are none.
+          items:
+            $ref: '#/components/schemas/ValidationNoticeResponse'
+          nullable: true
+          type: array
+      type: object
     UpdateVersionedConfigurationDraftRequest:
       additionalProperties: false
       description: Request to update the value of an existing draft versioned configuration.
@@ -10185,6 +10149,29 @@ components:
           type: string
       required:
       - value
+      type: object
+    ValidationNoticeResponse:
+      additionalProperties: false
+      description: A non-blocking finding raised when an instance was saved. The save
+        succeeded regardless.
+      example:
+        severity: severity
+        field: field
+        message: message
+      properties:
+        severity:
+          description: '"Warning" or "Information".'
+          type: string
+        field:
+          description: The configuration field the finding relates to.
+          type: string
+        message:
+          description: What was found.
+          type: string
+      required:
+      - field
+      - message
+      - severity
       type: object
     VendorField:
       additionalProperties: false

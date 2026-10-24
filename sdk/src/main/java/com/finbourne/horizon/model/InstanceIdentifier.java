@@ -11,13 +11,17 @@
 package com.finbourne.horizon.model;
 
 import java.util.Objects;
+import com.finbourne.horizon.model.ValidationNoticeResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -53,6 +57,10 @@ public class InstanceIdentifier {
   @SerializedName(SERIALIZED_NAME_ID)
   private String id;
 
+  public static final String SERIALIZED_NAME_WARNINGS = "warnings";
+  @SerializedName(SERIALIZED_NAME_WARNINGS)
+  private List<ValidationNoticeResponse> warnings;
+
   public InstanceIdentifier() {
   }
 
@@ -77,6 +85,35 @@ public class InstanceIdentifier {
   }
 
 
+  public InstanceIdentifier warnings(List<ValidationNoticeResponse> warnings) {
+    
+    this.warnings = warnings;
+    return this;
+  }
+
+  public InstanceIdentifier addWarningsItem(ValidationNoticeResponse warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+   /**
+   * Non-blocking findings about the saved configuration. Empty when there are none.
+   * @return warnings
+  **/
+  @jakarta.annotation.Nullable
+  public List<ValidationNoticeResponse> getWarnings() {
+    return warnings;
+  }
+
+
+  public void setWarnings(List<ValidationNoticeResponse> warnings) {
+    this.warnings = warnings;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -87,12 +124,24 @@ public class InstanceIdentifier {
       return false;
     }
     InstanceIdentifier instanceIdentifier = (InstanceIdentifier) o;
-    return Objects.equals(this.id, instanceIdentifier.id);
+    return Objects.equals(this.id, instanceIdentifier.id) &&
+        Objects.equals(this.warnings, instanceIdentifier.warnings);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, warnings);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -100,6 +149,7 @@ public class InstanceIdentifier {
     StringBuilder sb = new StringBuilder();
     sb.append("class InstanceIdentifier {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -123,6 +173,7 @@ public class InstanceIdentifier {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("id");
+    openapiFields.add("warnings");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -151,6 +202,20 @@ public class InstanceIdentifier {
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if (!jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
+      }
+      if (jsonObj.get("warnings") != null && !jsonObj.get("warnings").isJsonNull()) {
+        JsonArray jsonArraywarnings = jsonObj.getAsJsonArray("warnings");
+        if (jsonArraywarnings != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("warnings").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `warnings` to be an array in the JSON string but got `%s`", jsonObj.get("warnings").toString()));
+          }
+
+          // validate the optional field `warnings` (array)
+          for (int i = 0; i < jsonArraywarnings.size(); i++) {
+            ValidationNoticeResponse.validateJsonElement(jsonArraywarnings.get(i));
+          };
+        }
       }
   }
 

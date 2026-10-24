@@ -1607,7 +1607,7 @@ public class IntegrationsApiExample {
 
 ## updateInstance
 
-> updateInstance(instanceId, updateInstanceRequest)
+> UpdateInstanceResponse updateInstance(instanceId, updateInstanceRequest)
 
 [EXPERIMENTAL] UpdateInstance: Update a single integration instance.
 
@@ -1656,9 +1656,10 @@ public class IntegrationsApiExample {
         UpdateInstanceRequest updateInstanceRequest = new UpdateInstanceRequest(); // UpdateInstanceRequest | The new integration instance.
         try {
             // uncomment the below to set overrides at the request level
-            // apiInstance.updateInstance(instanceId, updateInstanceRequest).execute(opts);
+            // UpdateInstanceResponse result = apiInstance.updateInstance(instanceId, updateInstanceRequest).execute(opts);
 
-            apiInstance.updateInstance(instanceId, updateInstanceRequest).execute();
+            UpdateInstanceResponse result = apiInstance.updateInstance(instanceId, updateInstanceRequest).execute();
+            System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling IntegrationsApi#updateInstance");
             System.err.println("Status code: " + e.getCode());
@@ -1679,7 +1680,7 @@ public class IntegrationsApiExample {
 
 ### Return type
 
-null (empty response body)
+[**UpdateInstanceResponse**](UpdateInstanceResponse.md)
 
 ### HTTP request headers
 
@@ -1690,7 +1691,7 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | No Content |  -  |
+| **200** | The instance was updated. Warnings describe non-blocking findings about the saved configuration. |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The instance does not exist. |  -  |
 | **0** | Error response |  -  |

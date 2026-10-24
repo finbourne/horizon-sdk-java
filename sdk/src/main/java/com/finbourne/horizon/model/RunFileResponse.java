@@ -90,6 +90,10 @@ public class RunFileResponse {
   @SerializedName(SERIALIZED_NAME_FAILED_TRANSACTION_IDS)
   private List<String> failedTransactionIds = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_CAN_RESEND = "canResend";
+  @SerializedName(SERIALIZED_NAME_CAN_RESEND)
+  private Boolean canResend;
+
   public RunFileResponse() {
   }
 
@@ -306,6 +310,27 @@ public class RunFileResponse {
   }
 
 
+  public RunFileResponse canResend(Boolean canResend) {
+    
+    this.canResend = canResend;
+    return this;
+  }
+
+   /**
+   * Whether the data the file is rebuilt from is still retained, so a resend can be requested.
+   * @return canResend
+  **/
+  @jakarta.annotation.Nonnull
+  public Boolean getCanResend() {
+    return canResend;
+  }
+
+
+  public void setCanResend(Boolean canResend) {
+    this.canResend = canResend;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -324,12 +349,13 @@ public class RunFileResponse {
         Objects.equals(this.destinations, runFileResponse.destinations) &&
         Objects.equals(this.transactionIds, runFileResponse.transactionIds) &&
         Objects.equals(this.fileUuid, runFileResponse.fileUuid) &&
-        Objects.equals(this.failedTransactionIds, runFileResponse.failedTransactionIds);
+        Objects.equals(this.failedTransactionIds, runFileResponse.failedTransactionIds) &&
+        Objects.equals(this.canResend, runFileResponse.canResend);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileName, generatedAt, rowCount, fileHash, encrypted, destinations, transactionIds, fileUuid, failedTransactionIds);
+    return Objects.hash(fileName, generatedAt, rowCount, fileHash, encrypted, destinations, transactionIds, fileUuid, failedTransactionIds, canResend);
   }
 
   @Override
@@ -345,6 +371,7 @@ public class RunFileResponse {
     sb.append("    transactionIds: ").append(toIndentedString(transactionIds)).append("\n");
     sb.append("    fileUuid: ").append(toIndentedString(fileUuid)).append("\n");
     sb.append("    failedTransactionIds: ").append(toIndentedString(failedTransactionIds)).append("\n");
+    sb.append("    canResend: ").append(toIndentedString(canResend)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -376,6 +403,7 @@ public class RunFileResponse {
     openapiFields.add("transactionIds");
     openapiFields.add("fileUuid");
     openapiFields.add("failedTransactionIds");
+    openapiFields.add("canResend");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -388,6 +416,7 @@ public class RunFileResponse {
     openapiRequiredFields.add("transactionIds");
     openapiRequiredFields.add("fileUuid");
     openapiRequiredFields.add("failedTransactionIds");
+    openapiRequiredFields.add("canResend");
   }
 
  /**
