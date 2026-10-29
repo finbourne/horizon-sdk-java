@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4157
+  version: 0.1.4167
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1837,6 +1837,177 @@ paths:
       - oauth2: []
       summary: "[EXPERIMENTAL] GetExecutionIdsForInstance: Get integration instance\
         \ execution ids."
+      tags:
+      - Integrations
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/integrations/instances/{instanceId}/workflow/executeparameters:
+    get:
+      description: |-
+        Returns the parameters the instance's integration accepts on `executewithparams`: which are always
+        required, which stages each is required for, the values a closed-set parameter admits, and the steps
+        that run for each stage. Only integrations driven by Workflow declare parameters; an instance of any
+        other integration is a bad request.
+      operationId: GetWorkflowExecuteParameters
+      parameters:
+      - description: Instance identifier e.g. "b64135e7-98a0-41af-a845-d86167d54cc7".
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                instanceId: b64135e7-98a0-41af-a845-d86167d54cc7
+                integrationType: ta-tax-processes
+                parameters:
+                - name: stage
+                  type: String
+                  required: true
+                  displayName: Stage
+                  description: The stage of the process this run performs.
+                  allowedValues:
+                  - calculate
+                  - settle
+                  - reverse
+                  requiredForStages:
+                  - calculate
+                  - settle
+                  - reverse
+                - name: run_only_step
+                  type: String
+                  required: true
+                  displayName: Step
+                  description: The single step this run executes.
+                  allowedValues:
+                  - ResolveScope
+                  - CalculateTax
+                  - CreateTransfers
+                  - ProduceExtracts
+                  - WrapUp
+                  requiredForStages:
+                  - calculate
+                  - settle
+                  - reverse
+                - name: period
+                  type: String
+                  required: false
+                  displayName: Period
+                  description: The period the run covers.
+                  format: YYYY-MM
+                  requiredForStages:
+                  - calculate
+                  - reverse
+                - name: cgtTaxCalcPortfolios
+                  type: String
+                  required: false
+                  displayName: CGT Portfolios
+                  description: The portfolios to calculate capital gains tax on. Empty
+                    selects them from the instance's product codes.
+                  format: "scope/code, comma separated"
+                  requiredForStages: []
+                - name: calculationRunId
+                  type: String
+                  required: false
+                  displayName: Calculation Run Id
+                  description: The calculate run this run settles.
+                  format: GUID
+                  requiredForStages:
+                  - settle
+                - name: approvedAt
+                  type: DateTime
+                  required: false
+                  displayName: Approved At
+                  description: When the calculation was approved.
+                  requiredForStages:
+                  - settle
+                - name: allowRerun
+                  type: Boolean
+                  required: false
+                  displayName: Allow Rerun
+                  description: Whether to recalculate a portfolio that already has
+                    records for the period.
+                  requiredForStages: []
+                - name: reason
+                  type: String
+                  required: false
+                  displayName: Reason
+                  description: Why the run is being made.
+                  requiredForStages:
+                  - reverse
+                stages:
+                - name: calculate
+                  steps:
+                  - ResolveScope
+                  - CalculateTax
+                  - WrapUp
+                  parameters:
+                  - stage
+                  - run_only_step
+                  - period
+                  - cgtTaxCalcPortfolios
+                  - allowRerun
+                  rules:
+                  - The step must run for the stage.
+                - name: settle
+                  steps:
+                  - ResolveScope
+                  - CreateTransfers
+                  - ProduceExtracts
+                  - WrapUp
+                  parameters:
+                  - stage
+                  - run_only_step
+                  - calculationRunId
+                  - approvedAt
+                  - cgtTaxCalcPortfolios
+                  rules:
+                  - The step must run for the stage.
+                - name: reverse
+                  steps:
+                  - ResolveScope
+                  - CreateTransfers
+                  - ProduceExtracts
+                  - WrapUp
+                  parameters:
+                  - stage
+                  - run_only_step
+                  - period
+                  - cgtTaxCalcPortfolios
+                  - reason
+                  rules:
+                  - The step must run for the stage.
+                  - At least one portfolio must be named in 'cgtTaxCalcPortfolios'
+                    or 'withholdingTaxCalcPortfolios'.
+              schema:
+                $ref: '#/components/schemas/WorkflowExecuteParametersResponse'
+          description: The declared execute parameters
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          description: The integration instance does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetWorkflowExecuteParameters: Get the execute parameters\
+        \ a Workflow-driven integration instance accepts"
       tags:
       - Integrations
       x-fbn-apistatus: Experimental
@@ -10272,6 +10443,176 @@ components:
       required:
       - configType
       - displayName
+      type: object
+    WorkflowExecuteParameterResponse:
+      additionalProperties: false
+      description: A single execute parameter.
+      example:
+        allowedValues:
+        - allowedValues
+        - allowedValues
+        requiredForStages:
+        - requiredForStages
+        - requiredForStages
+        displayName: displayName
+        name: name
+        format: format
+        description: description
+        type: type
+        required: true
+      properties:
+        name:
+          type: string
+        type:
+          description: "One of the Workflow field types: String, Decimal, DateTime,\
+            \ Boolean."
+          type: string
+        required:
+          description: "Whether every run must supply the parameter, whatever its\
+            \ stage."
+          type: boolean
+        displayName:
+          type: string
+        description:
+          type: string
+        format:
+          description: "The shape a String value must take, e.g. YYYY-MM, when it\
+            \ has one."
+          nullable: true
+          type: string
+        allowedValues:
+          description: "The closed set of accepted values, when there is one."
+          items:
+            type: string
+          nullable: true
+          type: array
+        requiredForStages:
+          description: The stages for which the parameter is mandatory.
+          items:
+            type: string
+          type: array
+      required:
+      - description
+      - displayName
+      - name
+      - required
+      - requiredForStages
+      - type
+      type: object
+    WorkflowExecuteParametersResponse:
+      additionalProperties: false
+      description: The execute parameters a Workflow-driven integration instance accepts
+        on executewithparams.
+      example:
+        instanceId: instanceId
+        integrationType: integrationType
+        stages:
+        - name: name
+          rules:
+          - rules
+          - rules
+          steps:
+          - steps
+          - steps
+          parameters:
+          - parameters
+          - parameters
+        - name: name
+          rules:
+          - rules
+          - rules
+          steps:
+          - steps
+          - steps
+          parameters:
+          - parameters
+          - parameters
+        parameters:
+        - allowedValues:
+          - allowedValues
+          - allowedValues
+          requiredForStages:
+          - requiredForStages
+          - requiredForStages
+          displayName: displayName
+          name: name
+          format: format
+          description: description
+          type: type
+          required: true
+        - allowedValues:
+          - allowedValues
+          - allowedValues
+          requiredForStages:
+          - requiredForStages
+          - requiredForStages
+          displayName: displayName
+          name: name
+          format: format
+          description: description
+          type: type
+          required: true
+      properties:
+        instanceId:
+          description: The instance these parameters belong to.
+          type: string
+        integrationType:
+          description: "The integration type of the instance, e.g. ta-tax-processes."
+          type: string
+        parameters:
+          description: "Every parameter the integration accepts, each listed once."
+          items:
+            $ref: '#/components/schemas/WorkflowExecuteParameterResponse'
+          type: array
+        stages:
+          description: Per-stage breakdown of the steps that run and the parameters
+            accepted.
+          items:
+            $ref: '#/components/schemas/WorkflowExecuteStageResponse'
+          type: array
+      required:
+      - instanceId
+      - integrationType
+      - parameters
+      - stages
+      type: object
+    WorkflowExecuteStageResponse:
+      additionalProperties: false
+      description: One stage of a staged integration.
+      example:
+        name: name
+        rules:
+        - rules
+        - rules
+        steps:
+        - steps
+        - steps
+        parameters:
+        - parameters
+        - parameters
+      properties:
+        name:
+          type: string
+        steps:
+          description: The steps that run for this stage.
+          items:
+            type: string
+          type: array
+        parameters:
+          description: Names of every parameter this stage accepts.
+          items:
+            type: string
+          type: array
+        rules:
+          description: "Cross-field rules the stage enforces, in plain text."
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - parameters
+      - rules
+      - steps
       type: object
     WorkflowResultFieldResponse:
       additionalProperties: false

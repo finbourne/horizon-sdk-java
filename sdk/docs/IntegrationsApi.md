@@ -16,6 +16,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 | [**getIntegrationConfigurationFields**](IntegrationsApi.md#getIntegrationConfigurationFields) | **GET** /api/integrations/configuration/{integration}/fields | [EXPERIMENTAL] GetIntegrationConfigurationFields: Get the Field Mapping configuration for a given integration |
 | [**getIntegrationConfigurationProperties**](IntegrationsApi.md#getIntegrationConfigurationProperties) | **GET** /api/integrations/configuration/{integration}/properties | [EXPERIMENTAL] GetIntegrationConfigurationProperties: Get the Property Mapping configuration for a given integration |
 | [**getSchema**](IntegrationsApi.md#getSchema) | **GET** /api/integrations/schema/{integration} | [EXPERIMENTAL] GetSchema: Get the JSON schema for the details section of an integration instance. |
+| [**getWorkflowExecuteParameters**](IntegrationsApi.md#getWorkflowExecuteParameters) | **GET** /api/integrations/instances/{instanceId}/workflow/executeparameters | [EXPERIMENTAL] GetWorkflowExecuteParameters: Get the execute parameters a Workflow-driven integration instance accepts |
 | [**getWorkflowResultFields**](IntegrationsApi.md#getWorkflowResultFields) | **GET** /api/integrations/instances/{instanceId}/workflow/resultfields | [EXPERIMENTAL] GetWorkflowResultFields: Get the Workflow result fields an integration instance returns |
 | [**listDataflowProcessors**](IntegrationsApi.md#listDataflowProcessors) | **GET** /api/integrations/dataflow/processors | [EXPERIMENTAL] ListDataflowProcessors: List processor types. |
 | [**listInstances**](IntegrationsApi.md#listInstances) | **GET** /api/integrations/instances | [EXPERIMENTAL] ListInstances: List instances across all integrations. |
@@ -1145,6 +1146,98 @@ public class IntegrationsApiExample {
 | **200** | The system defined JSON schema for the details of a specified integration. |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | The integration type does not exist or is not enabled. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getWorkflowExecuteParameters
+
+> WorkflowExecuteParametersResponse getWorkflowExecuteParameters(instanceId)
+
+[EXPERIMENTAL] GetWorkflowExecuteParameters: Get the execute parameters a Workflow-driven integration instance accepts
+
+Returns the parameters the instance&#39;s integration accepts on &#x60;executewithparams&#x60;: which are always required, which stages each is required for, the values a closed-set parameter admits, and the steps that run for each stage. Only integrations driven by Workflow declare parameters; an instance of any other integration is a bad request.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.IntegrationsApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class IntegrationsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // IntegrationsApi apiInstance = apiFactory.build(IntegrationsApi.class);
+
+        IntegrationsApi apiInstance = ApiFactoryBuilder.build(fileName).build(IntegrationsApi.class);
+        String instanceId = "instanceId_example"; // String | Instance identifier e.g. \"b64135e7-98a0-41af-a845-d86167d54cc7\".
+        try {
+            // uncomment the below to set overrides at the request level
+            // WorkflowExecuteParametersResponse result = apiInstance.getWorkflowExecuteParameters(instanceId).execute(opts);
+
+            WorkflowExecuteParametersResponse result = apiInstance.getWorkflowExecuteParameters(instanceId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling IntegrationsApi#getWorkflowExecuteParameters");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**| Instance identifier e.g. \&quot;b64135e7-98a0-41af-a845-d86167d54cc7\&quot;. | |
+
+### Return type
+
+[**WorkflowExecuteParametersResponse**](WorkflowExecuteParametersResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The declared execute parameters |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The integration instance does not exist |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
