@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **sentAt** | [**OffsetDateTime**](OffsetDateTime.md) |  | [optional] [default to OffsetDateTime]
 **destinations** | [**List&lt;DestinationResponse&gt;**](DestinationResponse.md) |  | [default to List<DestinationResponse>]
 **failureStage** | **String** |  | [optional] [default to String]
+**instrumentScope** | **String** | The scope the build resolved the instrument in; null for rows built before it was recorded. | [optional] [default to String]
 
 ```java
 import com.finbourne.horizon.model.TransactionResponse;
@@ -44,6 +45,7 @@ String Status = "example Status";
 @jakarta.annotation.Nullable OffsetDateTime SentAt = OffsetDateTime.now();
 List<DestinationResponse> Destinations = new List<DestinationResponse>();
 @jakarta.annotation.Nullable String FailureStage = "example FailureStage";
+@jakarta.annotation.Nullable String InstrumentScope = "example InstrumentScope";
 
 
 TransactionResponse transactionResponseInstance = new TransactionResponse()
@@ -62,7 +64,8 @@ TransactionResponse transactionResponseInstance = new TransactionResponse()
     .OutputFileName(OutputFileName)
     .SentAt(SentAt)
     .Destinations(Destinations)
-    .FailureStage(FailureStage);
+    .FailureStage(FailureStage)
+    .InstrumentScope(InstrumentScope);
 ```
 
 

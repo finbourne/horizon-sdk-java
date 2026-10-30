@@ -1,12 +1,12 @@
 # com.finbourne.horizon.model.RunFileResponse
-record containing details of a single file for a run.
+One delivery of a file to one destination within a run, keyed by FileUuid. A file sent to two destinations appears as two rows, so Destinations always holds exactly one element.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **fileName** | **String** |  | [default to String]
-**generatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  | [default to OffsetDateTime]
+**generatedAt** | [**OffsetDateTime**](OffsetDateTime.md) | When the file was built, or when the attempt failed before a file was built. | [default to OffsetDateTime]
 **rowCount** | **Integer** |  | [default to Integer]
 **fileHash** | **String** |  | [default to String]
 **encrypted** | **Boolean** |  | [default to Boolean]

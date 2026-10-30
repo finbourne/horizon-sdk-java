@@ -97,6 +97,10 @@ public class InstanceResponse {
   @SerializedName(SERIALIZED_NAME_DESTINATIONS)
   private List<InstanceDestinations> destinations = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_OUTPUT_FORMAT = "outputFormat";
+  @SerializedName(SERIALIZED_NAME_OUTPUT_FORMAT)
+  private String outputFormat;
+
   public InstanceResponse() {
   }
 
@@ -326,6 +330,27 @@ public class InstanceResponse {
   }
 
 
+  public InstanceResponse outputFormat(String outputFormat) {
+    
+    this.outputFormat = outputFormat;
+    return this;
+  }
+
+   /**
+   * Get outputFormat
+   * @return outputFormat
+  **/
+  @jakarta.annotation.Nullable
+  public String getOutputFormat() {
+    return outputFormat;
+  }
+
+
+  public void setOutputFormat(String outputFormat) {
+    this.outputFormat = outputFormat;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -345,7 +370,8 @@ public class InstanceResponse {
         Objects.equals(this.lastRunAt, instanceResponse.lastRunAt) &&
         Objects.equals(this.lastRunStatus, instanceResponse.lastRunStatus) &&
         Objects.equals(this.latestRunsIn24Hours, instanceResponse.latestRunsIn24Hours) &&
-        Objects.equals(this.destinations, instanceResponse.destinations);
+        Objects.equals(this.destinations, instanceResponse.destinations) &&
+        Objects.equals(this.outputFormat, instanceResponse.outputFormat);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -354,7 +380,7 @@ public class InstanceResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, enabled, portfolios, schedule, scheduleTimezone, lastRunAt, lastRunStatus, latestRunsIn24Hours, destinations);
+    return Objects.hash(id, name, enabled, portfolios, schedule, scheduleTimezone, lastRunAt, lastRunStatus, latestRunsIn24Hours, destinations, outputFormat);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -378,6 +404,7 @@ public class InstanceResponse {
     sb.append("    lastRunStatus: ").append(toIndentedString(lastRunStatus)).append("\n");
     sb.append("    latestRunsIn24Hours: ").append(toIndentedString(latestRunsIn24Hours)).append("\n");
     sb.append("    destinations: ").append(toIndentedString(destinations)).append("\n");
+    sb.append("    outputFormat: ").append(toIndentedString(outputFormat)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -410,6 +437,7 @@ public class InstanceResponse {
     openapiFields.add("lastRunStatus");
     openapiFields.add("latestRunsIn24Hours");
     openapiFields.add("destinations");
+    openapiFields.add("outputFormat");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -479,6 +507,9 @@ public class InstanceResponse {
       for (int i = 0; i < jsonArraydestinations.size(); i++) {
         InstanceDestinations.validateJsonElement(jsonArraydestinations.get(i));
       };
+      if ((jsonObj.get("outputFormat") != null && !jsonObj.get("outputFormat").isJsonNull()) && !jsonObj.get("outputFormat").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `outputFormat` to be a primitive type in the JSON string but got `%s`", jsonObj.get("outputFormat").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

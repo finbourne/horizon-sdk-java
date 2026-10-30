@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **runId** | **String** |  | [optional] [default to String]
 **runStartTime** | [**OffsetDateTime**](OffsetDateTime.md) |  | [optional] [default to OffsetDateTime]
 **fileName** | **String** |  | [default to String]
-**generatedAt** | [**OffsetDateTime**](OffsetDateTime.md) |  | [default to OffsetDateTime]
+**generatedAt** | [**OffsetDateTime**](OffsetDateTime.md) | When the file was built, or when the attempt failed before a file was built. | [default to OffsetDateTime]
 **rowCount** | **Integer** |  | [default to Integer]
 **fileHash** | **String** |  | [optional] [default to String]
 **destinationType** | **String** |  | [default to String]
@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **destinationName** | **String** |  | [optional] [default to String]
 **fileUuid** | [**UUID**](UUID.md) |  | [default to UUID]
 **canResend** | **Boolean** | Whether the data the file is rebuilt from is still retained, so a resend can be requested. | [default to Boolean]
+**deliveredAt** | [**OffsetDateTime**](OffsetDateTime.md) | When the file reached the destination; null for a Failed or Pending row. | [optional] [default to OffsetDateTime]
 
 ```java
 import com.finbourne.horizon.model.TpfFileDeliveryResponse;
@@ -38,6 +39,7 @@ String DestinationStatus = "example DestinationStatus";
 @jakarta.annotation.Nullable String DestinationName = "example DestinationName";
 UUID FileUuid = "example FileUuid";
 Boolean CanResend = true;
+@jakarta.annotation.Nullable OffsetDateTime DeliveredAt = OffsetDateTime.now();
 
 
 TpfFileDeliveryResponse tpfFileDeliveryResponseInstance = new TpfFileDeliveryResponse()
@@ -53,7 +55,8 @@ TpfFileDeliveryResponse tpfFileDeliveryResponseInstance = new TpfFileDeliveryRes
     .DestinationError(DestinationError)
     .DestinationName(DestinationName)
     .FileUuid(FileUuid)
-    .CanResend(CanResend);
+    .CanResend(CanResend)
+    .DeliveredAt(DeliveredAt);
 ```
 
 

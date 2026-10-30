@@ -17,6 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -46,7 +47,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * record containing details of a single file destination for a run.
+ * The destination a file delivery row describes. A Failed row carries the per-transaction FailureReason when one was recorded, falling back to the raw Error text.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FileDestinationResponse {
@@ -69,6 +70,14 @@ public class FileDestinationResponse {
   public static final String SERIALIZED_NAME_FAILURE_REASON = "failureReason";
   @SerializedName(SERIALIZED_NAME_FAILURE_REASON)
   private String failureReason;
+
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
+
+  public static final String SERIALIZED_NAME_DELIVERED_AT = "deliveredAt";
+  @SerializedName(SERIALIZED_NAME_DELIVERED_AT)
+  private OffsetDateTime deliveredAt;
 
   public FileDestinationResponse() {
   }
@@ -178,6 +187,48 @@ public class FileDestinationResponse {
   }
 
 
+  public FileDestinationResponse name(String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The configured destination name, such as the SFTP host, when one was recorded.
+   * @return name
+  **/
+  @jakarta.annotation.Nullable
+  public String getName() {
+    return name;
+  }
+
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public FileDestinationResponse deliveredAt(OffsetDateTime deliveredAt) {
+    
+    this.deliveredAt = deliveredAt;
+    return this;
+  }
+
+   /**
+   * When the file reached the destination; null for a Failed or Pending row.
+   * @return deliveredAt
+  **/
+  @jakarta.annotation.Nullable
+  public OffsetDateTime getDeliveredAt() {
+    return deliveredAt;
+  }
+
+
+  public void setDeliveredAt(OffsetDateTime deliveredAt) {
+    this.deliveredAt = deliveredAt;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -192,7 +243,9 @@ public class FileDestinationResponse {
         Objects.equals(this.path, fileDestinationResponse.path) &&
         Objects.equals(this.status, fileDestinationResponse.status) &&
         Objects.equals(this.error, fileDestinationResponse.error) &&
-        Objects.equals(this.failureReason, fileDestinationResponse.failureReason);
+        Objects.equals(this.failureReason, fileDestinationResponse.failureReason) &&
+        Objects.equals(this.name, fileDestinationResponse.name) &&
+        Objects.equals(this.deliveredAt, fileDestinationResponse.deliveredAt);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -201,7 +254,7 @@ public class FileDestinationResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, path, status, error, failureReason);
+    return Objects.hash(type, path, status, error, failureReason, name, deliveredAt);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -220,6 +273,8 @@ public class FileDestinationResponse {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    error: ").append(toIndentedString(error)).append("\n");
     sb.append("    failureReason: ").append(toIndentedString(failureReason)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    deliveredAt: ").append(toIndentedString(deliveredAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -247,6 +302,8 @@ public class FileDestinationResponse {
     openapiFields.add("status");
     openapiFields.add("error");
     openapiFields.add("failureReason");
+    openapiFields.add("name");
+    openapiFields.add("deliveredAt");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -289,6 +346,9 @@ public class FileDestinationResponse {
       }
       if ((jsonObj.get("failureReason") != null && !jsonObj.get("failureReason").isJsonNull()) && !jsonObj.get("failureReason").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `failureReason` to be a primitive type in the JSON string but got `%s`", jsonObj.get("failureReason").toString()));
+      }
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
   }
 

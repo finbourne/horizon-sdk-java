@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **failedCount** | **Long** |  | [optional] [default to Long]
 **failedFiles** | **Integer** |  | [optional] [default to Integer]
 **message** | **String** |  | [optional] [default to String]
+**fileCount** | **Integer** | The number of rows ListRunFiles returns for the run, every delivery attempt included; latest attempt only. | [optional] [default to Integer]
 
 ```java
 import com.finbourne.horizon.model.InstanceRunResponse;
@@ -40,6 +41,7 @@ String Status = "example Status";
 @jakarta.annotation.Nullable Long FailedCount = new Long("100.00");
 @jakarta.annotation.Nullable Integer FailedFiles = new Integer("100.00");
 @jakarta.annotation.Nullable String Message = "example Message";
+@jakarta.annotation.Nullable Integer FileCount = new Integer("100.00");
 
 
 InstanceRunResponse instanceRunResponseInstance = new InstanceRunResponse()
@@ -56,7 +58,8 @@ InstanceRunResponse instanceRunResponseInstance = new InstanceRunResponse()
     .SkippedCount(SkippedCount)
     .FailedCount(FailedCount)
     .FailedFiles(FailedFiles)
-    .Message(Message);
+    .Message(Message)
+    .FileCount(FileCount);
 ```
 
 

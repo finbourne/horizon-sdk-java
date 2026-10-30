@@ -108,6 +108,10 @@ public class InstanceRunResponse {
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
+  public static final String SERIALIZED_NAME_FILE_COUNT = "fileCount";
+  @SerializedName(SERIALIZED_NAME_FILE_COUNT)
+  private Integer fileCount;
+
   public InstanceRunResponse() {
   }
 
@@ -405,6 +409,27 @@ public class InstanceRunResponse {
   }
 
 
+  public InstanceRunResponse fileCount(Integer fileCount) {
+    
+    this.fileCount = fileCount;
+    return this;
+  }
+
+   /**
+   * The number of rows ListRunFiles returns for the run, every delivery attempt included; latest attempt only.
+   * @return fileCount
+  **/
+  @jakarta.annotation.Nullable
+  public Integer getFileCount() {
+    return fileCount;
+  }
+
+
+  public void setFileCount(Integer fileCount) {
+    this.fileCount = fileCount;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -428,7 +453,8 @@ public class InstanceRunResponse {
         Objects.equals(this.skippedCount, instanceRunResponse.skippedCount) &&
         Objects.equals(this.failedCount, instanceRunResponse.failedCount) &&
         Objects.equals(this.failedFiles, instanceRunResponse.failedFiles) &&
-        Objects.equals(this.message, instanceRunResponse.message);
+        Objects.equals(this.message, instanceRunResponse.message) &&
+        Objects.equals(this.fileCount, instanceRunResponse.fileCount);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -437,7 +463,7 @@ public class InstanceRunResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, referenceId, attempt, startTime, endTime, duration, status, triggeredBy, total, sentCount, skippedCount, failedCount, failedFiles, message);
+    return Objects.hash(runId, referenceId, attempt, startTime, endTime, duration, status, triggeredBy, total, sentCount, skippedCount, failedCount, failedFiles, message, fileCount);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -465,6 +491,7 @@ public class InstanceRunResponse {
     sb.append("    failedCount: ").append(toIndentedString(failedCount)).append("\n");
     sb.append("    failedFiles: ").append(toIndentedString(failedFiles)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    fileCount: ").append(toIndentedString(fileCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -501,6 +528,7 @@ public class InstanceRunResponse {
     openapiFields.add("failedCount");
     openapiFields.add("failedFiles");
     openapiFields.add("message");
+    openapiFields.add("fileCount");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

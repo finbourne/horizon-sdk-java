@@ -85,6 +85,14 @@ public class TpfTransactionSearchRequest {
   @SerializedName(SERIALIZED_NAME_STATUS)
   private String status;
 
+  public static final String SERIALIZED_NAME_FILTER = "filter";
+  @SerializedName(SERIALIZED_NAME_FILTER)
+  private String filter;
+
+  public static final String SERIALIZED_NAME_SORT_BY = "sortBy";
+  @SerializedName(SERIALIZED_NAME_SORT_BY)
+  private List<String> sortBy;
+
   public TpfTransactionSearchRequest() {
   }
 
@@ -132,7 +140,7 @@ public class TpfTransactionSearchRequest {
   }
 
    /**
-   * One or more instrument identifiers in any supported format (ISIN, CUSIP, LUID, etc.) to search for (max 50). Values are OR&#39;d.
+   * One or more instrument identifiers to search for (max 50). Values are OR&#39;d. Accepts LusidInstrumentId, Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values. Every value is matched exactly against the stored instrument id; non-LUID values are also resolved against LUSID instruments in the default scope, whose own matching rules (including case) apply.
    * @return instrumentIdentifiers
   **/
   @jakarta.annotation.Nullable
@@ -274,6 +282,56 @@ public class TpfTransactionSearchRequest {
   }
 
 
+  public TpfTransactionSearchRequest filter(String filter) {
+    
+    this.filter = filter;
+    return this;
+  }
+
+   /**
+   * Filter expression to apply to the results, in the format \&quot;property operator value\&quot; (e.g., eq, ne, gt, lt), combined with \&quot;and\&quot;/\&quot;or\&quot; as needed. Filterable properties are transactionId, instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate, settlementDate, skipReason, failureReason, fileName, portfolioScope, portfolioCode, and runId. PublicationStatus is not filterable here — use the Status body parameter instead. Dates are quoted ISO-8601. Destinations is not filterable. Must remain the same across pages — the page token includes a hash of both filter and sortBy.
+   * @return filter
+  **/
+  @jakarta.annotation.Nullable
+  public String getFilter() {
+    return filter;
+  }
+
+
+  public void setFilter(String filter) {
+    this.filter = filter;
+  }
+
+
+  public TpfTransactionSearchRequest sortBy(List<String> sortBy) {
+    
+    this.sortBy = sortBy;
+    return this;
+  }
+
+  public TpfTransactionSearchRequest addSortByItem(String sortByItem) {
+    if (this.sortBy == null) {
+      this.sortBy = new ArrayList<>();
+    }
+    this.sortBy.add(sortByItem);
+    return this;
+  }
+
+   /**
+   * Up to two sortable fields, each optionally suffixed \&quot; ASC\&quot; or \&quot; DESC\&quot;. Deterministic tiebreakers are appended automatically: RunStartTime DESC, TransactionId ASC, BatchUuid ASC, FileName ASC. Must remain the same across pages — the page token includes a hash of both filter and sortBy.
+   * @return sortBy
+  **/
+  @jakarta.annotation.Nullable
+  public List<String> getSortBy() {
+    return sortBy;
+  }
+
+
+  public void setSortBy(List<String> sortBy) {
+    this.sortBy = sortBy;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -291,7 +349,9 @@ public class TpfTransactionSearchRequest {
         Objects.equals(this.to, tpfTransactionSearchRequest.to) &&
         Objects.equals(this.limit, tpfTransactionSearchRequest.limit) &&
         Objects.equals(this.page, tpfTransactionSearchRequest.page) &&
-        Objects.equals(this.status, tpfTransactionSearchRequest.status);
+        Objects.equals(this.status, tpfTransactionSearchRequest.status) &&
+        Objects.equals(this.filter, tpfTransactionSearchRequest.filter) &&
+        Objects.equals(this.sortBy, tpfTransactionSearchRequest.sortBy);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -300,7 +360,7 @@ public class TpfTransactionSearchRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionIds, instrumentIdentifiers, instanceId, from, to, limit, page, status);
+    return Objects.hash(transactionIds, instrumentIdentifiers, instanceId, from, to, limit, page, status, filter, sortBy);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -322,6 +382,8 @@ public class TpfTransactionSearchRequest {
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
+    sb.append("    sortBy: ").append(toIndentedString(sortBy)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -352,6 +414,8 @@ public class TpfTransactionSearchRequest {
     openapiFields.add("limit");
     openapiFields.add("page");
     openapiFields.add("status");
+    openapiFields.add("filter");
+    openapiFields.add("sortBy");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -386,6 +450,13 @@ public class TpfTransactionSearchRequest {
       }
       if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
+      }
+      if ((jsonObj.get("filter") != null && !jsonObj.get("filter").isJsonNull()) && !jsonObj.get("filter").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `filter` to be a primitive type in the JSON string but got `%s`", jsonObj.get("filter").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("sortBy") != null && !jsonObj.get("sortBy").isJsonNull() && !jsonObj.get("sortBy").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `sortBy` to be an array in the JSON string but got `%s`", jsonObj.get("sortBy").toString()));
       }
   }
 

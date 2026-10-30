@@ -118,6 +118,10 @@ public class TransactionResponse {
   @SerializedName(SERIALIZED_NAME_FAILURE_STAGE)
   private String failureStage;
 
+  public static final String SERIALIZED_NAME_INSTRUMENT_SCOPE = "instrumentScope";
+  @SerializedName(SERIALIZED_NAME_INSTRUMENT_SCOPE)
+  private String instrumentScope;
+
   public TransactionResponse() {
   }
 
@@ -465,6 +469,27 @@ public class TransactionResponse {
   }
 
 
+  public TransactionResponse instrumentScope(String instrumentScope) {
+    
+    this.instrumentScope = instrumentScope;
+    return this;
+  }
+
+   /**
+   * The scope the build resolved the instrument in; null for rows built before it was recorded.
+   * @return instrumentScope
+  **/
+  @jakarta.annotation.Nullable
+  public String getInstrumentScope() {
+    return instrumentScope;
+  }
+
+
+  public void setInstrumentScope(String instrumentScope) {
+    this.instrumentScope = instrumentScope;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -490,7 +515,8 @@ public class TransactionResponse {
         Objects.equals(this.outputFileName, transactionResponse.outputFileName) &&
         Objects.equals(this.sentAt, transactionResponse.sentAt) &&
         Objects.equals(this.destinations, transactionResponse.destinations) &&
-        Objects.equals(this.failureStage, transactionResponse.failureStage);
+        Objects.equals(this.failureStage, transactionResponse.failureStage) &&
+        Objects.equals(this.instrumentScope, transactionResponse.instrumentScope);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -499,7 +525,7 @@ public class TransactionResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, publicationStatus, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, destinations, failureStage);
+    return Objects.hash(transactionId, publicationStatus, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, destinations, failureStage, instrumentScope);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -529,6 +555,7 @@ public class TransactionResponse {
     sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
     sb.append("    destinations: ").append(toIndentedString(destinations)).append("\n");
     sb.append("    failureStage: ").append(toIndentedString(failureStage)).append("\n");
+    sb.append("    instrumentScope: ").append(toIndentedString(instrumentScope)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -567,6 +594,7 @@ public class TransactionResponse {
     openapiFields.add("sentAt");
     openapiFields.add("destinations");
     openapiFields.add("failureStage");
+    openapiFields.add("instrumentScope");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -641,6 +669,9 @@ public class TransactionResponse {
       };
       if ((jsonObj.get("failureStage") != null && !jsonObj.get("failureStage").isJsonNull()) && !jsonObj.get("failureStage").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `failureStage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("failureStage").toString()));
+      }
+      if ((jsonObj.get("instrumentScope") != null && !jsonObj.get("instrumentScope").isJsonNull()) && !jsonObj.get("instrumentScope").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `instrumentScope` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentScope").toString()));
       }
   }
 

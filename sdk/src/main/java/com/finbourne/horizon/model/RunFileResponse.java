@@ -50,7 +50,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * record containing details of a single file for a run.
+ * One delivery of a file to one destination within a run, keyed by FileUuid. A file sent to two destinations appears as two rows, so Destinations always holds exactly one element.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RunFileResponse {
@@ -125,7 +125,7 @@ public class RunFileResponse {
   }
 
    /**
-   * Get generatedAt
+   * When the file was built, or when the attempt failed before a file was built.
    * @return generatedAt
   **/
   @jakarta.annotation.Nonnull

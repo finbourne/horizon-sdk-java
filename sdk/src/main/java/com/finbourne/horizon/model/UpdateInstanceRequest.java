@@ -85,7 +85,7 @@ public class UpdateInstanceRequest {
 
   public static final String SERIALIZED_NAME_POST_PROCESS_TASKS = "postProcessTasks";
   @SerializedName(SERIALIZED_NAME_POST_PROCESS_TASKS)
-  private List<PostProcessTask> postProcessTasks = new ArrayList<>();
+  private List<PostProcessTask> postProcessTasks;
 
   public static final String SERIALIZED_NAME_ALERT_RULES = "alertRules";
   @SerializedName(SERIALIZED_NAME_ALERT_RULES)
@@ -264,10 +264,10 @@ public class UpdateInstanceRequest {
   }
 
    /**
-   * Get postProcessTasks
+   * Post-process tasks for the instance. On update the stored tasks are replaced by this set when it is present, an empty set clears them, and omitting the field leaves them unchanged.
    * @return postProcessTasks
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public List<PostProcessTask> getPostProcessTasks() {
     return postProcessTasks;
   }
@@ -398,7 +398,6 @@ public class UpdateInstanceRequest {
     openapiRequiredFields.add("enabled");
     openapiRequiredFields.add("triggers");
     openapiRequiredFields.add("details");
-    openapiRequiredFields.add("postProcessTasks");
   }
 
  /**
@@ -443,16 +442,20 @@ public class UpdateInstanceRequest {
       for (int i = 0; i < jsonArraytriggers.size(); i++) {
         Trigger.validateJsonElement(jsonArraytriggers.get(i));
       };
-      // ensure the json data is an array
-      if (!jsonObj.get("postProcessTasks").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `postProcessTasks` to be an array in the JSON string but got `%s`", jsonObj.get("postProcessTasks").toString()));
-      }
+      if (jsonObj.get("postProcessTasks") != null && !jsonObj.get("postProcessTasks").isJsonNull()) {
+        JsonArray jsonArraypostProcessTasks = jsonObj.getAsJsonArray("postProcessTasks");
+        if (jsonArraypostProcessTasks != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("postProcessTasks").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `postProcessTasks` to be an array in the JSON string but got `%s`", jsonObj.get("postProcessTasks").toString()));
+          }
 
-      JsonArray jsonArraypostProcessTasks = jsonObj.getAsJsonArray("postProcessTasks");
-      // validate the required field `postProcessTasks` (array)
-      for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
-        PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
-      };
+          // validate the optional field `postProcessTasks` (array)
+          for (int i = 0; i < jsonArraypostProcessTasks.size(); i++) {
+            PostProcessTask.validateJsonElement(jsonArraypostProcessTasks.get(i));
+          };
+        }
+      }
       if (jsonObj.get("alertRules") != null && !jsonObj.get("alertRules").isJsonNull()) {
         JsonArray jsonArrayalertRules = jsonObj.getAsJsonArray("alertRules");
         if (jsonArrayalertRules != null) {

@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **lastRunStatus** | **String** |  | [optional] [default to String]
 **latestRunsIn24Hours** | [**LatestRunsResponse**](LatestRunsResponse.md) |  | [optional] [default to LatestRunsResponse]
 **destinations** | [**List&lt;InstanceDestinations&gt;**](InstanceDestinations.md) |  | [default to List<InstanceDestinations>]
+**outputFormat** | **String** |  | [optional] [default to String]
 
 ```java
 import com.finbourne.horizon.model.InstanceResponse;
@@ -32,6 +33,7 @@ List<TpfPortfolio> Portfolios = new List<TpfPortfolio>();
 @jakarta.annotation.Nullable String LastRunStatus = "example LastRunStatus";
 LatestRunsResponse LatestRunsIn24Hours = new LatestRunsResponse();
 List<InstanceDestinations> Destinations = new List<InstanceDestinations>();
+@jakarta.annotation.Nullable String OutputFormat = "example OutputFormat";
 
 
 InstanceResponse instanceResponseInstance = new InstanceResponse()
@@ -44,7 +46,8 @@ InstanceResponse instanceResponseInstance = new InstanceResponse()
     .LastRunAt(LastRunAt)
     .LastRunStatus(LastRunStatus)
     .LatestRunsIn24Hours(LatestRunsIn24Hours)
-    .Destinations(Destinations);
+    .Destinations(Destinations)
+    .OutputFormat(OutputFormat);
 ```
 
 

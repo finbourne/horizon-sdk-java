@@ -4,18 +4,116 @@ All URIs are relative to *https://fbn-prd.lusid.com/horizon*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**getRunFileContent**](TradePublicationFrameworkApi.md#getRunFileContent) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files/{fileUuid}/content | [EXPERIMENTAL] GetRunFileContent: Download a file a run delivered, rebuilt from the run&#39;s retained build rows in the instance&#39;s output format |
 | [**getTpfFileDeliveries**](TradePublicationFrameworkApi.md#getTpfFileDeliveries) | **GET** /api/trade-publication-framework/instances/{instanceId}/deliveries | [EXPERIMENTAL] GetTpfFileDeliveries: Search TPF file deliveries for a specific instance |
-| [**getTpfTransactionHistorySearch**](TradePublicationFrameworkApi.md#getTpfTransactionHistorySearch) | **POST** /api/trade-publication-framework/transactions/search | [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, and publication status. Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR&#39;d within each filter, AND&#39;d between filters). |
+| [**getTpfTransactionHistorySearch**](TradePublicationFrameworkApi.md#getTpfTransactionHistorySearch) | **POST** /api/trade-publication-framework/transactions/search | [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, publication status, and a Finbourne Filtering expression. Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR&#39;d within each filter, AND&#39;d between filters). Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope. Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode. Sortable by the same properties. RunStartTime DESC is the default tiebreaker. |
 | [**getTransactionPayload**](TradePublicationFrameworkApi.md#getTransactionPayload) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions/payload | [EXPERIMENTAL] GetTransactionPayload: Transaction payloads for a run, with pagination support. When transactionId is supplied the single matching payload is returned; otherwise all payloads for the instance/run are returned. |
 | [**listFailedDeliveries**](TradePublicationFrameworkApi.md#listFailedDeliveries) | **GET** /api/trade-publication-framework/instances/{instanceId}/failed | [EXPERIMENTAL] ListFailedDeliveries: List failed deliveries for a given TPF instance, filtered by resolved state, with pagination support. |
 | [**listInstanceRunHistory**](TradePublicationFrameworkApi.md#listInstanceRunHistory) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs | [EXPERIMENTAL] ListInstanceRunHistory: List run history for a given TPF instance, with pagination support. |
 | [**listInstancesWithStatus**](TradePublicationFrameworkApi.md#listInstancesWithStatus) | **GET** /api/trade-publication-framework/instances | [EXPERIMENTAL] ListInstancesWithStatus: Lists all instances of the Trade Publication Framework (TPF). |
-| [**listRunFiles**](TradePublicationFrameworkApi.md#listRunFiles) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files | [EXPERIMENTAL] ListRunFiles: List Files in a run |
+| [**listRunFiles**](TradePublicationFrameworkApi.md#listRunFiles) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files | [EXPERIMENTAL] ListRunFiles: List the file deliveries of a run, one row per file and destination. Each row&#39;s destinations list holds exactly one element; key rows on fileUuid. |
 | [**listRunTransactions**](TradePublicationFrameworkApi.md#listRunTransactions) | **GET** /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/transactions | [EXPERIMENTAL] ListRunTransactions: List Transactions in a run. |
 | [**replayTransactions**](TradePublicationFrameworkApi.md#replayTransactions) | **POST** /api/trade-publication-framework/instances/{instanceId}/replay | [EXPERIMENTAL] ReplayTransactions: Replay one or more transactions through a TPF instance |
 | [**resolveFailedDelivery**](TradePublicationFrameworkApi.md#resolveFailedDelivery) | **PUT** /api/trade-publication-framework/instances/{instanceId}/failed/{batchReferenceId}/resolve | [EXPERIMENTAL] ResolveFailedDelivery: Resolve a failed delivery without retry |
 | [**retryTpfSftpDelivery**](TradePublicationFrameworkApi.md#retryTpfSftpDelivery) | **POST** /api/trade-publication-framework/instances/{instanceId}/files/{fileUuid}/retry-sftp | [EXPERIMENTAL] RetryTpfSftpDelivery: Resend a TPF file to the destination it was delivered to or failed to reach (SFTP or Drive) |
 
+
+
+## getRunFileContent
+
+> File getRunFileContent(instanceId, runId, fileUuid)
+
+[EXPERIMENTAL] GetRunFileContent: Download a file a run delivered, rebuilt from the run&#39;s retained build rows in the instance&#39;s output format
+
+Returns the file exactly as the instance built it, so it can be pushed by hand when Horizon cannot. The content is rebuilt the way a resend rebuilds it, so it is only available while the build rows are retained and the response is 410 once retention has purged them. An encrypted instance&#39;s file is returned as plaintext.
+
+### Example
+
+```java
+import com.finbourne.horizon.model.*;
+import com.finbourne.horizon.api.TradePublicationFrameworkApi;
+import com.finbourne.horizon.extensions.ApiConfigurationException;
+import com.finbourne.horizon.extensions.ApiFactoryBuilder;
+import com.finbourne.horizon.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class TradePublicationFrameworkApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"horizonUrl\": \"https://<your-domain>.lusid.com/horizon\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
+
+        TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
+        String instanceId = "instanceId_example"; // String | Integration instance ID.
+        String runId = "runId_example"; // String | Run ID within the instance, or any retry attempt of it.
+        String fileUuid = "fileUuid_example"; // String | File delivery UUID, as returned by the run-files listing.
+        try {
+            // uncomment the below to set overrides at the request level
+            // File result = apiInstance.getRunFileContent(instanceId, runId, fileUuid).execute(opts);
+
+            File result = apiInstance.getRunFileContent(instanceId, runId, fileUuid).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradePublicationFrameworkApi#getRunFileContent");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **instanceId** | **String**| Integration instance ID. | |
+| **runId** | **String**| Run ID within the instance, or any retry attempt of it. | |
+| **fileUuid** | **String**| File delivery UUID, as returned by the run-files listing. | |
+
+### Return type
+
+[**File**](File.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv, application/xml, application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The file as the instance built it, text/csv or application/xml |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | The requested TPF instance, run or file does not exist. |  -  |
+| **410** | The build rows the file is rebuilt from have been purged by retention. |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 
 ## getTpfFileDeliveries
@@ -123,7 +221,7 @@ public class TradePublicationFrameworkApiExample {
 
 > PagedResourceListOfTpfTransactionSearchResponse getTpfTransactionHistorySearch(tpfTransactionSearchRequest)
 
-[EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, and publication status. Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR&#39;d within each filter, AND&#39;d between filters).
+[EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, publication status, and a Finbourne Filtering expression. Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR&#39;d within each filter, AND&#39;d between filters). Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope. Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode. Sortable by the same properties. RunStartTime DESC is the default tiebreaker.
 
 ### Example
 
@@ -164,7 +262,7 @@ public class TradePublicationFrameworkApiExample {
         // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
-        TpfTransactionSearchRequest tpfTransactionSearchRequest = new TpfTransactionSearchRequest(); // TpfTransactionSearchRequest | Search filters and pagination options.
+        TpfTransactionSearchRequest tpfTransactionSearchRequest = new TpfTransactionSearchRequest(); // TpfTransactionSearchRequest | Search filters, sort order, and pagination options.
         try {
             // uncomment the below to set overrides at the request level
             // PagedResourceListOfTpfTransactionSearchResponse result = apiInstance.getTpfTransactionHistorySearch(tpfTransactionSearchRequest).execute(opts);
@@ -186,7 +284,7 @@ public class TradePublicationFrameworkApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **tpfTransactionSearchRequest** | [**TpfTransactionSearchRequest**](TpfTransactionSearchRequest.md)| Search filters and pagination options. | [optional] |
+| **tpfTransactionSearchRequest** | [**TpfTransactionSearchRequest**](TpfTransactionSearchRequest.md)| Search filters, sort order, and pagination options. | [optional] |
 
 ### Return type
 
@@ -210,7 +308,7 @@ public class TradePublicationFrameworkApiExample {
 
 ## getTransactionPayload
 
-> PagedResourceListOfTransactionPayload getTransactionPayload(instanceId, runId, transactionId, page, pageSize)
+> PagedResourceListOfTransactionPayload getTransactionPayload(instanceId, runId, transactionId, page, pageSize, filter, sortBy)
 
 [EXPERIMENTAL] GetTransactionPayload: Transaction payloads for a run, with pagination support. When transactionId is supplied the single matching payload is returned; otherwise all payloads for the instance/run are returned.
 
@@ -253,16 +351,18 @@ public class TradePublicationFrameworkApiExample {
         // TradePublicationFrameworkApi apiInstance = apiFactory.build(TradePublicationFrameworkApi.class);
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
-        String instanceId = "instanceId_example"; // String | 
-        String runId = "runId_example"; // String | 
-        String transactionId = "transactionId_example"; // String | 
-        String page = ""; // String | 
-        Integer pageSize = 100; // Integer | 
+        String instanceId = "instanceId_example"; // String | Integration instance ID.
+        String runId = "runId_example"; // String | Run ID within the instance.
+        String transactionId = "transactionId_example"; // String | Return only this transaction's payload. Applied together with <i>filter</i>.
+        String page = ""; // String | The pagination token from the previous response; <i>filter</i> and <i>sortBy</i> must be unchanged.
+        Integer pageSize = 100; // Integer | Number of results per page.
+        String filter = "filter_example"; // String | A Finbourne filter on: transactionId, publicationStatus (Sent, Failed) and the instance's own output columns, e.g. SIDE eq 'B'. Values are compared as text, range operators included, so QTY gt '50' is a text comparison, and null is not accepted. Only output columns named with letters, digits and underscores can be filtered on; the rest can still be sorted. An unknown field is rejected with the fields the run accepts.
+        List<String> sortBy = Arrays.asList(); // List<String> | Up to two filterable fields, each suffixed \" ASC\" or \" DESC\". Output columns order nulls, then numbers by value, then the rest as text. Defaults to transactionId ASC.
         try {
             // uncomment the below to set overrides at the request level
-            // PagedResourceListOfTransactionPayload result = apiInstance.getTransactionPayload(instanceId, runId, transactionId, page, pageSize).execute(opts);
+            // PagedResourceListOfTransactionPayload result = apiInstance.getTransactionPayload(instanceId, runId, transactionId, page, pageSize, filter, sortBy).execute(opts);
 
-            PagedResourceListOfTransactionPayload result = apiInstance.getTransactionPayload(instanceId, runId, transactionId, page, pageSize).execute();
+            PagedResourceListOfTransactionPayload result = apiInstance.getTransactionPayload(instanceId, runId, transactionId, page, pageSize, filter, sortBy).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling TradePublicationFrameworkApi#getTransactionPayload");
@@ -279,11 +379,13 @@ public class TradePublicationFrameworkApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **instanceId** | **String**|  | |
-| **runId** | **String**|  | |
-| **transactionId** | **String**|  | [optional] |
-| **page** | **String**|  | [optional] [default to ] |
-| **pageSize** | **Integer**|  | [optional] [default to 100] |
+| **instanceId** | **String**| Integration instance ID. | |
+| **runId** | **String**| Run ID within the instance. | |
+| **transactionId** | **String**| Return only this transaction&#39;s payload. Applied together with &lt;i&gt;filter&lt;/i&gt;. | [optional] |
+| **page** | **String**| The pagination token from the previous response; &lt;i&gt;filter&lt;/i&gt; and &lt;i&gt;sortBy&lt;/i&gt; must be unchanged. | [optional] [default to ] |
+| **pageSize** | **Integer**| Number of results per page. | [optional] [default to 100] |
+| **filter** | **String**| A Finbourne filter on: transactionId, publicationStatus (Sent, Failed) and the instance&#39;s own output columns, e.g. SIDE eq &#39;B&#39;. Values are compared as text, range operators included, so QTY gt &#39;50&#39; is a text comparison, and null is not accepted. Only output columns named with letters, digits and underscores can be filtered on; the rest can still be sorted. An unknown field is rejected with the fields the run accepts. | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)| Up to two filterable fields, each suffixed \&quot; ASC\&quot; or \&quot; DESC\&quot;. Output columns order nulls, then numbers by value, then the rest as text. Defaults to transactionId ASC. | [optional] |
 
 ### Return type
 
@@ -587,7 +689,7 @@ This endpoint does not need any parameter.
 
 > PagedResourceListOfRunFileResponse listRunFiles(instanceId, runId, page, pageSize, filter, sortBy)
 
-[EXPERIMENTAL] ListRunFiles: List Files in a run
+[EXPERIMENTAL] ListRunFiles: List the file deliveries of a run, one row per file and destination. Each row&#39;s destinations list holds exactly one element; key rows on fileUuid.
 
 ### Example
 
@@ -632,7 +734,7 @@ public class TradePublicationFrameworkApiExample {
         String runId = "runId_example"; // String | Run ID within the instance.
         String page = ""; // String | The pagination token from the previous response; <i>filter</i> and <i>sortBy</i> must be unchanged.
         Integer pageSize = 100; // Integer | Number of results per page.
-        String filter = "filter_example"; // String | A Finbourne filter on: fileName, generatedAt, rowCount, fileHash, encrypted, destinationType, destinationPath, status, fileUuid.
+        String filter = "filter_example"; // String | A Finbourne filter on: fileName, generatedAt, rowCount, fileHash, encrypted, destinationType, destinationPath, destinationName, status, fileUuid, deliveredAt.
         List<String> sortBy = Arrays.asList(); // List<String> | Up to two filterable fields, each suffixed \" ASC\" or \" DESC\". Defaults to newest first (GeneratedAt DESC, Id DESC).
         try {
             // uncomment the below to set overrides at the request level
@@ -659,7 +761,7 @@ public class TradePublicationFrameworkApiExample {
 | **runId** | **String**| Run ID within the instance. | |
 | **page** | **String**| The pagination token from the previous response; &lt;i&gt;filter&lt;/i&gt; and &lt;i&gt;sortBy&lt;/i&gt; must be unchanged. | [optional] [default to ] |
 | **pageSize** | **Integer**| Number of results per page. | [optional] [default to 100] |
-| **filter** | **String**| A Finbourne filter on: fileName, generatedAt, rowCount, fileHash, encrypted, destinationType, destinationPath, status, fileUuid. | [optional] |
+| **filter** | **String**| A Finbourne filter on: fileName, generatedAt, rowCount, fileHash, encrypted, destinationType, destinationPath, destinationName, status, fileUuid, deliveredAt. | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| Up to two filterable fields, each suffixed \&quot; ASC\&quot; or \&quot; DESC\&quot;. Defaults to newest first (GeneratedAt DESC, Id DESC). | [optional] |
 
 ### Return type

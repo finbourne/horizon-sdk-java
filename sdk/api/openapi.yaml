@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4167
+  version: 0.1.4191
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3052,6 +3052,7 @@ paths:
                   destinationName: Vendor SFTP Server
                   fileUuid: 7f3c1a2e-4b5d-4e6f-8a90-1b2c3d4e5f60
                   canResend: true
+                  deliveredAt: 2024-01-15T10:35:04.0000000+00:00
                 - runId: 550e8400-e29b-41d4-a716-446655440002
                   runStartTime: 2024-01-15T11:00:00.0000000+00:00
                   fileName: trades_20240115_110000.csv
@@ -3580,7 +3581,8 @@ paths:
         style: form
         x-nullable: true
       - description: "A Finbourne filter on: fileName, generatedAt, rowCount, fileHash,\
-          \ encrypted, destinationType, destinationPath, status, fileUuid."
+          \ encrypted, destinationType, destinationPath, destinationName, status,\
+          \ fileUuid, deliveredAt."
         explode: true
         in: query
         name: filter
@@ -3626,7 +3628,95 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListRunFiles: List Files in a run"
+      summary: "[EXPERIMENTAL] ListRunFiles: List the file deliveries of a run, one\
+        \ row per file and destination. Each row's destinations list holds exactly\
+        \ one element; key rows on fileUuid."
+      tags:
+      - TradePublicationFramework
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/trade-publication-framework/instances/{instanceId}/runs/{runId}/files/{fileUuid}/content:
+    get:
+      description: |-
+        Returns the file exactly as the instance built it, so it can be pushed by hand when Horizon cannot. The
+        content is rebuilt the way a resend rebuilds it, so it is only available while the build rows are retained
+        and the response is 410 once retention has purged them. An encrypted instance's file is returned as plaintext.
+      operationId: GetRunFileContent
+      parameters:
+      - description: Integration instance ID.
+        explode: false
+        in: path
+        name: instanceId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - description: "Run ID within the instance, or any retry attempt of it."
+        explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      - description: "File delivery UUID, as returned by the run-files listing."
+        explode: false
+        in: path
+        name: fileUuid
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                format: binary
+                type: string
+            application/xml:
+              schema:
+                format: binary
+                type: string
+          description: "The file as the instance built it, text/csv or application/xml"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: "The requested TPF instance, run or file does not exist."
+        "410":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: The build rows the file is rebuilt from have been purged by
+            retention.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetRunFileContent: Download a file a run delivered,\
+        \ rebuilt from the run's retained build rows in the instance's output format"
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
@@ -3752,7 +3842,8 @@ paths:
     get:
       operationId: GetTransactionPayload
       parameters:
-      - explode: false
+      - description: Integration instance ID.
+        explode: false
         in: path
         name: instanceId
         required: true
@@ -3762,7 +3853,8 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: false
+      - description: Run ID within the instance.
+        explode: false
         in: path
         name: runId
         required: true
@@ -3772,7 +3864,9 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - explode: true
+      - description: Return only this transaction's payload. Applied together with
+          <i>filter</i>.
+        explode: true
         in: query
         name: transactionId
         required: false
@@ -3781,7 +3875,9 @@ paths:
           minLength: 0
           type: string
         style: form
-      - explode: true
+      - description: The pagination token from the previous response; <i>filter</i>
+          and <i>sortBy</i> must be unchanged.
+        explode: true
         in: query
         name: page
         required: false
@@ -3792,7 +3888,8 @@ paths:
           pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
           type: string
         style: form
-      - explode: true
+      - description: Number of results per page.
+        explode: true
         in: query
         name: pageSize
         required: false
@@ -3802,6 +3899,35 @@ paths:
           maximum: 5000
           minimum: 1
           type: integer
+        style: form
+        x-nullable: true
+      - description: |-
+          A Finbourne filter on: transactionId, publicationStatus (Sent, Failed) and the instance's own output
+          columns, e.g. SIDE eq 'B'. Values are compared as text, range operators included, so QTY gt '50' is
+          a text comparison, and null is not accepted. Only output columns named with letters, digits and
+          underscores can be filtered on; the rest can still be sorted. An unknown field is rejected with the
+          fields the run accepts.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: |-
+          Up to two filterable fields, each suffixed " ASC" or " DESC". Output columns order nulls, then numbers by
+          value, then the rest as text. Defaults to transactionId ASC.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
         style: form
         x-nullable: true
       responses:
@@ -3846,7 +3972,7 @@ paths:
               - TXN-2024-002
               instrumentIdentifiers:
               - GB0002634946
-              - US0378331005
+              - LUID_00003D4X
               instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
               from: 2024-04-01T00:00:00.0000000+00:00
               to: 2024-04-30T00:00:00.0000000+00:00
@@ -3861,7 +3987,7 @@ paths:
               - TXN-2024-002
               instrumentIdentifiers:
               - GB0002634946
-              - US0378331005
+              - LUID_00003D4X
               instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
               from: 2024-04-01T00:00:00.0000000+00:00
               to: 2024-04-30T00:00:00.0000000+00:00
@@ -3876,7 +4002,7 @@ paths:
               - TXN-2024-002
               instrumentIdentifiers:
               - GB0002634946
-              - US0378331005
+              - LUID_00003D4X
               instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
               from: 2024-04-01T00:00:00.0000000+00:00
               to: 2024-04-30T00:00:00.0000000+00:00
@@ -3891,7 +4017,7 @@ paths:
               - TXN-2024-002
               instrumentIdentifiers:
               - GB0002634946
-              - US0378331005
+              - LUID_00003D4X
               instanceId: a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d
               from: 2024-04-01T00:00:00.0000000+00:00
               to: 2024-04-30T00:00:00.0000000+00:00
@@ -3899,7 +4025,7 @@ paths:
               status: Sent
             schema:
               $ref: '#/components/schemas/TpfTransactionSearchRequest'
-        description: Search filters and pagination options.
+        description: "Search filters, sort order, and pagination options."
       responses:
         "200":
           content:
@@ -3968,8 +4094,12 @@ paths:
       security:
       - oauth2: []
       summary: |-
-        [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, and publication status.
+        [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, publication status, and a Finbourne Filtering expression.
         Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR'd within each filter, AND'd between filters).
+        Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope.
+        Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType,
+        instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode.
+        Sortable by the same properties. RunStartTime DESC is the default tiebreaker.
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
@@ -5386,8 +5516,12 @@ components:
             \ it."
           type: object
         postProcessTasks:
+          description: |-
+            Post-process tasks for the instance. On update the stored tasks are replaced by this set when it is present, an
+            empty set clears them, and omitting the field leaves them unchanged.
           items:
             $ref: '#/components/schemas/PostProcessTask'
+          nullable: true
           type: array
         alertRules:
           description: |-
@@ -5403,7 +5537,6 @@ components:
       - enabled
       - integrationType
       - name
-      - postProcessTasks
       - triggers
       type: object
     CreateVersionedConfigurationDraftRequest:
@@ -5773,13 +5906,17 @@ components:
       type: object
     FileDestinationResponse:
       additionalProperties: false
-      description: record containing details of a single file destination for a run.
+      description: |-
+        The destination a file delivery row describes. A Failed row carries the per-transaction FailureReason when one
+        was recorded, falling back to the raw Error text.
       example:
         path: path
         failureReason: failureReason
+        name: name
         type: type
         error: error
         status: status
+        deliveredAt: 2000-01-23T04:56:07.000+00:00
       properties:
         type:
           type: string
@@ -5791,6 +5928,17 @@ components:
           nullable: true
           type: string
         failureReason:
+          nullable: true
+          type: string
+        name:
+          description: "The configured destination name, such as the SFTP host, when\
+            \ one was recorded."
+          nullable: true
+          type: string
+        deliveredAt:
+          description: When the file reached the destination; null for a Failed or
+            Pending row.
+          format: date-time
           nullable: true
           type: string
       required:
@@ -6055,6 +6203,7 @@ components:
         lastRunStatus: lastRunStatus
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         scheduleTimezone: scheduleTimezone
+        outputFormat: outputFormat
         enabled: true
       properties:
         id:
@@ -6087,6 +6236,9 @@ components:
           items:
             $ref: '#/components/schemas/InstanceDestinations'
           type: array
+        outputFormat:
+          nullable: true
+          type: string
       required:
       - destinations
       - enabled
@@ -6105,6 +6257,7 @@ components:
         skippedCount: 5
         message: message
         attempt: 0
+        fileCount: 7
         referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         sentCount: 1
         duration: duration
@@ -6166,6 +6319,12 @@ components:
         message:
           nullable: true
           type: string
+        fileCount:
+          description: "The number of rows ListRunFiles returns for the run, every\
+            \ delivery attempt included; latest attempt only."
+          format: int32
+          nullable: true
+          type: integer
       required:
       - referenceId
       - runId
@@ -6202,6 +6361,7 @@ components:
           lastRunStatus: lastRunStatus
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           scheduleTimezone: scheduleTimezone
+          outputFormat: outputFormat
           enabled: true
         - schedule: schedule
           lastRunAt: 2000-01-23T04:56:07.000+00:00
@@ -6228,6 +6388,7 @@ components:
           lastRunStatus: lastRunStatus
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           scheduleTimezone: scheduleTimezone
+          outputFormat: outputFormat
           enabled: true
       properties:
         instances:
@@ -8178,6 +8339,7 @@ components:
         - skippedCount: 5
           message: message
           attempt: 0
+          fileCount: 7
           referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
           duration: duration
@@ -8192,6 +8354,7 @@ components:
         - skippedCount: 5
           message: message
           attempt: 0
+          fileCount: 7
           referenceId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sentCount: 1
           duration: duration
@@ -8561,14 +8724,18 @@ components:
           destinations:
           - path: path
             failureReason: failureReason
+            name: name
             type: type
             error: error
             status: status
+            deliveredAt: 2000-01-23T04:56:07.000+00:00
           - path: path
             failureReason: failureReason
+            name: name
             type: type
             error: error
             status: status
+            deliveredAt: 2000-01-23T04:56:07.000+00:00
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
           failedTransactionIds:
@@ -8585,14 +8752,18 @@ components:
           destinations:
           - path: path
             failureReason: failureReason
+            name: name
             type: type
             error: error
             status: status
+            deliveredAt: 2000-01-23T04:56:07.000+00:00
           - path: path
             failureReason: failureReason
+            name: name
             type: type
             error: error
             status: status
+            deliveredAt: 2000-01-23T04:56:07.000+00:00
           generatedAt: 2000-01-23T04:56:07.000+00:00
           fileHash: fileHash
           failedTransactionIds:
@@ -8643,6 +8814,7 @@ components:
           canResend: true
           fileHash: fileHash
           destinationStatus: destinationStatus
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
           destinationName: destinationName
@@ -8656,6 +8828,7 @@ components:
           canResend: true
           fileHash: fileHash
           destinationStatus: destinationStatus
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
           destinationName: destinationName
@@ -8708,6 +8881,7 @@ components:
           instrumentType: instrumentType
           fileName: fileName
           instanceName: instanceName
+          instrumentScope: instrumentScope
           instrumentId: instrumentId
           destinations:
           - destinations
@@ -8730,6 +8904,7 @@ components:
           instrumentType: instrumentType
           fileName: fileName
           instanceName: instanceName
+          instrumentScope: instrumentScope
           instrumentId: instrumentId
           destinations:
           - destinations
@@ -8845,6 +9020,7 @@ components:
         - publicationStatus: publicationStatus
           instrumentType: instrumentType
           outputFileName: outputFileName
+          instrumentScope: instrumentScope
           instrumentId: instrumentId
           destinations:
           - path: path
@@ -8865,6 +9041,7 @@ components:
         - publicationStatus: publicationStatus
           instrumentType: instrumentType
           outputFileName: outputFileName
+          instrumentScope: instrumentScope
           instrumentId: instrumentId
           destinations:
           - path: path
@@ -9523,7 +9700,9 @@ components:
       type: object
     RunFileResponse:
       additionalProperties: false
-      description: record containing details of a single file for a run.
+      description: |-
+        One delivery of a file to one destination within a run, keyed by FileUuid. A file sent to two destinations
+        appears as two rows, so Destinations always holds exactly one element.
       example:
         transactionIds:
         - transactionIds
@@ -9534,14 +9713,18 @@ components:
         destinations:
         - path: path
           failureReason: failureReason
+          name: name
           type: type
           error: error
           status: status
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
         - path: path
           failureReason: failureReason
+          name: name
           type: type
           error: error
           status: status
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
         generatedAt: 2000-01-23T04:56:07.000+00:00
         fileHash: fileHash
         failedTransactionIds:
@@ -9553,6 +9736,8 @@ components:
         fileName:
           type: string
         generatedAt:
+          description: "When the file was built, or when the attempt failed before\
+            \ a file was built."
           format: date-time
           type: string
         rowCount:
@@ -9700,6 +9885,7 @@ components:
         canResend: true
         fileHash: fileHash
         destinationStatus: destinationStatus
+        deliveredAt: 2000-01-23T04:56:07.000+00:00
         runStartTime: 2000-01-23T04:56:07.000+00:00
         destinationError: destinationError
         destinationName: destinationName
@@ -9720,6 +9906,8 @@ components:
         fileName:
           type: string
         generatedAt:
+          description: "When the file was built, or when the attempt failed before\
+            \ a file was built."
           format: date-time
           type: string
         rowCount:
@@ -9748,6 +9936,12 @@ components:
           description: "Whether the data the file is rebuilt from is still retained,\
             \ so a resend can be requested."
           type: boolean
+        deliveredAt:
+          description: When the file reached the destination; null for a Failed or
+            Pending row.
+          format: date-time
+          nullable: true
+          type: string
       required:
       - canResend
       - destinationStatus
@@ -9834,6 +10028,7 @@ components:
         Multiple values in TransactionIds and InstrumentIdentifiers are OR'd within each filter;
         both filters together are AND'd.
       example:
+        filter: filter
         transactionIds:
         - transactionIds
         - transactionIds
@@ -9843,6 +10038,9 @@ components:
         - instrumentIdentifiers
         - instrumentIdentifiers
         from: 2000-01-23T04:56:07.000+00:00
+        sortBy:
+        - sortBy
+        - sortBy
         to: 2000-01-23T04:56:07.000+00:00
         page: page
         status: status
@@ -9855,8 +10053,12 @@ components:
           nullable: true
           type: array
         instrumentIdentifiers:
-          description: "One or more instrument identifiers in any supported format\
-            \ (ISIN, CUSIP, LUID, etc.) to search for (max 50). Values are OR'd."
+          description: "One or more instrument identifiers to search for (max 50).\
+            \ Values are OR'd. Accepts LusidInstrumentId, Isin, Figi, Ticker, Cusip,\
+            \ Sedol or ClientInternal values. Every value is matched exactly against\
+            \ the stored instrument id; non-LUID values are also resolved against\
+            \ LUSID instruments in the default scope, whose own matching rules (including\
+            \ case) apply."
           items:
             type: string
           nullable: true
@@ -9902,6 +10104,30 @@ components:
           minLength: 0
           nullable: true
           type: string
+        filter:
+          description: |-
+            Filter expression to apply to the results, in the format "property operator value" (e.g.,
+            eq, ne, gt, lt), combined with "and"/"or" as needed. Filterable properties are transactionId,
+            instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate,
+            settlementDate, skipReason, failureReason, fileName, portfolioScope, portfolioCode, and runId.
+            PublicationStatus is not filterable here — use the Status body parameter instead.
+            Dates are quoted ISO-8601. Destinations is not filterable.
+            Must remain the same across pages — the page token includes a hash of both filter and sortBy.
+          maxLength: 16384
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        sortBy:
+          description: |-
+            Up to two sortable fields, each optionally suffixed " ASC" or " DESC".
+            Deterministic tiebreakers are appended automatically: RunStartTime DESC, TransactionId ASC,
+            BatchUuid ASC, FileName ASC.
+            Must remain the same across pages — the page token includes a hash of both filter and sortBy.
+          items:
+            type: string
+          nullable: true
+          type: array
       type: object
     TpfTransactionSearchResponse:
       additionalProperties: false
@@ -9911,6 +10137,7 @@ components:
         instrumentType: instrumentType
         fileName: fileName
         instanceName: instanceName
+        instrumentScope: instrumentScope
         instrumentId: instrumentId
         destinations:
         - destinations
@@ -10011,6 +10238,11 @@ components:
           description: InstrumentId showing instrument id of transaction
           nullable: true
           type: string
+        instrumentScope:
+          description: The scope the build resolved the instrument in; null for rows
+            built before it was recorded
+          nullable: true
+          type: string
       required:
       - batchId
       - instanceId
@@ -10070,6 +10302,7 @@ components:
         publicationStatus: publicationStatus
         instrumentType: instrumentType
         outputFileName: outputFileName
+        instrumentScope: instrumentScope
         instrumentId: instrumentId
         destinations:
         - path: path
@@ -10139,6 +10372,11 @@ components:
             $ref: '#/components/schemas/DestinationResponse'
           type: array
         failureStage:
+          nullable: true
+          type: string
+        instrumentScope:
+          description: The scope the build resolved the instrument in; null for rows
+            built before it was recorded.
           nullable: true
           type: string
       required:
@@ -10266,8 +10504,12 @@ components:
             \ it."
           type: object
         postProcessTasks:
+          description: |-
+            Post-process tasks for the instance. On update the stored tasks are replaced by this set when it is present, an
+            empty set clears them, and omitting the field leaves them unchanged.
           items:
             $ref: '#/components/schemas/PostProcessTask'
+          nullable: true
           type: array
         alertRules:
           description: |-
@@ -10284,7 +10526,6 @@ components:
       - id
       - integrationType
       - name
-      - postProcessTasks
       - triggers
       type: object
     UpdateInstanceResponse:
