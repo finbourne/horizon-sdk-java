@@ -111,7 +111,7 @@ public class TpfTransactionSearchRequest {
   }
 
    /**
-   * One or more LUSID transaction IDs to search for (max 50). Values are OR&#39;d.
+   * One or more LUSID transaction IDs to search for (max 50, each 1 to 256 characters). Values are OR&#39;d. An empty ID, or one with leading or trailing whitespace, is rejected with 400, as LUSID never stores one.
    * @return transactionIds
   **/
   @jakarta.annotation.Nullable

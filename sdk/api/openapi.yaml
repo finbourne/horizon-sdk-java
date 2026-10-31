@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4191
+  version: 0.1.4198
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3962,6 +3962,15 @@ paths:
       x-accepts: application/json
   /api/trade-publication-framework/transactions/search:
     post:
+      description: |-
+        Matches on transaction ID and/or instrument identifier, optionally narrowed by instance, trade date range, publication status and a Finbourne Filtering expression.
+        Multiple values within transactionIds or instrumentIdentifiers are OR'd; the two filters are AND'd.
+        Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope.
+        Transaction IDs that are empty or have leading or trailing whitespace are rejected (400).
+        Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType,
+        instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode.
+        Sortable by the same properties. RunStartTime DESC is the default tiebreaker.
+        Supports pagination.
       operationId: GetTpfTransactionHistorySearch
       requestBody:
         content:
@@ -4093,13 +4102,8 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: |-
-        [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions by transaction ID(s) and/or instrument identifier(s), with optional filtering by instance, date range, publication status, and a Finbourne Filtering expression.
-        Accepts multiple values in TransactionIds and InstrumentIdentifiers (OR'd within each filter, AND'd between filters).
-        Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope.
-        Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType,
-        instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode.
-        Sortable by the same properties. RunStartTime DESC is the default tiebreaker.
+      summary: "[EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions\
+        \ across instances"
       tags:
       - TradePublicationFramework
       x-fbn-apistatus: Experimental
@@ -10046,8 +10050,9 @@ components:
         status: status
       properties:
         transactionIds:
-          description: One or more LUSID transaction IDs to search for (max 50). Values
-            are OR'd.
+          description: |-
+            One or more LUSID transaction IDs to search for (max 50, each 1 to 256 characters). Values are OR'd.
+            An empty ID, or one with leading or trailing whitespace, is rejected with 400, as LUSID never stores one.
           items:
             type: string
           nullable: true
