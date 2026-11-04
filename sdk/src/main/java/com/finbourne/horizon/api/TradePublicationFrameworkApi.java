@@ -882,7 +882,7 @@ public class TradePublicationFrameworkApi {
 
     /**
      * [EXPERIMENTAL] GetTpfTransactionHistorySearch: Search TPF transactions across instances
-     * Matches on transaction ID and/or instrument identifier, optionally narrowed by instance, trade date range, publication status and a Finbourne Filtering expression. Multiple values within transactionIds or instrumentIdentifiers are OR&#39;d; the two filters are AND&#39;d. Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope. Transaction IDs that are empty or have leading or trailing whitespace are rejected (400). Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode. Sortable by the same properties. RunStartTime DESC is the default tiebreaker. Supports pagination.
+     * Matches on transaction ID and/or instrument identifier, optionally narrowed by instance, trade date range, publication status and a Finbourne Filtering expression. Multiple values within transactionIds or instrumentIdentifiers are OR&#39;d; the two filters are AND&#39;d. Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope. Transaction IDs that are empty or have leading or trailing whitespace are rejected (400). Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate, settlementDate, eventType, skipReason, failureReason, fileName, portfolioScope, portfolioCode, runId. Publication status is filtered by the status body field, not the filter. Sortable by the same properties. RunStartTime DESC is the default tiebreaker. Supports pagination.
      * @return APIgetTpfTransactionHistorySearchRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -2471,7 +2471,7 @@ public class TradePublicationFrameworkApi {
 
         /**
          * Set filter
-         * @param filter A Finbourne filter on: transactionId, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt. The status field here is the batched-transaction status (Complete, Skipped, Failed), not the publication status — use the ?status&#x3D; query parameter for that. (optional)
+         * @param filter A Finbourne filter on: transactionId, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, eventType. The status field here is the batched-transaction status (Complete, Skipped, Failed), not the publication status — use the ?status&#x3D; query parameter for that. eventType is the TPF event type (New, Amended, Cancelled, ..., or Queued for an element not yet built). Comparing a field with null is rejected. (optional)
          * @return APIlistRunTransactionsRequest
          */
         public APIlistRunTransactionsRequest filter(String filter) {

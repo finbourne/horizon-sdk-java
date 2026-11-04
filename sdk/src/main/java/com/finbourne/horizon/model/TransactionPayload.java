@@ -49,7 +49,7 @@ import java.util.Set;
 import com.finbourne.horizon.JSON;
 
 /**
- * record containing the payload for a single transaction. Columns is compiled once from the TPF instance configuration and is identical across every item in the paginated result. PublicationStatus is the row&#39;s outcome: Sent, or Failed when the file holding it reached no destination.
+ * record containing the payload for a single transaction. Columns is compiled once from the TPF instance configuration and is identical across every item in the paginated result. PublicationStatus is the row&#39;s outcome: Sent, or Failed when the file holding it reached no destination. Outcome carries the same value under the name the screens use.
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionPayload {
@@ -72,6 +72,10 @@ public class TransactionPayload {
   public static final String SERIALIZED_NAME_PUBLICATION_STATUS = "publicationStatus";
   @SerializedName(SERIALIZED_NAME_PUBLICATION_STATUS)
   private String publicationStatus;
+
+  public static final String SERIALIZED_NAME_OUTCOME = "outcome";
+  @SerializedName(SERIALIZED_NAME_OUTCOME)
+  private String outcome;
 
   public TransactionPayload() {
   }
@@ -197,6 +201,27 @@ public class TransactionPayload {
   }
 
 
+  public TransactionPayload outcome(String outcome) {
+    
+    this.outcome = outcome;
+    return this;
+  }
+
+   /**
+   * Get outcome
+   * @return outcome
+  **/
+  @jakarta.annotation.Nonnull
+  public String getOutcome() {
+    return outcome;
+  }
+
+
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -211,12 +236,13 @@ public class TransactionPayload {
         Objects.equals(this.columns, transactionPayload.columns) &&
         Objects.equals(this.values, transactionPayload.values) &&
         Objects.equals(this.rawCsvRow, transactionPayload.rawCsvRow) &&
-        Objects.equals(this.publicationStatus, transactionPayload.publicationStatus);
+        Objects.equals(this.publicationStatus, transactionPayload.publicationStatus) &&
+        Objects.equals(this.outcome, transactionPayload.outcome);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, columns, values, rawCsvRow, publicationStatus);
+    return Objects.hash(transactionId, columns, values, rawCsvRow, publicationStatus, outcome);
   }
 
   @Override
@@ -228,6 +254,7 @@ public class TransactionPayload {
     sb.append("    values: ").append(toIndentedString(values)).append("\n");
     sb.append("    rawCsvRow: ").append(toIndentedString(rawCsvRow)).append("\n");
     sb.append("    publicationStatus: ").append(toIndentedString(publicationStatus)).append("\n");
+    sb.append("    outcome: ").append(toIndentedString(outcome)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -255,6 +282,7 @@ public class TransactionPayload {
     openapiFields.add("values");
     openapiFields.add("rawCsvRow");
     openapiFields.add("publicationStatus");
+    openapiFields.add("outcome");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -263,6 +291,7 @@ public class TransactionPayload {
     openapiRequiredFields.add("values");
     openapiRequiredFields.add("rawCsvRow");
     openapiRequiredFields.add("publicationStatus");
+    openapiRequiredFields.add("outcome");
   }
 
  /**
@@ -299,6 +328,9 @@ public class TransactionPayload {
       }
       if (!jsonObj.get("publicationStatus").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `publicationStatus` to be a primitive type in the JSON string but got `%s`", jsonObj.get("publicationStatus").toString()));
+      }
+      if (!jsonObj.get("outcome").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `outcome` to be a primitive type in the JSON string but got `%s`", jsonObj.get("outcome").toString()));
       }
   }
 

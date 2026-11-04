@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4198
+  version: 0.1.4216
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -3786,8 +3786,10 @@ paths:
         x-nullable: true
       - description: |-
           A Finbourne filter on: transactionId, portfolioScope, portfolioCode, instrumentId, instrumentType,
-          instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt.
+          instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, eventType.
           The status field here is the batched-transaction status (Complete, Skipped, Failed), not the publication status — use the ?status= query parameter for that.
+          eventType is the TPF event type (New, Amended, Cancelled, ..., or Queued for an element not yet built).
+          Comparing a field with null is rejected.
         explode: true
         in: query
         name: filter
@@ -3968,7 +3970,8 @@ paths:
         Instrument identifiers are matched exactly against the stored instrument id; Isin, Figi, Ticker, Cusip, Sedol or ClientInternal values are also resolved against LUSID instruments in the default scope.
         Transaction IDs that are empty or have leading or trailing whitespace are rejected (400).
         Filterable properties (via the filter body field): transactionId, instanceName, runStartTime, instrumentName, instrumentType,
-        instrumentId, tradeDate, settlementDate, publicationStatus, skipReason, failureReason, fileName, portfolioScope, portfolioCode.
+        instrumentId, tradeDate, settlementDate, eventType, skipReason, failureReason, fileName, portfolioScope, portfolioCode, runId.
+        Publication status is filtered by the status body field, not the filter.
         Sortable by the same properties. RunStartTime DESC is the default tiebreaker.
         Supports pagination.
       operationId: GetTpfTransactionHistorySearch
@@ -4048,6 +4051,8 @@ paths:
                   runId: e5f6a7b8-c9d0-4e1f-8a2b-3c4d5e6f7a8b
                   runStartTime: 2024-04-15T10:30:00.0000000+00:00
                   publicationStatus: Sent
+                  outcome: Sent
+                  eventType: New
                   instrumentName: Apple Inc.
                   instrumentType: Equity
                   tradeDate: 2024-04-14T00:00:00.0000000+00:00
@@ -4063,6 +4068,8 @@ paths:
                   runId: e5f6a7b8-c9d0-4e1f-8a2b-3c4d5e6f7a8b
                   runStartTime: 2024-04-15T10:30:00.0000000+00:00
                   publicationStatus: Skipped
+                  outcome: Skipped
+                  eventType: Amended
                   instrumentName: Microsoft Corp.
                   instrumentType: Equity
                   tradeDate: 2024-04-14T00:00:00.0000000+00:00
@@ -4079,6 +4086,8 @@ paths:
                   runId: f6a7b8c9-d0e1-4f2a-9b3c-4d5e6f7a8b9c
                   runStartTime: 2024-04-15T14:45:00.0000000+00:00
                   publicationStatus: Failed
+                  outcome: Failed
+                  eventType: Cancelled
                   instrumentName: Tesla Inc.
                   instrumentType: Equity
                   tradeDate: 2024-04-15T00:00:00.0000000+00:00
@@ -8890,6 +8899,7 @@ components:
           destinations:
           - destinations
           - destinations
+          eventType: eventType
           tradeDate: 2000-01-23T04:56:07.000+00:00
           settlementDate: 2000-01-23T04:56:07.000+00:00
           failureStage: failureStage
@@ -8904,6 +8914,7 @@ components:
           runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           skipReason: skipReason
           portfolioCode: portfolioCode
+          outcome: outcome
         - publicationStatus: publicationStatus
           instrumentType: instrumentType
           fileName: fileName
@@ -8913,6 +8924,7 @@ components:
           destinations:
           - destinations
           - destinations
+          eventType: eventType
           tradeDate: 2000-01-23T04:56:07.000+00:00
           settlementDate: 2000-01-23T04:56:07.000+00:00
           failureStage: failureStage
@@ -8927,6 +8939,7 @@ components:
           runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           skipReason: skipReason
           portfolioCode: portfolioCode
+          outcome: outcome
         links:
         - method: method
           description: description
@@ -8974,6 +8987,7 @@ components:
             key: values
           rawCsvRow: rawCsvRow
           transactionId: transactionId
+          outcome: outcome
         - publicationStatus: publicationStatus
           columns:
           - columns
@@ -8982,6 +8996,7 @@ components:
             key: values
           rawCsvRow: rawCsvRow
           transactionId: transactionId
+          outcome: outcome
         links:
         - method: method
           description: description
@@ -9035,12 +9050,14 @@ components:
           settlementDate: 2000-01-23T04:56:07.000+00:00
           sentAt: 2000-01-23T04:56:07.000+00:00
           failureStage: failureStage
+          eventType: eventType
           transactionId: transactionId
           instrumentName: instrumentName
           portfolioScope: portfolioScope
           failureReason: failureReason
           skipReason: skipReason
           portfolioCode: portfolioCode
+          outcome: outcome
           status: status
         - publicationStatus: publicationStatus
           instrumentType: instrumentType
@@ -9056,12 +9073,14 @@ components:
           settlementDate: 2000-01-23T04:56:07.000+00:00
           sentAt: 2000-01-23T04:56:07.000+00:00
           failureStage: failureStage
+          eventType: eventType
           transactionId: transactionId
           instrumentName: instrumentName
           portfolioScope: portfolioScope
           failureReason: failureReason
           skipReason: skipReason
           portfolioCode: portfolioCode
+          outcome: outcome
           status: status
         links:
         - method: method
@@ -10114,9 +10133,10 @@ components:
             Filter expression to apply to the results, in the format "property operator value" (e.g.,
             eq, ne, gt, lt), combined with "and"/"or" as needed. Filterable properties are transactionId,
             instanceName, runStartTime, instrumentName, instrumentType, instrumentId, tradeDate,
-            settlementDate, skipReason, failureReason, fileName, portfolioScope, portfolioCode, and runId.
+            settlementDate, skipReason, failureReason, fileName, portfolioScope, portfolioCode, runId and
+            eventType (New, Amended, Cancelled, ...).
             PublicationStatus is not filterable here — use the Status body parameter instead.
-            Dates are quoted ISO-8601. Destinations is not filterable.
+            Dates are quoted ISO-8601. Destinations is not filterable. Comparing a field with null is rejected.
             Must remain the same across pages — the page token includes a hash of both filter and sortBy.
           maxLength: 16384
           minLength: 0
@@ -10147,6 +10167,7 @@ components:
         destinations:
         - destinations
         - destinations
+        eventType: eventType
         tradeDate: 2000-01-23T04:56:07.000+00:00
         settlementDate: 2000-01-23T04:56:07.000+00:00
         failureStage: failureStage
@@ -10161,6 +10182,7 @@ components:
         runId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         skipReason: skipReason
         portfolioCode: portfolioCode
+        outcome: outcome
       properties:
         transactionId:
           description: Transaction identifier
@@ -10186,7 +10208,20 @@ components:
           format: date-time
           type: string
         publicationStatus:
-          description: Publication status of the transaction (Sent | Skipped | Failed)
+          description: Outcome of the transaction's build (Sent | Skipped | Failed)
+          type: string
+        outcome:
+          description: The same value as PublicationStatus under the name the screens
+            use; PublicationStatus stays for existing clients.
+          type: string
+        eventType:
+          description: |-
+            The TPF event type that triggered this publication (New, Amended, Cancelled, NothingToDo, InstrumentMatured,
+            InstrumentPartialClosure, InstrumentFullClosure, InstrumentInterestPayment, LastSentPropertyUpdated).
+            Null for rows persisted before it was recorded, for transactions skipped as excluded, and for rows written
+            before the build computed it (for example a transaction not found in LUSID). Never Queued: the search
+            returns built rows only. Distinct from PublicationStatus, which says what happened to the row.
+          nullable: true
           type: string
         instrumentName:
           description: Instrument name
@@ -10254,6 +10289,7 @@ components:
       - instanceName
       - instrumentName
       - instrumentType
+      - outcome
       - publicationStatus
       - runId
       - runStartTime
@@ -10266,6 +10302,7 @@ components:
         record containing the payload for a single transaction. Columns is compiled once from the TPF
         instance configuration and is identical across every item in the paginated result.
         PublicationStatus is the row's outcome: Sent, or Failed when the file holding it reached no destination.
+        Outcome carries the same value under the name the screens use.
       example:
         publicationStatus: publicationStatus
         columns:
@@ -10275,6 +10312,7 @@ components:
           key: values
         rawCsvRow: rawCsvRow
         transactionId: transactionId
+        outcome: outcome
       properties:
         transactionId:
           type: string
@@ -10290,8 +10328,11 @@ components:
           type: string
         publicationStatus:
           type: string
+        outcome:
+          type: string
       required:
       - columns
+      - outcome
       - publicationStatus
       - rawCsvRow
       - transactionId
@@ -10318,19 +10359,21 @@ components:
         settlementDate: 2000-01-23T04:56:07.000+00:00
         sentAt: 2000-01-23T04:56:07.000+00:00
         failureStage: failureStage
+        eventType: eventType
         transactionId: transactionId
         instrumentName: instrumentName
         portfolioScope: portfolioScope
         failureReason: failureReason
         skipReason: skipReason
         portfolioCode: portfolioCode
+        outcome: outcome
         status: status
       properties:
         transactionId:
           type: string
         publicationStatus:
           description: "The outcome the screens show for this row: Sent, Skipped or\
-            \ Failed."
+            \ Failed, or the element status for an element not yet built."
           type: string
         portfolioScope:
           nullable: true
@@ -10384,8 +10427,18 @@ components:
             built before it was recorded.
           nullable: true
           type: string
+        outcome:
+          description: The same value as PublicationStatus under the name the screens
+            use; PublicationStatus stays for existing clients.
+          type: string
+        eventType:
+          description: "The TPF event type that triggered this publication (New, Amended,\
+            \ Cancelled, ...); Queued for an element not yet built; null otherwise."
+          nullable: true
+          type: string
       required:
       - destinations
+      - outcome
       - publicationStatus
       - status
       - transactionId

@@ -82,6 +82,14 @@ public class TpfTransactionSearchResponse {
   @SerializedName(SERIALIZED_NAME_PUBLICATION_STATUS)
   private String publicationStatus;
 
+  public static final String SERIALIZED_NAME_OUTCOME = "outcome";
+  @SerializedName(SERIALIZED_NAME_OUTCOME)
+  private String outcome;
+
+  public static final String SERIALIZED_NAME_EVENT_TYPE = "eventType";
+  @SerializedName(SERIALIZED_NAME_EVENT_TYPE)
+  private String eventType;
+
   public static final String SERIALIZED_NAME_INSTRUMENT_NAME = "instrumentName";
   @SerializedName(SERIALIZED_NAME_INSTRUMENT_NAME)
   private String instrumentName;
@@ -274,7 +282,7 @@ public class TpfTransactionSearchResponse {
   }
 
    /**
-   * Publication status of the transaction (Sent | Skipped | Failed)
+   * Outcome of the transaction&#39;s build (Sent | Skipped | Failed)
    * @return publicationStatus
   **/
   @jakarta.annotation.Nonnull
@@ -285,6 +293,48 @@ public class TpfTransactionSearchResponse {
 
   public void setPublicationStatus(String publicationStatus) {
     this.publicationStatus = publicationStatus;
+  }
+
+
+  public TpfTransactionSearchResponse outcome(String outcome) {
+    
+    this.outcome = outcome;
+    return this;
+  }
+
+   /**
+   * The same value as PublicationStatus under the name the screens use; PublicationStatus stays for existing clients.
+   * @return outcome
+  **/
+  @jakarta.annotation.Nonnull
+  public String getOutcome() {
+    return outcome;
+  }
+
+
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
+  }
+
+
+  public TpfTransactionSearchResponse eventType(String eventType) {
+    
+    this.eventType = eventType;
+    return this;
+  }
+
+   /**
+   * The TPF event type that triggered this publication (New, Amended, Cancelled, NothingToDo, InstrumentMatured, InstrumentPartialClosure, InstrumentFullClosure, InstrumentInterestPayment, LastSentPropertyUpdated). Null for rows persisted before it was recorded, for transactions skipped as excluded, and for rows written before the build computed it (for example a transaction not found in LUSID). Never Queued: the search returns built rows only. Distinct from PublicationStatus, which says what happened to the row.
+   * @return eventType
+  **/
+  @jakarta.annotation.Nullable
+  public String getEventType() {
+    return eventType;
+  }
+
+
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
   }
 
 
@@ -607,6 +657,8 @@ public class TpfTransactionSearchResponse {
         Objects.equals(this.runId, tpfTransactionSearchResponse.runId) &&
         Objects.equals(this.runStartTime, tpfTransactionSearchResponse.runStartTime) &&
         Objects.equals(this.publicationStatus, tpfTransactionSearchResponse.publicationStatus) &&
+        Objects.equals(this.outcome, tpfTransactionSearchResponse.outcome) &&
+        Objects.equals(this.eventType, tpfTransactionSearchResponse.eventType) &&
         Objects.equals(this.instrumentName, tpfTransactionSearchResponse.instrumentName) &&
         Objects.equals(this.instrumentType, tpfTransactionSearchResponse.instrumentType) &&
         Objects.equals(this.tradeDate, tpfTransactionSearchResponse.tradeDate) &&
@@ -629,7 +681,7 @@ public class TpfTransactionSearchResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, instanceId, instanceName, batchId, runId, runStartTime, publicationStatus, instrumentName, instrumentType, tradeDate, settlementDate, skipReason, fileName, destinations, portfolioCode, portfolioScope, failureReason, failureStage, sentAt, instrumentId, instrumentScope);
+    return Objects.hash(transactionId, instanceId, instanceName, batchId, runId, runStartTime, publicationStatus, outcome, eventType, instrumentName, instrumentType, tradeDate, settlementDate, skipReason, fileName, destinations, portfolioCode, portfolioScope, failureReason, failureStage, sentAt, instrumentId, instrumentScope);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -650,6 +702,8 @@ public class TpfTransactionSearchResponse {
     sb.append("    runId: ").append(toIndentedString(runId)).append("\n");
     sb.append("    runStartTime: ").append(toIndentedString(runStartTime)).append("\n");
     sb.append("    publicationStatus: ").append(toIndentedString(publicationStatus)).append("\n");
+    sb.append("    outcome: ").append(toIndentedString(outcome)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("    instrumentName: ").append(toIndentedString(instrumentName)).append("\n");
     sb.append("    instrumentType: ").append(toIndentedString(instrumentType)).append("\n");
     sb.append("    tradeDate: ").append(toIndentedString(tradeDate)).append("\n");
@@ -693,6 +747,8 @@ public class TpfTransactionSearchResponse {
     openapiFields.add("runId");
     openapiFields.add("runStartTime");
     openapiFields.add("publicationStatus");
+    openapiFields.add("outcome");
+    openapiFields.add("eventType");
     openapiFields.add("instrumentName");
     openapiFields.add("instrumentType");
     openapiFields.add("tradeDate");
@@ -717,6 +773,7 @@ public class TpfTransactionSearchResponse {
     openapiRequiredFields.add("runId");
     openapiRequiredFields.add("runStartTime");
     openapiRequiredFields.add("publicationStatus");
+    openapiRequiredFields.add("outcome");
     openapiRequiredFields.add("instrumentName");
     openapiRequiredFields.add("instrumentType");
     openapiRequiredFields.add("tradeDate");
@@ -759,6 +816,12 @@ public class TpfTransactionSearchResponse {
       }
       if (!jsonObj.get("publicationStatus").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `publicationStatus` to be a primitive type in the JSON string but got `%s`", jsonObj.get("publicationStatus").toString()));
+      }
+      if (!jsonObj.get("outcome").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `outcome` to be a primitive type in the JSON string but got `%s`", jsonObj.get("outcome").toString()));
+      }
+      if ((jsonObj.get("eventType") != null && !jsonObj.get("eventType").isJsonNull()) && !jsonObj.get("eventType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `eventType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("eventType").toString()));
       }
       if (!jsonObj.get("instrumentName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instrumentName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentName").toString()));

@@ -122,6 +122,14 @@ public class TransactionResponse {
   @SerializedName(SERIALIZED_NAME_INSTRUMENT_SCOPE)
   private String instrumentScope;
 
+  public static final String SERIALIZED_NAME_OUTCOME = "outcome";
+  @SerializedName(SERIALIZED_NAME_OUTCOME)
+  private String outcome;
+
+  public static final String SERIALIZED_NAME_EVENT_TYPE = "eventType";
+  @SerializedName(SERIALIZED_NAME_EVENT_TYPE)
+  private String eventType;
+
   public TransactionResponse() {
   }
 
@@ -153,7 +161,7 @@ public class TransactionResponse {
   }
 
    /**
-   * The outcome the screens show for this row: Sent, Skipped or Failed.
+   * The outcome the screens show for this row: Sent, Skipped or Failed, or the element status for an element not yet built.
    * @return publicationStatus
   **/
   @jakarta.annotation.Nonnull
@@ -490,6 +498,48 @@ public class TransactionResponse {
   }
 
 
+  public TransactionResponse outcome(String outcome) {
+    
+    this.outcome = outcome;
+    return this;
+  }
+
+   /**
+   * The same value as PublicationStatus under the name the screens use; PublicationStatus stays for existing clients.
+   * @return outcome
+  **/
+  @jakarta.annotation.Nonnull
+  public String getOutcome() {
+    return outcome;
+  }
+
+
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
+  }
+
+
+  public TransactionResponse eventType(String eventType) {
+    
+    this.eventType = eventType;
+    return this;
+  }
+
+   /**
+   * The TPF event type that triggered this publication (New, Amended, Cancelled, ...); Queued for an element not yet built; null otherwise.
+   * @return eventType
+  **/
+  @jakarta.annotation.Nullable
+  public String getEventType() {
+    return eventType;
+  }
+
+
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -516,7 +566,9 @@ public class TransactionResponse {
         Objects.equals(this.sentAt, transactionResponse.sentAt) &&
         Objects.equals(this.destinations, transactionResponse.destinations) &&
         Objects.equals(this.failureStage, transactionResponse.failureStage) &&
-        Objects.equals(this.instrumentScope, transactionResponse.instrumentScope);
+        Objects.equals(this.instrumentScope, transactionResponse.instrumentScope) &&
+        Objects.equals(this.outcome, transactionResponse.outcome) &&
+        Objects.equals(this.eventType, transactionResponse.eventType);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -525,7 +577,7 @@ public class TransactionResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, publicationStatus, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, destinations, failureStage, instrumentScope);
+    return Objects.hash(transactionId, publicationStatus, portfolioScope, portfolioCode, instrumentId, instrumentType, instrumentName, tradeDate, settlementDate, status, skipReason, failureReason, outputFileName, sentAt, destinations, failureStage, instrumentScope, outcome, eventType);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -556,6 +608,8 @@ public class TransactionResponse {
     sb.append("    destinations: ").append(toIndentedString(destinations)).append("\n");
     sb.append("    failureStage: ").append(toIndentedString(failureStage)).append("\n");
     sb.append("    instrumentScope: ").append(toIndentedString(instrumentScope)).append("\n");
+    sb.append("    outcome: ").append(toIndentedString(outcome)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -595,6 +649,8 @@ public class TransactionResponse {
     openapiFields.add("destinations");
     openapiFields.add("failureStage");
     openapiFields.add("instrumentScope");
+    openapiFields.add("outcome");
+    openapiFields.add("eventType");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -602,6 +658,7 @@ public class TransactionResponse {
     openapiRequiredFields.add("publicationStatus");
     openapiRequiredFields.add("status");
     openapiRequiredFields.add("destinations");
+    openapiRequiredFields.add("outcome");
   }
 
  /**
@@ -672,6 +729,12 @@ public class TransactionResponse {
       }
       if ((jsonObj.get("instrumentScope") != null && !jsonObj.get("instrumentScope").isJsonNull()) && !jsonObj.get("instrumentScope").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `instrumentScope` to be a primitive type in the JSON string but got `%s`", jsonObj.get("instrumentScope").toString()));
+      }
+      if (!jsonObj.get("outcome").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `outcome` to be a primitive type in the JSON string but got `%s`", jsonObj.get("outcome").toString()));
+      }
+      if ((jsonObj.get("eventType") != null && !jsonObj.get("eventType").isJsonNull()) && !jsonObj.get("eventType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `eventType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("eventType").toString()));
       }
   }
 
