@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4223
+  version: 0.1.4240
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1892,7 +1892,6 @@ paths:
                   - CalculateTax
                   - CreateTransfers
                   - ProduceExtracts
-                  - WrapUp
                   requiredForStages:
                   - calculate
                   - settle
@@ -1948,7 +1947,6 @@ paths:
                   steps:
                   - ResolveScope
                   - CalculateTax
-                  - WrapUp
                   parameters:
                   - stage
                   - run_only_step
@@ -1962,7 +1960,6 @@ paths:
                   - ResolveScope
                   - CreateTransfers
                   - ProduceExtracts
-                  - WrapUp
                   parameters:
                   - stage
                   - run_only_step
@@ -1976,7 +1973,6 @@ paths:
                   - ResolveScope
                   - CreateTransfers
                   - ProduceExtracts
-                  - WrapUp
                   parameters:
                   - stage
                   - run_only_step
@@ -2965,7 +2961,7 @@ paths:
       description: |-
         Retrieve file delivery records for a Trade Publication Framework instance.
         Returns an aggregated view of file delivery outcomes across all runs.
-        Filterable by delivery status and date range.
+        Filterable via a Finbourne Filtering DSL expression and sortable.
         Supports pagination for large result sets.
       operationId: GetTpfFileDeliveries
       parameters:
@@ -2980,33 +2976,29 @@ paths:
           pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
         style: simple
-      - description: "Filter by delivery outcome (Delivered, Failed, Pending)"
+      - description: "Filter expression (e.g. \"DestinationStatus eq 'Delivered'\"\
+          ). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount,\
+          \ fileHash, destinationType, destinationPath, destinationName, deliveredAt,\
+          \ destinationStatus, destinationError, attempt"
         explode: true
         in: query
-        name: status
+        name: filter
         required: false
         schema:
-          $ref: '#/components/schemas/TpfFileDeliveryDisplayStatus'
-        style: form
-        x-nullable: true
-      - description: Filter deliveries from this time (inclusive)
-        explode: true
-        in: query
-        name: dateFrom
-        required: false
-        schema:
-          format: date-time
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
           type: string
         style: form
-        x-nullable: true
-      - description: Filter deliveries to this time (inclusive)
+      - description: Sort fields (e.g. "generatedAt DESC"). Up to 2 fields allowed
         explode: true
         in: query
-        name: dateTo
+        name: sortBy
         required: false
         schema:
-          format: date-time
-          type: string
+          items:
+            type: string
+          type: array
         style: form
         x-nullable: true
       - description: "Page size for pagination (default 50, max 500)"
@@ -3053,6 +3045,7 @@ paths:
                   fileUuid: 7f3c1a2e-4b5d-4e6f-8a90-1b2c3d4e5f60
                   canResend: true
                   deliveredAt: 2024-01-15T10:35:04.0000000+00:00
+                  attempt: 1
                 - runId: 550e8400-e29b-41d4-a716-446655440002
                   runStartTime: 2024-01-15T11:00:00.0000000+00:00
                   fileName: trades_20240115_110000.csv
@@ -3066,6 +3059,7 @@ paths:
                   destinationName: AWS S3 Backup
                   fileUuid: 8a4d2b3f-5c6e-4f70-9b01-2c3d4e5f6071
                   canResend: true
+                  attempt: 3
                 links: []
               schema:
                 $ref: '#/components/schemas/PagedResourceListOfTpfFileDeliveryResponse'
@@ -8827,6 +8821,7 @@ components:
           canResend: true
           fileHash: fileHash
           destinationStatus: destinationStatus
+          attempt: 6
           deliveredAt: 2000-01-23T04:56:07.000+00:00
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
@@ -8841,6 +8836,7 @@ components:
           canResend: true
           fileHash: fileHash
           destinationStatus: destinationStatus
+          attempt: 6
           deliveredAt: 2000-01-23T04:56:07.000+00:00
           runStartTime: 2000-01-23T04:56:07.000+00:00
           destinationError: destinationError
@@ -9855,12 +9851,6 @@ components:
       - propertyOverrides
       - warnings
       type: object
-    TpfFileDeliveryDisplayStatus:
-      enum:
-      - Delivered
-      - Pending
-      - Failed
-      type: string
     TpfFileDeliveryInfo:
       additionalProperties: false
       description: Information about a file delivery
@@ -9908,6 +9898,7 @@ components:
         canResend: true
         fileHash: fileHash
         destinationStatus: destinationStatus
+        attempt: 6
         deliveredAt: 2000-01-23T04:56:07.000+00:00
         runStartTime: 2000-01-23T04:56:07.000+00:00
         destinationError: destinationError
@@ -9965,6 +9956,12 @@ components:
           format: date-time
           nullable: true
           type: string
+        attempt:
+          description: "The highest attempt number (1-based) made for this delivery's\
+            \ run, including automatic retries and resends."
+          format: int32
+          nullable: true
+          type: integer
       required:
       - canResend
       - destinationStatus

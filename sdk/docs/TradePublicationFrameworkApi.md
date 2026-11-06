@@ -118,11 +118,11 @@ public class TradePublicationFrameworkApiExample {
 
 ## getTpfFileDeliveries
 
-> PagedResourceListOfTpfFileDeliveryResponse getTpfFileDeliveries(instanceId, status, dateFrom, dateTo, limit, page)
+> PagedResourceListOfTpfFileDeliveryResponse getTpfFileDeliveries(instanceId, filter, sortBy, limit, page)
 
 [EXPERIMENTAL] GetTpfFileDeliveries: Search TPF file deliveries for a specific instance
 
-Retrieve file delivery records for a Trade Publication Framework instance. Returns an aggregated view of file delivery outcomes across all runs. Filterable by delivery status and date range. Supports pagination for large result sets.
+Retrieve file delivery records for a Trade Publication Framework instance. Returns an aggregated view of file delivery outcomes across all runs. Filterable via a Finbourne Filtering DSL expression and sortable. Supports pagination for large result sets.
 
 ### Example
 
@@ -164,16 +164,15 @@ public class TradePublicationFrameworkApiExample {
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
         String instanceId = "instanceId_example"; // String | Integration instance ID
-        TpfFileDeliveryDisplayStatus status = TpfFileDeliveryDisplayStatus.fromValue("Delivered"); // TpfFileDeliveryDisplayStatus | Filter by delivery outcome (Delivered, Failed, Pending)
-        OffsetDateTime dateFrom = OffsetDateTime.now(); // OffsetDateTime | Filter deliveries from this time (inclusive)
-        OffsetDateTime dateTo = OffsetDateTime.now(); // OffsetDateTime | Filter deliveries to this time (inclusive)
+        String filter = "filter_example"; // String | Filter expression (e.g. \"DestinationStatus eq 'Delivered'\"). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt
+        List<String> sortBy = Arrays.asList(); // List<String> | Sort fields (e.g. \"generatedAt DESC\"). Up to 2 fields allowed
         Integer limit = 50; // Integer | Page size for pagination (default 50, max 500)
         String page = ""; // String | Pagination token from previous response
         try {
             // uncomment the below to set overrides at the request level
-            // PagedResourceListOfTpfFileDeliveryResponse result = apiInstance.getTpfFileDeliveries(instanceId, status, dateFrom, dateTo, limit, page).execute(opts);
+            // PagedResourceListOfTpfFileDeliveryResponse result = apiInstance.getTpfFileDeliveries(instanceId, filter, sortBy, limit, page).execute(opts);
 
-            PagedResourceListOfTpfFileDeliveryResponse result = apiInstance.getTpfFileDeliveries(instanceId, status, dateFrom, dateTo, limit, page).execute();
+            PagedResourceListOfTpfFileDeliveryResponse result = apiInstance.getTpfFileDeliveries(instanceId, filter, sortBy, limit, page).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling TradePublicationFrameworkApi#getTpfFileDeliveries");
@@ -191,9 +190,8 @@ public class TradePublicationFrameworkApiExample {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **instanceId** | **String**| Integration instance ID | |
-| **status** | [**TpfFileDeliveryDisplayStatus**](.md)| Filter by delivery outcome (Delivered, Failed, Pending) | [optional] [enum: Delivered, Pending, Failed] |
-| **dateFrom** | **OffsetDateTime**| Filter deliveries from this time (inclusive) | [optional] |
-| **dateTo** | **OffsetDateTime**| Filter deliveries to this time (inclusive) | [optional] |
+| **filter** | **String**| Filter expression (e.g. \&quot;DestinationStatus eq &#39;Delivered&#39;\&quot;). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt | [optional] |
+| **sortBy** | [**List&lt;String&gt;**](String.md)| Sort fields (e.g. \&quot;generatedAt DESC\&quot;). Up to 2 fields allowed | [optional] |
 | **limit** | **Integer**| Page size for pagination (default 50, max 500) | [optional] [default to 50] |
 | **page** | **String**| Pagination token from previous response | [optional] [default to ] |
 

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **fileUuid** | [**UUID**](UUID.md) |  | [default to UUID]
 **canResend** | **Boolean** | Whether the data the file is rebuilt from is still retained, so a resend can be requested. | [default to Boolean]
 **deliveredAt** | [**OffsetDateTime**](OffsetDateTime.md) | When the file reached the destination; null for a Failed or Pending row. | [optional] [default to OffsetDateTime]
+**attempt** | **Integer** | The highest attempt number (1-based) made for this delivery&#39;s run, including automatic retries and resends. | [optional] [default to Integer]
 
 ```java
 import com.finbourne.horizon.model.TpfFileDeliveryResponse;
@@ -40,6 +41,7 @@ String DestinationStatus = "example DestinationStatus";
 UUID FileUuid = "example FileUuid";
 Boolean CanResend = true;
 @jakarta.annotation.Nullable OffsetDateTime DeliveredAt = OffsetDateTime.now();
+@jakarta.annotation.Nullable Integer Attempt = new Integer("100.00");
 
 
 TpfFileDeliveryResponse tpfFileDeliveryResponseInstance = new TpfFileDeliveryResponse()
@@ -56,7 +58,8 @@ TpfFileDeliveryResponse tpfFileDeliveryResponseInstance = new TpfFileDeliveryRes
     .DestinationName(DestinationName)
     .FileUuid(FileUuid)
     .CanResend(CanResend)
-    .DeliveredAt(DeliveredAt);
+    .DeliveredAt(DeliveredAt)
+    .Attempt(Attempt);
 ```
 
 

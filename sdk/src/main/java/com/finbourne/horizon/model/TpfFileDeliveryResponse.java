@@ -108,6 +108,10 @@ public class TpfFileDeliveryResponse {
   @SerializedName(SERIALIZED_NAME_DELIVERED_AT)
   private OffsetDateTime deliveredAt;
 
+  public static final String SERIALIZED_NAME_ATTEMPT = "attempt";
+  @SerializedName(SERIALIZED_NAME_ATTEMPT)
+  private Integer attempt;
+
   public TpfFileDeliveryResponse() {
   }
 
@@ -405,6 +409,27 @@ public class TpfFileDeliveryResponse {
   }
 
 
+  public TpfFileDeliveryResponse attempt(Integer attempt) {
+    
+    this.attempt = attempt;
+    return this;
+  }
+
+   /**
+   * The highest attempt number (1-based) made for this delivery&#39;s run, including automatic retries and resends.
+   * @return attempt
+  **/
+  @jakarta.annotation.Nullable
+  public Integer getAttempt() {
+    return attempt;
+  }
+
+
+  public void setAttempt(Integer attempt) {
+    this.attempt = attempt;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -428,7 +453,8 @@ public class TpfFileDeliveryResponse {
         Objects.equals(this.destinationName, tpfFileDeliveryResponse.destinationName) &&
         Objects.equals(this.fileUuid, tpfFileDeliveryResponse.fileUuid) &&
         Objects.equals(this.canResend, tpfFileDeliveryResponse.canResend) &&
-        Objects.equals(this.deliveredAt, tpfFileDeliveryResponse.deliveredAt);
+        Objects.equals(this.deliveredAt, tpfFileDeliveryResponse.deliveredAt) &&
+        Objects.equals(this.attempt, tpfFileDeliveryResponse.attempt);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -437,7 +463,7 @@ public class TpfFileDeliveryResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationStatus, destinationError, destinationName, fileUuid, canResend, deliveredAt);
+    return Objects.hash(runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationStatus, destinationError, destinationName, fileUuid, canResend, deliveredAt, attempt);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -465,6 +491,7 @@ public class TpfFileDeliveryResponse {
     sb.append("    fileUuid: ").append(toIndentedString(fileUuid)).append("\n");
     sb.append("    canResend: ").append(toIndentedString(canResend)).append("\n");
     sb.append("    deliveredAt: ").append(toIndentedString(deliveredAt)).append("\n");
+    sb.append("    attempt: ").append(toIndentedString(attempt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -501,6 +528,7 @@ public class TpfFileDeliveryResponse {
     openapiFields.add("fileUuid");
     openapiFields.add("canResend");
     openapiFields.add("deliveredAt");
+    openapiFields.add("attempt");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

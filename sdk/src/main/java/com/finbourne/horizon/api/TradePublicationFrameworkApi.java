@@ -29,7 +29,6 @@ import java.io.File;
 import com.finbourne.horizon.model.InstancesResponse;
 import com.finbourne.horizon.model.LusidProblemDetails;
 import com.finbourne.horizon.model.LusidValidationProblemDetails;
-import java.time.OffsetDateTime;
 import com.finbourne.horizon.model.PagedResourceListOfFailedDeliveryResponse;
 import com.finbourne.horizon.model.PagedResourceListOfInstanceRunResponse;
 import com.finbourne.horizon.model.PagedResourceListOfRunFileResponse;
@@ -41,7 +40,6 @@ import com.finbourne.horizon.model.ReplayTransactionsRequest;
 import com.finbourne.horizon.model.ReplayTransactionsResponse;
 import com.finbourne.horizon.model.ResolveFailedDeliveryRequest;
 import com.finbourne.horizon.model.ResolveFailedDeliveryResponse;
-import com.finbourne.horizon.model.TpfFileDeliveryDisplayStatus;
 import com.finbourne.horizon.model.TpfRetrySftpResponse;
 import com.finbourne.horizon.model.TpfTransactionSearchRequest;
 
@@ -354,11 +352,11 @@ public class TradePublicationFrameworkApi {
     public APIgetRunFileContentRequest getRunFileContent(String instanceId, String runId, String fileUuid) {
         return new APIgetRunFileContentRequest(instanceId, runId, fileUuid);
     }
-    private okhttp3.Call getTpfFileDeliveriesCall(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page, final ApiCallback _callback) throws ApiException {
-        return getTpfFileDeliveriesCall(instanceId, status, dateFrom, dateTo, limit, page,  _callback, new ConfigurationOptions());
+    private okhttp3.Call getTpfFileDeliveriesCall(String instanceId, String filter, List<String> sortBy, Integer limit, String page, final ApiCallback _callback) throws ApiException {
+        return getTpfFileDeliveriesCall(instanceId, filter, sortBy, limit, page,  _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call getTpfFileDeliveriesCall(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getTpfFileDeliveriesCall(String instanceId, String filter, List<String> sortBy, Integer limit, String page, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -384,16 +382,12 @@ public class TradePublicationFrameworkApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (status != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("status", status));
+        if (filter != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("filter", filter));
         }
 
-        if (dateFrom != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dateFrom", dateFrom));
-        }
-
-        if (dateTo != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dateTo", dateTo));
+        if (sortBy != null) {
+            localVarCollectionQueryParams.addAll(localVarApiClient.parameterToPairs("multi", "sortBy", sortBy));
         }
 
         if (limit != null) {
@@ -424,40 +418,40 @@ public class TradePublicationFrameworkApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTpfFileDeliveriesValidateBeforeCall(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getTpfFileDeliveriesValidateBeforeCall(String instanceId, String filter, List<String> sortBy, Integer limit, String page, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'instanceId' is set
         if (instanceId == null) {
             throw new ApiException("Missing the required parameter 'instanceId' when calling getTpfFileDeliveries(Async)");
         }
 
-        return getTpfFileDeliveriesCall(instanceId, status, dateFrom, dateTo, limit, page, _callback, opts);
+        return getTpfFileDeliveriesCall(instanceId, filter, sortBy, limit, page, _callback, opts);
 
     }
 
 
-    private ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> getTpfFileDeliveriesWithHttpInfo(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page) throws ApiException {
-        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, status, dateFrom, dateTo, limit, page, null, new ConfigurationOptions());
+    private ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> getTpfFileDeliveriesWithHttpInfo(String instanceId, String filter, List<String> sortBy, Integer limit, String page) throws ApiException {
+        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, filter, sortBy, limit, page, null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<PagedResourceListOfTpfFileDeliveryResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> getTpfFileDeliveriesWithHttpInfo(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, status, dateFrom, dateTo, limit, page, null, opts);
+    private ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> getTpfFileDeliveriesWithHttpInfo(String instanceId, String filter, List<String> sortBy, Integer limit, String page, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, filter, sortBy, limit, page, null, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfTpfFileDeliveryResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getTpfFileDeliveriesAsync(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page, final ApiCallback<PagedResourceListOfTpfFileDeliveryResponse> _callback) throws ApiException {
+    private okhttp3.Call getTpfFileDeliveriesAsync(String instanceId, String filter, List<String> sortBy, Integer limit, String page, final ApiCallback<PagedResourceListOfTpfFileDeliveryResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, status, dateFrom, dateTo, limit, page, _callback, new ConfigurationOptions());
+        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, filter, sortBy, limit, page, _callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<PagedResourceListOfTpfFileDeliveryResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getTpfFileDeliveriesAsync(String instanceId, TpfFileDeliveryDisplayStatus status, OffsetDateTime dateFrom, OffsetDateTime dateTo, Integer limit, String page, final ApiCallback<PagedResourceListOfTpfFileDeliveryResponse> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getTpfFileDeliveriesAsync(String instanceId, String filter, List<String> sortBy, Integer limit, String page, final ApiCallback<PagedResourceListOfTpfFileDeliveryResponse> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, status, dateFrom, dateTo, limit, page, _callback, opts);
+        okhttp3.Call localVarCall = getTpfFileDeliveriesValidateBeforeCall(instanceId, filter, sortBy, limit, page, _callback, opts);
         Type localVarReturnType = new TypeToken<PagedResourceListOfTpfFileDeliveryResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -465,9 +459,8 @@ public class TradePublicationFrameworkApi {
 
     public class APIgetTpfFileDeliveriesRequest {
         private final String instanceId;
-        private TpfFileDeliveryDisplayStatus status;
-        private OffsetDateTime dateFrom;
-        private OffsetDateTime dateTo;
+        private String filter;
+        private List<String> sortBy;
         private Integer limit;
         private String page;
 
@@ -476,32 +469,22 @@ public class TradePublicationFrameworkApi {
         }
 
         /**
-         * Set status
-         * @param status Filter by delivery outcome (Delivered, Failed, Pending) (optional)
+         * Set filter
+         * @param filter Filter expression (e.g. \&quot;DestinationStatus eq &#39;Delivered&#39;\&quot;). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt (optional)
          * @return APIgetTpfFileDeliveriesRequest
          */
-        public APIgetTpfFileDeliveriesRequest status(TpfFileDeliveryDisplayStatus status) {
-            this.status = status;
+        public APIgetTpfFileDeliveriesRequest filter(String filter) {
+            this.filter = filter;
             return this;
         }
 
         /**
-         * Set dateFrom
-         * @param dateFrom Filter deliveries from this time (inclusive) (optional)
+         * Set sortBy
+         * @param sortBy Sort fields (e.g. \&quot;generatedAt DESC\&quot;). Up to 2 fields allowed (optional)
          * @return APIgetTpfFileDeliveriesRequest
          */
-        public APIgetTpfFileDeliveriesRequest dateFrom(OffsetDateTime dateFrom) {
-            this.dateFrom = dateFrom;
-            return this;
-        }
-
-        /**
-         * Set dateTo
-         * @param dateTo Filter deliveries to this time (inclusive) (optional)
-         * @return APIgetTpfFileDeliveriesRequest
-         */
-        public APIgetTpfFileDeliveriesRequest dateTo(OffsetDateTime dateTo) {
-            this.dateTo = dateTo;
+        public APIgetTpfFileDeliveriesRequest sortBy(List<String> sortBy) {
+            this.sortBy = sortBy;
             return this;
         }
 
@@ -539,7 +522,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return getTpfFileDeliveriesCall(instanceId, status, dateFrom, dateTo, limit, page, _callback);
+            return getTpfFileDeliveriesCall(instanceId, filter, sortBy, limit, page, _callback);
         }
 
         /**
@@ -555,7 +538,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public PagedResourceListOfTpfFileDeliveryResponse execute() throws ApiException {
-            ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> localVarResp = getTpfFileDeliveriesWithHttpInfo(instanceId, status, dateFrom, dateTo, limit, page);
+            ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> localVarResp = getTpfFileDeliveriesWithHttpInfo(instanceId, filter, sortBy, limit, page);
             return localVarResp.getData();
         }
 
@@ -572,7 +555,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public PagedResourceListOfTpfFileDeliveryResponse execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> localVarResp = getTpfFileDeliveriesWithHttpInfo(instanceId, status, dateFrom, dateTo, limit, page, opts);
+            ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> localVarResp = getTpfFileDeliveriesWithHttpInfo(instanceId, filter, sortBy, limit, page, opts);
             return localVarResp.getData();
         }
 
@@ -589,7 +572,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> executeWithHttpInfo() throws ApiException {
-            return getTpfFileDeliveriesWithHttpInfo(instanceId, status, dateFrom, dateTo, limit, page);
+            return getTpfFileDeliveriesWithHttpInfo(instanceId, filter, sortBy, limit, page);
         }
 
         /**
@@ -605,7 +588,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public ApiResponse<PagedResourceListOfTpfFileDeliveryResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return getTpfFileDeliveriesWithHttpInfo(instanceId, status, dateFrom, dateTo, limit, page, opts);
+            return getTpfFileDeliveriesWithHttpInfo(instanceId, filter, sortBy, limit, page, opts);
         }
 
         /**
@@ -622,7 +605,7 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfTpfFileDeliveryResponse> _callback) throws ApiException {
-            return getTpfFileDeliveriesAsync(instanceId, status, dateFrom, dateTo, limit, page, _callback);
+            return getTpfFileDeliveriesAsync(instanceId, filter, sortBy, limit, page, _callback);
         }
 
         /**
@@ -639,13 +622,13 @@ public class TradePublicationFrameworkApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<PagedResourceListOfTpfFileDeliveryResponse> _callback, ConfigurationOptions opts) throws ApiException {
-            return getTpfFileDeliveriesAsync(instanceId, status, dateFrom, dateTo, limit, page, _callback, opts);
+            return getTpfFileDeliveriesAsync(instanceId, filter, sortBy, limit, page, _callback, opts);
         }
     }
 
     /**
      * [EXPERIMENTAL] GetTpfFileDeliveries: Search TPF file deliveries for a specific instance
-     * Retrieve file delivery records for a Trade Publication Framework instance. Returns an aggregated view of file delivery outcomes across all runs. Filterable by delivery status and date range. Supports pagination for large result sets.
+     * Retrieve file delivery records for a Trade Publication Framework instance. Returns an aggregated view of file delivery outcomes across all runs. Filterable via a Finbourne Filtering DSL expression and sortable. Supports pagination for large result sets.
      * @param instanceId Integration instance ID (required)
      * @return APIgetTpfFileDeliveriesRequest
      * @http.response.details
