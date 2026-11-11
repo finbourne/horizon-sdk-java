@@ -268,7 +268,7 @@ public class TpfTransactionSearchRequest {
   }
 
    /**
-   * Publication status to filter by. Valid values: Sent, Skipped, Failed. Optional.
+   * Publication statuses to filter by: one or more of Sent, Skipped, Failed separated by &#39;|&#39;, in any case, for example \&quot;Failed|Skipped\&quot;. A value outside that set is rejected. Optional.
    * @return status
   **/
   @jakarta.annotation.Nullable

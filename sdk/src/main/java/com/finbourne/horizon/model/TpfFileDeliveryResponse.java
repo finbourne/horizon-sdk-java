@@ -112,6 +112,10 @@ public class TpfFileDeliveryResponse {
   @SerializedName(SERIALIZED_NAME_ATTEMPT)
   private Integer attempt;
 
+  public static final String SERIALIZED_NAME_REFERENCE_ID = "referenceId";
+  @SerializedName(SERIALIZED_NAME_REFERENCE_ID)
+  private String referenceId;
+
   public TpfFileDeliveryResponse() {
   }
 
@@ -122,7 +126,7 @@ public class TpfFileDeliveryResponse {
   }
 
    /**
-   * Get runId
+   * The run id of the latest execution attempt in this row&#39;s run chain (the root run, its automatic retries and resends); equals referenceId when the chain has a single attempt or no recorded execution.
    * @return runId
   **/
   @jakarta.annotation.Nullable
@@ -143,7 +147,7 @@ public class TpfFileDeliveryResponse {
   }
 
    /**
-   * Get runStartTime
+   * When the row&#39;s root run started (the batch start), not the latest attempt&#39;s start.
    * @return runStartTime
   **/
   @jakarta.annotation.Nullable
@@ -430,6 +434,27 @@ public class TpfFileDeliveryResponse {
   }
 
 
+  public TpfFileDeliveryResponse referenceId(String referenceId) {
+    
+    this.referenceId = referenceId;
+    return this;
+  }
+
+   /**
+   * The root run id of this row&#39;s run chain, the same value run history reports as referenceId.
+   * @return referenceId
+  **/
+  @jakarta.annotation.Nullable
+  public String getReferenceId() {
+    return referenceId;
+  }
+
+
+  public void setReferenceId(String referenceId) {
+    this.referenceId = referenceId;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -454,7 +479,8 @@ public class TpfFileDeliveryResponse {
         Objects.equals(this.fileUuid, tpfFileDeliveryResponse.fileUuid) &&
         Objects.equals(this.canResend, tpfFileDeliveryResponse.canResend) &&
         Objects.equals(this.deliveredAt, tpfFileDeliveryResponse.deliveredAt) &&
-        Objects.equals(this.attempt, tpfFileDeliveryResponse.attempt);
+        Objects.equals(this.attempt, tpfFileDeliveryResponse.attempt) &&
+        Objects.equals(this.referenceId, tpfFileDeliveryResponse.referenceId);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -463,7 +489,7 @@ public class TpfFileDeliveryResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationStatus, destinationError, destinationName, fileUuid, canResend, deliveredAt, attempt);
+    return Objects.hash(runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationStatus, destinationError, destinationName, fileUuid, canResend, deliveredAt, attempt, referenceId);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -492,6 +518,7 @@ public class TpfFileDeliveryResponse {
     sb.append("    canResend: ").append(toIndentedString(canResend)).append("\n");
     sb.append("    deliveredAt: ").append(toIndentedString(deliveredAt)).append("\n");
     sb.append("    attempt: ").append(toIndentedString(attempt)).append("\n");
+    sb.append("    referenceId: ").append(toIndentedString(referenceId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -529,6 +556,7 @@ public class TpfFileDeliveryResponse {
     openapiFields.add("canResend");
     openapiFields.add("deliveredAt");
     openapiFields.add("attempt");
+    openapiFields.add("referenceId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -587,6 +615,9 @@ public class TpfFileDeliveryResponse {
       }
       if (!jsonObj.get("fileUuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `fileUuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fileUuid").toString()));
+      }
+      if ((jsonObj.get("referenceId") != null && !jsonObj.get("referenceId").isJsonNull()) && !jsonObj.get("referenceId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `referenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("referenceId").toString()));
       }
   }
 

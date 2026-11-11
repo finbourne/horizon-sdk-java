@@ -164,7 +164,7 @@ public class TradePublicationFrameworkApiExample {
 
         TradePublicationFrameworkApi apiInstance = ApiFactoryBuilder.build(fileName).build(TradePublicationFrameworkApi.class);
         String instanceId = "instanceId_example"; // String | Integration instance ID
-        String filter = "filter_example"; // String | Filter expression (e.g. \"DestinationStatus eq 'Delivered'\"). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt
+        String filter = "filter_example"; // String | Filter expression (e.g. \"DestinationStatus eq 'Delivered'\"). Filterable properties: runId, referenceId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt
         List<String> sortBy = Arrays.asList(); // List<String> | Sort fields (e.g. \"generatedAt DESC\"). Up to 2 fields allowed
         Integer limit = 50; // Integer | Page size for pagination (default 50, max 500)
         String page = ""; // String | Pagination token from previous response
@@ -190,7 +190,7 @@ public class TradePublicationFrameworkApiExample {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **instanceId** | **String**| Integration instance ID | |
-| **filter** | **String**| Filter expression (e.g. \&quot;DestinationStatus eq &#39;Delivered&#39;\&quot;). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt | [optional] |
+| **filter** | **String**| Filter expression (e.g. \&quot;DestinationStatus eq &#39;Delivered&#39;\&quot;). Filterable properties: runId, referenceId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| Sort fields (e.g. \&quot;generatedAt DESC\&quot;). Up to 2 fields allowed | [optional] |
 | **limit** | **Integer**| Page size for pagination (default 50, max 500) | [optional] [default to 50] |
 | **page** | **String**| Pagination token from previous response | [optional] [default to ] |

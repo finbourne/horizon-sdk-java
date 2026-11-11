@@ -470,7 +470,7 @@ public class TradePublicationFrameworkApi {
 
         /**
          * Set filter
-         * @param filter Filter expression (e.g. \&quot;DestinationStatus eq &#39;Delivered&#39;\&quot;). Filterable properties: runId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt (optional)
+         * @param filter Filter expression (e.g. \&quot;DestinationStatus eq &#39;Delivered&#39;\&quot;). Filterable properties: runId, referenceId, runStartTime, fileName, generatedAt, rowCount, fileHash, destinationType, destinationPath, destinationName, deliveredAt, destinationStatus, destinationError, attempt (optional)
          * @return APIgetTpfFileDeliveriesRequest
          */
         public APIgetTpfFileDeliveriesRequest filter(String filter) {
