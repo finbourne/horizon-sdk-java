@@ -1,6 +1,6 @@
 # LogsApi
 
-All URIs are relative to *https://fbn-prd.lusid.com/horizon*
+All URIs are relative to *https://fbn-ci.lusid.com/horizon*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|

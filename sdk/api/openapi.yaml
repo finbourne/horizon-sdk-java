@@ -6,12 +6,12 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Horizon API
-  version: 0.1.4270
+  version: 1.0.0
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
 servers:
-- url: https://fbn-prd.lusid.com/horizon
+- url: https://fbn-ci.lusid.com/horizon
 security:
 - {}
 tags:
@@ -5975,22 +5975,6 @@ components:
       - fileName
       - id
       type: object
-    Identifiers:
-      additionalProperties: false
-      description: A list of lusid instrument ids
-      example:
-        lusidInstrumentIds:
-        - lusidInstrumentIds
-        - lusidInstrumentIds
-      properties:
-        lusidInstrumentIds:
-          description: The collection of LUSID instrument identifiers
-          items:
-            type: string
-          type: array
-      required:
-      - lusidInstrumentIds
-      type: object
     IFieldMapping:
       additionalProperties: false
       example:
@@ -6112,6 +6096,78 @@ components:
       - activities
       - logId
       - logType
+      type: object
+    IPropertyMapping:
+      additionalProperties: false
+      example:
+        optionality: optionality
+        versions:
+        - versions
+        - versions
+        entityType: entityType
+        entitySubType: entitySubType
+        property:
+          constraintStyle: constraintStyle
+          code: code
+          productEntityItemKey: productEntityItemKey
+          displayName: displayName
+          domain: domain
+          scope: scope
+          dataTypeId:
+            code: code
+            scope: scope
+          lifetime: lifetime
+          description: description
+          key: key
+        vendorFields:
+        - package: package
+          field: field
+        - package: package
+          field: field
+        transformationDescription: transformationDescription
+      properties:
+        entitySubType:
+          nullable: true
+          type: string
+        entityType:
+          type: string
+        optionality:
+          type: string
+        property:
+          $ref: '#/components/schemas/LusidPropertyDefinition'
+        transformationDescription:
+          nullable: true
+          type: string
+        vendorFields:
+          items:
+            $ref: '#/components/schemas/VendorField'
+          type: array
+        versions:
+          items:
+            type: string
+          type: array
+      required:
+      - entityType
+      - optionality
+      - property
+      - vendorFields
+      - versions
+      type: object
+    Identifiers:
+      additionalProperties: false
+      description: A list of lusid instrument ids
+      example:
+        lusidInstrumentIds:
+        - lusidInstrumentIds
+        - lusidInstrumentIds
+      properties:
+        lusidInstrumentIds:
+          description: The collection of LUSID instrument identifiers
+          items:
+            type: string
+          type: array
+      required:
+      - lusidInstrumentIds
       type: object
     InstanceDestinations:
       additionalProperties: false
@@ -6972,62 +7028,6 @@ components:
           format: date-time
           nullable: true
           type: string
-      type: object
-    IPropertyMapping:
-      additionalProperties: false
-      example:
-        optionality: optionality
-        versions:
-        - versions
-        - versions
-        entityType: entityType
-        entitySubType: entitySubType
-        property:
-          constraintStyle: constraintStyle
-          code: code
-          productEntityItemKey: productEntityItemKey
-          displayName: displayName
-          domain: domain
-          scope: scope
-          dataTypeId:
-            code: code
-            scope: scope
-          lifetime: lifetime
-          description: description
-          key: key
-        vendorFields:
-        - package: package
-          field: field
-        - package: package
-          field: field
-        transformationDescription: transformationDescription
-      properties:
-        entitySubType:
-          nullable: true
-          type: string
-        entityType:
-          type: string
-        optionality:
-          type: string
-        property:
-          $ref: '#/components/schemas/LusidPropertyDefinition'
-        transformationDescription:
-          nullable: true
-          type: string
-        vendorFields:
-          items:
-            $ref: '#/components/schemas/VendorField'
-          type: array
-        versions:
-          items:
-            type: string
-          type: array
-      required:
-      - entityType
-      - optionality
-      - property
-      - vendorFields
-      - versions
       type: object
     JSchema:
       additionalProperties: false
@@ -8337,6 +8337,95 @@ components:
       required:
       - values
       type: object
+    PagedResourceListOfIPropertyMapping:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - optionality: optionality
+          versions:
+          - versions
+          - versions
+          entityType: entityType
+          entitySubType: entitySubType
+          property:
+            constraintStyle: constraintStyle
+            code: code
+            productEntityItemKey: productEntityItemKey
+            displayName: displayName
+            domain: domain
+            scope: scope
+            dataTypeId:
+              code: code
+              scope: scope
+            lifetime: lifetime
+            description: description
+            key: key
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        - optionality: optionality
+          versions:
+          - versions
+          - versions
+          entityType: entityType
+          entitySubType: entitySubType
+          property:
+            constraintStyle: constraintStyle
+            code: code
+            productEntityItemKey: productEntityItemKey
+            displayName: displayName
+            domain: domain
+            scope: scope
+            dataTypeId:
+              code: code
+              scope: scope
+            lifetime: lifetime
+            description: description
+            key: key
+          vendorFields:
+          - package: package
+            field: field
+          - package: package
+            field: field
+          transformationDescription: transformationDescription
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/IPropertyMapping'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - values
+      type: object
     PagedResourceListOfInstanceRunResponse:
       additionalProperties: false
       example:
@@ -8472,95 +8561,6 @@ components:
         values:
           items:
             $ref: '#/components/schemas/IntegrationRunResponse'
-          type: array
-        href:
-          format: uri
-          nullable: true
-          type: string
-        links:
-          items:
-            $ref: '#/components/schemas/Link'
-          nullable: true
-          type: array
-      required:
-      - values
-      type: object
-    PagedResourceListOfIPropertyMapping:
-      additionalProperties: false
-      example:
-        previousPage: previousPage
-        nextPage: nextPage
-        values:
-        - optionality: optionality
-          versions:
-          - versions
-          - versions
-          entityType: entityType
-          entitySubType: entitySubType
-          property:
-            constraintStyle: constraintStyle
-            code: code
-            productEntityItemKey: productEntityItemKey
-            displayName: displayName
-            domain: domain
-            scope: scope
-            dataTypeId:
-              code: code
-              scope: scope
-            lifetime: lifetime
-            description: description
-            key: key
-          vendorFields:
-          - package: package
-            field: field
-          - package: package
-            field: field
-          transformationDescription: transformationDescription
-        - optionality: optionality
-          versions:
-          - versions
-          - versions
-          entityType: entityType
-          entitySubType: entitySubType
-          property:
-            constraintStyle: constraintStyle
-            code: code
-            productEntityItemKey: productEntityItemKey
-            displayName: displayName
-            domain: domain
-            scope: scope
-            dataTypeId:
-              code: code
-              scope: scope
-            lifetime: lifetime
-            description: description
-            key: key
-          vendorFields:
-          - package: package
-            field: field
-          - package: package
-            field: field
-          transformationDescription: transformationDescription
-        links:
-        - method: method
-          description: description
-          href: https://openapi-generator.tech
-          relation: relation
-        - method: method
-          description: description
-          href: https://openapi-generator.tech
-          relation: relation
-        href: https://openapi-generator.tech
-      properties:
-        nextPage:
-          nullable: true
-          type: string
-        previousPage:
-          nullable: true
-          type: string
-        values:
-          items:
-            $ref: '#/components/schemas/IPropertyMapping'
           type: array
         href:
           format: uri
@@ -9312,63 +9312,6 @@ components:
       - startTime
       - userId
       type: object
-    ProcessorDescription:
-      additionalProperties: false
-      description: Represents a processor in the Horizon integration system.
-      example:
-        relationships:
-        - relationships
-        - relationships
-        displayName: displayName
-        name: name
-        description: description
-        category: category
-        isActive: true
-        isConnectionRequired: true
-      properties:
-        name:
-          type: string
-        displayName:
-          type: string
-        description:
-          type: string
-        category:
-          type: string
-        isActive:
-          type: boolean
-        isConnectionRequired:
-          type: boolean
-        relationships:
-          items:
-            type: string
-          type: array
-      required:
-      - category
-      - description
-      - displayName
-      - isActive
-      - isConnectionRequired
-      - name
-      - relationships
-      type: object
-    ProcessorSchemaResponse:
-      additionalProperties: false
-      description: DTO ProcessorSchemaResponse fields with JObject
-      example:
-        configurationSchema: ""
-        processorName: processorName
-        version: version
-      properties:
-        processorName:
-          type: string
-        version:
-          type: string
-        configurationSchema: {}
-      required:
-      - configurationSchema
-      - processorName
-      - version
-      type: object
     ProcessSummary:
       additionalProperties: false
       description: Completed event details
@@ -9465,6 +9408,63 @@ components:
       - processName
       - runId
       - status
+      type: object
+    ProcessorDescription:
+      additionalProperties: false
+      description: Represents a processor in the Horizon integration system.
+      example:
+        relationships:
+        - relationships
+        - relationships
+        displayName: displayName
+        name: name
+        description: description
+        category: category
+        isActive: true
+        isConnectionRequired: true
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        isActive:
+          type: boolean
+        isConnectionRequired:
+          type: boolean
+        relationships:
+          items:
+            type: string
+          type: array
+      required:
+      - category
+      - description
+      - displayName
+      - isActive
+      - isConnectionRequired
+      - name
+      - relationships
+      type: object
+    ProcessorSchemaResponse:
+      additionalProperties: false
+      description: DTO ProcessorSchemaResponse fields with JObject
+      example:
+        configurationSchema: ""
+        processorName: processorName
+        version: version
+      properties:
+        processorName:
+          type: string
+        version:
+          type: string
+        configurationSchema: {}
+      required:
+      - configurationSchema
+      - processorName
+      - version
       type: object
     PropertyMapping:
       additionalProperties: false
@@ -11135,7 +11135,7 @@ components:
       description: OAuth2 Implicit Grant
       flows:
         implicit:
-          authorizationUrl: https://lusid.okta.com/oauth2/default/v1/authorize
+          authorizationUrl: https://fbn-ci.identity.lusid.com/oauth2/aus8gzrg5mGP60i9K2p7/v1/authorize
           scopes: {}
       type: oauth2
 x-tagGroups:
